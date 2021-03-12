@@ -1,1 +1,1 @@
-export { DoDont } from './DoDont'
+export { DoDont } from './DoDont';
