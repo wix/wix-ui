@@ -56,13 +56,21 @@ const Title: React.FC<{
 export const DoDont = (props: DoDontProps) => (
   <div className={styles.root}>
     {props.do && (
-      <div className={classnames(styles.block, styles.blockDo)}>
+      <div
+        className={classnames(styles.block, styles.blockDo, {
+          [styles.blockFull]: !props.do || !props.dont,
+        })}
+      >
         <Title title={props.do.title} skin="green" />
         <List list={props.do.list} skin="green" />
       </div>
     )}
     {props.dont && (
-      <div className={classnames(styles.block, styles.blockDont)}>
+      <div
+        className={classnames(styles.block, styles.blockDont, {
+          [styles.blockFull]: !props.do || !props.dont,
+        })}
+      >
         <Title title={props.dont.title} skin="red" />
         <List list={props.dont.list} skin="red" />
       </div>
