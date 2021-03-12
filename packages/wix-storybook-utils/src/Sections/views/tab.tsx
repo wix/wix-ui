@@ -20,7 +20,7 @@ import { header } from './header';
 import { title } from './title';
 import { plugin } from './plugin';
 import { example } from './example';
-import { doDont } from './doDont';
+import { doDont } from './do-dont';
 
 import styles from '../styles.scss';
 import TabbedView from '../../TabbedView';
