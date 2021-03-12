@@ -11,6 +11,7 @@ import {
   columns,
   description,
   divider,
+  dodont,
   example,
   header,
   importexample,
@@ -171,6 +172,27 @@ Description section is used for regular text blocks.
 
 ## `divider()` section
 Divider section is used to visually divide other sections by rendering a horizontal line. Currently supports no parameters.
+
+---
+
+## `doDont()` section
+DoDont section is used for describing component use cases.
+```
+doDont({
+ do: {
+   title: 'Do',
+   list: ['Use it to insert names, titles and other short textual information.']
+ },
+ dont: {
+   title: 'Dont',
+   list: ['Don’t use it to insert long paragraphs, instead use the component.']
+ }
+})
+```
+| Property | Type | Description |
+|---|---|---|
+| `do` | `{ title: string; list: String[] }` | List of items for do section |
+| `dont` | `{ title: string; list: String[] }` | List of items for dont section|
 
 ---
 
