@@ -18,6 +18,7 @@ import {
   TestkitSection,
   TitleSection,
   ExampleSection,
+  DoDontSection,
 } from '../typings/story-section';
 
 // functions exported in this file are used as builders for `sections` array in story config. they are typed
@@ -137,5 +138,11 @@ export const example = (config: Partial<ExampleSection>): ExampleSection =>
   base({
     type: SectionType.Example,
     compact: true,
+    ...config,
+  });
+
+export const doDont = (config: Partial<DoDontSection>): ExampleSection =>
+  base({
+    type: SectionType.DoDont,
     ...config,
   });

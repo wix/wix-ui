@@ -18,6 +18,7 @@ export enum SectionType {
   Title = 'title',
   Plugin = 'plugin',
   Example = 'example',
+  DoDont = 'doDont',
 }
 
 export interface StorySection {
@@ -42,7 +43,8 @@ export type Section =
   | MDXSection
   | TitleSection
   | PluginSection
-  | ExampleSection;
+  | ExampleSection
+  | DoDontSection;
 
 export type PluginHandler = (
   section: PluginSection,
@@ -273,3 +275,22 @@ export interface DividerSection extends StorySection {}
  * ```
  * */
 export interface TitleSection extends StorySection {}
+
+/** DoDont section is used for describing component use cases.
+ *
+ * ```
+ * doDont({
+ *  do: {
+ *    title: 'Do',
+ *    list: ['Use it to insert names, titles and other short textual information.']
+ *  },
+ *  dont: {
+ *    title: 'Dont',
+ *    list: ['Don’t use it to insert long paragraphs, instead use the component.']
+ *  }
+ * })
+ */
+export interface DoDontSection extends StorySection {
+  do: { title: string; list: String[] };
+  dont: { title: string; list: String[] };
+}
