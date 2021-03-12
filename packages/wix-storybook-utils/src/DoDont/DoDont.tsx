@@ -2,12 +2,9 @@ import * as React from 'react';
 import classnames from 'classnames';
 
 import { StatusCompleteFilledSmall, DismissSmall } from 'wix-ui-icons-common';
-import styles from './styles.scss';
+import { DoDontProps } from './DoDont.types';
 
-export type DoDontProps = {
-  do?: { title?: string; list: String[] };
-  dont?: { title?: string; list: String[] };
-};
+import styles from './styles.scss';
 
 const DismisIcon = () => (
   <div className={styles.dismissContainer}>
