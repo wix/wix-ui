@@ -39,20 +39,20 @@
 
 .table table tr th:first-child,
 .table table tr td:first-child {
-  width: 20%;
   padding: 16px 18px 16px 30px;
 }
-
-.table table tr th:nth-child(2),
-.table table tr td:nth-child(2) {
-  width: 30%;
-}
-
 
 .table table tr th:last-child,
 .table table tr td:last-child {
   padding: 16px 30px 16px 18px;
   width: 500px;
+}
+
+@media screen and (max-width: 1250px) {
+  .table table tr th:last-child,
+  .table table tr td:last-child {
+    width: inherit;
+  }
 }
 
 .table table tr th,
@@ -85,13 +85,7 @@
   font-size: 16px;
 }
 
-.table table tbody .required {
-  width: 10%;
-}
 
-.table table tbody .defaultProp {
-  width: 15%;
-}
 
 .table table tbody .description {
   @include font();
