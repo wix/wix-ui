@@ -4,7 +4,7 @@
 $grayRowBackground: rgba($D70, 0.42);
 
 .description {
-  margin-bottom: calc(24px - 16px);
+  margin-bottom: calc(54px - 16px);
  
   :global .markdown-body p {
     @include font();
