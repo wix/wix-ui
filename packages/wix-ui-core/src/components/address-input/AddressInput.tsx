@@ -129,6 +129,8 @@ export type AddressInputProps = Pick<
   required?: boolean;
   /** externalBaseUrl to provide to Atlas clients */
   externalBaseUrl?: string;
+  /** Maps locale */
+  locale?: string;
 };
 
 export interface AddressInputState {
@@ -206,6 +208,7 @@ export class AddressInput extends React.PureComponent<
     handler: Handler.geocode,
     throttleInterval: 150,
     lang: 'en',
+    locale: 'en-US',
     converterType: Converter.full,
     required: false,
   };
@@ -241,8 +244,8 @@ export class AddressInput extends React.PureComponent<
   }
 
   componentDidMount() {
-    const { clientId, Client, instance, lang, externalBaseUrl } = this.props;
-    this.client = new Client({ lang, instance, externalBaseUrl });
+    const { clientId, Client, instance, lang, externalBaseUrl, locale } = this.props;
+    this.client = new Client({ lang, locale, instance, externalBaseUrl });
     if (this.client.name === 'google' && clientId) {
       this.client.useClientId();
     }
