@@ -142,7 +142,7 @@ export interface AddressInputState {
 function filterAddressesByType(addresses: Address[], filterTypes?: string[]) {
   return filterTypes && filterTypes.length > 0
     ? (addresses || []).filter(
-        address => intersection(address.types, filterTypes).length > 0,
+        (address) => intersection(address.types, filterTypes).length > 0,
       )
     : addresses;
 }
@@ -244,7 +244,14 @@ export class AddressInput extends React.PureComponent<
   }
 
   componentDidMount() {
-    const { clientId, Client, instance, lang, externalBaseUrl, locale } = this.props;
+    const {
+      clientId,
+      Client,
+      instance,
+      lang,
+      externalBaseUrl,
+      locale,
+    } = this.props;
     this.client = new Client({ lang, locale, instance, externalBaseUrl });
     if (this.client.name === 'google' && clientId) {
       this.client.useClientId();
@@ -287,13 +294,13 @@ export class AddressInput extends React.PureComponent<
     const requestId = ++this.addressRequestId;
     let resolveCurrentAddressRequest;
     this.currentAddressRequest = new Promise(
-      resolve => (resolveCurrentAddressRequest = resolve),
+      (resolve) => (resolveCurrentAddressRequest = resolve),
     );
     const { lang, filterTypes } = this.props;
     const results = await this.client.autocomplete(
       this._getKey(),
       lang,
-      createAutocompleteRequest(input, this.props)
+      createAutocompleteRequest(input, this.props),
     );
     const filteredResults = filterAddressesByType(results, filterTypes) || [];
     const options = filteredResults.map(this._createOptionFromAddress);
@@ -310,11 +317,7 @@ export class AddressInput extends React.PureComponent<
     const requestId = ++this.geocodeRequestId;
     const { lang, countryCode: region, converterType, instance } = this.props;
     const request = placeId ? { placeId, region } : { address: rawInputValue };
-    const geocode = await this.client.geocode(
-      this._getKey(),
-      lang,
-      request
-    );
+    const geocode = await this.client.geocode(this._getKey(), lang, request);
 
     const formatByProvider =
       this.client.name === 'atlas'
@@ -538,7 +541,7 @@ export class AddressInput extends React.PureComponent<
       value: this.state.inputValue,
       prefix,
       suffix,
-      ref: ref => (this.inputRef = ref),
+      ref: (ref) => (this.inputRef = ref),
       onClick: this.props.onClick,
       onDoubleClick: this.props.onDoubleClick,
       onMouseEnter: this.props.onMouseEnter,
@@ -568,7 +571,7 @@ export class AddressInput extends React.PureComponent<
         style={inlineStyles}
         fixedFooter={hasOptions && fixedFooter}
         id={id}
-        ref={ref => (this.inputWithOptionsRef = ref)}
+        ref={(ref) => (this.inputWithOptionsRef = ref)}
         allowReselect
         filterPredicate={() => true}
         flip={flip}

@@ -14,13 +14,13 @@ import { AtlasMapsClient, InternalAddress } from '../GoogleMaps/types';
 let WixAtlasService = WixAtlasServiceWeb;
 
 export const mockWixAtlasService = (atlasMock: any): void => {
-  WixAtlasService = atlasMock
-}
+  WixAtlasService = atlasMock;
+};
 
 export const ATLAS_WEB_BASE_URL = '/_api/wix-atlas-service-web';
 
 const serializeGeocodeResult = (results: CommonAddress[]): InternalAddress[] =>
-  results.map(atlasResponse => ({
+  results.map((atlasResponse) => ({
     formatted: atlasResponse.formattedAddress,
     streetAddress: atlasResponse.streetAddress,
     subdivision: atlasResponse.subdivision,
@@ -38,7 +38,7 @@ const serializeGeocodeResult = (results: CommonAddress[]): InternalAddress[] =>
   }));
 
 const toSuggestions = (predictions: V2Prediction[]): Suggestion[] =>
-  predictions.map(prediction => ({
+  predictions.map((prediction) => ({
     place_id: prediction.searchId || '',
     description: prediction.description || '',
     types: [],
@@ -49,11 +49,21 @@ export class AtlasBasicClient implements AtlasMapsClient {
   private readonly _predict;
   private readonly _getPlace;
 
-  constructor({ lang, locale, instance, externalBaseUrl }: { lang: string; locale?: string, instance: string; externalBaseUrl?: string }) {
-    const baseUrl = externalBaseUrl ? `${externalBaseUrl}${ATLAS_WEB_BASE_URL}` : ATLAS_WEB_BASE_URL
-    const { AutocompleteServiceV2, PlacesServiceV2 } = WixAtlasService(
-      baseUrl,
-    );
+  constructor({
+    lang,
+    locale,
+    instance,
+    externalBaseUrl,
+  }: {
+    lang: string;
+    locale?: string;
+    instance: string;
+    externalBaseUrl?: string;
+  }) {
+    const baseUrl = externalBaseUrl
+      ? `${externalBaseUrl}${ATLAS_WEB_BASE_URL}`
+      : ATLAS_WEB_BASE_URL;
+    const { AutocompleteServiceV2, PlacesServiceV2 } = WixAtlasService(baseUrl);
 
     this.name = 'atlas';
 
