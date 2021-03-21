@@ -129,6 +129,8 @@ export type AddressInputProps = Pick<
   required?: boolean;
   /** externalBaseUrl to provide to Atlas clients */
   externalBaseUrl?: string;
+  /** Maps locale */
+  locale?: string;
 };
 
 export interface AddressInputState {
@@ -206,6 +208,7 @@ export class AddressInput extends React.PureComponent<
     handler: Handler.geocode,
     throttleInterval: 150,
     lang: 'en',
+    locale: 'en-US',
     converterType: Converter.full,
     required: false,
   };
@@ -241,8 +244,15 @@ export class AddressInput extends React.PureComponent<
   }
 
   componentDidMount() {
-    const { clientId, Client, instance, lang, externalBaseUrl } = this.props;
-    this.client = new Client({ lang, instance, externalBaseUrl });
+    const {
+      clientId,
+      Client,
+      instance,
+      lang,
+      externalBaseUrl,
+      locale,
+    } = this.props;
+    this.client = new Client({ lang, locale, instance, externalBaseUrl });
     if (this.client.name === 'google' && clientId) {
       this.client.useClientId();
     }
@@ -290,7 +300,7 @@ export class AddressInput extends React.PureComponent<
     const results = await this.client.autocomplete(
       this._getKey(),
       lang,
-      createAutocompleteRequest(input, this.props)
+      createAutocompleteRequest(input, this.props),
     );
     const filteredResults = filterAddressesByType(results, filterTypes) || [];
     const options = filteredResults.map(this._createOptionFromAddress);
@@ -307,11 +317,7 @@ export class AddressInput extends React.PureComponent<
     const requestId = ++this.geocodeRequestId;
     const { lang, countryCode: region, converterType, instance } = this.props;
     const request = placeId ? { placeId, region } : { address: rawInputValue };
-    const geocode = await this.client.geocode(
-      this._getKey(),
-      lang,
-      request
-    );
+    const geocode = await this.client.geocode(this._getKey(), lang, request);
 
     const formatByProvider =
       this.client.name === 'atlas'

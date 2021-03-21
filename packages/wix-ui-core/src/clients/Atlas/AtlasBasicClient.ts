@@ -14,11 +14,10 @@ import { AtlasMapsClient, InternalAddress } from '../GoogleMaps/types';
 let WixAtlasService = WixAtlasServiceWeb;
 
 export const mockWixAtlasService = (atlasMock: any): void => {
-  WixAtlasService = atlasMock
-}
+  WixAtlasService = atlasMock;
+};
 
 export const ATLAS_WEB_BASE_URL = '/_api/wix-atlas-service-web';
-const BASE_LINGUIST_HEADER = '|en-us|false|';
 
 const serializeGeocodeResult = (results: CommonAddress[]): InternalAddress[] =>
   results.map(atlasResponse => ({
@@ -50,22 +49,32 @@ export class AtlasBasicClient implements AtlasMapsClient {
   private readonly _predict;
   private readonly _getPlace;
 
-  constructor({ lang, instance, externalBaseUrl }: { lang: string; instance: string; externalBaseUrl?: string }) {
-    const baseUrl = externalBaseUrl ? `${externalBaseUrl}${ATLAS_WEB_BASE_URL}` : ATLAS_WEB_BASE_URL
-    const { AutocompleteServiceV2, PlacesServiceV2 } = WixAtlasService(
-      baseUrl,
-    );
+  constructor({
+    lang,
+    locale,
+    instance,
+    externalBaseUrl,
+  }: {
+    lang: string;
+    locale?: string;
+    instance: string;
+    externalBaseUrl?: string;
+  }) {
+    const baseUrl = externalBaseUrl
+      ? `${externalBaseUrl}${ATLAS_WEB_BASE_URL}`
+      : ATLAS_WEB_BASE_URL;
+    const { AutocompleteServiceV2, PlacesServiceV2 } = WixAtlasService(baseUrl);
 
     this.name = 'atlas';
 
     this._predict = AutocompleteServiceV2()({
       Authorization: instance,
-      'x-wix-linguist': `${lang}${BASE_LINGUIST_HEADER}${instance}`,
+      'x-wix-linguist': `${lang}|${locale || 'en-us'}|false|${instance}`,
     }).predict;
 
     this._getPlace = PlacesServiceV2()({
       Authorization: instance,
-      'x-wix-linguist': `${lang}${BASE_LINGUIST_HEADER}${instance}`,
+      'x-wix-linguist': `${lang}|${locale || 'en-us'}|false|${instance}`,
     }).getPlace;
   }
 
