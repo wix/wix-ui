@@ -1,9 +1,9 @@
 const scrollToElement = (element) => {
-    element.scrollIntoView({
-      behavior: 'smooth',
-      inline: 'nearest',
-    });
-  }
+  element.scrollIntoView({
+    behavior: 'smooth',
+    inline: 'nearest',
+  });
+}
   
 export const scrollToElementByHash = () => {
   const url = new URL(window.parent.location as any);

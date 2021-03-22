@@ -69,7 +69,7 @@ export const sectionWithSiblings = (
           }
         </div>
       ) : null}
-      
+
       {children}
     </div>
   );
