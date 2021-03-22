@@ -60,7 +60,7 @@ export const AnchoredTitle = ({ title }) => {
         className={styles.title}
         source={title}
       />
-      <ReactTooltip id={id} effect="solid">{tooltipComponent}</ReactTooltip>
+      <ReactTooltip id={id} effect="solid" arrowColor="transparent" offset={{ top: -5 }}>{tooltipComponent}</ReactTooltip>
     </div>
   )
 }
