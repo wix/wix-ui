@@ -1,0 +1,28 @@
+@import '../../ui/colors.scss';
+
+.titleContainer {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.linkIcon {
+  background-color: $B50;
+  color: $B10;
+  border-radius: 18px;
+  padding: 3px;
+  margin-inline-end: 6px;
+  display: flex;
+}
+
+.tooltip {
+  display: flex;
+  width: 70px;
+  justify-content: center;
+  line-height: 18px;
+}
+
+.tooltip svg {
+  margin-inline-end: 5px;
+  color: $G10;
+}

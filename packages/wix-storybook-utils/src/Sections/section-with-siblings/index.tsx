@@ -1,5 +1,4 @@
 import * as React from 'react';
-import addons from '@storybook/addons';
 
 import {
   Section,
@@ -9,8 +8,10 @@ import {
 import Markdown from '../../Markdown';
 
 import styles from './styles.scss';
+import { AnchoredTitle } from '../AnchoredTitle';
 
 export const SIBLINGS = ['pretitle', 'title', 'subtitle', 'description'];
+
 const SECTIONS_WITHOUT_SIBLINGS = [
   SectionType.Title,
   SectionType.Header,
@@ -24,50 +25,27 @@ const sectionPrepares = {
   }),
 };
 
-const renderSibling = props => (
-  <Markdown
-    key={props.key}
-    className={styles[props.key]}
-    source={props.source}
-  />
-);
-
-const renderAnchoredSibling = (props) => {
-  const id = props.source.replace(/\s+/g, '_');
-  return (
-    <a id={id} href={`#${id}`} target="_self" onClick={(event) => {
-      event.preventDefault();
-      addons.getChannel().emit('navigateUrl', `#${id}`);
-    }}>
-      {renderSibling(props)}
-    </a>
-  )
-}
-
-const SECTIONS_SIBLINGS = {
-  subtitle: renderSibling,
-  description: renderSibling,
-  pretitle: renderSibling,
-  title: props => props.isAnchored ? renderAnchoredSibling(props) : renderSibling(props),
-};
-
-const prepareSection = (section: Section, isAnchored: boolean) => {
+const prepareSection = (section: Section) => {
   const preparedSection = (
     sectionPrepares[section.type] || ((i: unknown) => i)
   )(section);
+
   const siblingsWithDiv = SIBLINGS.filter(
     sibling => preparedSection[sibling],
   ).reduce(
     (sections, key) => ({
       ...sections,
-      [key]: SECTIONS_SIBLINGS[key]({
-        key,
-        source: preparedSection[key],
-        isAnchored,
-      }),
+      [key]: (
+        <Markdown
+          key={key}
+          className={styles[key]}
+          source={preparedSection[key]}
+        />
+      ),
     }),
     {},
   );
+
   return { ...preparedSection, ...siblingsWithDiv };
 };
 
@@ -76,7 +54,7 @@ export const sectionWithSiblings = (
   children: React.ReactNode,
   isAnchored?: boolean,
 ) => {
-  const preparedSection = prepareSection(section, isAnchored);
+  const preparedSection = prepareSection(section);
   const siblings = SIBLINGS.filter(row => preparedSection[row]);
   const shouldShowSiblings =
     siblings.length > 0 && !SECTIONS_WITHOUT_SIBLINGS.includes(section.type);
@@ -85,10 +63,13 @@ export const sectionWithSiblings = (
     <div data-hook={section.dataHook || null}>
       {shouldShowSiblings ? (
         <div className={styles.titles}>
-          {siblings.map(row => preparedSection[row])}
+          {
+            isAnchored
+              ? <AnchoredTitle title={section.title} />
+              : siblings.map(row => preparedSection[row])
+          }
         </div>
       ) : null}
-
       {children}
     </div>
   );
