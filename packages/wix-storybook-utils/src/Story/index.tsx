@@ -7,6 +7,7 @@ import AutoExample from '../AutoExample';
 import StoryPage from '../StoryPage';
 import Remount from './RemountHoc';
 import { isE2E } from '../utils';
+import { scrollToElementByHash } from './utils';
 
 declare global {
   namespace NodeJS {
@@ -17,6 +18,8 @@ declare global {
     }
   }
 }
+
+scrollToElementByHash();
 
 export default ({ _config, _metadata, ...storyConfig }) =>
   _config
