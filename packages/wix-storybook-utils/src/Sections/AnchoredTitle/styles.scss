@@ -6,7 +6,7 @@
   align-items: center;
 }
 
-.linkIcon {
+.link {
   background-color: $B50;
   color: $B10;
   border-radius: 18px;
@@ -15,14 +15,18 @@
   display: flex;
 }
 
-.tooltip {
+.titleContainer .tooltip {
+  border-radius: 8px;
+}
+
+.tooltipContent {
   display: flex;
   width: 70px;
   justify-content: center;
   line-height: 18px;
 }
 
-.tooltip svg {
+.tooltipContent svg {
   margin-inline-end: 5px;
   color: $G10;
 }

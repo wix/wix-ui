@@ -11,7 +11,6 @@ import styles from './styles.scss';
 import { AnchoredTitle } from '../AnchoredTitle';
 
 export const SIBLINGS = ['pretitle', 'title', 'subtitle', 'description'];
-
 const SECTIONS_WITHOUT_SIBLINGS = [
   SectionType.Title,
   SectionType.Header,
@@ -70,6 +69,7 @@ export const sectionWithSiblings = (
           }
         </div>
       ) : null}
+      
       {children}
     </div>
   );
