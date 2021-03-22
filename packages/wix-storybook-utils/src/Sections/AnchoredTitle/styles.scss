@@ -17,6 +17,9 @@
 
 .titleContainer .tooltip {
   border-radius: 8px;
+  padding: 8px 13px 7px 12px;
+  box-shadow: 0 6px 6px 0 rgba(22, 45, 61, 0.06), 0 0 18px 0 rgba(22, 45, 61, 0.12);
+  background-color: $D10;
 }
 
 .tooltipContent {

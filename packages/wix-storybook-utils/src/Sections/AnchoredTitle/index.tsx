@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import addons from '@storybook/addons';
 import copy from 'copy-to-clipboard';
 import ReactTooltip from 'react-tooltip';
@@ -18,7 +18,7 @@ const translations = {
 export const AnchoredTitle = ({ title }) => {
   const [tooltipComponent, setTooltipComponent] = useState(CopyToClipboard)
   const id = title.replace(/\s+/g, '_');
-  let copyLinkRef = null;
+  const copyLinkRef = useRef(null)
 
   const onCopy = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -30,10 +30,10 @@ export const AnchoredTitle = ({ title }) => {
     });
   }
 
-  const onMouseEnter = () => ReactTooltip.show(copyLinkRef);
+  const onMouseEnter = () => ReactTooltip.show(copyLinkRef.current);
 
   const onMouseLeave = () => {
-    ReactTooltip.hide(copyLinkRef)
+    ReactTooltip.hide(copyLinkRef.current)
     setTooltipComponent(CopyToClipboard)
   }
 
@@ -45,7 +45,7 @@ export const AnchoredTitle = ({ title }) => {
       onMouseLeave={onMouseLeave}
     >
       <a
-        ref={ref => copyLinkRef = ref}
+        ref={copyLinkRef}
         data-for={id}
         data-tip
         className={styles.link}
