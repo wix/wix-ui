@@ -7,23 +7,20 @@ import { LinkSmall, ConfirmSmall } from 'wix-ui-icons-common';
 import Markdown from '../../Markdown';
 import styles from './styles.scss';
 
-const CopyToClipboard = () => <div className={styles.tooltipContent}>{translations.copyLink}</div>
-const CopiedToClipboard = () => <div className={styles.tooltipContent}><ConfirmSmall/>{translations.linkCopiedToClipboard}</div>
-
 const translations = {
   copyLink: 'Copy Link',
   linkCopiedToClipboard: 'Copied',
 };
 
 export const AnchoredTitle = ({ title }) => {
-  const [tooltipComponent, setTooltipComponent] = useState(CopyToClipboard)
+  const [copied, setCopied] = useState(false)
   const id = title.replace(/\s+/g, '_');
   const copyLinkRef = useRef(null)
 
   const onCopy = (event: React.MouseEvent) => {
     event.preventDefault();
 
-    setTooltipComponent(CopiedToClipboard);
+    setCopied(true);
     addons.getChannel().emit('navigateUrl', `#${id}`);
     setTimeout(() => {
       copy(new URL(window.parent.location as any).href)
@@ -34,7 +31,7 @@ export const AnchoredTitle = ({ title }) => {
 
   const onMouseLeave = () => {
     ReactTooltip.hide(copyLinkRef.current)
-    setTooltipComponent(CopyToClipboard)
+    setCopied(false)
   }
 
   return (
@@ -68,7 +65,8 @@ export const AnchoredTitle = ({ title }) => {
         offset={{ top: -5 }}
         className={styles.tooltip}
       >
-        {tooltipComponent}
+        {copied && <ConfirmSmall/>}
+        {copied ? translations.linkCopiedToClipboard : translations.copyLink}
       </ReactTooltip>
     </div>
   )

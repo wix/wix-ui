@@ -20,16 +20,13 @@
   padding: 8px 13px 7px 12px;
   box-shadow: 0 6px 6px 0 rgba(22, 45, 61, 0.06), 0 0 18px 0 rgba(22, 45, 61, 0.12);
   background-color: $D10;
-}
-
-.tooltipContent {
   display: flex;
-  width: 70px;
+  width: 65px;
   justify-content: center;
   line-height: 18px;
 }
 
-.tooltipContent svg {
+.tooltip svg {
   margin-inline-end: 5px;
   color: $G10;
 }
