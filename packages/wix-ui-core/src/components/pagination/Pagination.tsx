@@ -165,7 +165,7 @@ export class Pagination extends React.Component<
     event: React.KeyboardEvent<HTMLInputElement>,
   ): void => {
     // Enter
-    if (event.keyCode === 13) {
+    if (event.key === 'Enter') {
       const page = Number(this.state.pageInputValue);
       if (page !== this.props.currentPage) {
         if (1 <= page && page <= this.props.totalPages) {
@@ -339,9 +339,9 @@ export class Pagination extends React.Component<
         aria-label={upperCaseFirst(type) + ' Page'}
         aria-disabled={disabled}
         tabIndex={disabled || pageUrl ? null : 0}
-        onClick={disabled ? null : event => this.handlePageClick(event, page)}
+        onClick={disabled ? null :event => this.handlePageClick(event, page)}
         onKeyDown={
-          disabled ? null : event => this.handlePageKeyDown(event, page)
+          disabled ? null :event => this.handlePageKeyDown(event, page)
         }
         href={!disabled && pageUrl ? pageUrl(page) : null}
       >
