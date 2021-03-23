@@ -6,6 +6,7 @@ import { LinkSmall, ConfirmSmall } from 'wix-ui-icons-common';
 
 import Markdown from '../../Markdown';
 import styles from './styles.scss';
+import sectionWithSiblingsStyles from '../section-with-siblings/styles.scss';
 
 const translations = {
   copyLink: 'Copy Link',
@@ -55,7 +56,7 @@ export const AnchoredTitle = ({ title }) => {
       </a>
       <Markdown
         key="title"
-        className={styles.title}
+        className={sectionWithSiblingsStyles.title}
         source={title}
       />
       <ReactTooltip
