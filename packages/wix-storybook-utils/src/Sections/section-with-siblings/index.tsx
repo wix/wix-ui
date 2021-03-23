@@ -62,11 +62,11 @@ export const sectionWithSiblings = (
     <div data-hook={section.dataHook || null}>
       {shouldShowSiblings ? (
         <div className={styles.titles}>
-          {
-            isAnchored
-              ? <AnchoredTitle title={section.title} />
-              : siblings.map(row => preparedSection[row])
-          }
+          {isAnchored ? (
+            <AnchoredTitle title={section.title} />
+          ) : (
+            siblings.map(row => preparedSection[row])
+          )}
         </div>
       ) : null}
 

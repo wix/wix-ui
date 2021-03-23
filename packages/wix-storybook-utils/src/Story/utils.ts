@@ -1,10 +1,10 @@
-const scrollToElement = (element) => {
+const scrollToElement = element => {
   element.scrollIntoView({
     behavior: 'smooth',
     inline: 'nearest',
   });
-}
-  
+};
+
 export const scrollToElementByHash = () => {
   const url = new URL(window.parent.location as any);
   if (!url.hash) {
@@ -17,7 +17,7 @@ export const scrollToElementByHash = () => {
     if (!element) {
       return;
     }
-  
+
     scrollToElement(element);
   }, 300);
-}
+};
