@@ -8,6 +8,7 @@
     "noImplicitAny": false,
     "noUnusedLocals": true,
     "strictNullChecks": false,
+    "skipLibCheck": true,
     "target": "es5",
     "jsx": "react",
     "lib": [

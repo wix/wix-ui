@@ -22,6 +22,7 @@ export const example = (
           type: SectionType.Description,
         }),
         descriptionView(section),
+        true,
       )}
     </Cell>
 
