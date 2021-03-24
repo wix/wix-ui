@@ -7,6 +7,11 @@
   align-items: center;
 }
 
+.titleContainer:hover,
+.titleContainer:hover .link {
+  background-color: rgba(56, 153, 236, 0.3);
+}
+
 .link {
   background-color: $B50;
   color: $B10;
