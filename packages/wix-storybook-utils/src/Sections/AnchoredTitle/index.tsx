@@ -54,7 +54,6 @@ export const AnchoredTitle = ({ title }) => {
       >
         <LinkSmall />
       </a>
-      
       <Markdown
         key="title"
         className={sectionWithSiblingsStyles.title}
