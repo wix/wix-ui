@@ -7,18 +7,17 @@
   align-items: center;
 }
 
-.titleContainer:hover,
 .titleContainer:hover .link {
-  background-color: rgba(56, 153, 236, 0.3);
+  background-color: $B50;
 }
 
 .link {
-  background-color: $B50;
   color: $B10;
   border-radius: 18px;
   padding: 3px;
   margin-inline-end: 6px;
   display: flex;
+  margin-inline-start: -30px;
 }
 
 .titleContainer .tooltip {
