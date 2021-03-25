@@ -7,13 +7,17 @@
   align-items: center;
 }
 
-.link {
+.titleContainer:hover .link {
   background-color: $B50;
+}
+
+.link {
   color: $B10;
   border-radius: 18px;
   padding: 3px;
   margin-inline-end: 6px;
   display: flex;
+  margin-inline-start: -30px;
 }
 
 .titleContainer .tooltip {
