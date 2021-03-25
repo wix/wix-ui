@@ -1057,6 +1057,13 @@ sizes: { "18": "GetStartedSmall", "24": "GetStarted" },
     tags: ["contact"],
     sizes: { "18": "UserRemoveSmall", "24": "UserRemove" },
   },
+	{
+	 title: "UserChecked",
+	 category: "Users",
+	 description: "Button - approves the user\nStatic Indicator - shows that user has been approved",
+	 tags: ["contact"],
+	 sizes: { "18": "UserCheckedSmall", "24": "UserChecked" },
+	 },
   {
     title: "AdminAccess",
     category: "Users",
