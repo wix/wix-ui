@@ -931,6 +931,13 @@ sizes: { "18": "GetStartedSmall", "24": "GetStarted" },
     tags: ["call", "number"],
     sizes: { "18": "PhoneSmall", "24": "Phone" },
   },
+	{
+	 title: "Inbox",
+	 category: "Communication",
+	 description: "Button – opens inbox\nStatic Indicator – marks inbox for indication",
+	 tags: ["communication", "message", "email"],
+	 sizes: { "18": "InboxSmall", "24": "Inbox" },
+	 },
   {
     title: "Document",
     category: "Document",
