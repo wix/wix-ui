@@ -43,6 +43,12 @@ export const generalIconsMetadata: Array<IconMetadata> = [
     'description': '',
     'tags': [],
     'sizes': {'18': 'FolderSmall', '24': 'Folder'},
+  },{
+    'title': 'FolderArrow',
+    'category': 'Actions',
+    'description': '',
+    'tags': [],
+    'sizes': {'6': 'FolderArrow'},
   }, {
     'title': 'AdminAccess',
     'category': 'User',
