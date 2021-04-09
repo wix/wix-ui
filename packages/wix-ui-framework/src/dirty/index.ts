@@ -70,30 +70,40 @@ const getDependencies = (componentPath: string) => {
   });
 };
 
-const componentsWithDependencyList: Record<string, string[]> = Object.entries(
-  components,
-).reduce((acc, [componentName, { path: componentPath }]) => {
-  acc[componentName] = getDependencies(componentPath);
-  return acc;
-}, {});
-
-const componentsToTest: Set<string> = Object.entries(
-  componentsWithDependencyList,
-).reduce((acc, [componentName, dependencies]) => {
-  const shouldTest = dependencies.some(
-    (dependency) =>
-      changedFiles.includes(dependency) ||
-      changedFiles.some((changedFile) =>
-        changedFile.includes(path.resolve(components[componentName].path)),
-      ),
+const getComponentsWithDependancyList = (): Record<string, string[]> => {
+  return Object.entries(components).reduce(
+    (acc, [componentName, { path: componentPath }]) => {
+      acc[componentName] = getDependencies(componentPath);
+      return acc;
+    },
+    {},
   );
-  if (shouldTest) {
-    acc.add(componentName);
-  }
-  return acc;
-}, new Set<string>());
+};
+
+const getComponentsToTest = (): Set<string> => {
+  const componentsWithDependencyList = getComponentsWithDependancyList();
+
+  return Object.entries(componentsWithDependencyList).reduce(
+    (acc, [componentName, dependencies]) => {
+      const shouldTest = dependencies.some(
+        (dependency) =>
+          changedFiles.includes(dependency) ||
+          changedFiles.some((changedFile) =>
+            changedFile.includes(path.resolve(components[componentName].path)),
+          ),
+      );
+      if (shouldTest) {
+        acc.add(componentName);
+      }
+      return acc;
+    },
+    new Set<string>(),
+  );
+};
 
 (async () => {
+  const componentsToTest = getComponentsToTest();
+
   if (componentsToTest.size) {
     const absoluteComponentTestPaths = await Array.from(
       componentsToTest,
