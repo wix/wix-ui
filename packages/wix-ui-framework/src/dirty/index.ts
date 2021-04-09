@@ -3,7 +3,7 @@ import dependencyTree from 'dependency-tree';
 
 import { Components } from '../typings';
 
-interface Params {
+interface Config {
   rootPath: string;
   components: Components;
   changedFiles: string[];
@@ -13,7 +13,7 @@ export const dirty = async ({
   rootPath,
   components,
   changedFiles: changedFilesRaw,
-}: Params): Promise<string[]> => {
+}: Config): Promise<string[]> => {
   const visited = {};
   const changedFiles = changedFilesRaw.map((changedFilePath) =>
     path.resolve(changedFilePath),
@@ -21,26 +21,19 @@ export const dirty = async ({
 
   const getDependencies = (componentPath: string) => {
     const filename = require.resolve(path.resolve(rootPath, componentPath));
-    return dependencyTree
-      .toList({
-        filename,
-        directory: path.dirname(filename),
-        visited,
-        filter: (p) =>
-          [
-            [
-              '.js',
-              '.jsx',
-              '.ts',
-              '.tsx',
-              '.st.css',
-              '.scss',
-            ].some((extension) => p.endsWith(extension)),
-            !p.includes('node_modules'),
-            p !== path.resolve(rootPath, 'src/index.js'),
-          ].every(Boolean),
-      })
-      .map((dependencyPath) => path.resolve(rootPath, dependencyPath));
+    return dependencyTree.toList({
+      filename,
+      directory: path.dirname(filename),
+      visited,
+      filter: (p) =>
+        [
+          ['.js', '.jsx', '.ts', '.tsx', '.st.css', '.scss'].some((extension) =>
+            p.endsWith(extension),
+          ),
+          !p.includes('node_modules'),
+          p !== path.resolve(rootPath, 'src/index.js'),
+        ].every(Boolean),
+    });
   };
 
   const componentsWithDependencyList: Record<string, string[]> = Object.entries(

@@ -8,6 +8,4 @@ export interface Component {
   path: string;
 }
 
-export interface Components {
-  [componentName: string]: Component;
-}
+export type Components = Record<string, Component>;

@@ -3,10 +3,6 @@ import path from 'path';
 import cista from 'cista';
 
 describe('dirt', () => {
-  it('should exist', () => {
-    expect(typeof dirty).toEqual('function');
-  });
-
   it('sanity', async () => {
     expect(
       await dirty({
@@ -17,7 +13,32 @@ describe('dirt', () => {
     ).toEqual([]);
   });
 
-  it('should return dirty components with basic input', async () => {
+  it('should return empty list when no dirty components found', async () => {
+    const fakeFs = cista({
+      './src/Component/Component.js': 'require("../AnotherComponent")',
+      './src/Component/index.js': 'require("./Component.js")',
+      './src/AnotherComponent/AnotherComponent.js': ';',
+      './src/AnotherComponent/index.js': 'require("./AnotherComponent.js")',
+    });
+
+    const dirtyComponents = await dirty({
+      rootPath: fakeFs.dir,
+      components: {
+        Component: { path: 'src/Component' },
+        AnotherComponent: { path: 'src/AnotherComponent' },
+      },
+      changedFiles: [
+        'src/unrelated-file',
+        'unrelated-file',
+        'package.json',
+        'src/NotComponent/index.js',
+      ].map((p) => path.join(fakeFs.dir, p)),
+    });
+
+    expect(dirtyComponents).toEqual([]);
+  });
+
+  it('should return list of dirty components with basic input', async () => {
     const fakeFs = cista({
       './src/Component/Component.js': ';',
       './src/Component/index.js': 'require("./Component.js")',
@@ -32,15 +53,13 @@ describe('dirt', () => {
     expect(dirtyComponents).toEqual(['Component']);
   });
 
-  it('should return dirty components', async () => {
+  it('should return list of dirty components when a dependency changed', async () => {
     const fakeFs = cista({
       './src/Component/Component.js': 'require("../AnotherComponent")',
       './src/Component/index.js': 'require("./Component.js")',
       './src/AnotherComponent/AnotherComponent.js': ';',
       './src/AnotherComponent/index.js': 'require("./AnotherComponent.js")',
     });
-
-    console.log({ fakefsdir: fakeFs.dir });
 
     const dirtyComponents = await dirty({
       rootPath: fakeFs.dir,
