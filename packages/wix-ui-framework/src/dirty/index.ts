@@ -21,19 +21,26 @@ export const dirty = async ({
 
   const getDependencies = (componentPath: string) => {
     const filename = require.resolve(path.resolve(rootPath, componentPath));
-    return dependencyTree.toList({
-      filename,
-      directory: path.dirname(filename),
-      visited,
-      filter: (p) =>
-        [
-          ['.js', '.jsx', '.ts', '.tsx', '.st.css', '.scss'].some((extension) =>
-            p.endsWith(extension),
-          ),
-          !p.includes('node_modules'),
-          p !== path.resolve(rootPath, 'src/index.js'),
-        ].every(Boolean),
-    });
+    return dependencyTree
+      .toList({
+        filename,
+        directory: path.dirname(filename),
+        visited,
+        filter: (p) =>
+          [
+            [
+              '.js',
+              '.jsx',
+              '.ts',
+              '.tsx',
+              '.st.css',
+              '.scss',
+            ].some((extension) => p.endsWith(extension)),
+            !p.includes('node_modules'),
+            p !== path.resolve(rootPath, 'src/index.js'),
+          ].every(Boolean),
+      })
+      .map((dependencyPath) => path.resolve(rootPath, dependencyPath));
   };
 
   const componentsWithDependencyList: Record<string, string[]> = Object.entries(
@@ -45,15 +52,16 @@ export const dirty = async ({
 
   const dirtyComponents = Object.entries(componentsWithDependencyList).reduce(
     (acc, [componentName, dependencies]) => {
-      const isDirty = dependencies.some(
-        (dependency) =>
+      const isDirty = dependencies.some((dependency) => {
+        return (
           changedFiles.includes(dependency) ||
           changedFiles.some((changedFile) => {
             return changedFile.includes(
               path.resolve(components[componentName].path),
             );
-          }),
-      );
+          })
+        );
+      });
       if (isDirty) {
         acc.add(componentName);
       }
