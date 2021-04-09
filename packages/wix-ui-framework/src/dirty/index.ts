@@ -12,13 +12,15 @@ interface Params {
 export const dirty = async ({
   rootPath,
   components,
-  changedFiles,
+  changedFiles: changedFilesRaw,
 }: Params): Promise<string[]> => {
   const visited = {};
+  const changedFiles = changedFilesRaw.map((changedFilePath) =>
+    path.resolve(changedFilePath),
+  );
 
   const getDependencies = (componentPath: string) => {
     const filename = require.resolve(path.resolve(rootPath, componentPath));
-    console.log({ filename });
     return dependencyTree.toList({
       filename,
       directory: path.dirname(filename),
@@ -41,17 +43,16 @@ export const dirty = async ({
     return acc;
   }, {});
 
-  console.log({ componentsWithDependencyList });
-
   const dirtyComponents = Object.entries(componentsWithDependencyList).reduce(
     (acc, [componentName, dependencies]) => {
-      console.log({ changedFiles, dependencies });
       const isDirty = dependencies.some(
         (dependency) =>
           changedFiles.includes(dependency) ||
-          changedFiles.some((changedFile) =>
-            changedFile.includes(path.resolve(components[componentName].path)),
-          ),
+          changedFiles.some((changedFile) => {
+            return changedFile.includes(
+              path.resolve(components[componentName].path),
+            );
+          }),
       );
       if (isDirty) {
         acc.add(componentName);
