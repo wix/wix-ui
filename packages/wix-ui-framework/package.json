@@ -67,15 +67,16 @@
     ]
   },
   "devDependencies": {
+    "@types/dependency-tree": "^8.0.0",
     "@types/jest": "^24.0.12",
     "@types/node": "^12.0.0",
+    "@wix/yoshi": "^4.3.0",
     "cista": "0.0.3",
     "jest": "^24.7.1",
     "nixt": "^0.5.1",
     "ts-jest": "^24.0.2",
     "tslint-config-yoshi": "^4.1.0",
-    "typescript": "^3.4.5",
-    "@wix/yoshi": "^4.3.0"
+    "typescript": "^3.4.5"
   },
   "eslintConfig": {
     "extends": "yoshi",

@@ -1,10 +1,12 @@
-const fs = require('fs');
-const path = require('path');
-const { execSync } = require('child_process');
-const dependencyTree = require('dependency-tree');
-const globby = require('globby');
+import fs from 'fs';
+import path from 'path';
+import { execSync } from 'child_process';
+import dependencyTree from 'dependency-tree';
+import globby from 'globby';
 
-const exec = (cmd) => execSync(cmd, { encoding: 'utf8' });
+import { Components } from '../typings';
+
+const exec = (cmd: string) => execSync(cmd, { encoding: 'utf8' });
 const [rootPathRaw, outputPathRaw] = process.argv.slice(2);
 
 const rootPath = path.resolve(process.cwd(), rootPathRaw);
@@ -25,7 +27,7 @@ const changedFiles = exec('git diff master --name-only')
   .split('\n')
   .map((p) => path.resolve(gitRootPath, p));
 
-const components = require(allComponentsPath);
+const components: Components = require(allComponentsPath);
 
 const shouldTestSubset = () => {
   const componentPaths = Object.entries(components).map(([, { path }]) => path);
@@ -49,7 +51,7 @@ if (!shouldTestSubset()) {
 }
 
 const visited = {};
-const getDependencies = (componentPath) => {
+const getDependencies = (componentPath: string) => {
   const filename = require.resolve(path.resolve(rootPath, componentPath));
   return dependencyTree.toList({
     filename,
@@ -66,30 +68,28 @@ const getDependencies = (componentPath) => {
   });
 };
 
-const componentsWithDependencyList = Object.entries(components).reduce(
-  (acc, [componentName, { path: componentPath }]) => {
-    acc[componentName] = getDependencies(componentPath);
-    return acc;
-  },
-  {},
-);
+const componentsWithDependencyList: Record<string, string[]> = Object.entries(
+  components,
+).reduce((acc, [componentName, { path: componentPath }]) => {
+  acc[componentName] = getDependencies(componentPath);
+  return acc;
+}, {});
 
-const componentsToTest = Object.entries(componentsWithDependencyList).reduce(
-  (acc, [componentName, dependencies]) => {
-    const shouldTest = dependencies.some(
-      (dependency) =>
-        changedFiles.includes(dependency) ||
-        changedFiles.some((changedFile) =>
-          changedFile.includes(path.resolve(components[componentName].path)),
-        ),
-    );
-    if (shouldTest) {
-      acc.add(componentName);
-    }
-    return acc;
-  },
-  new Set(),
-);
+const componentsToTest: Set<string> = Object.entries(
+  componentsWithDependencyList,
+).reduce((acc, [componentName, dependencies]) => {
+  const shouldTest = dependencies.some(
+    (dependency) =>
+      changedFiles.includes(dependency) ||
+      changedFiles.some((changedFile) =>
+        changedFile.includes(path.resolve(components[componentName].path)),
+      ),
+  );
+  if (shouldTest) {
+    acc.add(componentName);
+  }
+  return acc;
+}, new Set<string>());
 
 (async () => {
   if (componentsToTest.size) {
@@ -141,3 +141,5 @@ requires.forEach(req => {
     });
   }
 })();
+
+export default () => {};
