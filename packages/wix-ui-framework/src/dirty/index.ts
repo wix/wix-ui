@@ -30,7 +30,9 @@ const changedFiles = exec('git diff master --name-only')
 const components: Components = require(allComponentsPath);
 
 const shouldTestSubset = () => {
-  const componentPaths = Object.entries(components).map(([, { path }]) => path);
+  const componentPaths = Object.entries(components).map(
+    ([, { path: componentPath }]) => componentPath,
+  );
 
   const areAllFilesComponents = changedFiles
     .filter((file) => file.includes('src/'))
