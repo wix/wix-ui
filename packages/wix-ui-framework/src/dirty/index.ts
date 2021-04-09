@@ -76,39 +76,44 @@ const componentsWithDependencyList = Object.entries(components).reduce(
 
 const componentsToTest = Object.entries(componentsWithDependencyList).reduce(
   (acc, [componentName, dependencies]) => {
-    const shouldTest = dependencies.some((dependency) =>
-      changedFiles.includes(dependency),
+    const shouldTest = dependencies.some(
+      (dependency) =>
+        changedFiles.includes(dependency) ||
+        changedFiles.some((changedFile) =>
+          changedFile.includes(path.resolve(components[componentName].path)),
+        ),
     );
     if (shouldTest) {
-      acc.push(componentName);
+      acc.add(componentName);
     }
     return acc;
   },
-  [],
+  new Set(),
 );
 
 (async () => {
-  if (componentsToTest.length) {
-    const absoluteComponentTestPaths = await componentsToTest.reduce(
-      async (acc, componentName) => {
-        const paths = await globby(
-          path.resolve(
-            rootPath,
-            components[componentName].path,
-            '**',
-            '*.visual.js',
-          ),
-          { cwd: rootPath },
-        );
-        return [...(await acc), ...paths];
-      },
-      Promise.resolve([]),
-    );
+  if (componentsToTest.size) {
+    const absoluteComponentTestPaths = await Array.from(
+      componentsToTest,
+    ).reduce(async (acc, componentName) => {
+      const paths = await globby(
+        path.resolve(
+          rootPath,
+          components[componentName].path,
+          '**',
+          '*.visual.js',
+        ),
+        { cwd: rootPath },
+      );
+      return [...(await acc), ...paths];
+    }, Promise.resolve([]));
 
-    const absoluteTestPaths = [
-      ...changedFiles.filter((p) => p.includes('.visual.js')),
-      ...absoluteComponentTestPaths,
-    ];
+    const absoluteTestPaths = Array.from(
+      new Set([
+        ...changedFiles.filter((p) => p.includes('.visual.js')),
+        ...absoluteComponentTestPaths,
+      ]),
+    );
 
     const relativeTestPaths = absoluteTestPaths.map((p) =>
       path.relative(path.dirname(allComponentsPath), p),
