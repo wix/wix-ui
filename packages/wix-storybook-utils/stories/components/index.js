@@ -5,6 +5,7 @@ import { storiesOf } from '@storybook/react';
 import Markdown from '../../src/Markdown';
 import InteractiveCodeExample from '../../src/InteractiveCodeExample';
 import CodeExample from '../../src/CodeExample';
+import NewPlayground from '../../src/NewPlayground';
 import Input from '../../src/ui/input';
 import SearchInput from '../../src/ui/search-input';
 import Button from '../../src/ui/button';
@@ -14,6 +15,10 @@ import SomeComponentExample from './examples/Example';
 import SomeComponentExampleRaw from '!raw-loader!./examples/Example';
 
 storiesOf('Components', module)
+  .add('<NewPlayground/>', () => (
+    <NewPlayground />
+  ))
+
   .add('<CodeExample/>', () => (
     <div>
       Cool way to render components and see their code
