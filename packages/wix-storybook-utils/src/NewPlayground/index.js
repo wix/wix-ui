@@ -14,6 +14,7 @@ import 'codemirror/addon/hint/xml-hint';
 import debounce from 'lodash/debounce';
 
 import styles from '../LiveCodeExample/index.scss';
+import "./styles.global.scss";
 import { transformCode } from '../LiveCodeExample/doctor-code';
 
 import 'codemirror/lib/codemirror.css';
