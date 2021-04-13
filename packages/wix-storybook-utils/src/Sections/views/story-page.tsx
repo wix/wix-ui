@@ -23,7 +23,7 @@ const createExamplesFactory = (storyConfig: StoryConfig) => (props: Example) =>
       text: props.description,
       source: storyConfig.story.examples[props.example],
     },
-    storyConfig,
+    storyConfig
   );
 
 const description = (props: { title?: string; description: string }) =>
@@ -36,21 +36,24 @@ const description = (props: { title?: string; description: string }) =>
       type: SectionType.Description,
       text: props.description,
     }),
-    true,
+    true
   );
 
-const importExample = (props: { source: string }) =>
+const importExample = (props: { source: string }, storyConfig: StoryConfig) =>
   sectionWithSiblings(
     importExampleConfig({}),
-    importExampleView({
-      type: SectionType.ImportExample,
-      source: props.exampleImport,
-    }),
+    importExampleView(
+      {
+        type: SectionType.ImportExample,
+        source: props.source,
+      },
+      storyConfig
+    )
   );
 
 export const storyPage = (
   props: StoryPageSection,
-  storyConfig: StoryConfig,
+  storyConfig: StoryConfig
 ) => {
   const renderExamples = createExamplesFactory(storyConfig);
   return (
@@ -60,7 +63,7 @@ export const storyPage = (
           type: SectionType.Header,
           sourceUrl: `${storyConfig.config.repoBaseURL}/${storyConfig.storyName}`,
         },
-        storyConfig,
+        storyConfig
       )}
 
       {description({
@@ -78,15 +81,14 @@ export const storyPage = (
           },
           type: SectionType.DoDont,
         },
-        storyConfig,
+        storyConfig
       )}
 
       {importExample(
         {
-          type: SectionType.ImportExample,
           source: storyConfig.exampleImport,
         },
-        storyConfig,
+        storyConfig
       )}
 
       {!!props.content.featureExamples.length && divider()}
