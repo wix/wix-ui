@@ -2,6 +2,8 @@ import cista from 'cista';
 import path from 'path';
 import fs from 'fs';
 
+import { GitTestkit } from '../../../test/git-testkit';
+
 import { updateComponentsList } from '.';
 
 describe('updateComponentsList', () => {
@@ -194,6 +196,45 @@ describe('updateComponentsList', () => {
       );
 
       expect(JSON.parse(output)).toEqual(expectedOutput);
+    });
+  });
+
+  describe('dirty flag', () => {
+    it('should be added for changed components', async () => {
+      const fakeFs = cista({
+        '.wuf/required-component-files.json': `{ "index.js": "" }`,
+        'src/A/index.js': '',
+        'src/B/index.js': 'require("../C")',
+        'src/C/index.js': 'require("./C.js")',
+        'src/C/C.js': '',
+      });
+
+      const gitTestkit = new GitTestkit({ cwd: fakeFs.dir });
+      await gitTestkit.init();
+      await gitTestkit.createBranch('test');
+      await gitTestkit.checkout('test');
+      await gitTestkit.commitFile(
+        'src/C/C.js',
+        '"hello world"',
+        'add component',
+      );
+
+      await updateComponentsList({
+        components: 'src',
+        _process: { cwd: fakeFs.dir },
+      });
+
+      const output = JSON.parse(
+        fs.readFileSync(`${fakeFs.dir}/.wuf/components.json`, 'utf8'),
+      );
+
+      const expectedOutput = {
+        A: { path: 'src/A' },
+        B: { path: 'src/B', dirty: true },
+        C: { path: 'src/C', dirty: true },
+      };
+
+      expect(output).toEqual(expectedOutput);
     });
   });
 });

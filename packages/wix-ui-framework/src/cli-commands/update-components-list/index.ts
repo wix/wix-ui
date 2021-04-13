@@ -3,16 +3,19 @@ import fs from 'fs';
 import { promisify } from 'util';
 import minimatch from 'minimatch';
 
-import { Path, Process } from '../../typings.d';
+import { Path, Process, Components } from '../../typings.d';
 import { fileExists } from '../../file-exists';
 import { objectEntries } from '../../object-entries';
 import { fsToJson } from '../../fs-to-json';
 import { mapTree } from '../../map-tree';
+import { getDirtyComponents } from '../../get-dirty-components';
+import { getChangedFiles } from '../../get-changed-files';
 
 const fsReadFile = promisify(fs.readFile);
 const fsWriteFile = promisify(fs.writeFile);
 
-const pathResolver = (cwd) => (...a) => path.resolve(cwd, ...a);
+const pathResolver = (cwd: string) => (...a: string[]) =>
+  path.resolve(cwd, ...a);
 
 interface Options {
   shape?: Path;
@@ -30,6 +33,26 @@ const readOutputFile = async (path = '') => {
   } catch (e) {
     return {};
   }
+};
+
+const augmentWithDirty = async ({ cwd, components, changedFiles }) => {
+  const dirtyComponents = await getDirtyComponents({
+    rootPath: cwd,
+    components,
+    changedFiles,
+  });
+
+  const output = Object.entries(components).reduce(
+    (acc, [componentName, component]) => {
+      acc[componentName] = dirtyComponents.includes(componentName)
+        ? { ...(component as Components), dirty: true }
+        : component;
+      return acc;
+    },
+    {},
+  );
+
+  return output;
 };
 
 const guards: (a: Options) => Promise<void> = async (unsafeOptions) => {
@@ -143,17 +166,35 @@ const makeOutput: (a: Options) => Promise<void> = async (options) => {
     ({ missingFiles }) => missingFiles.length <= options.maxMismatch,
   );
 
-  const newOutput = goodComponents.reduce((components, component) => {
-    components[component.name] = {
-      path: component.path,
-      ...(component.missingFiles.length
-        ? { missingFiles: component.missingFiles }
-        : {}),
-    };
-    return components;
-  }, output);
+  const jsonOutput: Components = goodComponents.reduce(
+    (components, component) => {
+      components[component.name] = {
+        path: component.path,
+        ...(component.missingFiles.length
+          ? { missingFiles: component.missingFiles }
+          : {}),
+      };
+      return components;
+    },
+    output,
+  );
 
-  await fsWriteFile(options.output, JSON.stringify(newOutput, null, 2));
+  let changedFiles;
+  try {
+    changedFiles = await getChangedFiles({ cwd: options._process.cwd });
+  } catch (e) {
+    changedFiles = [];
+  }
+
+  const outputToWrite = changedFiles.length
+    ? await augmentWithDirty({
+        cwd: options._process.cwd,
+        components: jsonOutput,
+        changedFiles,
+      })
+    : jsonOutput;
+
+  await fsWriteFile(options.output, JSON.stringify(outputToWrite, null, 2));
 };
 
 export const updateComponentsList: (a: Options) => Promise<void> = guards;

@@ -1,11 +1,13 @@
-import { dirty } from '.';
+import { getDirtyComponents } from '.';
 import path from 'path';
 import cista from 'cista';
+import { GitTestkit } from '../../test/git-testkit';
+import { getChangedFiles } from '../get-changed-files';
 
-describe('dirt', () => {
+describe('getDirtyComponents', () => {
   it('sanity', async () => {
     expect(
-      await dirty({
+      await getDirtyComponents({
         rootPath: '.',
         components: {},
         changedFiles: [],
@@ -21,7 +23,7 @@ describe('dirt', () => {
       './src/AnotherComponent/index.js': 'require("./AnotherComponent.js")',
     });
 
-    const dirtyComponents = await dirty({
+    const dirtyComponents = await getDirtyComponents({
       rootPath: fakeFs.dir,
       components: {
         Component: { path: 'src/Component' },
@@ -44,7 +46,7 @@ describe('dirt', () => {
       './src/Component/index.js': 'require("./Component.js")',
     });
 
-    const dirtyComponents = await dirty({
+    const dirtyComponents = await getDirtyComponents({
       rootPath: fakeFs.dir,
       components: { Component: { path: 'src/Component' } },
       changedFiles: ['src/Component/Component.js'],
@@ -61,7 +63,7 @@ describe('dirt', () => {
       './src/AnotherComponent/index.js': 'require("./AnotherComponent.js")',
     });
 
-    const dirtyComponents = await dirty({
+    const dirtyComponents = await getDirtyComponents({
       rootPath: fakeFs.dir,
       components: {
         Component: { path: 'src/Component' },
@@ -71,5 +73,31 @@ describe('dirt', () => {
     });
 
     expect(dirtyComponents).toEqual(['Component', 'AnotherComponent']);
+  });
+
+  it('should return list of dirty components', async () => {
+    const fakeFs = cista({
+      'A/index.js': '',
+      'B/index.js': `require("../C")`,
+      'C/index.js': 'require("./C.js")',
+    });
+
+    const gitTestkit = new GitTestkit({ cwd: fakeFs.dir });
+    await gitTestkit.init();
+    await gitTestkit.createBranch('test');
+    await gitTestkit.checkout('test');
+    await gitTestkit.commitFile('C/C.js', '"hello world"', 'add component');
+
+    const dirtyComponents = await getDirtyComponents({
+      rootPath: fakeFs.dir,
+      components: {
+        A: { path: 'A' },
+        B: { path: 'B' },
+        C: { path: 'C' },
+      },
+      changedFiles: await getChangedFiles({ cwd: fakeFs.dir }),
+    });
+
+    expect(dirtyComponents).toEqual(['B', 'C']);
   });
 });

@@ -7,10 +7,14 @@ import promisify from './promisify';
 export class GitTestkit {
   cwd: string;
   exec: Function;
-  constructor() {
-    const fakeFs = cista();
-    this.cwd = fakeFs.dir;
-    this.exec = (cmd) => promisify(exec)(cmd, { cwd: this.cwd });
+  constructor({ cwd = '' } = {}) {
+    if (cwd) {
+      this.cwd = cwd;
+    } else {
+      const fakeFs = cista();
+      this.cwd = fakeFs.dir;
+    }
+    this.exec = (cmd: string) => promisify(exec)(cmd, { cwd: this.cwd });
   }
 
   async init() {
@@ -27,11 +31,11 @@ export class GitTestkit {
     return this.exec('git branch');
   }
 
-  async createBranch(name) {
+  async createBranch(name: string) {
     return this.exec(`git checkout -b ${name}`);
   }
 
-  async checkout(name) {
+  async checkout(name: string) {
     return this.exec(`git checkout ${name}`);
   }
 

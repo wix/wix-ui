@@ -9,16 +9,16 @@ interface Config {
   changedFiles: string[];
 }
 
-export const dirty = async ({
+export const getDirtyComponents = async ({
   rootPath,
   components,
   changedFiles: changedFilesRaw,
 }: Config): Promise<string[]> => {
-  const visited = {};
   const changedFiles = changedFilesRaw.map((changedFilePath) =>
     path.resolve(changedFilePath),
   );
 
+  const visited = {};
   const getDependencies = (componentPath: string) => {
     const filename = require.resolve(path.resolve(rootPath, componentPath));
     return dependencyTree.toList({
