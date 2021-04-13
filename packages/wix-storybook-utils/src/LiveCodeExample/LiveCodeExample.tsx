@@ -185,7 +185,6 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
       this.setState({ parseError: newParseError });
     }
 
-    console.log(returnValue);
     return returnValue;
   };
 
