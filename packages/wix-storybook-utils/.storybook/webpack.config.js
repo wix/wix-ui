@@ -21,6 +21,7 @@ module.exports = ({ config }) => {
     loader: './src/loader',
     options: {
       storyConfig: {
+        importFormat: "import { %componentName } from '%moduleName'",
         moduleName: 'wix-storybook-utils',
         testkitsWarning,
         testkits: {
@@ -37,6 +38,7 @@ module.exports = ({ config }) => {
             template: makeTestkitTemplate('/protractor'),
           },
         },
+        issueURL: 'https://github.com/wix/wix-ui/issues/new/choose',
         repoBaseURL:
           'https://github.com/wix/wix-ui/tree/master/packages/wix-storybook-utils/src/components/',
         playgroundComponentsPath: path.resolve(__dirname, 'playground'),

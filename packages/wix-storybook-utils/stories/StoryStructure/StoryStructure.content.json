@@ -34,5 +34,26 @@
       "example": "_advancedCustomSelection"
     }
   ],
-  "commonUseCaseExamples": []
+  "commonUseCaseExamples": [
+    {
+      "title": "Structure",
+      "description": "Radio button consists of a radio itself and a label on the side.",
+      "example": "_structure"
+    },
+    {
+      "title": "States",
+      "description": "Radio button has three states - `default`, `checked` and `disabled`.",
+      "example": "_states"
+    },
+    {
+      "title": "Label",
+      "description": "Label value accepts `node` or `string` based values. It is recommended to use `string` as it complies with design systems typography.",
+      "example": "_label"
+    },
+    {
+      "title": "Alignment",
+      "description": "Radio is vertically centered to its label by default. Items can be aligned to the top with alignItems prop.",
+      "example": "_alignment"
+    }
+  ]
 }

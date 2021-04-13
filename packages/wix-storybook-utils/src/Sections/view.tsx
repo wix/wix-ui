@@ -6,7 +6,7 @@ import { tab as makeTab } from '.';
 import { SectionType } from '../typings/story-section';
 
 import styles from './styles.scss';
-import { FaceliftStory } from '../FaceliftStory/FaceliftStory';
+import { storyPage } from './views/story-page';
 
 const Header = ({ storyName, metadata }) => (
   <div className={styles.header}>
@@ -20,15 +20,19 @@ const Header = ({ storyName, metadata }) => (
 const hasHeader = (sections = []) =>
   sections[0] && sections[0].type === SectionType.Header;
 
-export const View: React.FunctionComponent<StoryConfig> = (storyConfig) => {
-  if (storyConfig.content) {
+export const View: React.FunctionComponent<StoryConfig> = storyConfig => {
+  if (storyConfig.story) {
     return (
       <div className={styles.page}>
         <div className={styles.content}>
-          <FaceliftStory
-            content={storyConfig.content}
-            examples={storyConfig.examples}
-          />
+          {storyPage(
+            {
+              type: SectionType.StoryPage,
+              content: storyConfig.story.content,
+              examples: storyConfig.story.examples,
+            },
+            storyConfig,
+          )}
         </div>
       </div>
     );
@@ -48,7 +52,7 @@ export const View: React.FunctionComponent<StoryConfig> = (storyConfig) => {
           makeTab({
             sections: storyConfig.sections,
           }),
-          storyConfig
+          storyConfig,
         )}
       </div>
     </div>
