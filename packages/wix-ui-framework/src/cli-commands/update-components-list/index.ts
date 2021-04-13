@@ -179,7 +179,7 @@ const makeOutput: (a: Options) => Promise<void> = async (options) => {
     output,
   );
 
-  let changedFiles;
+  let changedFiles: string[];
   try {
     changedFiles = await getChangedFiles({ cwd: options._process.cwd });
   } catch (e) {

@@ -18,7 +18,7 @@ export class GitTestkit {
   }
 
   async init() {
-    await this.exec('git init --initial-branch master');
+    await this.exec('git init --quiet');
     await this.commitFile('package.json', '{}', 'initial commit');
   }
 
