@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Metadata } from './metadata';
 import { Config } from './config';
 import { StorySection } from './story-section';
-import { StoryContent, StoryExamples } from './story';
+import { StoryContent, StoryDemo, StoryExamples } from './story';
 
 export interface StoryConfig {
   metadata: Metadata;
@@ -37,5 +37,6 @@ export interface StoryConfig {
   story: {
     content: StoryContent;
     examples: StoryExamples;
+    demo: StoryDemo;
   };
 }

@@ -9,13 +9,15 @@ import { doDont } from './do-dont';
 import { example } from './example';
 import { header } from './header';
 import { title } from './title';
+import { tabs } from './tabs';
+import { tab } from './tab';
 import { SectionType, StoryPageSection } from '../../typings/story-section';
 import { StoryConfig } from '../../typings/story-config';
 import { Example } from '../../typings/story';
 import { sectionWithSiblings } from '../section-with-siblings';
 import { importExample as importExampleView } from './import-example';
 
-const createExamplesFactory = (storyConfig: StoryConfig) => (props: Example) =>
+const examples = (props: Example, storyConfig: StoryConfig) =>
   example(
     {
       type: SectionType.Example,
@@ -23,7 +25,7 @@ const createExamplesFactory = (storyConfig: StoryConfig) => (props: Example) =>
       text: props.description,
       source: storyConfig.story.examples[props.example],
     },
-    storyConfig
+    storyConfig,
   );
 
 const description = (props: { title?: string; description: string }) =>
@@ -36,72 +38,94 @@ const description = (props: { title?: string; description: string }) =>
       type: SectionType.Description,
       text: props.description,
     }),
-    true
+    true,
   );
 
 const importExample = (props: { source: string }, storyConfig: StoryConfig) =>
   sectionWithSiblings(
-    importExampleConfig({}),
+    importExampleConfig({
+      title: 'Import',
+    }),
     importExampleView(
       {
         type: SectionType.ImportExample,
         source: props.source,
       },
-      storyConfig
-    )
+      storyConfig,
+    ),
+    true,
   );
+
+const demoExample = (props: { demo: React.ReactNode }) => (
+  <div>
+    {sectionWithSiblings(
+      descriptionConfig({
+        title: 'Demo',
+        description: '',
+      }),
+      props.demo,
+      true,
+    )}
+  </div>
+);
 
 export const storyPage = (
   props: StoryPageSection,
-  storyConfig: StoryConfig
+  storyConfig: StoryConfig,
 ) => {
-  const renderExamples = createExamplesFactory(storyConfig);
+  const { demo: Demo, content } = props;
   return (
     <div>
+      {tabs(
+        {
+          type: SectionType.Tabs,
+          tabs: [
+            tab({
+              type: SectionType.Tab,
+            }),
+          ],
+        },
+        storyConfig,
+      )}
       {header(
         {
           type: SectionType.Header,
           sourceUrl: `${storyConfig.config.repoBaseURL}/${storyConfig.storyName}`,
         },
-        storyConfig
+        storyConfig,
       )}
-
+      {demoExample({ demo: <Demo /> })}
       {description({
-        title: 'Description',
-        description: props.content.description,
+        title: 'Usage',
+        description: content.description,
       })}
-
       {doDont(
         {
           do: {
-            list: props.content.do,
+            list: content.do,
           },
           dont: {
-            list: props.content.dont,
+            list: content.dont,
           },
           type: SectionType.DoDont,
         },
-        storyConfig
+        storyConfig,
       )}
-
       {importExample(
         {
           source: storyConfig.exampleImport,
         },
-        storyConfig
+        storyConfig,
       )}
-
-      {!!props.content.featureExamples.length && divider()}
-      {!!props.content.featureExamples.length &&
+      {!!content.featureExamples.length && divider()}
+      {!!content.featureExamples.length &&
         title({ title: 'Customizations', type: SectionType.Title })}
-      {props.content.featureExamples.map(renderExamples)}
-
-      {!!props.content.commonUseCaseExamples.length && divider()}
-      {!!props.content.commonUseCaseExamples.length &&
+      {content.featureExamples.map(item => examples(item, storyConfig))}
+      {!!content.commonUseCaseExamples.length && divider()}
+      {!!content.commonUseCaseExamples.length &&
         title({ title: 'Common Use Cases', type: SectionType.Title })}
-      {props.content.commonUseCaseExamples &&
-        props.content.commonUseCaseExamples.map(renderExamples)}
-
+      {content.commonUseCaseExamples &&
+        content.commonUseCaseExamples.map(item => examples(item, storyConfig))}
       {divider()}
       {title({ type: SectionType.Title, title: 'Feedback' })}
       {description({

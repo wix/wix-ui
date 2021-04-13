@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 export interface Example {
   title?: string;
   description?: string;
@@ -13,3 +15,5 @@ export interface StoryContent {
 }
 
 export type StoryExamples = Record<string, string>;
+
+export type StoryDemo = React.ElementType;
