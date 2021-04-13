@@ -5,7 +5,6 @@ export const getChangedFiles = async ({ cwd }) => {
     encoding: 'utf8',
     cwd,
   });
-  const files = output.trim().split('\n');
-  console.log(files);
+  const files = output.trim().split('\n').filter(Boolean);
   return files;
 };
