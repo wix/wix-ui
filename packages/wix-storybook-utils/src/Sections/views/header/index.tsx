@@ -10,10 +10,10 @@ import styles from './styles.scss';
 
 export const header: (a: HeaderSection, b: StoryConfig) => React.ReactNode = (
   section,
-  storyConfig,
+  storyConfig
 ) => {
   const { title, component, sourceUrl, issueUrl } = section;
-  const issueURL = storyConfig.config.issueURL || issueUrl;
+  const issueURL = storyConfig.config?.issueURL || issueUrl;
 
   return (
     <div className={styles.rootWrapper}>

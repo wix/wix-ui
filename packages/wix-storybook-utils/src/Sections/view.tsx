@@ -6,6 +6,7 @@ import { tab as makeTab } from '.';
 import { SectionType } from '../typings/story-section';
 
 import styles from './styles.scss';
+import { FaceliftStory } from '../FaceliftStory/FaceliftStory';
 
 const Header = ({ storyName, metadata }) => (
   <div className={styles.header}>
@@ -19,22 +20,37 @@ const Header = ({ storyName, metadata }) => (
 const hasHeader = (sections = []) =>
   sections[0] && sections[0].type === SectionType.Header;
 
-export const View: React.FunctionComponent<StoryConfig> = storyConfig => (
-  <div className={styles.page}>
-    <div className={styles.content}>
-      {!hasHeader(storyConfig.sections) && (
-        <Header
-          storyName={storyConfig.storyName}
-          metadata={storyConfig.metadata}
-        />
-      )}
+export const View: React.FunctionComponent<StoryConfig> = (storyConfig) => {
+  if (storyConfig.content) {
+    return (
+      <div className={styles.page}>
+        <div className={styles.content}>
+          <FaceliftStory
+            content={storyConfig.content}
+            examples={storyConfig.examples}
+          />
+        </div>
+      </div>
+    );
+  }
 
-      {tab(
-        makeTab({
-          sections: storyConfig.sections,
-        }),
-        storyConfig,
-      )}
+  return (
+    <div className={styles.page}>
+      <div className={styles.content}>
+        {!hasHeader(storyConfig.sections) && (
+          <Header
+            storyName={storyConfig.storyName}
+            metadata={storyConfig.metadata}
+          />
+        )}
+
+        {tab(
+          makeTab({
+            sections: storyConfig.sections,
+          }),
+          storyConfig
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
+};

@@ -20,7 +20,11 @@ export enum SectionType {
   Plugin = 'plugin',
   Example = 'example',
   DoDont = 'doDont',
+<<<<<<< HEAD
   Demo = 'demo',
+=======
+  StoryPage = 'storyPage',
+>>>>>>> new story module
 }
 
 export interface StorySection {
@@ -47,7 +51,11 @@ export type Section =
   | PluginSection
   | ExampleSection
   | DoDontSection
+<<<<<<< HEAD
   | DemoSection;
+=======
+  | StoryPageSection;
+>>>>>>> new story module
 
 export type PluginHandler = (
   section: PluginSection,
@@ -298,4 +306,7 @@ export interface DoDontSection extends DoDontProps, StorySection {}
 
 export interface DemoSection extends StorySection {
   component: React.ReactNode;
+}
+export interface StoryPageSection extends StorySection {
+  componentName: string;
 }

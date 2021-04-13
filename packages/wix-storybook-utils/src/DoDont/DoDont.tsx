@@ -45,8 +45,8 @@ const Title: React.FC<{
     {props.title
       ? props.title
       : props.skin === 'red'
-      ? `Don't use it`
-      : 'Use it'}
+      ? `Don't`
+      : `Do`}
   </div>
 );
 

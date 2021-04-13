@@ -1,47 +1,93 @@
-// import React from 'react';
-// import {
-//   header,
-//   divider,
-//   tabs,
-//   tab,
-//   title,
-//   importExample,
-//   api,
-//   testkit,
-//   playground,
-//   description,
-//   example as baseExample,
-//   storyPage,
-// } from '../../src/Sections';
+import * as React from 'react';
+import { description } from '../Sections/views/description';
+import { divider } from '../Sections/views/divider';
+import { doDont } from '../Sections/views/do-dont';
+import { example } from '../Sections/views/example';
+import { header } from '../Sections/views/header';
+import { importExample } from '../Sections/views/import-example';
+import { title } from '../Sections/views/title';
+import { SectionType } from '../typings/story-section';
+import { FaceliftStoryProps } from './FaceliftStory.types';
 
-import Component from '../Component';
+export const FaceliftStory = (props: FaceliftStoryProps) => {
+  console.log(props.examples);
+  return (
+    <div>
+      <div>
+        <div>
+          {header(
+            {
+              issueUrl: 'https://github.com/wix/wix-style-react/issues/new',
+              sourceUrl: `https://github.com/wix/wix-style-react/tree/master/src/${props.storyName}`,
+              type: SectionType.Header,
+              title: props.storyName,
+            },
+            {} as any
+          )}
+          {doDont(
+            {
+              do: {
+                list: props.content.do,
+              },
+              dont: {
+                list: props.content.dont,
+              },
+              type: SectionType.DoDont,
+            },
+            {}
+          )}
+          {description({
+            title: 'Description',
+            text: props.content.description,
+            type: SectionType.Description,
+          })}
+          {importExample({
+            source: `import { ${props.storyName} } from 'wix-style-react';`,
+          })}
+          {divider({}, {})}
+          {title({ title: 'Customizations' }, {})}
 
-// const example = (config) => baseExample({ ...config });
+          {props.content.featureExamples.map((featureExample) =>
+            example(
+              {
+                title: featureExample.title,
+                text: featureExample.description,
+                source: props.examples[featureExample.example],
+              },
+              {}
+            )
+          )}
 
-import { storySettings } from './storySettings';
-import content from './StoryStructure.content.json';
-import * as examples from './examples';
+          {props.content.commonExamples && divider({}, {})}
+          {props.content.commonExamples &&
+            title({ title: 'Common Use Cases' }, {})}
 
-console.log({ ...storySettings });
+          {props.content.commonExamples &&
+            props.content.commonExamples.map((commonExample) =>
+              example(
+                {
+                  title: commonExample.title,
+                  text: commonExample.description,
+                  source: props.examples[commonExample.example],
+                },
+                {}
+              )
+            )}
 
-export default {
-  category: 'StoryStructure',
-  storyName: 'Component',
-  component: Component,
-  componentPath: '../Component.js',
-  modifyExamples: (example) =>
-    example === '_advancedRadioGroup' && { mode: 'landscape' },
+          {divider({}, {})}
+          {title({ title: 'Feedback' }, {})}
 
-  content,
-  examples,
+          {description({
+            text:
+              'You can help us improve this component by providing feedback, asking questions or leaving any  other comments via `#wix-style-ux` or `#wix-style-react` Slack channels or GitHub. Found a bug? Please report it to: <a href="https://goo.gl/forms/wrVuHnyBrEISXUPF2" target="_blank">goo.gl/forms/wrVuHnyBrEISXUPF2</a>',
+          })}
+        </div>
+      </div>
+    </div>
+  );
 };
 
-// export default {
-//   category: 'StoryStructure',
-//   storyName: 'Component',
-//   component: Component,
-//   componentPath: '../Component.js',
-//   sections: [
+//sections: [
 //     header({
 //       issueUrl: 'https://github.com/wix/wix-style-react/issues/new',
 //       sourceUrl: 'https://github.com/wix/wix-style-react/tree/master/src/Input',
@@ -186,4 +232,85 @@ export default {
 //       ].map(tab),
 //     ]),
 //   ],
-// };
+
+// sections: [
+//   header({
+//     issueUrl: 'https://github.com/wix/wix-style-react/issues/new',
+//     sourceUrl:
+//       'https://github.com/wix/wix-style-react/tree/master/src/RadioGroup',
+//     component: (
+//       <RadioGroup value={1}>
+//         <RadioGroup.Radio value={1}>Option 1</RadioGroup.Radio>
+//         <RadioGroup.Radio value={2}>Option 2</RadioGroup.Radio>
+//       </RadioGroup>
+//     ),
+//   }),
+
+//   tabs([
+//     tab({
+//       title: 'Description',
+//       sections: [
+//         importExample("import { RadioGroup } from 'wix-style-react';"),
+
+//         divider(),
+
+//         title('Examples'),
+
+//         example({
+//           title: 'Simple generic use',
+//           source: examples.simple,
+//         }),
+
+//         example({
+//           title: 'Disabled option',
+//           source: examples.disabledRadios,
+//         }),
+
+//         example({
+//           title: 'Controlled radio group',
+//           source: examples.controlledRadioGroup,
+//         }),
+
+//         description({
+//           title: 'Using selectionArea',
+//           text:
+//             'A selection area makes is easier to select a radio option, with a background or a border as an indicator to the click area',
+//         }),
+
+//         example({
+//           source: examples.selectionAreaAlwaysFilled,
+//         }),
+
+//         example({
+//           source: examples.selectionAreaHoverFilled,
+//         }),
+
+//         example({
+//           source: examples.selectionAreaAlwaysOutlined,
+//         }),
+
+//         example({
+//           source: examples.selectionAreaHoverOutlined,
+//         }),
+
+//         example({
+//           title: 'Using with content',
+//           source: examples.withContent,
+//         }),
+
+//         divider(),
+
+//         title('Feedback'),
+
+//         description(
+//           'You can help us improve this component by providing feedback, asking questions or leaving any  other comments via `#wix-style-ux` or `#wix-style-react` Slack channels or GitHub. Found a bug? Please report it to: <a href="https://goo.gl/forms/wrVuHnyBrEISXUPF2" target="_blank">goo.gl/forms/wrVuHnyBrEISXUPF2</a>',
+//         ),
+//       ],
+//     }),
+//     ...[
+//       { title: 'API', sections: [api()] },
+//       { title: 'Testkit', sections: [testkit()] },
+//       { title: 'Playground', sections: [playground()] },
+//     ].map(tab),
+//   ]),
+// ],

@@ -18,6 +18,7 @@ import {
   mdx,
   playground,
   plugin,
+  storyPage,
   tab,
   table,
   tabs,

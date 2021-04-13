@@ -1,0 +1,38 @@
+{
+  "description": "Radio button represents an item of a single selection list. It is a part of RadioGroup or can be used to recreate it.",
+  "do": ["first item do", "second item"],
+  "dont": ["first item dont", "second item"],
+  "featureExamples": [
+    {
+      "title": "Structure",
+      "description": "Radio button consists of a radio itself and a label on the side.",
+      "example": "_structure"
+    },
+    {
+      "title": "States",
+      "description": "Radio button has three states - `default`, `checked` and `disabled`.",
+      "example": "_states"
+    },
+    {
+      "title": "Label",
+      "description": "Label value accepts `node` or `string` based values. It is recommended to use `string` as it complies with design systems typography.",
+      "example": "_label"
+    },
+    {
+      "title": "Alignment",
+      "description": "Radio is vertically centered to its label by default. Items can be aligned to the top with alignItems prop.",
+      "example": "_alignment"
+    },
+    {
+      "title": "Advanced Example",
+      "description": "Radio can be used to recreate Radio Group.",
+      "example": "_advancedRadioGroup"
+    },
+    {
+      "title": "Advanced Example",
+      "description": "Radio can be used to build custom selection lists.",
+      "example": "_advancedCustomSelection"
+    }
+  ],
+  "commonUseCaseExamples": []
+}

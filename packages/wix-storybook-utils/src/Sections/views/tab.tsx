@@ -22,6 +22,7 @@ import { plugin } from './plugin';
 import { example } from './example';
 import { doDont } from './do-dont';
 import { demo } from './demo';
+import { storyPage } from './story-page';
 
 import styles from '../styles.scss';
 import TabbedView from '../../TabbedView';
@@ -53,6 +54,7 @@ const views = {
   example,
   doDont,
   demo,
+  storyPage,
 };
 
 export const getView = type => views[type] || (i => i);

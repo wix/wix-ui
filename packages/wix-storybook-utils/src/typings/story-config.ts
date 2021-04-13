@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Metadata } from './metadata';
 import { Config } from './config';
 import { StorySection } from './story-section';
+import { StoryContent } from './story-content';
 
 export interface StoryConfig {
   metadata: Metadata;
@@ -30,4 +31,7 @@ export interface StoryConfig {
    * */
   codeExample?: boolean;
   sections?: StorySection[];
+
+  content: StoryContent; //TODO
+  modifyExamples(example: string): { mode: string }; //TODO - is it good name?
 }
