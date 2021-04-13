@@ -5,7 +5,7 @@ import { storiesOf } from '@storybook/react';
 import Markdown from '../../src/Markdown';
 import InteractiveCodeExample from '../../src/InteractiveCodeExample';
 import CodeExample from '../../src/CodeExample';
-import NewPlayground from '../../src/NewPlayground';
+import NewPlayground from '../../src/NewPlayground/NewPlayground';
 import Input from '../../src/ui/input';
 import SearchInput from '../../src/ui/search-input';
 import Button from '../../src/ui/button';
@@ -15,9 +15,18 @@ import SomeComponentExample from './examples/Example';
 import SomeComponentExampleRaw from '!raw-loader!./examples/Example';
 
 storiesOf('Components', module)
-  .add('<NewPlayground/>', () => (
-    <NewPlayground />
-  ))
+  .add('<NewPlayground/>', () => {
+    const initialCode = `() => {
+  React.useEffect(() => {
+    console.log('hello');
+  }, [])
+
+  return <div>hey</div>;
+}`;
+    return (
+      <NewPlayground initialCode={initialCode} />
+    );
+  })
 
   .add('<CodeExample/>', () => (
     <div>
