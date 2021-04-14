@@ -1,11 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
+import { LiveProvider, LiveError, LivePreview } from 'react-live';
 import classnames from 'classnames';
 import { Collapse } from 'react-collapse';
 import debounce from 'lodash/debounce';
 import { DebouncedFunc } from 'lodash';
+import {UnControlled as ReactCodeMirror} from 'react-codemirror2'
+import 'codemirror/mode/jsx/jsx';
+import 'codemirror/addon/edit/closetag';
+import 'codemirror/addon/edit/closebrackets';
 
+import "./styles.global.scss";
 import DuplicateSmall from '../icons/DuplicateSmall';
 import RevertSmall from '../icons/RevertSmall';
 import CodeSmall from '../icons/CodeSmall';
@@ -50,6 +55,42 @@ interface State {
   isEditorOpened: boolean;
   parseError: object | null;
   renderPreview: boolean;
+}
+
+const Editor: React.FC<{
+  setCode: Function
+  code: string
+}> = ({ setCode, code }) => {
+  const onCodeChange = (_editorInstance, _data, newCode) => {
+    setCode(newCode);
+  };
+
+  return (
+    <ReactCodeMirror
+      value={code}
+      // onBeforeChange={debounce(onCodeChange, 100)}
+      onBeforeChange={onCodeChange}
+      options={{
+        mode: 'jsx',
+        autoCloseTags: true,
+        autoCloseBrackets: true,
+        theme: 'neo',
+        viewportMargin: 50,
+        lineNumbers: true,
+        extraKeys: {
+          Tab: (cm) => {
+            if (cm.somethingSelected()) {
+              cm.indentSelection('add');
+            } else {
+              const indent = cm.getOption('indentUnit');
+              const spaces = Array(indent + 1).join(' ');
+              cm.replaceSelection(spaces);
+            }
+          },
+        },
+      }}
+    />
+  );
 }
 
 export default class LiveCodeExample extends React.PureComponent<Props, State> {
@@ -157,7 +198,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
       code: formatCode(this.props.initialCode),
     });
 
-  onCodeChange = (code: string) =>
+  onCodeChange = (_code2: string, _code1, code) =>
     this.setState({ code }, () => this.props.onChange(this.state.code));
 
   onToggleRtl = (isRtl: boolean) => this.setState({ isRtl });
@@ -204,6 +245,10 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
 
     return null;
   };
+
+  editorDidMount = (editor) => {
+    editor.getDoc().setValue(this.state.initialFormattedCode);
+  }
 
   render() {
     const {
@@ -306,7 +351,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
 
               {this.renderError()}
             </div>
-
+{/* 
             <Collapse isOpened={isEditorOpened} className={styles.editor}>
               <LiveEditor
                 onChange={this.debouncedOnCodeChange}
@@ -315,6 +360,34 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
                 highlight={safeTokenHighlighter}
                 // @ts-ignore because LiveEditor spreads props onto `react-simple-code-editor` and it supports `onKeyDown`
                 onKeyDown={this.liveEditorOnKeyDown}
+              />
+            </Collapse> */}
+            <Collapse isOpened={isEditorOpened} className={styles.editor}>
+              <ReactCodeMirror
+                // value={dirty ? undefined : this.state.initialFormattedCode}
+                // onBeforeChange={debounce(onCodeChange, 100)}
+                // onBeforeChange={this.onCodeChange}
+                onChange={this.debouncedOnCodeChange}
+                editorDidMount={this.editorDidMount}
+                options={{
+                  mode: 'jsx',
+                  autoCloseTags: true,
+                  autoCloseBrackets: true,
+                  theme: 'neo',
+                  viewportMargin: 50,
+                  lineNumbers: true,
+                  extraKeys: {
+                    Tab: (cm) => {
+                      if (cm.somethingSelected()) {
+                        cm.indentSelection('add');
+                      } else {
+                        const indent = cm.getOption('indentUnit');
+                        const spaces = Array(indent + 1).join(' ');
+                        cm.replaceSelection(spaces);
+                      }
+                    },
+                  },
+                }}
               />
             </Collapse>
           </div>
