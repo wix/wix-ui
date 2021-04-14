@@ -21,11 +21,8 @@ export enum SectionType {
   Plugin = 'plugin',
   Example = 'example',
   DoDont = 'doDont',
-<<<<<<< HEAD
   Demo = 'demo',
-=======
   StoryPage = 'storyPage',
->>>>>>> new story module
 }
 
 export interface StorySection {
@@ -52,11 +49,8 @@ export type Section =
   | PluginSection
   | ExampleSection
   | DoDontSection
-<<<<<<< HEAD
-  | DemoSection;
-=======
+  | DemoSection
   | StoryPageSection;
->>>>>>> new story module
 
 export type PluginHandler = (
   section: PluginSection,
