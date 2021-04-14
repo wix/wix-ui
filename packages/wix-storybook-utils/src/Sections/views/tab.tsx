@@ -21,6 +21,7 @@ import { title } from './title';
 import { plugin } from './plugin';
 import { example } from './example';
 import { doDont } from './do-dont';
+import { demo } from './demo';
 
 import styles from '../styles.scss';
 import TabbedView from '../../TabbedView';
@@ -51,6 +52,7 @@ const views = {
   plugin,
   example,
   doDont,
+  demo,
 };
 
 export const getView = type => views[type] || (i => i);
@@ -68,7 +70,9 @@ function render(
 
       return (
         <div key={key} data-hook={section.dataHook || null}>
-          {isTab(tabSection) ? view : sectionWithSiblings(tabSection, view)}
+          {isTab(tabSection)
+            ? view
+            : sectionWithSiblings(tabSection, view, true)}
         </div>
       );
     }),
