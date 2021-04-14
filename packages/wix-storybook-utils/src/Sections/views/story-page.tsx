@@ -6,26 +6,45 @@ import {
   importExample as importExampleConfig,
 } from '../';
 import { divider } from './divider';
-import { doDont } from './do-dont';
-import { example } from './example';
-import { header } from './header';
+import { doDont as doDontView } from './do-dont';
+import { example as exampleView } from './example';
+import { header as headerView } from './header';
 import { title } from './title';
 import { SectionType, StoryPageSection } from '../../typings/story-section';
 import { StoryConfig } from '../../typings/story-config';
 import { Example } from '../../typings/story';
 import { sectionWithSiblings } from '../section-with-siblings';
 import { importExample as importExampleView } from './import-example';
+import { tabs } from './tabs';
+import { tab } from './tab';
 
-const examples = (props: Example, storyConfig: StoryConfig) =>
-  example(
-    {
-      type: SectionType.Example,
-      title: props.title,
-      text: props.description,
-      source: storyConfig.story.examples[props.example],
-    },
-    storyConfig,
+const examples = (props: {
+  title: string;
+  examples: Example[];
+  storyConfig: StoryConfig;
+}) => {
+  if (!props.examples.length) {
+    return null;
+  }
+
+  return (
+    <>
+      {divider()}
+      {title({ type: SectionType.Title, title: props.title })}
+      {props.examples.map(item =>
+        exampleView(
+          {
+            type: SectionType.Example,
+            title: item.title,
+            text: item.description,
+            source: props.storyConfig.story.examples[item.example],
+          },
+          props.storyConfig,
+        ),
+      )}
+    </>
   );
+};
 
 const description = (props: { title?: string; description: string }) =>
   sectionWithSiblings(
@@ -40,7 +59,7 @@ const description = (props: { title?: string; description: string }) =>
     true,
   );
 
-const importExample = (props: { source: string }, storyConfig: StoryConfig) =>
+const importExample = (storyConfig: StoryConfig) =>
   sectionWithSiblings(
     importExampleConfig({
       title: 'Import',
@@ -48,7 +67,7 @@ const importExample = (props: { source: string }, storyConfig: StoryConfig) =>
     importExampleView(
       {
         type: SectionType.ImportExample,
-        source: props.source,
+        source: storyConfig.exampleImport,
       },
       storyConfig,
     ),
@@ -71,58 +90,67 @@ const demo = (props: { demo: React.ReactNode }) => (
   </div>
 );
 
+const header = (storyConfig: StoryConfig) =>
+  headerView(
+    {
+      type: SectionType.Header,
+      sourceUrl: `${storyConfig.config.repoBaseURL}/${storyConfig.storyName}`,
+    },
+    storyConfig,
+  );
+
+const doDont = (props: { do: string[]; dont: string[] }) =>
+  doDontView({
+    type: SectionType.DoDont,
+    do: {
+      list: props.do,
+    },
+    dont: {
+      list: props.dont,
+    },
+  });
+
+const feedback = (storyConfig: StoryConfig) => {
+  return (
+    <>
+      {divider()}
+      {title({ type: SectionType.Title, title: 'Feedback' })}
+      {description({
+        description: storyConfig.config.feedbackText,
+      })}
+    </>
+  );
+};
+
 export const storyPage = (
   props: StoryPageSection,
   storyConfig: StoryConfig,
 ) => {
-  const { demo: Demo, content } = props;
-  return (
-    <div>
-      {header(
-        {
-          type: SectionType.Header,
-          sourceUrl: `${storyConfig.config.repoBaseURL}/${storyConfig.storyName}`,
-        },
-        storyConfig,
-      )}
-      {demo({ demo: <Demo /> })}
-      {description({
-        title: 'Usage',
-        description: content.description,
-      })}
-      {doDont(
-        {
-          do: {
-            list: content.do,
-          },
-          dont: {
-            list: content.dont,
-          },
-          type: SectionType.DoDont,
-        },
-        storyConfig,
-      )}
-      {importExample(
-        {
-          source: storyConfig.exampleImport,
-        },
-        storyConfig,
-      )}
-      {!!content.featureExamples.length && divider()}
-      {!!content.featureExamples.length &&
-        title({ title: 'Customizations', type: SectionType.Title })}
-      {content.featureExamples.map(item => examples(item, storyConfig))}
-      {!!content.commonUseCaseExamples.length && divider()}
-      {!!content.commonUseCaseExamples.length &&
-        title({ title: 'Common Use Cases', type: SectionType.Title })}
-      {content.commonUseCaseExamples &&
-        content.commonUseCaseExamples.map(item => examples(item, storyConfig))}
-      {divider()}
-      {title({ type: SectionType.Title, title: 'Feedback' })}
-      {description({
-        description:
-          'You can help us improve this component by providing feedback, asking questions or leaving any  other comments via `#wix-style-ux` or `#wix-style-react` Slack channels or GitHub. Found a bug? Please report it to: <a href="https://goo.gl/forms/wrVuHnyBrEISXUPF2" target="_blank">goo.gl/forms/wrVuHnyBrEISXUPF2</a>',
-      })}
-    </div>
+  //const { demo: Demo, content } = props;
+  return tabs(
+    {
+      type: SectionType.Tabs,
+      tabs: [{}],
+    },
+    storyConfig,
   );
 };
+
+// sections: [
+//   header(storyConfig),
+//   demo({ demo: <Demo /> }),
+//   description({ title: 'Usage', description: content.description }),
+//   doDont({ do: content.do, dont: content.dont }),
+//   importExample(storyConfig),
+//   examples({
+//     title: 'Variations',
+//     examples: content.featureExamples,
+//     storyConfig,
+//   }),
+//   examples({
+//     title: 'Common Use Cases',
+//     examples: content.commonUseCaseExamples,
+//     storyConfig,
+//   }),
+//   feedback(storyConfig),
+// ],
