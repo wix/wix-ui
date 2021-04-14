@@ -244,7 +244,7 @@ describe('updateComponentsList', () => {
       expect(output).toEqual(expectedOutput);
     });
 
-    it('should be added for changed components', async () => {
+    it('should be added for changed components in monorepo', async () => {
       const gitTestkit = new GitTestkit();
       await gitTestkit.init({
         files: {
