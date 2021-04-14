@@ -5,7 +5,7 @@ import minimatch from 'minimatch';
 
 import { fileExists } from '../file-exists';
 
-interface Params {
+interface Config {
   cwd: string;
   path: string;
   withContent?: boolean;
@@ -16,7 +16,7 @@ const fsReaddir = promisify(fs.readdir);
 const fsReadFile = promisify(fs.readFile);
 const fsStat = promisify(fs.stat);
 
-export const fsToJson: (a: Params) => Promise<Object> = async ({
+export const fsToJson: (config: Config) => Promise<Object> = async ({
   cwd,
   path,
   withContent = false,
@@ -33,7 +33,11 @@ export const fsToJson: (a: Params) => Promise<Object> = async ({
         accPromise.then(async (acc) => {
           const entryPath = pathResolve(entryCwd, entry);
 
-          if (exclude.some((glob) => minimatch(entryPath, glob))) {
+          if (
+            exclude.some((glob) =>
+              minimatch(entryPath, glob, { matchBase: true }),
+            )
+          ) {
             return acc;
           }
 
