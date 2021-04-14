@@ -76,26 +76,30 @@ describe('getDirtyComponents', () => {
   });
 
   it('should return list of dirty components', async () => {
-    const fakeFs = cista({
-      'A/index.js': '',
-      'B/index.js': `require("../C")`,
-      'C/index.js': 'require("./C.js")',
+    const gitTestkit = new GitTestkit();
+    await gitTestkit.init({
+      files: {
+        A: { 'index.js': '' },
+        B: { 'index.js': `require("../C")` },
+        C: { 'index.js': `require("./C.js")` },
+      },
     });
-
-    const gitTestkit = new GitTestkit({ cwd: fakeFs.dir });
-    await gitTestkit.init();
     await gitTestkit.createBranch('test');
     await gitTestkit.checkout('test');
-    await gitTestkit.commitFile('C/C.js', '"hello world"', 'add component');
+    await gitTestkit.commitFile({
+      name: 'C/C.js',
+      content: '"hello world"',
+      message: 'add component',
+    });
 
     const dirtyComponents = await getDirtyComponents({
-      rootPath: fakeFs.dir,
+      rootPath: gitTestkit.cwd,
       components: {
         A: { path: 'A' },
         B: { path: 'B' },
         C: { path: 'C' },
       },
-      changedFiles: await getChangedFiles({ cwd: fakeFs.dir }),
+      changedFiles: await getChangedFiles({ cwd: gitTestkit.cwd }),
     });
 
     expect(dirtyComponents).toEqual(['B', 'C']);

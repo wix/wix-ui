@@ -1,10 +1,17 @@
-import fs from 'fs';
 import path from 'path';
 import { execSync } from 'child_process';
 
 export const getChangedFiles = async ({ cwd }) => {
-  const folder = fs.readdirSync(cwd);
-  if (!folder.includes('.git')) {
+  const exec = (cmd: string) => execSync(cmd, { encoding: 'utf8', cwd });
+
+  let isGitRepo = false;
+  try {
+    isGitRepo =
+      exec('git rev-parse --is-inside-work-tree 2> /dev/null').trim() ===
+      'true';
+  } catch (e) {}
+
+  if (!isGitRepo) {
     throw new Error('wuf must be used inside a git repository');
   }
 

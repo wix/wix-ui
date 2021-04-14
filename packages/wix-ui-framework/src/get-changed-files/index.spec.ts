@@ -1,7 +1,6 @@
 import path from 'path';
 import { tmpdir } from 'os';
 import fs from 'fs';
-import cista from 'cista';
 
 import { GitTestkit } from '../../test/git-testkit';
 import { getChangedFiles } from '.';
@@ -21,23 +20,31 @@ describe('getChangedFiles', () => {
       await gitTestkit.init();
       await gitTestkit.createBranch('test');
       await gitTestkit.checkout('test');
-      await gitTestkit.commitFile('testFile', '', 'add test file');
+      await gitTestkit.commitFile({
+        name: 'testFile',
+        message: 'add test file',
+      });
       expect(await getChangedFiles({ cwd: gitTestkit.cwd })).toEqual(
         ['testFile'].map((p) => path.join(gitTestkit.cwd, p)),
       );
     });
 
     it('should return list of changed files', async () => {
-      const fakeFs = cista({
-        'A/index.js': '',
-        'B/index.js': `require('../C')`,
-        'C/index.js': `require('./C.js')`,
+      const gitTestkit = new GitTestkit();
+      await gitTestkit.init({
+        files: {
+          A: { 'index.js': '' },
+          B: { 'index.js': `require('../C')` },
+          C: { 'index.js': `require('./C.js')` },
+        },
       });
-      const gitTestkit = new GitTestkit({ cwd: fakeFs.dir });
-      await gitTestkit.init();
       await gitTestkit.createBranch('test');
       await gitTestkit.checkout('test');
-      await gitTestkit.commitFile('C/C.js', '"hello world"', 'add component');
+      await gitTestkit.commitFile({
+        name: 'C/C.js',
+        content: '"hello world"',
+        message: 'add component',
+      });
       expect(await getChangedFiles({ cwd: gitTestkit.cwd })).toEqual(
         ['C/C.js'].map((p) => path.join(gitTestkit.cwd, p)),
       );
