@@ -305,7 +305,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
 
               {this.renderError()}
             </div>
-
+{/* 
             <Collapse isOpened={isEditorOpened} className={styles.editor}>
               <ReactCodeMirror
                 onChange={this.debouncedOnCodeChange}
@@ -320,6 +320,34 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
                   lineNumbers: true,
                   extraKeys: {
                     Tab: cm => {
+                      if (cm.somethingSelected()) {
+                        cm.indentSelection('add');
+                      } else {
+                        const indent = cm.getOption('indentUnit');
+                        const spaces = Array(indent + 1).join(' ');
+                        cm.replaceSelection(spaces);
+                      }
+                    },
+                  },
+                }}
+              />
+            </Collapse> */}
+            <Collapse isOpened={isEditorOpened} className={styles.editor}>
+              <ReactCodeMirror
+                // value={dirty ? undefined : this.state.initialFormattedCode}
+                // onBeforeChange={debounce(onCodeChange, 100)}
+                // onBeforeChange={this.onCodeChange}
+                onChange={this.debouncedOnCodeChange}
+                editorDidMount={this.editorDidMount}
+                options={{
+                  mode: 'jsx',
+                  autoCloseTags: true,
+                  autoCloseBrackets: true,
+                  theme: 'neo',
+                  viewportMargin: 50,
+                  lineNumbers: true,
+                  extraKeys: {
+                    Tab: (cm) => {
                       if (cm.somethingSelected()) {
                         cm.indentSelection('add');
                       } else {
