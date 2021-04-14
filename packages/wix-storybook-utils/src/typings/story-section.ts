@@ -297,5 +297,5 @@ export interface TitleSection extends StorySection {}
 export interface DoDontSection extends DoDontProps, StorySection {}
 
 export interface DemoSection extends StorySection {
-  demo: React.ReactNode;
+  component: React.ReactNode;
 }
