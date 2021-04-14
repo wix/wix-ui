@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { description as descriptionView } from './description';
+import { demo as demoView } from './demo';
 import {
   description as descriptionConfig,
   importExample as importExampleConfig,
@@ -9,8 +10,6 @@ import { doDont } from './do-dont';
 import { example } from './example';
 import { header } from './header';
 import { title } from './title';
-import { tabs } from './tabs';
-import { tab } from './tab';
 import { SectionType, StoryPageSection } from '../../typings/story-section';
 import { StoryConfig } from '../../typings/story-config';
 import { Example } from '../../typings/story';
@@ -56,14 +55,17 @@ const importExample = (props: { source: string }, storyConfig: StoryConfig) =>
     true,
   );
 
-const demoExample = (props: { demo: React.ReactNode }) => (
+const demo = (props: { demo: React.ReactNode }) => (
   <div>
     {sectionWithSiblings(
       descriptionConfig({
         title: 'Demo',
         description: '',
       }),
-      props.demo,
+      demoView({
+        type: SectionType.Demo,
+        component: props.demo,
+      }),
       true,
     )}
   </div>
@@ -76,17 +78,6 @@ export const storyPage = (
   const { demo: Demo, content } = props;
   return (
     <div>
-      {tabs(
-        {
-          type: SectionType.Tabs,
-          tabs: [
-            tab({
-              type: SectionType.Tab,
-            }),
-          ],
-        },
-        storyConfig,
-      )}
       {header(
         {
           type: SectionType.Header,
@@ -94,7 +85,7 @@ export const storyPage = (
         },
         storyConfig,
       )}
-      {demoExample({ demo: <Demo /> })}
+      {demo({ demo: <Demo /> })}
       {description({
         title: 'Usage',
         description: content.description,
