@@ -3,23 +3,57 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import { exec } from 'child_process';
 
+import { fsToJson } from '../../src/fs-to-json';
+import { jsonToFs } from '../../src/json-to-fs';
 import promisify from './promisify';
+
+interface Config {
+  cwd?: string;
+}
+
 export class GitTestkit {
   cwd: string;
+  files: object;
   exec: Function;
-  constructor({ cwd = '' } = {}) {
+
+  constructor({ cwd = '' }: Config = {}) {
     if (cwd) {
       this.cwd = cwd;
     } else {
-      const fakeFs = cista();
-      this.cwd = fakeFs.dir;
+      const tmpFs = cista();
+      this.cwd = tmpFs.dir;
     }
+
     this.exec = (cmd: string) => promisify(exec)(cmd, { cwd: this.cwd });
   }
 
-  async init() {
+  async init({ files = {}, branches = {} } = {}) {
     await this.exec('git init --quiet');
-    await this.commitFile('package.json', '{}', 'initial commit');
+
+    if (Object.keys(files).length) {
+      await jsonToFs({ tree: files, cwd: this.cwd });
+      try {
+        await this.exec('git add .');
+        await this.exec('git commit -m "initial commit"');
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
+      await this.commitFile({
+        name: 'package.json',
+        content: '{}',
+        message: 'initial commit',
+      });
+    }
+
+    for await (const [branch, files] of Object.entries(branches)) {
+      await this.createBranch(branch);
+      await this.checkout(branch);
+      await jsonToFs({ tree: files, cwd: this.cwd });
+      await this.exec('git add .');
+      await this.exec(`git commit -m "init branch '${branch}'"`);
+      await this.checkout('master');
+    }
   }
 
   async gitExists() {
@@ -28,10 +62,29 @@ export class GitTestkit {
   }
 
   async getBranches() {
-    return this.exec('git branch');
+    const branchesRaw = await this.exec(
+      'git for-each-ref refs/heads --format="%(refname:short)"',
+    );
+    return branchesRaw.trim().split('\n');
+  }
+
+  async getActiveBranch() {
+    return this.exec('git rev-parse --abbrev-ref HEAD');
+  }
+
+  async getTree() {
+    return fsToJson({
+      cwd: this.cwd,
+      path: '.',
+      exclude: ['.git'],
+      withContent: true,
+    });
   }
 
   async createBranch(name: string) {
+    if ((await this.getBranches()).includes(name)) {
+      return;
+    }
     return this.exec(`git checkout -b ${name}`);
   }
 
@@ -39,15 +92,19 @@ export class GitTestkit {
     return this.exec(`git checkout ${name}`);
   }
 
-  async commitFile(
-    filePath: string,
-    content: string,
-    commitMessage = 'dummy commit',
-  ) {
-    await fs.writeFile(path.join(this.cwd, filePath), content, {
+  async commitFile({
+    name,
+    content = '',
+    message = 'dummy commit',
+  }: {
+    name: string;
+    content?: string;
+    message?: string;
+  }) {
+    await fs.writeFile(path.join(this.cwd, name), content, {
       encoding: 'utf8',
     });
     await this.exec('git add .');
-    await this.exec(`git commit -m "${commitMessage}"`);
+    await this.exec(`git commit -m "${message}"`);
   }
 }
