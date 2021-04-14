@@ -104,4 +104,46 @@ describe('getDirtyComponents', () => {
 
     expect(dirtyComponents).toEqual(['B', 'C']);
   });
+
+  it('should return list of dirty components in monorepo', async () => {
+    const gitTestkit = new GitTestkit();
+    await gitTestkit.init({
+      files: {
+        packages: {
+          'wix-style-react': {
+            src: {
+              Component: { 'index.js': `require('../Component2')` },
+              Component2: { 'index.js': ';' },
+            },
+          },
+        },
+      },
+      branches: {
+        feature: {
+          packages: {
+            'wix-style-react': {
+              src: {
+                Component2: { 'index.js': `require('../Component3')` },
+                Component3: { 'index.js': ';' },
+              },
+            },
+          },
+        },
+      },
+    });
+
+    await gitTestkit.checkout('feature');
+
+    const dirtyComponents = await getDirtyComponents({
+      rootPath: path.join(gitTestkit.cwd, 'packages/wix-style-react'),
+      components: {
+        Component: { path: 'src/Component' },
+        Component2: { path: 'src/Component2' },
+        Component3: { path: 'src/Component3' },
+      },
+      changedFiles: await getChangedFiles({ cwd: gitTestkit.cwd }),
+    });
+
+    expect(dirtyComponents).toEqual(['Component', 'Component2', 'Component3']);
+  });
 });

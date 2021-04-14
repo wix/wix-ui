@@ -26,7 +26,6 @@ export const jsonToFs = async ({ tree = {}, cwd }) => {
   const queue: Queue = makeQueue(tree);
 
   while (queue.length) {
-    debugger;
     const current = queue.shift();
     if (current.type === 'files') {
       const [name, content] = current.entry;
@@ -43,7 +42,11 @@ export const jsonToFs = async ({ tree = {}, cwd }) => {
 
     if (current.type === 'down') {
       currentPath = path.join(currentPath, current.name);
-      await fsMkdir(currentPath);
+      try {
+        await fsMkdir(currentPath);
+      } catch (e) {
+        // TODO: consider a nicer handling for the case when we try to create folder that already exists
+      }
     }
 
     if (current.type === 'up') {

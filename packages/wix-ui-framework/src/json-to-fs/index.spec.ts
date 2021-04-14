@@ -56,5 +56,28 @@ describe('jsonToFs', () => {
       });
       expect(tree).toEqual(actualFs);
     });
+
+    it('should work when creating existing folders', async () => {
+      const tree = {
+        a: {
+          b: '1',
+        },
+      };
+      const tmpFs = cista({
+        'a/c': '2',
+      });
+      await jsonToFs({ tree, cwd: tmpFs.dir });
+      const actualFs = await fsToJson({
+        cwd: tmpFs.dir,
+        path: '.',
+        withContent: true,
+      });
+      expect(actualFs).toEqual({
+        a: {
+          b: '1',
+          c: '2',
+        },
+      });
+    });
   });
 });

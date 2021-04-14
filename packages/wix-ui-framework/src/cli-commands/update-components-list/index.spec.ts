@@ -201,31 +201,38 @@ describe('updateComponentsList', () => {
 
   describe('dirty flag', () => {
     it('should be added for changed components', async () => {
-      const fakeFs = cista({
-        '.wuf/required-component-files.json': `{ "index.js": "" }`,
-        'src/A/index.js': '',
-        'src/B/index.js': 'require("../C")',
-        'src/C/index.js': 'require("./C.js")',
-        'src/C/C.js': '',
+      const gitTestkit = new GitTestkit();
+      await gitTestkit.init({
+        files: {
+          '.wuf': {
+            'required-component-files.json': `{ "index.js": "" }`,
+          },
+          src: {
+            A: { 'index.js': '' },
+            B: { 'index.js': `require("../C")` },
+            C: { 'index.js': `require("./C.js")`, 'C.js': ';' },
+          },
+        },
+        branches: {
+          feature: {
+            src: {
+              C: {
+                'C.js': '"hello world"',
+              },
+            },
+          },
+        },
       });
 
-      const gitTestkit = new GitTestkit({ cwd: fakeFs.dir });
-      await gitTestkit.init();
-      await gitTestkit.createBranch('test');
-      await gitTestkit.checkout('test');
-      await gitTestkit.commitFile(
-        'src/C/C.js',
-        '"hello world"',
-        'add component',
-      );
+      await gitTestkit.checkout('feature');
 
       await updateComponentsList({
         components: 'src',
-        _process: { cwd: fakeFs.dir },
+        _process: { cwd: gitTestkit.cwd },
       });
 
       const output = JSON.parse(
-        fs.readFileSync(`${fakeFs.dir}/.wuf/components.json`, 'utf8'),
+        fs.readFileSync(`${gitTestkit.cwd}/.wuf/components.json`, 'utf8'),
       );
 
       const expectedOutput = {
