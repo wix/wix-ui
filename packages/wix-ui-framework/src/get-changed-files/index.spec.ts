@@ -17,13 +17,14 @@ describe('getChangedFiles', () => {
   describe('given path with dirty git', () => {
     it('should return list of changed files', async () => {
       const gitTestkit = new GitTestkit();
-      await gitTestkit.init();
-      await gitTestkit.createBranch('test');
-      await gitTestkit.checkout('test');
-      await gitTestkit.commitFile({
-        name: 'testFile',
-        message: 'add test file',
+      await gitTestkit.init({
+        branches: {
+          test: {
+            testFile: '',
+          },
+        },
       });
+      await gitTestkit.checkout('test');
       expect(await getChangedFiles({ cwd: gitTestkit.cwd })).toEqual(
         ['testFile'].map((p) => path.join(gitTestkit.cwd, p)),
       );
@@ -37,16 +38,64 @@ describe('getChangedFiles', () => {
           B: { 'index.js': `require('../C')` },
           C: { 'index.js': `require('./C.js')` },
         },
+        branches: {
+          test: {
+            C: { 'C.js': 'hello world' },
+          },
+        },
       });
-      await gitTestkit.createBranch('test');
       await gitTestkit.checkout('test');
-      await gitTestkit.commitFile({
-        name: 'C/C.js',
-        content: '"hello world"',
-        message: 'add component',
-      });
       expect(await getChangedFiles({ cwd: gitTestkit.cwd })).toEqual(
         ['C/C.js'].map((p) => path.join(gitTestkit.cwd, p)),
+      );
+    });
+
+    it('should return absoute paths resolved to git root', async () => {
+      const gitTestkit = new GitTestkit();
+      await gitTestkit.init({
+        files: {
+          packages: {
+            'wix-ui-tpa': {
+              src: {
+                components: {
+                  BigChungus: {
+                    'index.js': `import * as Dep from '../SmallChungus'`,
+                  },
+                  SmallChungus: { 'index.js': `;` },
+                },
+              },
+            },
+          },
+        },
+        branches: {
+          test: {
+            packages: {
+              'wix-ui-tpa': {
+                src: {
+                  components: {
+                    TheChungus: {
+                      'index.js': `import Dep from '../SmallChungus'`,
+                    },
+                    SmallChungus: {
+                      'index.js': `require('./SmallChungus.js')`,
+                      'SmallChungus.js': ';',
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      });
+
+      await gitTestkit.checkout('test');
+
+      expect(await getChangedFiles({ cwd: gitTestkit.cwd })).toEqual(
+        [
+          'packages/wix-ui-tpa/src/components/SmallChungus/SmallChungus.js',
+          'packages/wix-ui-tpa/src/components/SmallChungus/index.js',
+          'packages/wix-ui-tpa/src/components/TheChungus/index.js',
+        ].map((p) => path.join(gitTestkit.cwd, p)),
       );
     });
   });

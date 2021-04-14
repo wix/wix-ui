@@ -243,5 +243,69 @@ describe('updateComponentsList', () => {
 
       expect(output).toEqual(expectedOutput);
     });
+
+    it('should be added for changed components', async () => {
+      const gitTestkit = new GitTestkit();
+      await gitTestkit.init({
+        files: {
+          packages: {
+            'wix-ui-tpa': {
+              '.wuf': {
+                'required-component-files.json': '{ "index.js": "" }',
+              },
+              src: {
+                components: {
+                  BigChungus: {
+                    'index.js': `import * as Dep from '../SmallChungus'`,
+                  },
+                  SmallChungus: { 'index.js': `;` },
+                },
+              },
+            },
+          },
+        },
+        branches: {
+          test: {
+            packages: {
+              'wix-ui-tpa': {
+                src: {
+                  components: {
+                    TheChungus: {
+                      'index.js': `import Dep from '../SmallChungus'`,
+                    },
+                    SmallChungus: {
+                      'index.js': `require('./SmallChungus.js')`,
+                      'SmallChungus.js': ';',
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      });
+
+      await gitTestkit.checkout('test');
+
+      await updateComponentsList({
+        components: 'src/components',
+        _process: { cwd: path.join(gitTestkit.cwd, 'packages/wix-ui-tpa') },
+      });
+
+      const output = JSON.parse(
+        fs.readFileSync(
+          `${gitTestkit.cwd}/packages/wix-ui-tpa/.wuf/components.json`,
+          'utf8',
+        ),
+      );
+
+      const expectedOutput = {
+        SmallChungus: { path: 'src/components/SmallChungus', dirty: true },
+        BigChungus: { path: 'src/components/BigChungus', dirty: true },
+        TheChungus: { path: 'src/components/TheChungus', dirty: true },
+      };
+
+      expect(output).toEqual(expectedOutput);
+    });
   });
 });
