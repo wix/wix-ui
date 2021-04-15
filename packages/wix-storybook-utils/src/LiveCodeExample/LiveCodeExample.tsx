@@ -309,7 +309,6 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
               <ReactCodeMirror
                 onChange={this.debouncedOnCodeChange}
                 editorDidMount={this.editorDidMount}
-                className={styles.editorView}
                 onKeyDown={this.liveEditorOnKeyDown}
                 options={{
                   mode: 'jsx',
