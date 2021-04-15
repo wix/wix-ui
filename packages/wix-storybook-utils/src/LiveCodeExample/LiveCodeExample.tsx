@@ -108,7 +108,10 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
 
   prettifyCode = () => {
     try {
-      this.setState(({ code }) => ({ code: formatCode(code) }), () => this.setEditorValue(this.state.code));
+      this.setState(
+        ({ code }) => ({ code: formatCode(code) }),
+        () => this.setEditorValue(this.state.code)
+      );
     } catch (e) {
       console.error('Unable to prettify code', e);
     }
@@ -142,7 +145,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
     this.setState({ code });
   };
 
-  onCodeChange = (_code2: string, _code1, code) =>
+  onCodeChange = (_editor, _data, code) =>
     this.setState({ code }, () => this.props.onChange(this.state.code));
 
   onToggleRtl = (isRtl: boolean) => this.setState({ isRtl });
@@ -195,7 +198,10 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
   }
 
   editorDidMount = (editor) => {
-    this.setState({ editorInstance: editor }, () => this.setEditorValue(this.state.initialFormattedCode));
+    this.setState(
+      { editorInstance: editor },
+      () => this.setEditorValue(this.state.initialFormattedCode)
+    );
   }
 
   render() {
@@ -304,7 +310,6 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
               <ReactCodeMirror
                 onChange={this.debouncedOnCodeChange}
                 editorDidMount={this.editorDidMount}
-                className={styles.editorView}
                 onKeyDown={this.liveEditorOnKeyDown}
                 options={{
                   mode: 'jsx',
