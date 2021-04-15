@@ -31,6 +31,7 @@ export const View: React.FunctionComponent<StoryConfig> = storyConfig => {
               content: storyConfig.story.content,
               examples: storyConfig.story.examples,
               demo: storyConfig.story.demo,
+              tabs: storyConfig.story.tabs,
             },
             storyConfig,
           )}

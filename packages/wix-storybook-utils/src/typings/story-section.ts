@@ -1,7 +1,7 @@
 import React from 'react';
 import { StoryConfig } from './story-config';
 import { DoDontProps } from '../DoDont/DoDont.types';
-import { StoryExamples, StoryContent, StoryDemo } from './story';
+import { StoryExamples, StoryContent, StoryDemo, StoryTabs } from './story';
 
 export enum SectionType {
   Api = 'api',
@@ -302,8 +302,10 @@ export interface DoDontSection extends DoDontProps, StorySection {}
 export interface DemoSection extends StorySection {
   component: React.ReactNode;
 }
+
 export interface StoryPageSection extends StorySection {
   content: StoryContent;
   examples: StoryExamples;
   demo: StoryDemo;
+  tabs: StoryTabs;
 }

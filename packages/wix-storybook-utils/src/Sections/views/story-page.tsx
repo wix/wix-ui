@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import { description as descriptionView } from './description';
 import { demo as demoView } from './demo';
 import {
@@ -10,13 +11,21 @@ import { doDont as doDontView } from './do-dont';
 import { example as exampleView } from './example';
 import { header as headerView } from './header';
 import { title } from './title';
-import { SectionType, StoryPageSection } from '../../typings/story-section';
+import {
+  SectionType,
+  StoryPageSection,
+  TabSection,
+} from '../../typings/story-section';
+import { Tabs } from '../../typings/story';
+import { plugin } from './plugin';
 import { StoryConfig } from '../../typings/story-config';
 import { Example } from '../../typings/story';
 import { sectionWithSiblings } from '../section-with-siblings';
 import { importExample as importExampleView } from './import-example';
-import { tabs } from './tabs';
-import { tab } from './tab';
+import { tabs as tabsView } from './tabs';
+import { api } from './api';
+import { testkit } from './testkit';
+import { playground } from './playground';
 
 const examples = (props: {
   title: string;
@@ -122,51 +131,106 @@ const feedback = (storyConfig: StoryConfig) => {
   );
 };
 
+const designTab = (props: StoryPageSection, storyConfig: StoryConfig) => {
+  const { demo: Demo, content } = props;
+  return {
+    title: 'Design',
+    type: SectionType.Tab,
+    sections: [
+      demo({ demo: <Demo /> }),
+      description({
+        title: 'Usage',
+        description: content.description,
+      }),
+      doDont({ do: content.do, dont: content.dont }),
+      importExample(storyConfig),
+      examples({
+        title: 'Variations',
+        examples: content.featureExamples,
+        storyConfig,
+      }),
+      examples({
+        title: 'Common Use Cases',
+        examples: content.commonUseCaseExamples,
+        storyConfig,
+      }),
+      feedback(storyConfig),
+    ],
+  };
+};
+
+const apiTab = (props: StoryPageSection, storyConfig: StoryConfig) => ({
+  title: 'API',
+  type: SectionType.Tab,
+  sections: [api(props, storyConfig)],
+});
+
+const testkitTab = (props: StoryPageSection, storyConfig: StoryConfig) => ({
+  title: 'Testkit',
+  type: SectionType.Tab,
+  sections: [testkit(props, storyConfig)],
+});
+
+const playgroundTab = (props: StoryPageSection, storyConfig: StoryConfig) => ({
+  title: 'Playground',
+  type: SectionType.Tab,
+  sections: [playground(props, storyConfig)],
+});
+
+const tabs = (props: StoryPageSection, storyConfig: StoryConfig) => {
+  const availableTabs = {
+    design: designTab(props, storyConfig),
+    api: apiTab(props, storyConfig),
+    testkit: testkitTab(props, storyConfig),
+    playground: playgroundTab(props, storyConfig),
+  };
+
+  const {
+    tabs: userTabs = (defaultabs: Tabs) => [
+      defaultabs.design,
+      defaultabs.api,
+      defaultabs.testkit,
+    ],
+  } = props;
+
+  const outputTabs = userTabs(availableTabs as any).reduce((result, tab) => {
+    if (availableTabs[tab.title]) {
+      return result.concat(availableTabs[tab.title]);
+    }
+    return result.concat({
+      title: tab.title,
+      type: SectionType.Tab,
+      sections: [
+        tab.sections,
+        {
+          type: SectionType.Plugin,
+          sections: [
+            plugin(
+              { type: SectionType.Plugin, handler: () => tab.node },
+              storyConfig,
+            ),
+          ],
+        },
+      ],
+    });
+  }, []) as TabSection[];
+
+  return tabsView(
+    {
+      type: SectionType.Tabs,
+      tabs: outputTabs,
+    },
+    storyConfig,
+  );
+};
+
 export const storyPage = (
   props: StoryPageSection,
   storyConfig: StoryConfig,
-) => {
-  const { demo: Demo, content } = props;
-  return (
-    <>
-      {header(storyConfig)}
-      {tabs(
-        {
-          type: SectionType.Tabs,
-          tabs: [
-            {
-              title: 'Design',
-              sections: [
-                demo({ demo: <Demo /> }),
-                description({
-                  title: 'Usage',
-                  description: content.description,
-                }),
-                doDont({ do: content.do, dont: content.dont }),
-                importExample(storyConfig),
-                examples({
-                  title: 'Variations',
-                  examples: content.featureExamples,
-                  storyConfig,
-                }),
-                examples({
-                  title: 'Common Use Cases',
-                  examples: content.commonUseCaseExamples,
-                  storyConfig,
-                }),
-                feedback(storyConfig),
-              ],
-              type: SectionType.Tab,
-            },
-            {
-              title: 'API',
-              sections: [],
-              type: SectionType.Tab,
-            },
-          ],
-        },
-        storyConfig,
-      )}
-    </>
-  );
-};
+) => (
+  <>
+    {header(storyConfig)}
+    {tabs(props, storyConfig)}
+  </>
+);
+
