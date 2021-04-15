@@ -20,19 +20,8 @@ import { transformCode, formatCode } from './doctor-code';
 import { CopyButton } from '../CopyButton';
 import ToggleSwitch from '../ui/toggle-switch';
 import TextButton from '../TextButton';
-import { tokenHighlighter } from './token-highlighter';
 
 import styles from './index.scss';
-
-const safeTokenHighlighter = (code: string) => {
-  try {
-    return tokenHighlighter(code);
-  } catch (e) {
-    console.warn('Unable to tokenize code', e);
-    return <span>{code}</span>;
-  }
-};
-
 export interface Props {
   initialCode?: string;
   scope?: object;
@@ -55,44 +44,8 @@ interface State {
   isEditorOpened: boolean;
   parseError: object | null;
   renderPreview: boolean;
+  editorInstance: any;
 }
-
-const Editor: React.FC<{
-  setCode: Function
-  code: string
-}> = ({ setCode, code }) => {
-  const onCodeChange = (_editorInstance, _data, newCode) => {
-    setCode(newCode);
-  };
-
-  return (
-    <ReactCodeMirror
-      value={code}
-      // onBeforeChange={debounce(onCodeChange, 100)}
-      onBeforeChange={onCodeChange}
-      options={{
-        mode: 'jsx',
-        autoCloseTags: true,
-        autoCloseBrackets: true,
-        theme: 'neo',
-        viewportMargin: 50,
-        lineNumbers: true,
-        extraKeys: {
-          Tab: (cm) => {
-            if (cm.somethingSelected()) {
-              cm.indentSelection('add');
-            } else {
-              const indent = cm.getOption('indentUnit');
-              const spaces = Array(indent + 1).join(' ');
-              cm.replaceSelection(spaces);
-            }
-          },
-        },
-      }}
-    />
-  );
-}
-
 export default class LiveCodeExample extends React.PureComponent<Props, State> {
   debouncedOnCodeChange: DebouncedFunc<() => any>;
 
@@ -137,6 +90,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
       isEditorOpened: !props.compact || props.initiallyOpen,
       parseError: null,
       renderPreview: !Boolean(props.previewWarning),
+      editorInstance: null,
     };
   }
 
@@ -152,51 +106,35 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
     }
   }
 
-  prettifyCode = ({
-    textAreaNode = null,
-    prePrettifySelectionEnd = null,
-  } = {}) => {
+  prettifyCode = () => {
     try {
-      this.setState(
-        ({ code }) => ({ code: formatCode(code) }),
-        () => {
-          if (textAreaNode && prePrettifySelectionEnd) {
-            textAreaNode.selectionEnd = prePrettifySelectionEnd;
-          }
-        },
-      );
+      this.setState(({ code }) => ({ code: formatCode(code) }), () => this.setEditorValue(this.state.code));
     } catch (e) {
       console.error('Unable to prettify code', e);
     }
   };
 
-  liveEditorOnKeyDown = (e: KeyboardEvent) => {
-    // key codes for vs code
+  liveEditorOnKeyDown = (_editor, e: KeyboardEvent) => {
     const shouldPrettify = [
-      /* windows: shift + alt + f */
-      e.shiftKey && e.altKey && e.key === 'F',
+      /* windows & unix: ctrl + s */
+      e.ctrlKey && e.key === 's',
 
-      /* osx: shift + option + f */
-      e.shiftKey && e.altKey && e.key === 'F',
-
-      /* unix: shift + ctrl + i */
-      e.shiftKey && e.ctrlKey && e.key === 'I',
+      /* osx: command + s */
+      e.metaKey && e.key === 's',
     ].some(Boolean);
 
     if (shouldPrettify) {
       e.stopPropagation();
       e.preventDefault();
-      this.prettifyCode({
-        textAreaNode: e.target,
-        prePrettifySelectionEnd: (e.target as HTMLTextAreaElement).selectionEnd,
-      });
+      this.prettifyCode();
     }
   };
 
-  onResetCode = () =>
-    this.setState({
-      code: formatCode(this.props.initialCode),
-    });
+  onResetCode = () => {
+    const code = formatCode(this.props.initialCode);
+    this.setEditorValue(code);
+    this.setState({ code });
+  };
 
   onCodeChange = (_code2: string, _code1, code) =>
     this.setState({ code }, () => this.props.onChange(this.state.code));
@@ -246,8 +184,12 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
     return null;
   };
 
+  setEditorValue = (value: string) => {
+    this.state.editorInstance.getDoc().setValue(value);
+  }
+
   editorDidMount = (editor) => {
-    editor.getDoc().setValue(this.state.initialFormattedCode);
+    this.setState({ editorInstance: editor }, () => this.setEditorValue(this.state.initialFormattedCode));
   }
 
   render() {
@@ -351,24 +293,13 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
 
               {this.renderError()}
             </div>
-{/* 
-            <Collapse isOpened={isEditorOpened} className={styles.editor}>
-              <LiveEditor
-                onChange={this.debouncedOnCodeChange}
-                className={styles.editorView}
-                // @ts-ignore because LiveEditor spreads props onto `react-simple-code-editor` and it supports `highlight`
-                highlight={safeTokenHighlighter}
-                // @ts-ignore because LiveEditor spreads props onto `react-simple-code-editor` and it supports `onKeyDown`
-                onKeyDown={this.liveEditorOnKeyDown}
-              />
-            </Collapse> */}
+
             <Collapse isOpened={isEditorOpened} className={styles.editor}>
               <ReactCodeMirror
-                // value={dirty ? undefined : this.state.initialFormattedCode}
-                // onBeforeChange={debounce(onCodeChange, 100)}
-                // onBeforeChange={this.onCodeChange}
                 onChange={this.debouncedOnCodeChange}
                 editorDidMount={this.editorDidMount}
+                className={styles.editorView}
+                onKeyDown={this.liveEditorOnKeyDown}
                 options={{
                   mode: 'jsx',
                   autoCloseTags: true,
