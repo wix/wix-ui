@@ -80,7 +80,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
       trailing: true,
     });
 
-    const formattedCode = formatCode(props.initialCode);
+    const formattedCode = formatCode(props.initialCode).trim();
 
     this.state = {
       initialFormattedCode: formattedCode,
@@ -315,7 +315,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
                   mode: 'jsx',
                   autoCloseTags: true,
                   autoCloseBrackets: true,
-                  theme: 'neo',
+                  theme: 'wix',
                   viewportMargin: 50,
                   lineNumbers: true,
                   extraKeys: {
