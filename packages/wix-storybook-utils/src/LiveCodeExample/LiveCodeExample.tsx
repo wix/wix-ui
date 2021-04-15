@@ -114,7 +114,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
     }
   };
 
-  liveEditorOnKeyDown = (_editor, e: KeyboardEvent) => {
+  liveEditorOnKeyDown = (editor, e: KeyboardEvent) => {
     const shouldPrettify = [
       /* windows & unix: ctrl + s */
       e.ctrlKey && e.key === 's',
@@ -126,7 +126,13 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
     if (shouldPrettify) {
       e.stopPropagation();
       e.preventDefault();
+
+      const editorDoc = editor.getDoc();
+      const { ch, line } = editorDoc.getCursor()
+
       this.prettifyCode();
+
+      editorDoc.setCursor({ch, line})
     }
   };
 
