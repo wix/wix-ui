@@ -2,10 +2,10 @@ import cista from 'cista';
 import { promises as fs } from 'fs';
 import path from 'path';
 import { exec } from 'child_process';
+import { promisify } from 'util';
 
 import { fsToJson } from '../../src/fs-to-json';
 import { jsonToFs } from '../../src/json-to-fs';
-import promisify from './promisify';
 
 interface Config {
   cwd?: string;
@@ -24,7 +24,8 @@ export class GitTestkit {
       this.cwd = tmpFs.dir;
     }
 
-    this.exec = (cmd: string) => promisify(exec)(cmd, { cwd: this.cwd });
+    this.exec = async (cmd: string) =>
+      (await promisify(exec)(cmd, { cwd: this.cwd })).stdout;
   }
 
   async init({ files = {}, branches = {} } = {}) {
