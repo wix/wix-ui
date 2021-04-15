@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { st, classes } from './Input.st.css';
 import { Omit } from 'type-zoo';
-import * as classnames from 'classnames';
+import classnames from 'classnames';
 import { filterDataProps } from '../../utils/filter-data-props';
 
 type OmittedInputProps = 'value' | 'prefix';

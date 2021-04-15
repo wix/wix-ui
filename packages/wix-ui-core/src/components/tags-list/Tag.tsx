@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as classNames from 'classnames';
+import classNames from 'classnames';
 import * as PropTypes from 'prop-types';
 
 import { DataHooks, DisplayNames } from './TagsList.helpers';
@@ -45,7 +45,9 @@ export class FocusableTag extends React.Component<TagProps> {
   labelRef: React.RefObject<HTMLLabelElement> = React.createRef();
   anchorRef: React.RefObject<HTMLAnchorElement> = React.createRef();
 
-  handleKeyDown = (ev: React.KeyboardEvent<HTMLAnchorElement | HTMLLabelElement>) => {
+  handleKeyDown = (
+    ev: React.KeyboardEvent<HTMLAnchorElement | HTMLLabelElement>,
+  ) => {
     const { link } = this.props;
     /**
      * By default, list item can't be selected by Space button,

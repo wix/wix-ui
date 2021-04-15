@@ -6,7 +6,7 @@ import {
 } from '../SignatureInputContext';
 import * as PropTypes from 'prop-types';
 import { classes } from './ClearButton.st.css';
-import * as classNames from 'classnames';
+import classNames from 'classnames';
 
 export interface ClearButtonProps extends WithSignaturePadProps {
   children?: ClearButtonChildrenFn;

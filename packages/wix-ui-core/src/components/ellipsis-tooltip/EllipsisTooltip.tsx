@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as shallowequal from 'shallowequal';
-import * as classNames from 'classnames';
+import classNames from 'classnames';
 import { classes as ellipsisClasses } from './Ellipsis.st.css';
 import { StateFullComponentWrap } from './StateFullComponentWrap';
 import { RuntimeStylesheet } from '@stylable/runtime';
