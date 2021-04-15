@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { classes } from './Title.st.css';
-import * as classNames from 'classnames';
+import classNames from 'classnames';
 
 import {
   withSignatureInputContext,

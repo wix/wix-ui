@@ -17,7 +17,7 @@ import {
 import { PopoverContext } from './PopoverContext';
 import { popoverTestUtils } from './helpers';
 import { getAppendToElement, Predicate } from './utils/getAppendToElement';
-import * as classNames from 'classnames';
+import classNames from 'classnames';
 import { MoveBy } from './utils/getModifiers';
 
 // This is here and not in the test setup because we don't want consumers to need to run it as well

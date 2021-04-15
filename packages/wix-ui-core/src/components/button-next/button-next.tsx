@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as classNames from 'classnames';
+import classNames from 'classnames';
 
 import { st, classes } from './button-next.st.css';
 import { dataHooks } from './constants';
