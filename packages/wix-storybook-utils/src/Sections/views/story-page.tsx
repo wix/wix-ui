@@ -16,10 +16,9 @@ import {
   StoryPageSection,
   TabSection,
 } from '../../typings/story-section';
-import { Tabs } from '../../typings/story';
 import { plugin } from './plugin';
 import { StoryConfig } from '../../typings/story-config';
-import { Example } from '../../typings/story';
+import { Example, Tabs } from '../../typings/story';
 import { sectionWithSiblings } from '../section-with-siblings';
 import { importExample as importExampleView } from './import-example';
 import { tabs as tabsView } from './tabs';
@@ -194,11 +193,13 @@ const tabs = (props: StoryPageSection, storyConfig: StoryConfig) => {
   } = props;
 
   const outputTabs = userTabs(availableTabs as any).reduce((result, tab) => {
-    if (availableTabs[tab.title]) {
-      return result.concat(availableTabs[tab.title]);
+    const title = tab.title.toLowerCase();
+
+    if (availableTabs[title]) {
+      return result.concat(availableTabs[title]);
     }
     return result.concat({
-      title: tab.title,
+      title,
       type: SectionType.Tab,
       sections: [
         tab.sections,
