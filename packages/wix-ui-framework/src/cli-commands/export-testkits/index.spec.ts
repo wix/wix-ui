@@ -100,6 +100,33 @@ describe('exportTestkits', () => {
         ].join('\n'),
       );
     });
+
+    describe('when definitions returns a promise', () => {
+      it('should resolve promise with components and inject result into `data` of ejs', async () => {
+        const fakeFs = cista({
+          '.wuf/testkits/definitions.js': `module.exports = ({ components }) => new Promise((resolve) => { setTimeout(() => resolve({ ...components, whodis: "new phone" }), 500) })`,
+          '.wuf/testkits/template.ejs': '<%= data.whodis %> <%= data.bat %>',
+          '.wuf/components.json': '{ "bat": "man" }',
+        });
+
+        await exportTestkits({
+          definitions: '.wuf/testkits/definitions.js',
+          output: 'output',
+          _process: { cwd: fakeFs.dir },
+        });
+
+        const output = fs.readFileSync(
+          path.resolve(fakeFs.dir, 'output'),
+          'utf8',
+        );
+
+        expect(output).toEqual(
+          [warningBanner(`.wuf/testkits/template.ejs`), 'new phone man'].join(
+            '\n',
+          ),
+        );
+      });
+    });
   });
 
   describe('when definitions option missing', () => {
