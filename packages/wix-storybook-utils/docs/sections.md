@@ -194,6 +194,7 @@ doDont({
 |---|---|---|
 | `do` | `{ title: string; list: String[] }` | List of items for do section |
 | `dont` | `{ title: string; list: String[] }` | List of items for dont section|
+
 ---
 
 ## `example()` section
