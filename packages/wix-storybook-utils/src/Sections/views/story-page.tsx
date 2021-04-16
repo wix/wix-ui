@@ -16,7 +16,6 @@ import {
   StoryPageSection,
   TabSection,
 } from '../../typings/story-section';
-import { plugin } from './plugin';
 import { StoryConfig } from '../../typings/story-config';
 import { Example, Tabs } from '../../typings/story';
 import { sectionWithSiblings } from '../section-with-siblings';
@@ -184,36 +183,41 @@ const tabs = (props: StoryPageSection, storyConfig: StoryConfig) => {
     playground: playgroundTab(props, storyConfig),
   };
 
-  const {
-    tabs: userTabs = (defaultabs: Tabs) => [
-      defaultabs.design,
-      defaultabs.api,
-      defaultabs.testkit,
-    ],
-  } = props;
+  const defaultValue = (defaultabs: Tabs) => [
+    defaultabs.design,
+    defaultabs.api,
+    defaultabs.testkit,
+  ];
+
+  const { tabs: userTabs = defaultValue } = props;
 
   const outputTabs = userTabs(availableTabs as any).reduce((result, tab) => {
-    const title = tab.title.toLowerCase();
-
-    if (availableTabs[title]) {
-      return result.concat(availableTabs[title]);
+    if (!tab.title) {
+      return result;
     }
-    return result.concat({
-      title,
-      type: SectionType.Tab,
-      sections: [
-        tab.sections,
-        {
-          type: SectionType.Plugin,
-          sections: [
-            plugin(
-              { type: SectionType.Plugin, handler: () => tab.node },
-              storyConfig,
-            ),
-          ],
-        },
-      ],
-    });
+
+    if (availableTabs[tab.title.toLowerCase()]) {
+      return [...result, availableTabs[tab.title.toLowerCase()]];
+    }
+
+    return [
+      ...result,
+      {
+        title: tab.title,
+        type: SectionType.Tab,
+        sections: [
+          ...(tab.sections ? tab.sections : []),
+          ...(tab.node
+            ? [
+                {
+                  type: SectionType.Plugin,
+                  handler: () => tab.node,
+                },
+              ]
+            : []),
+        ],
+      },
+    ];
   }, []) as TabSection[];
 
   return tabsView(

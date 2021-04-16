@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Section } from './story-section';
 
 export interface Example {
   title?: string;
@@ -17,8 +18,8 @@ export interface StoryContent {
 export interface Tab {
   title: string;
   type: string;
-  sections?: JSX.Element;
-  node?: JSX.Element;
+  sections?: JSX.Element[] & Section[];
+  node?: React.ReactNode;
 }
 export interface Tabs {
   design: Tab;
