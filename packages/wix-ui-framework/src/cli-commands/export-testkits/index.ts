@@ -34,7 +34,7 @@ const resolveDefinitions = async ({ requirePath, cwd, components }) => {
   try {
     const definitions = require(requirePath);
     if (typeof definitions === 'function') {
-      return await definitions({ components });
+      return await definitions({ components, cwd });
     }
     return definitions;
   } catch (e) {
