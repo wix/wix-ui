@@ -18,7 +18,7 @@ export interface StoryContent {
 export interface Tab {
   title: string;
   type: string;
-  sections?: JSX.Element[] & Section[];
+  sections?: React.ReactNode[] | (JSX.Element[] & Section[]);
   node?: React.ReactNode;
 }
 export interface Tabs {

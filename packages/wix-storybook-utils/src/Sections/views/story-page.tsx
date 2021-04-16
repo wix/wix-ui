@@ -81,21 +81,18 @@ const importExample = (storyConfig: StoryConfig) =>
     true,
   );
 
-const demo = (props: { demo: React.ReactNode }) => (
-  <div>
-    {sectionWithSiblings(
-      descriptionConfig({
-        title: 'Demo',
-        description: '',
-      }),
-      demoView({
-        type: SectionType.Demo,
-        component: props.demo,
-      }),
-      true,
-    )}
-  </div>
-);
+const demo = (props: { demo: React.ReactNode }) =>
+  sectionWithSiblings(
+    descriptionConfig({
+      title: 'Demo',
+      description: '',
+    }),
+    demoView({
+      type: SectionType.Demo,
+      component: props.demo,
+    }),
+    true,
+  );
 
 const header = (storyConfig: StoryConfig) =>
   headerView(
@@ -176,29 +173,34 @@ const playgroundTab = (props: StoryPageSection, storyConfig: StoryConfig) => ({
 });
 
 const tabs = (props: StoryPageSection, storyConfig: StoryConfig) => {
-  const availableTabs = {
+  const defaultTabs = {
     design: designTab(props, storyConfig),
     api: apiTab(props, storyConfig),
     testkit: testkitTab(props, storyConfig),
     playground: playgroundTab(props, storyConfig),
   };
 
-  const defaultValue = (defaultabs: Tabs) => [
+  const defaultUserTabsValue = (defaultabs: Tabs) => [
     defaultabs.design,
     defaultabs.api,
     defaultabs.testkit,
   ];
 
-  const { tabs: userTabs = defaultValue } = props;
+  const { tabs: userTabs = defaultUserTabsValue } = props;
 
-  const outputTabs = userTabs(availableTabs as any).reduce((result, tab) => {
+  const outputTabs = userTabs(defaultTabs).reduce((result, tab) => {
     if (!tab.title) {
       return result;
     }
 
-    if (availableTabs[tab.title.toLowerCase()]) {
-      return [...result, availableTabs[tab.title.toLowerCase()]];
+    if (defaultTabs[tab.title.toLowerCase()]) {
+      return [...result, defaultTabs[tab.title.toLowerCase()]];
     }
+
+    const pluginSection = tab.node && {
+      type: SectionType.Plugin,
+      handler: () => tab.node,
+    };
 
     return [
       ...result,
@@ -207,18 +209,11 @@ const tabs = (props: StoryPageSection, storyConfig: StoryConfig) => {
         type: SectionType.Tab,
         sections: [
           ...(tab.sections ? tab.sections : []),
-          ...(tab.node
-            ? [
-                {
-                  type: SectionType.Plugin,
-                  handler: () => tab.node,
-                },
-              ]
-            : []),
+          ...(tab.node ? [pluginSection] : []),
         ],
       },
     ];
-  }, []) as TabSection[];
+  }, [] as TabSection[]);
 
   return tabsView(
     {
@@ -235,7 +230,7 @@ export const storyPage = (
 ) => (
   <>
     {header(storyConfig)}
-    {tabs(props, storyConfig)}
+    {tabs(props, storyConfig)}{' '}
   </>
 );
 
