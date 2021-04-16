@@ -230,7 +230,6 @@ export const storyPage = (
 ) => (
   <>
     {header(storyConfig)}
-    {tabs(props, storyConfig)}{' '}
+    {tabs(props, storyConfig)}
   </>
 );
-
