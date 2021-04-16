@@ -315,7 +315,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
                   mode: 'jsx',
                   autoCloseTags: true,
                   autoCloseBrackets: true,
-                  theme: 'wix',
+                  theme: 'wsr',
                   viewportMargin: 50,
                   lineNumbers: true,
                   extraKeys: {
