@@ -68,13 +68,20 @@
 
 .cm-s-wsr .cm-atom,
 .cm-s-wsr .cm-number,
-.cm-s-wsr .cm-operator,
 .cm-s-wsr .cm-attribute,
 .cm-s-wsr .cm-meta {
   color:#c76b29;
 }
 
+.cm-s-wsr .cm-variable ~ .cm-property,
+.cm-s-wsr .cm-variable-2 ~ .cm-property,
+.cm-s-wsr .cm-tag.cm-bracket + .cm-variable,
+.cm-s-wsr .cm-tag.cm-bracket + .cm-variable + .cm-property {
+  color:#2e383c;
+}
+
 .cm-s-wsr .cm-node,
+.cm-s-wsr .cm-property,
 .cm-s-wsr .cm-attribute ~ .cm-variable,
 .cm-s-wsr .cm-attribute ~ .cm-property,
 .cm-s-wsr .cm-tag {
@@ -88,11 +95,6 @@
 
 .cm-s-wsr .cm-tag.cm-bracket {
   color: #5e6687;
-}
-
-.cm-s-wsr .cm-tag.cm-bracket + .cm-variable,
-.cm-s-wsr .cm-tag.cm-bracket + .cm-variable + .cm-property {
-  color:#2e383c;
 }
 
 .cm-s-wsr .CodeMirror-gutters {
