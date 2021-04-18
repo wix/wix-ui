@@ -4,7 +4,8 @@ const path = require('path');
 const pathFinder = require('react-autodocs-utils/src/path-finder');
 const gatherAll = require('react-autodocs-utils/src/gather-all');
 const metadataMerger = require('react-autodocs-utils/src/metadata-merger');
-const prepareStory = require('react-autodocs-utils/src/prepare-story'); // TODO: should be part of wix-storybook-utils
+const prepareStory = require('./prepareStory')
+
 
 const applyPlugins = ({ plugins = [], source, basePath }) => (metadata = {}) =>
   plugins.reduce((promise, pluginPath) => {
@@ -50,6 +51,7 @@ module.exports = function(source) {
   // 1. find component path
   pathFinder(source)
     .then(componentPath => {
+
       // 2. get component metadata
       const metadata = componentPath
         ? gatherAll(path.join(this.context, componentPath))
@@ -58,7 +60,7 @@ module.exports = function(source) {
       return metadata
         .then(applyPlugins({ source, plugins, basePath: this.context })) // 3. apply plugged in analyzers
         .then(metadataMerger(source)) // 4. merge component metadata with storybook config
-        .then(prepareStory(storyConfig)); // 5. import and wrap with `story` function
+        .then(prepareStory(storyConfig, this.context)); // 5. import and wrap with `story` function
     })
     // 5. succeed with augmented source
     .then(finalSource => callback(null, finalSource))

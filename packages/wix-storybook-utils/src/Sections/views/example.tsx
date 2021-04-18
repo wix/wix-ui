@@ -27,7 +27,7 @@ export const example = (
     </Cell>
 
     <Cell span={8}>
-      {sectionWithSiblings(code(section), codeView(section))}
+      {sectionWithSiblings(code(section), codeView(section, storyConfig))}
     </Cell>
   </Layout>
 );

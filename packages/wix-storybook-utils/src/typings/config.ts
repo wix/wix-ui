@@ -6,6 +6,8 @@ export interface Config {
   testkits?: Testkits;
   testkitsWarning?: string;
   unifiedTestkit?: boolean;
+  playgroundComponentsPath?: string;
+  playgroundComponents?: Record<string, React.ReactNode>;
 }
 
 export interface Testkits {
