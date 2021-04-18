@@ -45,6 +45,7 @@ const examples = (props: {
             title: item.title,
             text: item.description,
             source: props.storyConfig.story.examples[item.example],
+            compact: true
           },
           props.storyConfig,
         ),
