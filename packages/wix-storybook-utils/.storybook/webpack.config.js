@@ -39,6 +39,7 @@ module.exports = ({ config }) => {
         },
         repoBaseURL:
           'https://github.com/wix/wix-ui/tree/master/packages/wix-storybook-utils/src/components/',
+        playgroundComponentsPath: path.resolve(__dirname, '..', 'src', 'allComponents'),
       },
     },
   });
