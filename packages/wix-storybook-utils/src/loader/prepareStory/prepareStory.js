@@ -51,7 +51,8 @@ const prepareStory = (storyConfig, sourcePath) => source =>
 
           if(storyConfig.playgroundComponentsPath) {
             const playgroundComponentsPath = pathLib.relative(sourcePath, storyConfig.playgroundComponentsPath);
-            const playgroundComponentsProperty = types.objectProperty(types.identifier('playgroundComponents'), parse(`require('${playgroundComponentsPath}').default`));
+            const requireExpression = parse(`require('${playgroundComponentsPath}').default`).program.body[0].expression
+            const playgroundComponentsProperty = types.objectProperty(types.identifier('playgroundComponents'), requireExpression);
             path.node.properties.push(playgroundComponentsProperty);
           }
       

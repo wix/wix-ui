@@ -46,12 +46,11 @@ const applyPlugins = ({ plugins = [], source, basePath }) => (metadata = {}) =>
 
 module.exports = function(source) {
   const callback = this.async();
-  const { storyConfig, plugins } = loaderUtils.getOptions(this);
-
+ 
+  const { storyConfig, plugins, } = loaderUtils.getOptions(this);
   // 1. find component path
   pathFinder(source)
     .then(componentPath => {
-
       // 2. get component metadata
       const metadata = componentPath
         ? gatherAll(path.join(this.context, componentPath))

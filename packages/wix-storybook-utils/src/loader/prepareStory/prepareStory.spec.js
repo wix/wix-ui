@@ -1,6 +1,7 @@
 /* global describe it expect */
 
 const prepareStory = require('./prepareStory');
+const path = require('path');
 
 describe('prepareStory', () => {
   describe('given erroneous input', () => {
@@ -294,12 +295,14 @@ module.exports = story(reference);`;
 
 
     it('should inject playgroundComponents require when given playgroundComponentsPath through storyConfig', () => {
+      const componentContextPath = '/src/component';
+
       const source = `
-      export default {};
+          export default {};
       `;
 
       const config = {
-        playgroundComponentsPath: 'playground.scope.js'
+        playgroundComponentsPath: '/.storybook/playground.scope'
       };
 
       const expectation = `import story from "wix-storybook-utils/Story";
@@ -308,13 +311,13 @@ import { storiesOf } from "@storybook/react";
 
 export default story({
   _config: {
-    "playgroundComponentsPath": "/file",
-    playgroundComponents: require('../../file').default,
+    "playgroundComponentsPath": "/.storybook/playground.scope",
+    playgroundComponents: require('../../.storybook/playground.scope').default,
     storiesOf: storiesOf
   }
 });`;
 
-      return expect(prepareStory(config, '/kazkas/kazkas')(source)).resolves.toEqual(expectation);
+      return expect(prepareStory(config, componentContextPath)(source)).resolves.toEqual(expectation);
     });
   });
 });
