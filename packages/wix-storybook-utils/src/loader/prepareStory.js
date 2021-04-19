@@ -1,5 +1,5 @@
 const types = require('@babel/types');
-const path = require('path');
+const pathLib = require('path');
 const visit = require('react-autodocs-utils/src/parser/visit');
 const parse = require('react-autodocs-utils/src/parser/parse');
 const print = require('react-autodocs-utils/src/parser/print');
@@ -24,20 +24,14 @@ const prepareStory = (storyConfig, sourcePath) => source =>
         },
       });
 
+      
+
       if (isES5) {
         // add requires
-        if(storyConfig.playgroundComponentsPath) {
-          const playgroundComponentsPath = path.relative(sourcePath, storyConfig.playgroundComponentsPath);
-          storyConfig.playgroundast.program.body.unshift(parse(`const playgroundComponents = require("${playgroundComponentsPath}")`));
-        }
         ast.program.body.unshift(parse('const { storiesOf } = require("@storybook/react")'));
         ast.program.body.unshift(parse('const story = require("wix-storybook-utils/Story").default'));
       } else {
         // add imports
-        if(storyConfig.playgroundComponentsPath) {
-          const playgroundComponentsPath = path.relative(sourcePath, storyConfig.playgroundComponentsPath);
-          ast.program.body.unshift(parse(`import playgroundComponents from "${playgroundComponentsPath}"`));
-        }
         ast.program.body.unshift(parse('import { storiesOf } from "@storybook/react"'));
         ast.program.body.unshift(parse('import story from "wix-storybook-utils/Story"'));
       }
@@ -55,7 +49,9 @@ const prepareStory = (storyConfig, sourcePath) => source =>
       visit(configAST)({
         ObjectExpression(path) {
           const storiesOfProperty = types.objectProperty(types.identifier('storiesOf'), types.identifier('storiesOf'));
-          const playgroundComponentsProperty = types.objectProperty(types.identifier('playgroundComponents'), types.identifier('playgroundComponents'));
+
+          const playgroundComponentsPath = pathLib.relative(sourcePath, storyConfig.playgroundComponentsPath);
+          const playgroundComponentsProperty = types.objectProperty(types.identifier('playgroundComponents'), types.identifier(`require('${playgroundComponentsPath}').default`));
 
           path.node.properties.push(storiesOfProperty);
           storyConfig.playgroundComponentsPath && path.node.properties.push(playgroundComponentsProperty);
