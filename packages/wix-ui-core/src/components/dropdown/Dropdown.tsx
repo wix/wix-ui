@@ -188,7 +188,7 @@ export class DropdownComponent extends React.PureComponent<
   }
 
   isClosingKey(key) {
-    return key === 'Tab' || key === 'Enter' || key === 'Escape';
+    return key === 'Tab' || key === 'Enter' || key === 'Escape' || key === ' ';
   }
 
   onKeyDown(evt: React.KeyboardEvent<HTMLElement>) {
@@ -203,8 +203,7 @@ export class DropdownComponent extends React.PureComponent<
         this.dropdownContentRef.onKeyDown(eventKey, evt);
 
       switch (eventKey) {
-        case 'Enter':
-        case ' ': {
+        case 'Enter': {
           this.onKeyboardSelect();
           const { multi } = this.props;
           !multi && this.close();
@@ -274,7 +273,6 @@ export class DropdownComponent extends React.PureComponent<
       // if non existing option selected, unselect existing ones
       newState.selectedIds = [];
     }
-
     this.setState(newState, () => callback(option));
   }
 
