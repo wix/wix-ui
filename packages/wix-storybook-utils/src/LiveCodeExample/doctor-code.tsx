@@ -1,6 +1,6 @@
 import prettier from 'prettier/standalone';
 import { parse } from '@babel/parser';
-import { transformFromAstSync } from '@babel/core';
+import { transformFromAst } from '@babel/standalone';
 import { isIdentifier, File } from '@babel/types';
 import traverse from '@babel/traverse';
 
@@ -97,7 +97,7 @@ export const transformCode: (code: string) => string = code => {
     },
   });
 
-  const transformed = transformFromAstSync(ast, code, {
+  const transformed = transformFromAst(ast, code, {
     plugins: [
       require('@babel/plugin-syntax-jsx'),
       [require('@babel/plugin-proposal-class-properties'), { loose: true }],
