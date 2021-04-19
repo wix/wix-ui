@@ -10,6 +10,8 @@ import { Editor } from 'codemirror';
 import 'codemirror/mode/jsx/jsx';
 import 'codemirror/addon/edit/closetag';
 import 'codemirror/addon/edit/closebrackets';
+import 'codemirror/addon/hint/show-hint';
+import 'codemirror/addon/hint/xml-hint';
 
 import './styles.global.scss';
 import DuplicateSmall from '../icons/DuplicateSmall';
@@ -35,6 +37,7 @@ export interface Props {
   noBackground?: boolean;
   onChange?: Function;
   previewWarning?({ onConfirm: Function }): React.ReactNode | null;
+  hints: any;
 }
 
 interface State {
@@ -204,6 +207,51 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
     );
   };
 
+  completeAfter = (cm, predicate: () => boolean) => {
+    console.log('completeafter')
+    const CodeMirror = cm.constructor;
+    if (!predicate || predicate()) {
+      setTimeout(() => {
+        if (!cm.state.completionActive) {
+          // @ts-ignore
+          cm.showHint({ completeSingle: false });
+        }
+      }, 100);
+    }
+  
+    // @ts-ignore
+    return CodeMirror.Pass;
+  };
+
+  completeIfAfterLt = (cm) => {
+    const CodeMirror = cm.constructor;
+  
+    return this.completeAfter(cm, () => {
+      const cur = cm.getCursor();
+      // @ts-ignore
+      // eslint-disable-next-line new-cap
+      return cm.getRange(CodeMirror.Pos(cur.line, cur.ch - 1), cur) === '<';
+    });
+  };
+  
+  completeIfInTag = (cm) => {
+    const CodeMirror = cm.constructor;
+  
+    return this.completeAfter(cm, () => {
+      const tok = cm.getTokenAt(cm.getCursor());
+      if (
+        tok.type === 'string' &&
+        (!/['"]/.test(tok.string.charAt(tok.string.length - 1)) ||
+          tok.string.length === 1)
+      ) {
+        return false;
+      }
+      // @ts-ignore
+      const inner = CodeMirror.innerMode(cm.getMode(), tok.state).state;
+      return inner.tagName;
+    });
+  };
+
   render() {
     const {
       scope,
@@ -212,6 +260,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
       previewProps,
       autoRender,
       noBackground,
+      hints,
     } = this.props;
 
     const {
@@ -317,6 +366,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
                   theme: 'wsr',
                   viewportMargin: 50,
                   lineNumbers: true,
+                  hintOptions: { schemaInfo: hints },
                   extraKeys: {
                     Tab: cm => {
                       if (cm.somethingSelected()) {
@@ -327,6 +377,12 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
                         cm.replaceSelection(spaces);
                       }
                     },
+                    'Ctrl-Space': this.completeIfInTag,
+                    "'<'": this.completeAfter,
+                    "'/'": this.completeIfAfterLt,
+                    "' '": this.completeIfInTag,
+                    'Enter': this.completeIfInTag,
+                    "'='": this.completeIfInTag,
                   },
                 }}
               />
