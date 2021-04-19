@@ -52,7 +52,7 @@ const prepareStory = (storyConfig, sourcePath) => source =>
           if(storyConfig.playgroundComponentsPath) {
             const playgroundComponentsPath = pathLib.relative(sourcePath, storyConfig.playgroundComponentsPath);
             const playgroundComponentsProperty = types.objectProperty(types.identifier('playgroundComponents'), types.identifier(`require('${playgroundComponentsPath}').default`));
-            storyConfig.playgroundComponentsPath && path.node.properties.push(playgroundComponentsProperty);
+            path.node.properties.push(playgroundComponentsProperty);
           }
       
           path.node.properties.push(storiesOfProperty);
