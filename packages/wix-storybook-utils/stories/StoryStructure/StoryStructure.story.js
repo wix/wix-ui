@@ -38,6 +38,7 @@ export default {
         })]
       }
     ],
+    playgroundComponents: (globalComponents) => ({...globalComponents,  StyleComponent})
   },
 };
 
