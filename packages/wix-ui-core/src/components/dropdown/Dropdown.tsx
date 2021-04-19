@@ -273,6 +273,7 @@ export class DropdownComponent extends React.PureComponent<
       // if non existing option selected, unselect existing ones
       newState.selectedIds = [];
     }
+
     this.setState(newState, () => callback(option));
   }
 
