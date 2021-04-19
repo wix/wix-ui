@@ -6,7 +6,7 @@ import { Collapse } from 'react-collapse';
 import debounce from 'lodash/debounce';
 import { DebouncedFunc } from 'lodash';
 import { UnControlled as ReactCodeMirror } from 'react-codemirror2';
-import { Editor } from 'codemirror';
+import { Editor, ShowHintOptions } from 'codemirror';
 import 'codemirror/mode/jsx/jsx';
 import 'codemirror/addon/edit/closetag';
 import 'codemirror/addon/edit/closebrackets';
@@ -25,6 +25,10 @@ import ToggleSwitch from '../ui/toggle-switch';
 import TextButton from '../TextButton';
 
 import styles from './index.scss';
+
+interface Hint {
+  attrs: Record<string, any>;
+}
 export interface Props {
   initialCode?: string;
   scope?: object;
@@ -37,7 +41,7 @@ export interface Props {
   noBackground?: boolean;
   onChange?: Function;
   previewWarning?({ onConfirm: Function }): React.ReactNode | null;
-  hints: any;
+  hints?: Record<string, Hint>;
 }
 
 interface State {
@@ -207,38 +211,41 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
     );
   };
 
-  completeAfter = (cm, predicate: () => boolean) => {
-    console.log('completeafter')
-    const CodeMirror = cm.constructor;
+  completeAfter = (codemirror, predicate: () => boolean) => {
+    const CodeMirror = codemirror.constructor;
     if (!predicate || predicate()) {
       setTimeout(() => {
-        if (!cm.state.completionActive) {
+        if (!codemirror.state.completionActive) {
           // @ts-ignore
-          cm.showHint({ completeSingle: false });
+          codemirror.showHint({ completeSingle: false });
         }
       }, 100);
     }
-  
+
     // @ts-ignore
     return CodeMirror.Pass;
   };
 
-  completeIfAfterLt = (cm) => {
-    const CodeMirror = cm.constructor;
-  
-    return this.completeAfter(cm, () => {
-      const cur = cm.getCursor();
-      // @ts-ignore
-      // eslint-disable-next-line new-cap
-      return cm.getRange(CodeMirror.Pos(cur.line, cur.ch - 1), cur) === '<';
+  completeIfAfterLt = codemirror => {
+    const CodeMirror = codemirror.constructor;
+
+    return this.completeAfter(codemirror, () => {
+      const cursorPosition = codemirror.getCursor();
+
+      return (
+        codemirror.getRange(
+          CodeMirror.Pos(cursorPosition.line, cursorPosition.ch - 1),
+          cursorPosition,
+        ) === '<'
+      );
     });
   };
-  
-  completeIfInTag = (cm) => {
-    const CodeMirror = cm.constructor;
-  
-    return this.completeAfter(cm, () => {
-      const tok = cm.getTokenAt(cm.getCursor());
+
+  completeIfInTag = codemirror => {
+    const CodeMirror = codemirror.constructor;
+
+    return this.completeAfter(codemirror, () => {
+      const tok = codemirror.getTokenAt(codemirror.getCursor());
       if (
         tok.type === 'string' &&
         (!/['"]/.test(tok.string.charAt(tok.string.length - 1)) ||
@@ -246,8 +253,8 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
       ) {
         return false;
       }
-      // @ts-ignore
-      const inner = CodeMirror.innerMode(cm.getMode(), tok.state).state;
+
+      const inner = CodeMirror.innerMode(codemirror.getMode(), tok.state).state;
       return inner.tagName;
     });
   };
@@ -366,22 +373,22 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
                   theme: 'wsr',
                   viewportMargin: 50,
                   lineNumbers: true,
-                  hintOptions: { schemaInfo: hints },
+                  hintOptions: { schemaInfo: hints } as ShowHintOptions,
                   extraKeys: {
-                    Tab: cm => {
-                      if (cm.somethingSelected()) {
-                        cm.indentSelection('add');
+                    Tab: codemirror => {
+                      if (codemirror.somethingSelected()) {
+                        codemirror.indentSelection('add');
                       } else {
-                        const indent = cm.getOption('indentUnit');
+                        const indent = codemirror.getOption('indentUnit');
                         const spaces = Array(indent + 1).join(' ');
-                        cm.replaceSelection(spaces);
+                        codemirror.replaceSelection(spaces);
                       }
                     },
                     'Ctrl-Space': this.completeIfInTag,
                     "'<'": this.completeAfter,
                     "'/'": this.completeIfAfterLt,
                     "' '": this.completeIfInTag,
-                    'Enter': this.completeIfInTag,
+                    Enter: this.completeIfInTag,
                     "'='": this.completeIfInTag,
                   },
                 }}
