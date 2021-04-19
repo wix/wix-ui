@@ -318,7 +318,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
                   viewportMargin: 50,
                   lineNumbers: true,
                   extraKeys: {
-                    Tab: (cm) => {
+                    Tab: cm => {
                       if (cm.somethingSelected()) {
                         cm.indentSelection('add');
                       } else {
