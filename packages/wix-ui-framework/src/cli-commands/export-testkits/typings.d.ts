@@ -6,6 +6,7 @@ export interface Options {
   exportSuffix?: string;
   exportCaseStyle?: string;
   template?: string;
+  templatePath?: string;
   output?: string;
   factoryName?: string;
   uniFactoryName?: string;

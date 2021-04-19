@@ -103,13 +103,20 @@ describe('wuf', () => {
 
     describe('--definitions', () => {
       it('should fail with error, given non existing path', (done) => {
+        const fakeFs = cista({
+          'components.json': '{}',
+        });
         nixt()
           .expect(({ stderr }) => {
             expect(stderr).toMatch(
               /Error: Unable to load definitions file at ".*whatever.js"/,
             );
           })
-          .run(cli('export-testkits --output test --definitions whatever.js'))
+          .run(
+            cli(
+              `export-testkits --output test --definitions whatever.js --components ${fakeFs.dir}/components.json`,
+            ),
+          )
           .end(done);
       });
     });

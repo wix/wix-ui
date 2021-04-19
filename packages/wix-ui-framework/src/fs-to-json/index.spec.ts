@@ -79,6 +79,7 @@ describe('fsToJson', () => {
         'nested/deep/good.js': 'd',
         'nested/deep/bad.js': 'e',
         'nested/deep/ti.ts': 'f',
+        '.git/test': 'g',
       };
 
       const fakeFs = cista(fsTree);
@@ -88,7 +89,7 @@ describe('fsToJson', () => {
           cwd: fakeFs.dir,
           path: '.',
           withContent: true,
-          exclude: ['**/skip', '**/bad.js', '**/*.ts'],
+          exclude: ['**/skip', '**/bad.js', '**/*.ts', '.git'],
         }),
       ).resolves.toEqual({
         take: { me: 'a' },
