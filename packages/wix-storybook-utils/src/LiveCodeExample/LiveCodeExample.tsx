@@ -6,6 +6,7 @@ import { Collapse } from 'react-collapse';
 import debounce from 'lodash/debounce';
 import { DebouncedFunc } from 'lodash';
 import {UnControlled as ReactCodeMirror} from 'react-codemirror2'
+import { Editor } from 'codemirror';
 import 'codemirror/mode/jsx/jsx';
 import 'codemirror/addon/edit/closetag';
 import 'codemirror/addon/edit/closebrackets';
@@ -44,7 +45,7 @@ interface State {
   isEditorOpened: boolean;
   parseError: object | null;
   renderPreview: boolean;
-  editorInstance: any;
+  editorInstance: Editor | null;
 }
 export default class LiveCodeExample extends React.PureComponent<Props, State> {
   debouncedOnCodeChange: DebouncedFunc<() => any>;
@@ -117,7 +118,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
     }
   };
 
-  liveEditorOnKeyDown = (editor, e: KeyboardEvent) => {
+  liveEditorOnKeyDown = (editor: Editor, e: KeyboardEvent) => {
     const shouldPrettify = [
       /* windows & unix: ctrl + s */
       e.ctrlKey && e.key === 's',
@@ -197,7 +198,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
     this.state.editorInstance.getDoc().setValue(value);
   }
 
-  editorDidMount = (editor) => {
+  editorDidMount = (editor: Editor) => {
     this.setState(
       { editorInstance: editor },
       () => this.setEditorValue(this.state.initialFormattedCode)
