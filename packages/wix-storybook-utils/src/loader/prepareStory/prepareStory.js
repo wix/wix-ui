@@ -6,11 +6,12 @@ const print = require('react-autodocs-utils/src/parser/print');
 const get = require('react-autodocs-utils/src/get');
 
 const prepareStory = (storyConfig, sourcePath) => source =>
-  new Promise((resolve, reject) =>
-    source && !!storyConfig
-      ? resolve(source)
-      : reject('ERROR: unable to prepare story, both `storyConfig` and `source` must be provided')
-  )
+  new Promise((resolve, reject) => {
+    const isError = !source && !storyConfig && !sourcePath
+    return isError
+    ? reject('ERROR: unable to prepare story, both `storyConfig` and `source` must be provided')
+    : resolve(source)
+  })
 
     .then(parse)
 
@@ -23,8 +24,6 @@ const prepareStory = (storyConfig, sourcePath) => source =>
           return false;
         },
       });
-
-      
 
       if (isES5) {
         // add requires
@@ -50,12 +49,14 @@ const prepareStory = (storyConfig, sourcePath) => source =>
         ObjectExpression(path) {
           const storiesOfProperty = types.objectProperty(types.identifier('storiesOf'), types.identifier('storiesOf'));
 
-          const playgroundComponentsPath = pathLib.relative(sourcePath, storyConfig.playgroundComponentsPath);
-          const playgroundComponentsProperty = types.objectProperty(types.identifier('playgroundComponents'), types.identifier(`require('${playgroundComponentsPath}').default`));
-
+          if(storyConfig.playgroundComponentsPath) {
+            const playgroundComponentsPath = pathLib.relative(sourcePath, storyConfig.playgroundComponentsPath);
+            const playgroundComponentsProperty = types.objectProperty(types.identifier('playgroundComponents'), types.identifier(`require('${playgroundComponentsPath}').default`));
+            storyConfig.playgroundComponentsPath && path.node.properties.push(playgroundComponentsProperty);
+          }
+      
           path.node.properties.push(storiesOfProperty);
-          storyConfig.playgroundComponentsPath && path.node.properties.push(playgroundComponentsProperty);
-
+       
           configProperties = path.node.properties;
           path.stop();
         },
