@@ -299,7 +299,7 @@ module.exports = story(reference);`;
       `;
 
       const config = {
-        playgroundComponentsPath: '/file'
+        playgroundComponentsPath: 'playground.scope.js'
       };
 
       const expectation = `import story from "wix-storybook-utils/Story";
