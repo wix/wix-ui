@@ -105,18 +105,17 @@ describe('exportTestkits', () => {
       it('should resolve promise with components and inject result into `data` of ejs', async () => {
         const fakeFs = cista({
           '.wuf/testkits/definitions.js': `
-            const path = require("path");
             module.exports = ({ components, cwd }) =>
               new Promise((resolve) => {
                 setTimeout(() =>
                   resolve({
                     ...components,
                     whodis: "new phone",
-                    location: path.dirname(cwd)
+                    cwd
                   }), 500)
               })`,
           '.wuf/testkits/template.ejs':
-            '<%= data.whodis %> <%= data.bat %> <%= data.location %>',
+            '<%= data.whodis %> <%= data.bat %> <%= data.cwd %>',
           '.wuf/components.json': '{ "bat": "man" }',
         });
 
@@ -134,7 +133,7 @@ describe('exportTestkits', () => {
         expect(output).toEqual(
           [
             warningBanner(`.wuf/testkits/template.ejs`),
-            'new phone man /tmp',
+            `new phone man ${fakeFs.dir}`,
           ].join('\n'),
         );
       });
