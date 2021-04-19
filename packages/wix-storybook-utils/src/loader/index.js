@@ -4,7 +4,7 @@ const path = require('path');
 const pathFinder = require('react-autodocs-utils/src/path-finder');
 const gatherAll = require('react-autodocs-utils/src/gather-all');
 const metadataMerger = require('react-autodocs-utils/src/metadata-merger');
-const prepareStory = require('./prepareStory')
+const prepareStory = require('./prepareStory/prepareStory')
 
 
 const applyPlugins = ({ plugins = [], source, basePath }) => (metadata = {}) =>
