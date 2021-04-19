@@ -5,13 +5,13 @@ import classnames from 'classnames';
 import { Collapse } from 'react-collapse';
 import debounce from 'lodash/debounce';
 import { DebouncedFunc } from 'lodash';
-import {UnControlled as ReactCodeMirror} from 'react-codemirror2'
+import { UnControlled as ReactCodeMirror } from 'react-codemirror2';
 import { Editor } from 'codemirror';
 import 'codemirror/mode/jsx/jsx';
 import 'codemirror/addon/edit/closetag';
 import 'codemirror/addon/edit/closebrackets';
 
-import "./styles.global.scss";
+import './styles.global.scss';
 import DuplicateSmall from '../icons/DuplicateSmall';
 import RevertSmall from '../icons/RevertSmall';
 import CodeSmall from '../icons/CodeSmall';
@@ -111,7 +111,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
     try {
       this.setState(
         ({ code }) => ({ code: formatCode(code) }),
-        () => this.setEditorValue(this.state.code)
+        () => this.setEditorValue(this.state.code),
       );
     } catch (e) {
       console.error('Unable to prettify code', e);
@@ -132,11 +132,11 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
       e.preventDefault();
 
       const editorDoc = editor.getDoc();
-      const { ch, line } = editorDoc.getCursor()
+      const { ch, line } = editorDoc.getCursor();
 
       this.prettifyCode();
 
-      editorDoc.setCursor({ch, line})
+      editorDoc.setCursor({ ch, line });
     }
   };
 
@@ -196,14 +196,13 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
 
   setEditorValue = (value: string) => {
     this.state.editorInstance.getDoc().setValue(value);
-  }
+  };
 
   editorDidMount = (editor: Editor) => {
-    this.setState(
-      { editorInstance: editor },
-      () => this.setEditorValue(this.state.initialFormattedCode)
+    this.setState({ editorInstance: editor }, () =>
+      this.setEditorValue(this.state.initialFormattedCode),
     );
-  }
+  };
 
   render() {
     const {
@@ -320,7 +319,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
                   viewportMargin: 50,
                   lineNumbers: true,
                   extraKeys: {
-                    Tab: (cm) => {
+                    Tab: cm => {
                       if (cm.somethingSelected()) {
                         cm.indentSelection('add');
                       } else {
