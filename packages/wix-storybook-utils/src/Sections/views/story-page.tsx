@@ -45,7 +45,7 @@ const examples = (props: {
             title: item.title,
             text: item.description,
             source: props.storyConfig.story.examples[item.example],
-            compact: true
+            compact: true,
           },
           props.storyConfig,
         ),
@@ -228,9 +228,13 @@ const tabs = (props: StoryPageSection, storyConfig: StoryConfig) => {
 export const storyPage = (
   props: StoryPageSection,
   storyConfig: StoryConfig,
-) => (
-  <>
-    {header(storyConfig)}
-    {tabs(props, storyConfig)}
-  </>
-);
+) => {
+  console.log(props);
+  console.log(storyConfig);
+  return (
+    <div data-hook="story-page">
+      {header(storyConfig)}
+      {tabs(props, storyConfig)}
+    </div>
+  );
+};

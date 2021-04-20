@@ -307,5 +307,5 @@ export interface StoryPageSection extends StorySection {
   content: StoryContent;
   examples: StoryExamples;
   demo: StoryDemo;
-  tabs: StoryTabs;
+  tabs?: StoryTabs;
 }

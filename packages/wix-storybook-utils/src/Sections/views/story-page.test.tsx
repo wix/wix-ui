@@ -1,14 +1,49 @@
 import { render } from '@testing-library/react';
 import { storyPage } from './story-page';
 
-const defaultStoryConfig = {} as any;
+import React from 'react';
 
-describe.skip('StoryPage', () => {
-  it('should render only do when dont is not defined', () => {
-    const props = {} as any;
-    const { container } = render(storyPage(props, defaultStoryConfig));
+const _structure = `<div style={{ height: '100px' }}><div/><div/><div/></div>`;
+const demoExample = () => <div>Hello hello</div>;
+const storyProps = {
+  content: {
+    description: 'This is description',
+    do: ['this', 'that'],
+    dont: ['one', 'two'],
+    featureExamples: [
+      {
+        title: 'Structure',
+        description:
+          'Radio button consists of a radio itself and a label on the side.',
+        example: '_structure',
+      },
+    ],
+    commonUseCaseExamples: [],
+  },
+  examples: { _structure },
+  demo: demoExample,
+};
 
-    expect(container.querySelector('[data-hook=""]')).toBe(true);
-    expect(container.querySelector('[data-hook=""]')).toBe(null);
+const defaultStoryConfig = {
+  metadata: {
+    displayName: 'test',
+    props: {},
+  },
+  config: {
+    importFormat: '',
+    moduleName: '',
+    repoBaseURL: '',
+  },
+  component: {},
+  story: storyProps,
+} as any;
+
+describe('StoryPage', () => {
+  it('should render storyPage', () => {
+    const props = storyProps as any;
+    const { container, debug } = render(storyPage(props, defaultStoryConfig));
+    debug();
+
+    expect(container.querySelector('[data-hook="story-page"]')).toBe(true);
   });
 });
