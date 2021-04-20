@@ -6,7 +6,7 @@ import { Collapse } from 'react-collapse';
 import debounce from 'lodash/debounce';
 import { DebouncedFunc } from 'lodash';
 import { UnControlled as ReactCodeMirror } from 'react-codemirror2';
-import { Editor, ShowHintOptions } from 'codemirror';
+import * as CodeMirror from 'codemirror';
 import 'codemirror/mode/jsx/jsx';
 import 'codemirror/addon/edit/closetag';
 import 'codemirror/addon/edit/closebrackets';
@@ -29,6 +29,7 @@ import styles from './index.scss';
 interface Hint {
   attrs: Record<string, any>;
 }
+
 export interface Props {
   initialCode?: string;
   scope?: object;
@@ -52,7 +53,7 @@ interface State {
   isEditorOpened: boolean;
   parseError: object | null;
   renderPreview: boolean;
-  editorInstance: Editor | null;
+  editorInstance: CodeMirror.Editor | null;
 }
 export default class LiveCodeExample extends React.PureComponent<Props, State> {
   debouncedOnCodeChange: DebouncedFunc<() => any>;
@@ -125,7 +126,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
     }
   };
 
-  liveEditorOnKeyDown = (editor: Editor, e: KeyboardEvent) => {
+  liveEditorOnKeyDown = (editor: CodeMirror.Editor, e: KeyboardEvent) => {
     const shouldPrettify = [
       /* windows & unix: ctrl + s */
       e.ctrlKey && e.key === 's',
@@ -205,31 +206,29 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
     this.state.editorInstance.getDoc().setValue(value);
   };
 
-  editorDidMount = (editor: Editor) => {
+  editorDidMount = (editor: CodeMirror.Editor) => {
     this.setState({ editorInstance: editor }, () =>
       this.setEditorValue(this.state.initialFormattedCode),
     );
   };
 
-  completeAfter = (codemirror, predicate: () => boolean) => {
-    const CodeMirror = codemirror.constructor;
+  completeAfter = (
+    codemirror: CodeMirror.Editor,
+    predicate?: () => boolean,
+  ) => {
     if (!predicate || predicate()) {
       setTimeout(() => {
         if (!codemirror.state.completionActive) {
-          // @ts-ignore
           codemirror.showHint({ completeSingle: false });
         }
       }, 100);
     }
 
-    // @ts-ignore
     return CodeMirror.Pass;
   };
 
-  completeIfAfterLt = codemirror => {
-    const CodeMirror = codemirror.constructor;
-
-    return this.completeAfter(codemirror, () => {
+  completeIfAfterLt = (codemirror: CodeMirror.Editor) =>
+    this.completeAfter(codemirror, () => {
       const cursorPosition = codemirror.getCursor();
 
       return (
@@ -239,22 +238,20 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
         ) === '<'
       );
     });
-  };
 
-  completeIfInTag = codemirror => {
-    const CodeMirror = codemirror.constructor;
-
+  completeIfInTag = (codemirror: CodeMirror.Editor) => {
     return this.completeAfter(codemirror, () => {
-      const tok = codemirror.getTokenAt(codemirror.getCursor());
+      const token = codemirror.getTokenAt(codemirror.getCursor());
       if (
-        tok.type === 'string' &&
-        (!/['"]/.test(tok.string.charAt(tok.string.length - 1)) ||
-          tok.string.length === 1)
+        token.type === 'string' &&
+        (!/['"]/.test(token.string.charAt(token.string.length - 1)) ||
+          token.string.length === 1)
       ) {
         return false;
       }
 
-      const inner = CodeMirror.innerMode(codemirror.getMode(), tok.state).state;
+      const inner = CodeMirror.innerMode(codemirror.getMode(), token.state)
+        .state;
       return inner.tagName;
     });
   };
@@ -373,7 +370,9 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
                   theme: 'wsr',
                   viewportMargin: 50,
                   lineNumbers: true,
-                  hintOptions: { schemaInfo: hints } as ShowHintOptions,
+                  hintOptions: {
+                    schemaInfo: hints,
+                  } as CodeMirror.ShowHintOptions,
                   extraKeys: {
                     Tab: codemirror => {
                       if (codemirror.somethingSelected()) {
@@ -384,7 +383,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
                         codemirror.replaceSelection(spaces);
                       }
                     },
-                    'Ctrl-Space': this.completeIfInTag,
+                    'Cmd-I': this.completeIfInTag,
                     "'<'": this.completeAfter,
                     "'/'": this.completeIfAfterLt,
                     "' '": this.completeIfInTag,
