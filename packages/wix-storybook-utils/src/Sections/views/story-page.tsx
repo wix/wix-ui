@@ -8,12 +8,8 @@ import {
 import { StoryConfig } from '../../typings/story-config';
 import { Example, Tabs } from '../../typings/story';
 
-import { api } from './api';
-import { testkit } from './testkit';
-import { playground } from './playground';
-
 const examples = (props: { examples: Example[]; storyConfig: StoryConfig }) => {
-  if (!props.examples.length) {
+  if (!props.examples || !props.examples.length) {
     return [];
   }
   return props.examples.map((item, index) => ({
@@ -40,6 +36,10 @@ const importExample = (storyConfig: StoryConfig) => ({
 
 const demo = (props: { demo: React.ElementType }) => {
   const { demo: Demo } = props;
+
+  if (!Demo) {
+    return null;
+  }
   return {
     title: 'Demo',
     type: SectionType.Demo,
@@ -81,33 +81,45 @@ const designTab = (props: StoryPageSection, storyConfig: StoryConfig) => {
       divider(),
       title('Feedback'),
       description({ description: storyConfig.config.feedbackText }),
-    ],
+    ].filter(item => !!item),
   };
 };
 
-const apiTab = (props: StoryPageSection, storyConfig: StoryConfig) => ({
+const apiTab = () => ({
   title: 'API',
   type: SectionType.Tab,
-  sections: [api(props, storyConfig)],
+  sections: [
+    {
+      type: SectionType.Api,
+    },
+  ],
 });
 
-const testkitTab = (props: StoryPageSection, storyConfig: StoryConfig) => ({
+const testkitTab = () => ({
   title: 'Testkit',
   type: SectionType.Tab,
-  sections: [testkit(props, storyConfig)],
+  sections: [
+    {
+      type: SectionType.Testkit,
+    },
+  ],
 });
 
 const playgroundTab = (props: StoryPageSection, storyConfig: StoryConfig) => ({
   title: 'Playground',
   type: SectionType.Tab,
-  sections: [playground(props, storyConfig)],
+  sections: [
+    {
+      type: SectionType.Playground,
+    },
+  ],
 });
 
 const tabs = (props: StoryPageSection, storyConfig: StoryConfig) => {
   const defaultTabs = {
     design: designTab(props, storyConfig),
-    api: apiTab(props, storyConfig),
-    testkit: testkitTab(props, storyConfig),
+    api: apiTab(),
+    testkit: testkitTab(),
     playground: playgroundTab(props, storyConfig),
   };
 

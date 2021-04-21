@@ -305,8 +305,8 @@ export interface DemoSection extends StorySection {
 }
 
 export interface StoryPageSection extends StorySection {
-  content: StoryContent;
-  examples: StoryExamples;
-  demo: StoryDemo;
+  content?: StoryContent;
+  examples?: StoryExamples;
+  demo?: StoryDemo;
   tabs?: StoryTabs;
 }
