@@ -40,33 +40,39 @@ const getView = (views, view) => (views[view] || views[ViewState.Idle])();
 
 let dirty = false;
 
-const getHints = (scope) => {
-  const hints = Object.keys(scope).reduce((result, componentName) => {
-    const parsedPropTypes = parsePropTypes(scope[componentName]);
-    const filteredPropTypes = omit(parsedPropTypes, 'children', 'className');
-    const propNames = Object.keys(filteredPropTypes);
+const getHints = scope => {
+  console.log('SCOPE');
+  console.log(scope);
 
-    return {
-      ...result,
-      [componentName]: {
-      attrs: Object.assign(
-        {},
-        ...propNames.map((propName) => {
-          const propType = filteredPropTypes[propName].type;
+  const hints = Object.keys(scope)
+    .sort()
+    .reduce((result, componentName) => {
+      const parsedPropTypes = parsePropTypes(scope[componentName]);
+      const filteredPropTypes = omit(parsedPropTypes, 'children', 'className');
+      const propNames = Object.keys(filteredPropTypes);
 
-          return {
-            [propName]:
-              propType.name === 'oneOf'
-                ? propType.value.filter((x: any) => typeof x === 'string')
-                : null,
-          };
-        })
-      ),
-    }};
-  }, {})
+      return {
+        ...result,
+        [componentName]: {
+          attrs: Object.assign(
+            {},
+            ...propNames.map(propName => {
+              const propType = filteredPropTypes[propName].type;
+
+              return {
+                [propName]:
+                  propType.name === 'oneOf'
+                    ? propType.value.filter((x: any) => typeof x === 'string')
+                    : null,
+              };
+            }),
+          ),
+        },
+      };
+    }, {});
 
   return hints;
-}
+};
 
 const Playground: React.FunctionComponent<Props> = ({
   initialCode = '',
