@@ -8,9 +8,6 @@ import {
 import { StoryConfig } from '../../typings/story-config';
 import { Example, Tabs } from '../../typings/story';
 
-import { header as headerView } from './header';
-
-import { tabs as tabsView } from './tabs';
 import { api } from './api';
 import { testkit } from './testkit';
 import { playground } from './playground';
@@ -49,15 +46,6 @@ const demo = (props: { demo: React.ElementType }) => {
     component: <Demo />,
   };
 };
-
-const header = (storyConfig: StoryConfig) =>
-  headerView(
-    {
-      type: SectionType.Header,
-      sourceUrl: `${storyConfig.config.repoBaseURL}/${storyConfig.storyName}`,
-    },
-    storyConfig,
-  );
 
 const doDont = (props: { do: string[]; dont: string[] }) => ({
   type: SectionType.DoDont,
@@ -131,7 +119,7 @@ const tabs = (props: StoryPageSection, storyConfig: StoryConfig) => {
 
   const { tabs: userTabs = defaultUserTabsValue } = props;
 
-  const outputTabs = userTabs(defaultTabs).reduce((result, tab) => {
+  return userTabs(defaultTabs).reduce((result, tab) => {
     if (!tab.title) {
       return result;
     }
@@ -157,24 +145,18 @@ const tabs = (props: StoryPageSection, storyConfig: StoryConfig) => {
       },
     ];
   }, [] as TabSection[]);
-
-  return tabsView(
-    {
-      type: SectionType.Tabs,
-      tabs: outputTabs,
-    },
-    storyConfig,
-  );
 };
 
 export const storyPage = (
   props: StoryPageSection,
   storyConfig: StoryConfig,
-) => {
-  return (
-    <div data-hook="story-page">
-      {header(storyConfig)}
-      {tabs(props, storyConfig)}
-    </div>
-  );
-};
+) => [
+  {
+    type: SectionType.Header,
+    sourceUrl: `${storyConfig.config.repoBaseURL}/${storyConfig.storyName}`,
+  },
+  {
+    type: SectionType.Tabs,
+    tabs: tabs(props, storyConfig),
+  },
+];

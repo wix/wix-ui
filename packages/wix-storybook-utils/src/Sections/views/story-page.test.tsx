@@ -1,4 +1,3 @@
-import { render } from '@testing-library/react';
 import { storyPage } from './story-page';
 
 import React from 'react';
@@ -6,6 +5,7 @@ import { SectionType } from '../../typings/story-section';
 
 const _structure = `<div style={{ height: '100px' }}><div/><div/><div/></div>`;
 const demoExample = () => <div>Hello hello</div>;
+
 const storyProps = {
   type: SectionType.StoryPage,
   content: {
@@ -42,10 +42,16 @@ const defaultStoryConfig = {
 
 describe('StoryPage', () => {
   it('should render storyPage', () => {
-    const props = storyProps;
-    const { container } = render(storyPage(props, defaultStoryConfig));
-   
-
-    expect(!!container.querySelector('[data-hook="story-page"]')).toBe(true);
+    const props = {
+      type: SectionType.StoryPage,
+      content: {
+        description: 'This is description',
+        do: ['this', 'that'],
+        dont: ['one', 'two'],
+      },
+      examples: { _structure },
+      demo: demoExample,
+    };
+    expect(storyPage(props as any, defaultStoryConfig)).toBe(true);
   });
 });
