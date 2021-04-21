@@ -14,7 +14,7 @@ export const example = (
   section: ExampleSection,
   storyConfig: StoryConfig,
 ): React.ReactNode => (
-  <Layout>
+  <Layout key={section.key}>
     <Cell span={4}>
       {sectionWithSiblings(
         description({

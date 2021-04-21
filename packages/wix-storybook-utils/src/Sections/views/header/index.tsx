@@ -14,7 +14,6 @@ export const header: (a: HeaderSection, b: StoryConfig) => React.ReactNode = (
 ) => {
   const { title, component, sourceUrl, issueUrl } = section;
   const issueURL = storyConfig.config?.issueURL || issueUrl;
-  console.log(issueURL)
   return (
     <div className={styles.rootWrapper}>
       <div className={styles.root}>

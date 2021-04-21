@@ -54,6 +54,7 @@ export default class TabbedView extends Component {
   render() {
     const shouldHideForE2E = global.self === global.top;
     const { className, showTabs } = this.props;
+  
     return (
       <div>
         {showTabs && (

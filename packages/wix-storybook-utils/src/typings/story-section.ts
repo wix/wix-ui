@@ -140,6 +140,7 @@ export interface CodeSection extends StorySection {
  * specific component usage examples
  */
 export interface ExampleSection extends CodeSection, StorySection {
+  key: number;
   title: string;
   text: string;
 }

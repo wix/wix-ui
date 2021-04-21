@@ -1,16 +1,5 @@
 import * as React from 'react';
 
-import { description as descriptionView } from './description';
-import { demo as demoView } from './demo';
-import {
-  description as descriptionConfig,
-  importExample as importExampleConfig,
-} from '../';
-import { divider } from './divider';
-import { doDont as doDontView } from './do-dont';
-import { example as exampleView } from './example';
-import { header as headerView } from './header';
-import { title } from './title';
 import {
   SectionType,
   StoryPageSection,
@@ -18,82 +7,48 @@ import {
 } from '../../typings/story-section';
 import { StoryConfig } from '../../typings/story-config';
 import { Example, Tabs } from '../../typings/story';
-import { sectionWithSiblings } from '../section-with-siblings';
-import { importExample as importExampleView } from './import-example';
+
+import { header as headerView } from './header';
+
 import { tabs as tabsView } from './tabs';
 import { api } from './api';
 import { testkit } from './testkit';
 import { playground } from './playground';
 
-const examples = (props: {
-  title: string;
-  examples: Example[];
-  storyConfig: StoryConfig;
-}) => {
+const examples = (props: { examples: Example[]; storyConfig: StoryConfig }) => {
   if (!props.examples.length) {
-    return null;
+    return [];
   }
-
-  return (
-    <>
-      {divider()}
-      {title({ type: SectionType.Title, title: props.title })}
-      {props.examples.map(item =>
-        exampleView(
-          {
-            type: SectionType.Example,
-            title: item.title,
-            text: item.description,
-            source: props.storyConfig.story.examples[item.example],
-            compact: true,
-          },
-          props.storyConfig,
-        ),
-      )}
-    </>
-  );
+  return props.examples.map((item, index) => ({
+    type: SectionType.Example,
+    key: index,
+    title: item.title,
+    text: item.description,
+    source: props.storyConfig.story.examples[item.example],
+    compact: true,
+  }));
 };
 
-const description = (props: { title?: string; description: string }) =>
-  sectionWithSiblings(
-    descriptionConfig({
-      title: props.title,
-      description: '',
-    }),
-    descriptionView({
-      type: SectionType.Description,
-      text: props.description,
-    }),
-    true,
-  );
+const description = (props: { title?: string; description?: string }) => ({
+  type: SectionType.Description,
+  text: props.description,
+  title: props.title,
+});
 
-const importExample = (storyConfig: StoryConfig) =>
-  sectionWithSiblings(
-    importExampleConfig({
-      title: 'Import',
-    }),
-    importExampleView(
-      {
-        type: SectionType.ImportExample,
-        source: storyConfig.exampleImport,
-      },
-      storyConfig,
-    ),
-    true,
-  );
+const importExample = (storyConfig: StoryConfig) => ({
+  title: 'Import',
+  type: SectionType.ImportExample,
+  source: storyConfig.exampleImport,
+});
 
-const demo = (props: { demo: React.ReactNode }) =>
-  sectionWithSiblings(
-    descriptionConfig({
-      title: 'Demo',
-      description: '',
-    }),
-    demoView({
-      type: SectionType.Demo,
-      component: props.demo,
-    }),
-    true,
-  );
+const demo = (props: { demo: React.ElementType }) => {
+  const { demo: Demo } = props;
+  return {
+    title: 'Demo',
+    type: SectionType.Demo,
+    component: <Demo />,
+  };
+};
 
 const header = (storyConfig: StoryConfig) =>
   headerView(
@@ -104,53 +59,40 @@ const header = (storyConfig: StoryConfig) =>
     storyConfig,
   );
 
-const doDont = (props: { do: string[]; dont: string[] }) =>
-  doDontView({
-    type: SectionType.DoDont,
-    do: {
-      list: props.do,
-    },
-    dont: {
-      list: props.dont,
-    },
-  });
+const doDont = (props: { do: string[]; dont: string[] }) => ({
+  type: SectionType.DoDont,
+  do: {
+    list: props.do,
+  },
+  dont: {
+    list: props.dont,
+  },
+});
 
-const feedback = (storyConfig: StoryConfig) => {
-  return (
-    <>
-      {divider()}
-      {title({ type: SectionType.Title, title: 'Feedback' })}
-      {description({
-        description: storyConfig.config.feedbackText,
-      })}
-    </>
-  );
-};
+const divider = () => ({ type: SectionType.Divider });
+const title = (text: string) => ({ type: SectionType.Title, title: text });
 
 const designTab = (props: StoryPageSection, storyConfig: StoryConfig) => {
-  const { demo: Demo, content } = props;
+  const { content } = props;
   return {
     title: 'Design',
     type: SectionType.Tab,
     sections: [
-      demo({ demo: <Demo /> }),
-      description({
-        title: 'Usage',
-        description: content.description,
-      }),
+      demo({ demo: props.demo }),
+      description({ title: 'Usage', description: content.description }),
       doDont({ do: content.do, dont: content.dont }),
       importExample(storyConfig),
-      examples({
-        title: 'Variations',
-        examples: content.featureExamples,
+      divider(),
+      title('Variations'),
+      ...examples({ examples: props.content.featureExamples, storyConfig }),
+      title('Common Use Cases'),
+      ...examples({
+        examples: props.content.commonUseCaseExamples,
         storyConfig,
       }),
-      examples({
-        title: 'Common Use Cases',
-        examples: content.commonUseCaseExamples,
-        storyConfig,
-      }),
-      feedback(storyConfig),
+      divider(),
+      title('Feedback'),
+      description({ description: storyConfig.config.feedbackText }),
     ],
   };
 };
@@ -229,8 +171,6 @@ export const storyPage = (
   props: StoryPageSection,
   storyConfig: StoryConfig,
 ) => {
-  console.log(props);
-  console.log(storyConfig);
   return (
     <div data-hook="story-page">
       {header(storyConfig)}
