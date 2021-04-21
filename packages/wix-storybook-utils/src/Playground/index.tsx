@@ -40,37 +40,77 @@ const getView = (views, view) => (views[view] || views[ViewState.Idle])();
 
 let dirty = false;
 
+const isUpperCaseLetter = (char) => (/[A-Z]/.test(char));
+
+const getCompoundComponents = (scope, componentName) => {
+  const component = scope[componentName];
+
+  return Object.keys(component).reduce((result, componentProperty) => {
+    if (isUpperCaseLetter(componentProperty[0])) {
+      return {
+        ...result,
+        [`${componentName}.${componentProperty}`]: component[componentProperty]
+      }
+    }
+    return result;
+  }, {})
+}
+
+const getParsedComponent = (scope, componentName) => {
+  console.log(scope, componentName)
+  const component = scope[componentName];
+
+  if (!component.propTypes) {
+    return {};
+  }
+
+  const parsedPropTypes = parsePropTypes(component);
+  const filteredPropTypes = omit(parsedPropTypes, 'children', 'className');
+  const propNames = Object.keys(filteredPropTypes);
+
+  return {
+    [componentName]: {
+      attrs: Object.assign(
+        {},
+        ...propNames.map(propName => {
+          const propType = filteredPropTypes[propName].type;
+
+          return {
+            [propName]:
+              propType.name === 'oneOf'
+                ? propType.value.filter((x: any) => typeof x === 'string')
+                : null,
+          };
+        }),
+      ),
+    },
+  };
+}
+
+const getCompoundComponentsHints = (scope, componentName) => {
+  const compoundComponents = getCompoundComponents(scope, componentName);
+
+  return Object.keys(compoundComponents)
+    .sort()
+    .reduce((result, componentName1) => ({
+      ...result,
+      ...getParsedComponent(compoundComponents, componentName1),
+    }), {});
+};
+
 const getHints = scope => {
   console.log('SCOPE');
   console.log(scope);
 
   const hints = Object.keys(scope)
     .sort()
-    .reduce((result, componentName) => {
-      const parsedPropTypes = parsePropTypes(scope[componentName]);
-      const filteredPropTypes = omit(parsedPropTypes, 'children', 'className');
-      const propNames = Object.keys(filteredPropTypes);
+    .reduce((result, componentName) => ({
+      ...result,
+      ...getParsedComponent(scope, componentName),
+      ...getCompoundComponentsHints(scope, componentName),
+    }), {});
 
-      return {
-        ...result,
-        [componentName]: {
-          attrs: Object.assign(
-            {},
-            ...propNames.map(propName => {
-              const propType = filteredPropTypes[propName].type;
-
-              return {
-                [propName]:
-                  propType.name === 'oneOf'
-                    ? propType.value.filter((x: any) => typeof x === 'string')
-                    : null,
-              };
-            }),
-          ),
-        },
-      };
-    }, {});
-
+  console.log(hints)
   return hints;
 };
 
