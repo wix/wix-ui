@@ -1,7 +1,7 @@
 {
   "description": "Radio button represents an item of a single selection list. It is a part of RadioGroup or can be used to recreate it.",
-  "do": ["first item do", "second item"],
-  "dont": ["first item dont", "second item"],
+  "do": [],
+  "dont": [],
   "featureExamples": [
     {
       "title": "Structure",

@@ -97,25 +97,39 @@ const buildInput = (content: any) => ({
 });
 
 const buildOutput = (content: any, config: any) => {
-  const featureExamples = content.featureExamples.map((example, index) => ({
-    type: 'example',
-    key: index,
-    title: example.title,
-    text: example.description,
-    source: content.examples[example.example],
-    compact: true,
-  }));
-
-  const commonUseCaseExamples = content.commonUseCaseExamples.map(
-    (example, index) => ({
+  const featureExamples = content.featureExamples
+    .map((example, index) => ({
       type: 'example',
       key: index,
       title: example.title,
       text: example.description,
       source: content.examples[example.example],
       compact: true,
-    }),
-  );
+    }))
+    .filter(example => example.source);
+
+  const commonUseCaseExamples = content.commonUseCaseExamples
+    .map((example, index) => ({
+      type: 'example',
+      key: index,
+      title: example.title,
+      text: example.description,
+      source: content.examples[example.example],
+      compact: true,
+    }))
+    .filter(example => example.source);
+
+  const doDontModule = () => {
+    if (!content.do.length && !content.dont.length) {
+      return null;
+    }
+
+    return {
+      type: 'doDont',
+      do: { list: content.do },
+      dont: { list: content.dont },
+    };
+  };
   return [
     { type: 'header', sourceUrl: '/Story' },
     {
@@ -130,11 +144,7 @@ const buildOutput = (content: any, config: any) => {
               text: content.description || 'This is description',
               title: 'Usage',
             },
-            {
-              type: 'doDont',
-              do: { list: content.do },
-              dont: { list: content.dont },
-            },
+            doDontModule(),
             { title: 'Import', type: 'importExample', source: 'import' },
             { type: 'divider' },
             { type: 'title', title: 'Variations' },
@@ -144,7 +154,7 @@ const buildOutput = (content: any, config: any) => {
             { type: 'divider' },
             { type: 'title', title: 'Feedback' },
             { type: 'description' },
-          ],
+          ].filter(item => !!item),
         },
         { title: 'API', type: 'tab', sections: [{ type: 'api' }] },
         { title: 'Testkit', type: 'tab', sections: [{ type: 'testkit' }] },

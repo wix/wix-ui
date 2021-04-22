@@ -6,7 +6,7 @@ describe('StoryPage', () => {
     expect(input).toBe(output);
   });
 
-  it.only('should render story page with given feature example', () => {
+  it('given feature example should render it', () => {
     const { input, output } = createStoryBuilder()
       .addExamples({ _random: '</div>' })
       .addFeatureExample({
@@ -18,31 +18,43 @@ describe('StoryPage', () => {
     expect(input).toBe(output);
   });
 
-  it('should render story page with given feature example as empty', () => {
-    const { input, output } = createStoryBuilder().addFeatureExample([]);
-    expect(input).toBe(output);
-  });
-
-  it('should render story page with given common use case example', () => {
-    const { input, output } = createStoryBuilder().addCommonUseCasesExample({
+  it('given feature example without code example should not render it', () => {
+    const { input, output } = createStoryBuilder().addFeatureExample({
       title: 'title',
       description: 'description',
       example: '_random',
     });
+
     expect(input).toBe(output);
   });
 
-  it('should render story page with given common use case example as empty', () => {
+  it('given feature example as empty', () => {
+    const { input, output } = createStoryBuilder().addFeatureExample([]);
+    expect(input).toBe(output);
+  });
+
+  it('given common use case example', () => {
+    const { input, output } = createStoryBuilder()
+      .addExamples({ _random: '</div>' })
+      .addCommonUseCasesExample({
+        title: 'title',
+        description: 'description',
+        example: '_random',
+      });
+    expect(input).toBe(output);
+  });
+
+  it('given common use case example as empty should not render it', () => {
     const { input, output } = createStoryBuilder().addCommonUseCasesExample([]);
     expect(input).toBe(output);
   });
 
-  it('should render story page with given description', () => {
+  it('given description should render it', () => {
     const { input, output } = createStoryBuilder().addDescription('Hello');
     expect(input).toBe(output);
   });
 
-  it('should render story page with given dodont', () => {
+  it('given dodont should render it', () => {
     const { input, output } = createStoryBuilder().addDoDont({
       do: ['one'],
       dont: ['two'],
@@ -50,7 +62,7 @@ describe('StoryPage', () => {
     expect(input).toBe(output);
   });
 
-  it('should render story page with given dodont as empty arrays', () => {
+  it('given dodont as empty arrays should not render it', () => {
     const { input, output } = createStoryBuilder().addDoDont({
       do: [],
       dont: [],

@@ -8,19 +8,23 @@ import {
 import { StoryConfig } from '../../typings/story-config';
 import { Example, Tabs } from '../../typings/story';
 
-const examples = (props: { examples: Example[]; storyConfig: StoryConfig }) => {
-  if (!props.examples || !props.examples.length) {
+const examples = (
+  examplesContent: Example[],
+  examplesCode: Record<string, string>,
+) => {
+  if (!examplesContent || !examplesContent.length) {
     return [];
   }
-
-  return props.examples.map((item, index) => ({
-    type: SectionType.Example,
-    key: index,
-    title: item.title,
-    text: item.description,
-    source: props.storyConfig.story.examples[item.example],
-    compact: true,
-  }));
+  return examplesContent
+    .map((item, index) => ({
+      type: SectionType.Example,
+      key: index,
+      title: item.title,
+      text: item.description,
+      source: examplesCode[item.example],
+      compact: true,
+    }))
+    .filter(example => example.source);
 };
 
 const description = (props: { title?: string; description?: string }) => ({
@@ -48,15 +52,20 @@ const demo = (props: { demo: React.ElementType }) => {
   };
 };
 
-const doDont = (props: { do: string[]; dont: string[] }) => ({
-  type: SectionType.DoDont,
-  do: {
-    list: props.do,
-  },
-  dont: {
-    list: props.dont,
-  },
-});
+const doDont = (props: { do: string[]; dont: string[] }) => {
+  if(!props.do.length && !props.dont.length) {
+    return null;
+  }
+  return {
+    type: SectionType.DoDont,
+    do: {
+      list: props.do,
+    },
+    dont: {
+      list: props.dont,
+    },
+  };
+};
 
 const divider = () => ({ type: SectionType.Divider });
 const title = (text: string) => ({ type: SectionType.Title, title: text });
@@ -73,12 +82,9 @@ const designTab = (props: StoryPageSection, storyConfig: StoryConfig) => {
       importExample(storyConfig),
       divider(),
       title('Variations'),
-      ...examples({ examples: props.content.featureExamples, storyConfig }),
+      ...examples(props.content.featureExamples, props.examples),
       title('Common Use Cases'),
-      ...examples({
-        examples: props.content.commonUseCaseExamples,
-        storyConfig,
-      }),
+      ...examples(props.content.commonUseCaseExamples, props.examples),
       divider(),
       title('Feedback'),
       description({ description: storyConfig.config.feedbackText }),
