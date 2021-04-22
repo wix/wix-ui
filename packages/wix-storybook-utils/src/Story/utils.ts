@@ -19,5 +19,5 @@ export const scrollToElementByHash = () => {
     }
 
     scrollToElement(element);
-  }, 300);
+  }, 600);
 };
