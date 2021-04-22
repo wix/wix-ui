@@ -36,6 +36,42 @@ export const createStoryBuilder = (content?: any, config?: any) => {
   return {
     input: JSON.stringify(storyPage(buildInput(outputContent), outputConfig)),
     output: JSON.stringify(buildOutput(outputContent, outputConfig)),
+    addFeatureExample: (example: any) => {
+      if (!content) {
+        defaultContent.featureExamples = [example];
+        return createStoryBuilder(defaultContent);
+      }
+      content.featureExamples.push(example);
+      return createStoryBuilder(content);
+    },
+    addCommonUseCasesExample: (example: any) => {
+      if (!content) {
+        defaultContent.commonUseCaseExamples = [example];
+        return createStoryBuilder(defaultContent);
+      }
+      content.commonUseCaseExamples.push(example);
+      return createStoryBuilder(content);
+    },
+    addDescription: (description: string) => {
+      if (!content) {
+        defaultContent.description = description;
+        return createStoryBuilder(defaultContent);
+      }
+
+      content.description = description;
+      return createStoryBuilder(content);
+    },
+
+    addDoDont: (doDont: { do: string[]; dont: string[] }) => {
+      if (!content) {
+        defaultContent.do = doDont.do;
+        defaultContent.dont = doDont.dont;
+        return createStoryBuilder(defaultContent);
+      }
+      content.do = doDont.do;
+      content.dont = doDont.dont;
+      return createStoryBuilder(content);
+    },
   };
 };
 
@@ -68,7 +104,7 @@ const buildOutput = (content: any, config: any) => {
       title: example.title,
       text: example.description,
       source: content.examples[example.example],
-      compact: true
+      compact: true,
     }),
   );
   return [
