@@ -12,6 +12,7 @@ const examples = (props: { examples: Example[]; storyConfig: StoryConfig }) => {
   if (!props.examples || !props.examples.length) {
     return [];
   }
+
   return props.examples.map((item, index) => ({
     type: SectionType.Example,
     key: index,

@@ -6,13 +6,15 @@ describe('StoryPage', () => {
     expect(input).toBe(output);
   });
 
-  it('should render story page with given feature example', () => {
-    const { input, output } = createStoryBuilder().addFeatureExample({
-      title: 'title',
-      description: 'description',
-      example: '_structure',
-      layout: 'lanscape',
-    });
+  it.only('should render story page with given feature example', () => {
+    const { input, output } = createStoryBuilder()
+      .addExamples({ _random: '</div>' })
+      .addFeatureExample({
+        title: 'title',
+        description: 'description',
+        example: '_random',
+      });
+
     expect(input).toBe(output);
   });
 
@@ -25,8 +27,7 @@ describe('StoryPage', () => {
     const { input, output } = createStoryBuilder().addCommonUseCasesExample({
       title: 'title',
       description: 'description',
-      example: '<div/>',
-      layout: 'lanscape',
+      example: '_random',
     });
     expect(input).toBe(output);
   });

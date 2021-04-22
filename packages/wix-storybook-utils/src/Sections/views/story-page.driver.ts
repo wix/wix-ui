@@ -36,6 +36,15 @@ export const createStoryBuilder = (content?: any, config?: any) => {
   return {
     input: JSON.stringify(storyPage(buildInput(outputContent), outputConfig)),
     output: JSON.stringify(buildOutput(outputContent, outputConfig)),
+    addExamples: (examples: any) => {
+      if (!content) {
+        defaultContent.examples = { ...examples, _structure };
+        return createStoryBuilder(defaultContent);
+      }
+      content.examples = { ...examples, _structure };
+      console.log(content);
+      return createStoryBuilder(content);
+    },
     addFeatureExample: (example: any) => {
       if (!content) {
         defaultContent.featureExamples = [example];
@@ -84,7 +93,7 @@ const buildInput = (content: any) => ({
     featureExamples: content.featureExamples,
     commonUseCaseExamples: content.commonUseCaseExamples,
   },
-  examples: content.example,
+  examples: content.examples,
 });
 
 const buildOutput = (content: any, config: any) => {
