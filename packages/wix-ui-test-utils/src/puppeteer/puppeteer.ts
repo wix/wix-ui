@@ -1,4 +1,4 @@
-import {Page, ElementHandle} from 'puppeteer';
+import {Frame, Page, ElementHandle} from 'puppeteer';
 import {BaseUniDriver} from '../base-driver';
 import {UniDriver} from '@unidriver/core';
 import {pupUniDriver} from '@unidriver/puppeteer';
@@ -11,11 +11,11 @@ interface DriverFactoryOptions {
 export function puppeteerTestkitFactoryCreator<T>(
   driverFactory: (
     e: ElementHandle | null,
-    page: Page,
+    page: Page | Frame,
     options: DriverFactoryOptions
   ) => T
 ) {
-  return async (obj: { dataHook: string; page: Page }) =>
+  return async (obj: { dataHook: string; page: Page | Frame }) =>
     driverFactory(await obj.page.$(`[data-hook='${obj.dataHook}']`), obj.page, {
       dataHook: obj.dataHook
     });
@@ -30,7 +30,7 @@ export function puppeteerUniTestkitFactoryCreator<T extends BaseUniDriver>(
 ) {
   return async (obj: {
     dataHook: string;
-    page: Page;
+    page: Page | Frame;
     wrapper?: ElementHandle | null;
   }) => {
     const {wrapper: element} = obj; // destructuring `wrapper` so that type inference works well
