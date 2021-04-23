@@ -2,7 +2,6 @@ import * as React from "react";
 import { header, importExample, description } from "../src/Sections";
 
 import Playground from "../src/Playground";
-import Box from "../src/Test/Box/Box";
 
 const code = `
 class Component extends React.Component {
@@ -22,6 +21,6 @@ export default {
   sections: [
     header({ title: "Playground component" }),
     importExample("import Playground from 'wix-storybook-utils/Playground'"),
-    description(<Playground initialCode={code} scope={{ Box }} />)
+    description(<Playground initialCode={code} />)
   ]
 };

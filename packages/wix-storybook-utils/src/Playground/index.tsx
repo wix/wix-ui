@@ -112,7 +112,6 @@ const getHints = scope => {
       {},
     );
 
-  console.log({ scope, hints });
   return hints;
 };
 

@@ -139,12 +139,11 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
       e.stopPropagation();
       e.preventDefault();
 
-      const editorDoc = editor.getDoc();
-      const { ch, line } = editorDoc.getCursor();
+      const { ch, line } = editor.getCursor();
 
       this.prettifyCode();
 
-      editorDoc.setCursor({ ch, line });
+      editor.setCursor({ ch, line });
     }
   };
 
@@ -203,7 +202,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
   };
 
   setEditorValue = (value: string) => {
-    this.state.editorInstance.getDoc().setValue(value);
+    this.state.editorInstance.setValue(value);
   };
 
   editorDidMount = (editor: CodeMirror.Editor) => {
@@ -230,7 +229,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
   completeIfInTagNewAttribute = (codemirror: CodeMirror.Editor) => {
     const { line, ch } = codemirror.getCursor();
     const nextChar = codemirror.getRange({ line, ch }, { line, ch: ch + 1 });
-    const enableAutocomplete = !nextChar || /\s|>/.test(nextChar);
+    const enableAutocomplete = !nextChar || /[\s>]/.test(nextChar);
 
     return this.completeIfInTag(codemirror, !enableAutocomplete);
   };
