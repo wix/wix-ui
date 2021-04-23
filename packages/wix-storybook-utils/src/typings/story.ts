@@ -5,6 +5,7 @@ export interface Example {
   title?: string;
   description?: string;
   example?: string;
+  wide?: boolean;
 }
 
 export interface StoryContent {

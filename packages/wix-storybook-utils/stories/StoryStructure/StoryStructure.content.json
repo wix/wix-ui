@@ -38,7 +38,8 @@
     {
       "title": "Structure",
       "description": "Radio button consists of a radio itself and a label on the side.",
-      "example": "_structure"
+      "example": "_structure",
+      "wide": true
     },
     {
       "title": "States",

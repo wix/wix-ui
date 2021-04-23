@@ -36,7 +36,7 @@ export const createStoryBuilder = (content?: any, config?: any) => {
 
   return {
     input: JSON.stringify(storyPage(buildInput(outputContent), outputConfig)),
-    output: JSON.stringify(buildOutput(outputContent, outputConfig)),
+    output: JSON.stringify(buildOutput(outputContent)),
     addExamples: (examples: any) => {
       if (!content) {
         defaultContent.examples = { ...examples, _structure };
@@ -82,7 +82,6 @@ export const createStoryBuilder = (content?: any, config?: any) => {
       content.dont = doDont.dont;
       return createStoryBuilder(content);
     },
-
     addDemo: (demo: React.ReactElement) => {
       if (!content) {
         defaultContent.demo = demo;
@@ -107,7 +106,7 @@ const buildInput = (content: any) => ({
   demo: content.demo,
 });
 
-const buildOutput = (content: any, config: any) => {
+const buildOutput = (content: any) => {
   const featureExamples = content.featureExamples
     .map((example, index) => ({
       type: 'example',
@@ -116,6 +115,7 @@ const buildOutput = (content: any, config: any) => {
       text: example.description,
       source: content.examples[example.example],
       compact: true,
+      wide: example.wide,
     }))
     .filter(example => example.source);
 
@@ -127,6 +127,7 @@ const buildOutput = (content: any, config: any) => {
       text: example.description,
       source: content.examples[example.example],
       compact: true,
+      wide: example.wide,
     }))
     .filter(example => example.source);
 

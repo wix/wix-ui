@@ -22,6 +22,7 @@ const examples = (
       text: item.description,
       source: examplesCode[item.example],
       compact: true,
+      wide: item.wide,
     }))
     .filter(example => example.source);
 };

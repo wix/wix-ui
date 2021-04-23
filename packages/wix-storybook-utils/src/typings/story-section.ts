@@ -143,6 +143,7 @@ export interface ExampleSection extends CodeSection, StorySection {
   key: number;
   title: string;
   text: string;
+  wide: boolean;
 }
 
 /** Tab section is used to nest other sections. It is useful when author desires to, for example, split story page into

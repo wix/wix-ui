@@ -82,4 +82,17 @@ describe('StoryPage', () => {
     const { input, output } = createStoryBuilder().addDemo(null);
     expect(input).toBe(output);
   });
+
+  it('given an example with wide: true should render it', () => {
+    const { input, output } = createStoryBuilder()
+      .addExamples({ _random: '</div>' })
+      .addFeatureExample({
+        title: 'title',
+        description: 'description',
+        example: '_random',
+        wide: true,
+      });
+
+    expect(input).toBe(output);
+  });
 });
