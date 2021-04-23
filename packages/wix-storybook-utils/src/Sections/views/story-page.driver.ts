@@ -162,35 +162,3 @@ const buildOutput = (content: any, config: any) => {
     },
   ];
 };
-
-//addContent, addDoDont, addFeatureExamples, addCommonUseCasesExamples,  addDemo, addTabConfig
-
-// const defaultStoryProps = {
-//   type: SectionType.StoryPage,
-//   content: {},
-// };
-
-// const defaultStoryConfig = {
-//   metadata: {
-//     displayName: 'test',
-//     props: {},
-//   },
-//   config: {
-//     importFormat: '',
-//     moduleName: '',
-//     repoBaseURL: '',
-//   },
-//   storyName: 'Story',
-//   component: () => ({}),
-//   story: storyProps,
-//   exampleImport: 'import',
-// } as any;
-
-// const defaultExample = {
-//   type: 'example',
-//   key: 0,
-//   title: 'Structure',
-//   text: 'Radio button consists of a radio itself and a label on the side.',
-//   source: "<div style={{ height: '100px' }}><div/><div/><div/></div>",
-//   compact: true,
-// };
