@@ -3,17 +3,7 @@ import PropTypes from 'prop-types';
 import { LiveProvider, LiveError, LivePreview } from 'react-live';
 import classnames from 'classnames';
 import { Collapse } from 'react-collapse';
-import debounce from 'lodash/debounce';
-import { DebouncedFunc } from 'lodash';
-import { UnControlled as ReactCodeMirror } from 'react-codemirror2';
-import * as CodeMirror from 'codemirror';
-import 'codemirror/mode/jsx/jsx';
-import 'codemirror/addon/edit/closetag';
-import 'codemirror/addon/edit/closebrackets';
-import 'codemirror/addon/hint/show-hint';
-import 'codemirror/addon/hint/xml-hint';
 
-import './styles.global.scss';
 import DuplicateSmall from '../icons/DuplicateSmall';
 import RevertSmall from '../icons/RevertSmall';
 import CodeSmall from '../icons/CodeSmall';
@@ -23,12 +13,9 @@ import { transformCode, formatCode } from './doctor-code';
 import { CopyButton } from '../CopyButton';
 import ToggleSwitch from '../ui/toggle-switch';
 import TextButton from '../TextButton';
-
+import Editor from './Editor';
 import styles from './index.scss';
-
-interface Hint {
-  attrs: Record<string, any>;
-}
+import { Hints } from './constants';
 
 export interface Props {
   initialCode?: string;
@@ -42,7 +29,7 @@ export interface Props {
   noBackground?: boolean;
   onChange?: Function;
   previewWarning?({ onConfirm: Function }): React.ReactNode | null;
-  hints?: Record<string, Hint>;
+  hints?: Hints;
 }
 
 interface State {
@@ -53,11 +40,10 @@ interface State {
   isEditorOpened: boolean;
   parseError: object | null;
   renderPreview: boolean;
-  editorInstance: CodeMirror.Editor | null;
+  setEditorValue: Function;
 }
-export default class LiveCodeExample extends React.PureComponent<Props, State> {
-  debouncedOnCodeChange: DebouncedFunc<() => any>;
 
+export default class LiveCodeExample extends React.PureComponent<Props, State> {
   static propTypes = {
     initialCode: PropTypes.string,
     scope: PropTypes.object,
@@ -85,10 +71,6 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    this.debouncedOnCodeChange = debounce(this.onCodeChange, 100, {
-      trailing: true,
-    });
-
     const formattedCode = formatCode(props.initialCode).trim();
 
     this.state = {
@@ -99,7 +81,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
       isEditorOpened: !props.compact || props.initiallyOpen,
       parseError: null,
       renderPreview: !Boolean(props.previewWarning),
-      editorInstance: null,
+      setEditorValue: null,
     };
   }
 
@@ -119,42 +101,22 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
     try {
       this.setState(
         ({ code }) => ({ code: formatCode(code) }),
-        () => this.setEditorValue(this.state.code),
+        () => this.state.setEditorValue(this.state.code),
       );
     } catch (e) {
       console.error('Unable to prettify code', e);
     }
   };
 
-  liveEditorOnKeyDown = (editor: CodeMirror.Editor, e: KeyboardEvent) => {
-    const shouldPrettify = [
-      /* windows & unix: ctrl + s */
-      e.ctrlKey && e.key === 's',
-
-      /* osx: command + s */
-      e.metaKey && e.key === 's',
-    ].some(Boolean);
-
-    if (shouldPrettify) {
-      e.stopPropagation();
-      e.preventDefault();
-
-      const { ch, line } = editor.getCursor();
-
-      this.prettifyCode();
-
-      editor.setCursor({ ch, line });
-    }
-  };
-
   onResetCode = () => {
     const code = formatCode(this.props.initialCode);
-    this.setEditorValue(code);
+    this.state.setEditorValue(code);
     this.setState({ code });
   };
 
-  onCodeChange = (_editor, _data, code) =>
+  onEditorChange = code => {
     this.setState({ code }, () => this.props.onChange(this.state.code));
+  };
 
   onToggleRtl = (isRtl: boolean) => this.setState({ isRtl });
   onToggleBackground = (isDarkBackground: boolean) =>
@@ -199,61 +161,6 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
     }
 
     return null;
-  };
-
-  setEditorValue = (value: string) => {
-    this.state.editorInstance.setValue(value);
-  };
-
-  editorDidMount = (editor: CodeMirror.Editor) => {
-    this.setState({ editorInstance: editor }, () =>
-      this.setEditorValue(this.state.initialFormattedCode),
-    );
-  };
-
-  completeAfter = (
-    codemirror: CodeMirror.Editor,
-    predicate?: () => boolean,
-  ) => {
-    if (!predicate || predicate()) {
-      setTimeout(() => {
-        if (!codemirror.state.completionActive) {
-          codemirror.showHint({ completeSingle: false });
-        }
-      }, 100);
-    }
-
-    return CodeMirror.Pass;
-  };
-
-  completeIfInTagNewAttribute = (codemirror: CodeMirror.Editor) => {
-    const { line, ch } = codemirror.getCursor();
-    const nextChar = codemirror.getRange({ line, ch }, { line, ch: ch + 1 });
-    const enableAutocomplete = !nextChar || /[\s>]/.test(nextChar);
-
-    return this.completeIfInTag(codemirror, !enableAutocomplete);
-  };
-
-  completeIfInTag = (
-    codemirror: CodeMirror.Editor,
-    ignoreAutocomplete?: boolean,
-  ) => {
-    return this.completeAfter(codemirror, () => {
-      const token = codemirror.getTokenAt(codemirror.getCursor());
-
-      if (
-        ignoreAutocomplete ||
-        (token.type === 'string' &&
-          (!/['"]/.test(token.string.charAt(token.string.length - 1)) ||
-            token.string.length === 1))
-      ) {
-        return false;
-      }
-
-      const inner = CodeMirror.innerMode(codemirror.getMode(), token.state)
-        .state;
-      return inner.tagName;
-    });
   };
 
   render() {
@@ -359,38 +266,13 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
               {this.renderError()}
             </div>
             <Collapse isOpened={isEditorOpened} className={styles.editor}>
-              <ReactCodeMirror
-                onChange={this.debouncedOnCodeChange}
-                editorDidMount={this.editorDidMount}
-                onKeyDown={this.liveEditorOnKeyDown}
-                options={{
-                  mode: 'jsx',
-                  autoCloseTags: true,
-                  autoCloseBrackets: true,
-                  theme: 'wsr',
-                  viewportMargin: 50,
-                  lineNumbers: true,
-                  hintOptions: {
-                    schemaInfo: hints,
-                  } as CodeMirror.ShowHintOptions,
-                  extraKeys: {
-                    Tab: codemirror => {
-                      if (codemirror.somethingSelected()) {
-                        codemirror.indentSelection('add');
-                      } else {
-                        const indent = codemirror.getOption('indentUnit');
-                        const spaces = Array(indent + 1).join(' ');
-                        codemirror.replaceSelection(spaces);
-                      }
-                    },
-                    "'<'": this.completeAfter,
-                    'Cmd-I': this.completeIfInTag,
-                    'Ctrl-I': this.completeIfInTag,
-                    "'='": this.completeIfInTag,
-                    "' '": this.completeIfInTagNewAttribute,
-                    Enter: this.completeIfInTagNewAttribute,
-                  },
-                }}
+              <Editor
+                initialFormattedCode={this.state.initialFormattedCode}
+                onChange={this.onEditorChange}
+                hints={hints}
+                editorCodeUpdater={updater =>
+                  this.setState({ setEditorValue: updater })
+                }
               />
             </Collapse>
           </div>

@@ -1,6 +1,4 @@
 import React, { Dispatch } from 'react';
-import parsePropTypes from 'parse-prop-types';
-import omit from 'lodash/omit';
 import * as queryString from 'query-string';
 import UploadExportSmall from '../icons/UploadExportSmall';
 
@@ -14,6 +12,7 @@ import styles from './styles.scss';
 import { previewWarning } from './preview-warning';
 import { saveSnippet, loadSnippet } from './snippet';
 import { SaveSuccess } from './save-success';
+import { getHints } from './utils';
 
 const enum ViewState {
   Idle,
@@ -39,81 +38,6 @@ interface Props extends LiveCodeExampleProps {
 const getView = (views, view) => (views[view] || views[ViewState.Idle])();
 
 let dirty = false;
-
-const isUpperCaseLetter = char => /[A-Z]/.test(char);
-
-const getCompoundComponents = (scope, componentName) => {
-  const component = scope[componentName];
-
-  return Object.keys(component).reduce((result, componentProperty) => {
-    if (isUpperCaseLetter(componentProperty[0])) {
-      return {
-        ...result,
-        [`${componentName}.${componentProperty}`]: component[componentProperty],
-      };
-    }
-    return result;
-  }, {});
-};
-
-const getParsedComponent = (scope, componentName) => {
-  const component = scope[componentName];
-
-  if (!component.propTypes) {
-    return {};
-  }
-
-  const parsedPropTypes = parsePropTypes(component);
-  const filteredPropTypes = omit(parsedPropTypes, 'children', 'className');
-  const propNames = Object.keys(filteredPropTypes);
-
-  return {
-    [componentName]: {
-      attrs: Object.assign(
-        {},
-        ...propNames.map(propName => {
-          const propType = filteredPropTypes[propName].type;
-
-          return {
-            [propName]:
-              propType.name === 'oneOf'
-                ? propType.value.filter((x: any) => typeof x === 'string')
-                : null,
-          };
-        }),
-      ),
-    },
-  };
-};
-
-const getCompoundComponentsHints = (scope, componentName) => {
-  const compoundComponents = getCompoundComponents(scope, componentName);
-
-  return Object.keys(compoundComponents)
-    .sort()
-    .reduce(
-      (result, componentName1) => ({
-        ...result,
-        ...getParsedComponent(compoundComponents, componentName1),
-      }),
-      {},
-    );
-};
-
-const getHints = scope => {
-  const hints = Object.keys(scope)
-    .sort()
-    .reduce(
-      (result, componentName) => ({
-        ...result,
-        ...getParsedComponent(scope, componentName),
-        ...getCompoundComponentsHints(scope, componentName),
-      }),
-      {},
-    );
-
-  return hints;
-};
 
 const Playground: React.FunctionComponent<Props> = ({
   initialCode = '',
