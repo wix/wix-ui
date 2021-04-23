@@ -25,7 +25,7 @@ const examples = (
       compact: true,
       wide: item.wide,
     }))
-    .filter((example) => example.source);
+    .filter(example => example.source);
 };
 
 const description = (props: {
@@ -98,7 +98,7 @@ const designTab = (props: StoryPageSection, storyConfig: StoryConfig) => {
       divider(),
       title('Feedback'),
       description({ description: storyConfig.config.feedbackText }),
-    ].filter((item) => !!item),
+    ].filter(item => !!item),
   };
 };
 
