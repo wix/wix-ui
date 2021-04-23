@@ -1,6 +1,6 @@
-//import { SectionType } from '../../typings/story-section';
 import { storyPage } from './story-page';
 import { SectionType } from '../../typings/story-section';
+import React from 'react';
 
 const _structure = `<div style={{ height: '100px' }}><div/><div/><div/></div>`;
 
@@ -19,6 +19,7 @@ export const createStoryBuilder = (content?: any, config?: any) => {
     ],
     commonUseCaseExamples: [],
     examples: { _structure },
+    demo: <div />,
   };
 
   const defaultConfig = {
@@ -81,6 +82,15 @@ export const createStoryBuilder = (content?: any, config?: any) => {
       content.dont = doDont.dont;
       return createStoryBuilder(content);
     },
+
+    addDemo: (demo: React.ReactElement) => {
+      if (!content) {
+        defaultContent.demo = demo;
+        return createStoryBuilder(defaultContent);
+      }
+      content.demo = demo;
+      return createStoryBuilder(content);
+    },
   };
 };
 
@@ -94,6 +104,7 @@ const buildInput = (content: any) => ({
     commonUseCaseExamples: content.commonUseCaseExamples,
   },
   examples: content.examples,
+  demo: content.demo,
 });
 
 const buildOutput = (content: any, config: any) => {
@@ -130,6 +141,17 @@ const buildOutput = (content: any, config: any) => {
       dont: { list: content.dont },
     };
   };
+  const demoModule = () => {
+    if (!content.demo) {
+      return null;
+    }
+
+    return {
+      title: 'Demo',
+      type: 'demo',
+      component: content.demo,
+    };
+  };
   return [
     { type: 'header', sourceUrl: '/Story' },
     {
@@ -139,6 +161,7 @@ const buildOutput = (content: any, config: any) => {
           title: 'Design',
           type: 'tab',
           sections: [
+            demoModule(),
             {
               type: 'description',
               text: content.description || 'This is description',

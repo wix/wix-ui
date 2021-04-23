@@ -30,6 +30,6 @@ export interface Tabs {
 
 export type StoryExamples = Record<string, string>;
 
-export type StoryDemo = React.ElementType;
+export type StoryDemo = React.ReactNode;
 
 export type StoryTabs = (tabs: Tabs) => Tab[];

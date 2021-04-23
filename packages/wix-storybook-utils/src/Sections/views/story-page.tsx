@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import {
   SectionType,
   StoryPageSection,
@@ -7,6 +5,7 @@ import {
 } from '../../typings/story-section';
 import { StoryConfig } from '../../typings/story-config';
 import { Example, Tabs } from '../../typings/story';
+import React from 'react';
 
 const examples = (
   examplesContent: Example[],
@@ -39,7 +38,7 @@ const importExample = (storyConfig: StoryConfig) => ({
   source: storyConfig.exampleImport,
 });
 
-const demo = (props: { demo: React.ElementType }) => {
+const demo = (props: { demo: React.ReactNode }) => {
   const { demo: Demo } = props;
 
   if (!Demo) {
@@ -48,12 +47,12 @@ const demo = (props: { demo: React.ElementType }) => {
   return {
     title: 'Demo',
     type: SectionType.Demo,
-    component: <Demo />,
+    component: Demo,
   };
 };
 
 const doDont = (props: { do: string[]; dont: string[] }) => {
-  if(!props.do.length && !props.dont.length) {
+  if (!props.do.length && !props.dont.length) {
     return null;
   }
   return {

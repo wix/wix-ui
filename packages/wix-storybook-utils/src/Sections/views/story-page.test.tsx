@@ -1,4 +1,5 @@
 import { createStoryBuilder } from './story-page.driver';
+import React from 'react';
 
 describe('StoryPage', () => {
   it('should render simple storyPage', () => {
@@ -69,5 +70,16 @@ describe('StoryPage', () => {
     });
     expect(input).toBe(output);
   });
-});
 
+  it('given demo should render it', () => {
+    const { input, output } = createStoryBuilder().addDemo(
+      <div>This is test</div>,
+    );
+    expect(input).toBe(output);
+  });
+
+  it('given empty demo should not render it', () => {
+    const { input, output } = createStoryBuilder().addDemo(null);
+    expect(input).toBe(output);
+  });
+});
