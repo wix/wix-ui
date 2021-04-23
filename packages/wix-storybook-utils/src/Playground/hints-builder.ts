@@ -1,12 +1,15 @@
 import parsePropTypes from 'parse-prop-types';
 import omit from 'lodash/omit';
 
-type Scope = Record<string, any>;
+type ComponentsScope = Record<string, any>;
 
 const isUpperCaseLetter = char => /[A-Z]/.test(char);
 
-const getCompoundComponents = (scope: Scope, componentName: string) => {
-  const component = scope[componentName];
+const getCompoundComponents = (
+  componentsScope: ComponentsScope,
+  componentName: string,
+) => {
+  const component = componentsScope[componentName];
 
   return Object.keys(component).reduce((result, componentProperty) => {
     if (isUpperCaseLetter(componentProperty[0])) {
@@ -19,8 +22,11 @@ const getCompoundComponents = (scope: Scope, componentName: string) => {
   }, {});
 };
 
-const getParsedComponent = (scope: Scope, componentName: string) => {
-  const component = scope[componentName];
+const getParsedComponent = (
+  componentsScope: ComponentsScope,
+  componentName: string,
+) => {
+  const component = componentsScope[componentName];
 
   if (!component.propTypes) {
     return {};
@@ -34,7 +40,7 @@ const getParsedComponent = (scope: Scope, componentName: string) => {
     [componentName]: {
       attrs: Object.assign(
         {},
-        ...propNames.map(propName => {
+        ...propNames.sort().map(propName => {
           const propType = filteredPropTypes[propName].type;
 
           return {
@@ -50,10 +56,13 @@ const getParsedComponent = (scope: Scope, componentName: string) => {
 };
 
 const getCompoundComponentsHints = (
-  scope: Record<string, any>,
+  componentsScope: ComponentsScope,
   componentName: string,
 ) => {
-  const compoundComponents = getCompoundComponents(scope, componentName);
+  const compoundComponents = getCompoundComponents(
+    componentsScope,
+    componentName,
+  );
 
   return Object.keys(compoundComponents)
     .sort()
@@ -66,18 +75,18 @@ const getCompoundComponentsHints = (
     );
 };
 
-export const getHints = (scope: Scope) => {
-  if (!scope) {
+export const getHints = (componentsScope?: ComponentsScope) => {
+  if (!componentsScope) {
     return null;
   }
 
-  return Object.keys(scope)
+  return Object.keys(componentsScope)
     .sort()
     .reduce(
       (result, componentName) => ({
         ...result,
-        ...getParsedComponent(scope, componentName),
-        ...getCompoundComponentsHints(scope, componentName),
+        ...getParsedComponent(componentsScope, componentName),
+        ...getCompoundComponentsHints(componentsScope, componentName),
       }),
       {},
     );
