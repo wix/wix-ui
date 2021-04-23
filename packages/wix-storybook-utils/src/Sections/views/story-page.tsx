@@ -6,6 +6,7 @@ import {
 import { StoryConfig } from '../../typings/story-config';
 import { Example, Tabs } from '../../typings/story';
 import React from 'react';
+import { width } from '../../ui/Tabs/core/constants/tab-prop-types';
 
 const examples = (
   examplesContent: Example[],
@@ -24,13 +25,18 @@ const examples = (
       compact: true,
       wide: item.wide,
     }))
-    .filter(example => example.source);
+    .filter((example) => example.source);
 };
 
-const description = (props: { title?: string; description?: string }) => ({
+const description = (props: {
+  title?: string;
+  description?: string;
+  width?: string;
+}) => ({
   type: SectionType.Description,
   text: props.description,
   title: props.title,
+  width,
 });
 
 const importExample = (storyConfig: StoryConfig) => ({
@@ -77,7 +83,11 @@ const designTab = (props: StoryPageSection, storyConfig: StoryConfig) => {
     type: SectionType.Tab,
     sections: [
       demo({ demo: props.demo }),
-      description({ title: 'Usage', description: content.description }),
+      description({
+        title: 'Usage',
+        description: content.description,
+        width: '60%',
+      }),
       doDont({ do: content.do, dont: content.dont }),
       importExample(storyConfig),
       divider(),
@@ -88,7 +98,7 @@ const designTab = (props: StoryPageSection, storyConfig: StoryConfig) => {
       divider(),
       title('Feedback'),
       description({ description: storyConfig.config.feedbackText }),
-    ].filter(item => !!item),
+    ].filter((item) => !!item),
   };
 };
 

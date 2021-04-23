@@ -68,6 +68,10 @@ export interface DescriptionSection extends StorySection {
    * ```
    * */
   text: React.ReactNode | string;
+
+  size?: 'normal' | 'small';
+
+  width?: string | number;
 }
 
 /** Header section is used for story page top part. It can display component example, so that it's easy to see what the story page is about */

@@ -16,14 +16,14 @@ export const example = (
 ): React.ReactNode => {
   const { wide } = section;
   return (
-    <Layout key={section.key}>
-      <Cell span={wide ? 12 : 4}>
+    <Layout gap={wide ? '0px' : '30px'} key={section.key}>
+      <Cell span={wide ? 8 : 4}>
         {sectionWithSiblings(
           description({
             ...section,
             type: SectionType.Description,
           }),
-          descriptionView(section),
+          descriptionView({ ...section, size: wide ? 'small' : 'normal' }),
           true,
         )}
       </Cell>
