@@ -12,7 +12,7 @@ import styles from './styles.scss';
 import { previewWarning } from './preview-warning';
 import { saveSnippet, loadSnippet } from './snippet';
 import { SaveSuccess } from './save-success';
-import { getHints } from './utils';
+import { getHints } from './hints-builder';
 
 const enum ViewState {
   Idle,
