@@ -1,6 +1,7 @@
 import React from 'react';
 import { StoryConfig } from './story-config';
 import { DoDontProps } from '../DoDont/DoDont.types';
+import { StoryExamples, StoryContent, StoryDemo, StoryTabs } from './story';
 
 export enum SectionType {
   Api = 'api',
@@ -21,6 +22,7 @@ export enum SectionType {
   Example = 'example',
   DoDont = 'doDont',
   Demo = 'demo',
+  StoryPage = 'storyPage',
 }
 
 export interface StorySection {
@@ -47,7 +49,8 @@ export type Section =
   | PluginSection
   | ExampleSection
   | DoDontSection
-  | DemoSection;
+  | DemoSection
+  | StoryPageSection;
 
 export type PluginHandler = (
   section: PluginSection,
@@ -65,6 +68,10 @@ export interface DescriptionSection extends StorySection {
    * ```
    * */
   text: React.ReactNode | string;
+
+  size?: 'normal' | 'small';
+
+  width?: string | number;
 }
 
 /** Header section is used for story page top part. It can display component example, so that it's easy to see what the story page is about */
@@ -137,8 +144,10 @@ export interface CodeSection extends StorySection {
  * specific component usage examples
  */
 export interface ExampleSection extends CodeSection, StorySection {
+  key: number;
   title: string;
   text: string;
+  wide: boolean;
 }
 
 /** Tab section is used to nest other sections. It is useful when author desires to, for example, split story page into
@@ -298,4 +307,11 @@ export interface DoDontSection extends DoDontProps, StorySection {}
 
 export interface DemoSection extends StorySection {
   component: React.ReactNode;
+}
+
+export interface StoryPageSection extends StorySection {
+  content?: StoryContent;
+  examples?: StoryExamples;
+  demo?: StoryDemo;
+  tabs?: StoryTabs;
 }

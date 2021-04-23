@@ -2,13 +2,14 @@ import * as React from 'react';
 
 import { Metadata } from '../typings/metadata';
 import { StoryConfig } from '../typings/story-config';
-import { Section } from '../typings/story-section';
+import { Section, SectionType } from '../typings/story-section';
 import merge from 'lodash/merge';
 
 import { View as SectionsView } from '../Sections/view';
 import omit from '../AutoExample/utils/omit';
 
 import { createDefaultSections } from '../Sections/create-default-sections';
+import { storyPage } from './../Sections/views/story-page';
 
 interface StoryPageProps extends StoryConfig {
   activeTabId?: string;
@@ -31,7 +32,20 @@ const makeSections: (a: StoryPageProps) => Section[] = props =>
       when: props.sections && !props.componentPath,
       make: () => props.sections,
     },
-
+    {
+      when: props.story && props.story.content,
+      make: () =>
+        storyPage(
+          {
+            type: SectionType.StoryPage,
+            content: props.story.content,
+            examples: props.story.examples,
+            demo: props.story.demo,
+            tabs: props.story.tabs,
+          },
+          props,
+        ),
+    },
     {
       // default case
       when: true,

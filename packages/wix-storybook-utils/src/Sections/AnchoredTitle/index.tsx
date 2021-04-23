@@ -14,9 +14,9 @@ const translations = {
 };
 
 export const AnchoredTitle = ({ title }) => {
-  const [copied, setCopied] = useState(false)
+  const [copied, setCopied] = useState(false);
   const id = title.replace(/\s+/g, '_');
-  const copyLinkRef = useRef(null)
+  const copyLinkRef = useRef(null);
 
   const onCopy = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -24,19 +24,19 @@ export const AnchoredTitle = ({ title }) => {
     setCopied(true);
     addons.getChannel().emit('navigateUrl', `#${id}`);
     setTimeout(() => {
-      copy(new URL(window.parent.location as any).href)
+      copy(new URL(window.parent.location as any).href);
     });
-  }
+  };
 
   const onMouseEnter = () => ReactTooltip.show(copyLinkRef.current);
 
   const onMouseLeave = () => {
-    ReactTooltip.hide(copyLinkRef.current)
-    setCopied(false)
-  }
+    ReactTooltip.hide(copyLinkRef.current);
+    setCopied(false);
+  };
 
   return (
-    <div 
+    <div
       className={styles.titleContainer}
       onClick={onCopy}
       onMouseEnter={onMouseEnter}
@@ -66,9 +66,9 @@ export const AnchoredTitle = ({ title }) => {
         offset={{ top: -5 }}
         className={styles.tooltip}
       >
-        {copied && <ConfirmSmall/>}
+        {copied && <ConfirmSmall />}
         {copied ? translations.linkCopiedToClipboard : translations.copyLink}
       </ReactTooltip>
     </div>
-  )
-}
+  );
+};

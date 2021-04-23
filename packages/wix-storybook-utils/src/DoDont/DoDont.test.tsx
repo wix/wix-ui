@@ -34,7 +34,7 @@ describe('DoDont', () => {
     };
     const container = render(<DoDont {...props} />);
 
-    expect(container.getByText('Use it').textContent).toBe('Use it');
+    expect(container.getByText('Do').textContent).toBe('Do');
   });
 
   it('should have title for dont by default', () => {
@@ -43,8 +43,8 @@ describe('DoDont', () => {
     };
     const container = render(<DoDont {...props} />);
 
-    expect(container.getByText(`Don't use it`).textContent).toBe(
-      `Don't use it`,
+    expect(container.getByText(`Don't`).textContent).toBe(
+      `Don't`,
     );
   });
 });

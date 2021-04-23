@@ -1,11 +1,11 @@
-@import "../../ui/colors.scss";
-@import "../../ui/typography.scss";
+@import '../../ui/colors.scss';
+@import '../../ui/typography.scss';
 
 $grayRowBackground: rgba($D70, 0.42);
 
 .description {
   margin-bottom: calc(54px - 16px);
- 
+
   :global .markdown-body p {
     @include font();
     @include fontWeight(medium);
@@ -22,6 +22,10 @@ $grayRowBackground: rgba($D70, 0.42);
     line-height: 24px;
     color: $D20;
   }
+}
+
+.descriptionSmall {
+  margin-bottom: 8px;
 }
 
 .table {

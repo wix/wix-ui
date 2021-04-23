@@ -8,6 +8,7 @@ export interface Config {
   unifiedTestkit?: boolean;
   playgroundComponentsPath?: string;
   playgroundComponents?: Record<string, React.ReactNode>;
+  feedbackText?: string;
 }
 
 export interface Testkits {

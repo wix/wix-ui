@@ -19,22 +19,24 @@ const Header = ({ storyName, metadata }) => (
 const hasHeader = (sections = []) =>
   sections[0] && sections[0].type === SectionType.Header;
 
-export const View: React.FunctionComponent<StoryConfig> = storyConfig => (
-  <div className={styles.page}>
-    <div className={styles.content}>
-      {!hasHeader(storyConfig.sections) && (
-        <Header
-          storyName={storyConfig.storyName}
-          metadata={storyConfig.metadata}
-        />
-      )}
+export const View: React.FunctionComponent<StoryConfig> = storyConfig => {
+  return (
+    <div className={styles.page}>
+      <div className={styles.content}>
+        {!hasHeader(storyConfig.sections) && (
+          <Header
+            storyName={storyConfig.storyName}
+            metadata={storyConfig.metadata}
+          />
+        )}
 
-      {tab(
-        makeTab({
-          sections: storyConfig.sections,
-        }),
-        storyConfig,
-      )}
+        {tab(
+          makeTab({
+            sections: storyConfig.sections,
+          }),
+          storyConfig,
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
+};

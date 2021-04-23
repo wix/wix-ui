@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Metadata } from './metadata';
 import { Config } from './config';
 import { StorySection } from './story-section';
+import { StoryContent, StoryDemo, StoryExamples, StoryTabs } from './story';
 
 export interface StoryConfig {
   metadata: Metadata;
@@ -30,4 +31,11 @@ export interface StoryConfig {
    * */
   codeExample?: boolean;
   sections?: StorySection[];
+
+  story?: {
+    content: StoryContent;
+    examples: StoryExamples;
+    demo: StoryDemo;
+    tabs: StoryTabs;
+  };
 }

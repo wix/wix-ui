@@ -13,21 +13,24 @@ import { Layout, Cell } from '../../ui/Layout';
 export const example = (
   section: ExampleSection,
   storyConfig: StoryConfig,
-): React.ReactNode => (
-  <Layout>
-    <Cell span={4}>
-      {sectionWithSiblings(
-        description({
-          ...section,
-          type: SectionType.Description,
-        }),
-        descriptionView(section),
-        true,
-      )}
-    </Cell>
+): React.ReactNode => {
+  const { wide } = section;
+  return (
+    <Layout gap={wide ? '0px' : '30px'} key={section.key}>
+      <Cell span={wide ? 8 : 4}>
+        {sectionWithSiblings(
+          description({
+            ...section,
+            type: SectionType.Description,
+          }),
+          descriptionView({ ...section, size: wide ? 'small' : 'normal' }),
+          true,
+        )}
+      </Cell>
 
-    <Cell span={8}>
-      {sectionWithSiblings(code(section), codeView(section, storyConfig))}
-    </Cell>
-  </Layout>
-);
+      <Cell span={wide ? 12 : 8}>
+        {sectionWithSiblings(code(section), codeView(section, storyConfig))}
+      </Cell>
+    </Layout>
+  );
+};
