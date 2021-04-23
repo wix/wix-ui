@@ -32,7 +32,7 @@ export interface StoryConfig {
   codeExample?: boolean;
   sections?: StorySection[];
 
-  story: {
+  story?: {
     content: StoryContent;
     examples: StoryExamples;
     demo: StoryDemo;
