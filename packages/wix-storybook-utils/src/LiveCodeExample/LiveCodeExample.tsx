@@ -227,25 +227,26 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
     return CodeMirror.Pass;
   };
 
-  completeIfAfterLt = (codemirror: CodeMirror.Editor) =>
-    this.completeAfter(codemirror, () => {
-      const cursorPosition = codemirror.getCursor();
+  completeIfInTagNewAttribute = (codemirror: CodeMirror.Editor) => {
+    const { line, ch } = codemirror.getCursor();
+    const nextChar = codemirror.getRange({ line, ch }, { line, ch: ch + 1 });
+    const enableAutocomplete = !nextChar || /\s|>/.test(nextChar);
 
-      return (
-        codemirror.getRange(
-          CodeMirror.Pos(cursorPosition.line, cursorPosition.ch - 1),
-          cursorPosition,
-        ) === '<'
-      );
-    });
+    return this.completeIfInTag(codemirror, !enableAutocomplete);
+  };
 
-  completeIfInTag = (codemirror: CodeMirror.Editor) => {
+  completeIfInTag = (
+    codemirror: CodeMirror.Editor,
+    ignoreAutocomplete?: boolean,
+  ) => {
     return this.completeAfter(codemirror, () => {
       const token = codemirror.getTokenAt(codemirror.getCursor());
+
       if (
-        token.type === 'string' &&
-        (!/['"]/.test(token.string.charAt(token.string.length - 1)) ||
-          token.string.length === 1)
+        ignoreAutocomplete ||
+        (token.type === 'string' &&
+          (!/['"]/.test(token.string.charAt(token.string.length - 1)) ||
+            token.string.length === 1))
       ) {
         return false;
       }
@@ -383,12 +384,12 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
                         codemirror.replaceSelection(spaces);
                       }
                     },
-                    'Cmd-I': this.completeIfInTag,
                     "'<'": this.completeAfter,
-                    "'/'": this.completeIfAfterLt,
-                    "' '": this.completeIfInTag,
-                    Enter: this.completeIfInTag,
+                    'Cmd-I': this.completeIfInTag,
+                    'Ctrl-I': this.completeIfInTag,
                     "'='": this.completeIfInTag,
+                    "' '": this.completeIfInTagNewAttribute,
+                    Enter: this.completeIfInTagNewAttribute,
                   },
                 }}
               />
