@@ -14,6 +14,9 @@ export const inputDriverFactory = ({ element, eventTrigger }) => {
     /** get input element */
     getInput: () => input,
 
+    /** get id */
+    getId: () => input.getAttribute('id'),
+
     /** get value */
     getValue: () => input.value,
 

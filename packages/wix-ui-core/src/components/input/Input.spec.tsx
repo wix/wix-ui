@@ -39,6 +39,7 @@ describe('Input', () => {
     const { input } = await render(
       <Input
         autoComplete="on"
+        id='id'
         disabled
         maxLength={10}
         placeholder="placeholder"
@@ -54,6 +55,7 @@ describe('Input', () => {
       />,
     );
 
+    expect(input.id).toBe('id');
     expect(input.autocomplete).toBe('on');
     expect(input.disabled).toBe(true);
     expect(input.maxLength).toBe(10);

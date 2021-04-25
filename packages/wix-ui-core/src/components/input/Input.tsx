@@ -11,6 +11,7 @@ export interface InputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, OmittedInputProps> {
   /** hook for testing purposes */
   'data-hook'?: string;
+  'id'?: string;
   className?: string;
   inputClassName?: string;
   error?: string | boolean;
@@ -52,7 +53,7 @@ export class Input extends React.Component<InputProps, InputState> {
 
   render() {
     const { focus } = this.state;
-    const { error, disabled, prefix, suffix, style: inlineStyle } = this.props;
+    const { error, disabled, prefix, suffix, style: inlineStyle, id } = this.props;
 
     const {
       error: errorProp,
@@ -76,6 +77,7 @@ export class Input extends React.Component<InputProps, InputState> {
       >
         {prefix}
         <input
+          id={id}
           {...allOtherProps}
           ref={input => (this.input = input)}
           className={classnames(classes.nativeInput, inputClassName)}
