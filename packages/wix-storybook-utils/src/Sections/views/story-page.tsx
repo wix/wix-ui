@@ -59,7 +59,7 @@ const demo = (props: { demo: React.ReactNode }) => {
 };
 
 const doDont = (props: { do: string[]; dont: string[] }) => {
-  if (!props.do.length && !props.dont.length) {
+  if (!props.do.length) {
     return null;
   }
   return {
@@ -67,9 +67,11 @@ const doDont = (props: { do: string[]; dont: string[] }) => {
     do: {
       list: props.do,
     },
-    dont: {
-      list: props.dont,
-    },
+    dont: props.dont
+      ? {
+          list: props.dont,
+        }
+      : undefined,
   };
 };
 
