@@ -18,7 +18,7 @@ describe('DoDont', () => {
     expect(container.querySelector('[data-hook="dodont-dont"]')).toBe(null);
   });
 
-  it('should render only do when dont is not defined', () => {
+  it('should render only dont when do is not defined', () => {
     const props = {
       dont: { list: doList },
     };
