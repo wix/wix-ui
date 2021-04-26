@@ -173,6 +173,7 @@ const buildOutput = (content: any) => {
             { type: 'divider' },
             { type: 'title', title: 'Variations' },
             ...featureExamples,
+            { type: 'divider' },
             { type: 'title', title: 'Common Use Cases' },
             ...commonUseCaseExamples,
             { type: 'divider' },
