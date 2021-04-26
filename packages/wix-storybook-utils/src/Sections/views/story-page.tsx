@@ -59,14 +59,16 @@ const demo = (props: { demo: React.ReactNode }) => {
 };
 
 const doDont = (props: { do: string[]; dont: string[] }) => {
-  if (!props.do.length) {
+  if (!props.do?.length && !props.dont?.length) {
     return null;
   }
   return {
     type: SectionType.DoDont,
-    do: {
-      list: props.do,
-    },
+    do: props.do
+      ? {
+          list: props.do,
+        }
+      : undefined,
     dont: props.dont
       ? {
           list: props.dont,
