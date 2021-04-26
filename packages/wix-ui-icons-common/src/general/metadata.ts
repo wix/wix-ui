@@ -648,6 +648,13 @@ sizes: { "18": "GetStartedSmall", "24": "GetStarted" },
     tags: ["globe"],
     sizes: { "18": "PublicSmall", "24": "Public" },
   },
+{
+  title:“RelatedApps”,
+  category: "General",
+  description: "Button – directs to related app page",
+  tags: ["App", "Store"],
+  sizes: { "18": "RelatedAppsSmall", "24": "RelatedApps" },
+ },
   {
     title: "Visible",
     category: "Toggle",
