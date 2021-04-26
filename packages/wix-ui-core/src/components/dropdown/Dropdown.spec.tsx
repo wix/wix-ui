@@ -62,6 +62,36 @@ describe('Dropdown', () => {
       );
     });
 
+    it('should show content on `Enter`', () => {
+      const driver = createDriver(createDropdown({ options }));
+
+      Simulate.keyDown(document.querySelector(
+          '[data-hook="open-dropdown-button"]'),
+          { keyCode: 13 },
+          );
+      expect(driver.isContentElementExists()).toBeTruthy();
+    });
+
+    it('should show content on `Space` when `enableSpaceToggleMenu` is true', () => {
+      const driver = createDriver(createDropdown({ options, enableToggleMenuOnSpace: true, }));
+
+      Simulate.keyDown(document.querySelector(
+          '[data-hook="open-dropdown-button"]'),
+          { keyCode: 32 },
+          );
+      expect(driver.isContentElementExists()).toBeTruthy();
+    });
+
+    it('should not show content on `Space`  when `enableSpaceToggleMenu` is false', () => {
+      const driver = createDriver(createDropdown({ options, enableToggleMenuOnSpace: false, }));
+
+      Simulate.keyDown(document.querySelector(
+          '[data-hook="open-dropdown-button"]'),
+          { keyCode: 32 },
+          );
+      expect(driver.isContentElementExists()).toBeTruthy();
+    });
+
     it('should preventDefault on up/down arrows key press inside dropdown content in order to prevent outer scroll', () => {
       const driver = createDriver(createDropdown({ options }));
       const preventDefaultSpy = jest.fn();
