@@ -93,6 +93,7 @@ const designTab = (props: StoryPageSection, storyConfig: StoryConfig) => {
       divider(),
       title('Variations'),
       ...examples(props.content.featureExamples, props.examples),
+      divider(),
       title('Common Use Cases'),
       ...examples(props.content.commonUseCaseExamples, props.examples),
       divider(),
