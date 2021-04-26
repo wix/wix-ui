@@ -25,7 +25,7 @@ const files = [
   ['nav-stepper.js', 7],
   ['pagination.js', 10],
   ['popover.js', 28],
-  ['popover-next.js', 15],
+  ['popover-next.js', 16],
   ['radio-button.js', 7],
   ['signature-input.js', 11],
   ['slider.js', 10],
