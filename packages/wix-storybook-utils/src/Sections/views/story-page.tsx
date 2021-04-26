@@ -64,16 +64,8 @@ const doDont = (props: { do: string[]; dont: string[] }) => {
   }
   return {
     type: SectionType.DoDont,
-    do: props.do
-      ? {
-          list: props.do,
-        }
-      : undefined,
-    dont: props.dont
-      ? {
-          list: props.dont,
-        }
-      : undefined,
+    do: props.do && { list: props.do },
+    dont: props.dont && { list: props.dont },
   };
 };
 
