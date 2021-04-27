@@ -12,9 +12,9 @@ export interface DropdownContentDriver extends BaseDriver {
   optionAt(index: number): DropdownOptionDriver;
 }
 
-export const dropdownContentDriverFactory: DriverFactory<
-  DropdownContentDriver
-> = component => {
+export const dropdownContentDriverFactory: DriverFactory<DropdownContentDriver> = (
+  component,
+) => {
   const getOptions = () => component.$$('[data-hook="option"]');
 
   return {

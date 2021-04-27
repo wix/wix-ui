@@ -1,6 +1,6 @@
 export const generateDataAttr = (
   props: Record<string, unknown>,
-  filter: string[]
+  filter: string[],
 ) =>
   Object.entries(props)
     .filter(([key]) => filter && filter.includes(key))
@@ -9,5 +9,5 @@ export const generateDataAttr = (
         ...output,
         [`data-${key.toLowerCase()}`]: value,
       }),
-      {}
+      {},
     );

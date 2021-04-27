@@ -9,6 +9,6 @@ export class NavStepperDriver implements BaseDriver {
   }
 }
 
-export const navStepperDriverFactory: DriverFactory<
-  NavStepperDriver
-> = component => new NavStepperDriver(component);
+export const navStepperDriverFactory: DriverFactory<NavStepperDriver> = (
+  component,
+) => new NavStepperDriver(component);

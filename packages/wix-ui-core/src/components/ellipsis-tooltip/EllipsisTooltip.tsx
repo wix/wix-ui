@@ -112,7 +112,7 @@ export class EllipsisTooltip extends React.Component<
 
     return (
       <StateFullComponentWrap
-        ref={n => (this.textNode = ReactDOM.findDOMNode(n) as HTMLElement)}
+        ref={(n) => (this.textNode = ReactDOM.findDOMNode(n) as HTMLElement)}
       >
         {children(enhancedChildrenProps)}
       </StateFullComponentWrap>

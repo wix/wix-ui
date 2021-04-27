@@ -140,7 +140,7 @@ export class AvatarComponent extends React.Component<
     delete this.img;
   };
 
-  _handleKeyDown: React.KeyboardEventHandler<HTMLElement> = event => {
+  _handleKeyDown: React.KeyboardEventHandler<HTMLElement> = (event) => {
     if (event.key === ' ' || event.key === 'Enter' || event.key === 'Space') {
       event.preventDefault();
       this.props.onClick();

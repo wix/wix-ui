@@ -51,7 +51,7 @@ export class AddressInputE2E extends React.Component<any, any> {
           Reset stub
         </button>
         <AddressInput
-          onSelect={value => this.handleOnSelect(value)}
+          onSelect={(value) => this.handleOnSelect(value)}
           apiKey=""
           Client={Client}
           lang="en"

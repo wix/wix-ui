@@ -20,7 +20,7 @@ import { classes } from '../Video.st.css';
 const VIDEO_URL_REGEX = /(?:www\.|go\.)?twitch\.tv\/videos\/(\d+)($|\?)/;
 const CHANNEL_URL_REGEX = /(?:www\.|go\.)?twitch\.tv\/([a-z0-9_]+)($|\?)/;
 
-export const verifier: VerifierType = url =>
+export const verifier: VerifierType = (url) =>
   isString(url) &&
   (VIDEO_URL_REGEX.test(url as string) ||
     CHANNEL_URL_REGEX.test(url as string));
@@ -52,7 +52,7 @@ const getParentDomains = () => {
 };
 
 const mapPropsToPlayer: IPropsToPlayer = {
-  src: instance => instance.reload(),
+  src: (instance) => instance.reload(),
   playing: (instance, player, nextPlaying) => {
     if (nextPlaying) {
       player.play();
@@ -67,7 +67,7 @@ const mapPropsToPlayer: IPropsToPlayer = {
 const mapMethodsToPlayer: IMethodsToPlayer = {
   play: 'play',
   pause: 'pause',
-  stop: instance => instance.reload(),
+  stop: (instance) => instance.reload(),
   getDuration: 'getDuration',
   getCurrentTime: 'getCurrentTime',
   seekTo: 'seek',
@@ -101,7 +101,7 @@ class TwitchPlayer extends React.PureComponent<ITwitchProps> {
   componentDidMount() {
     getSDK(SDKConfig)
       .then(this.initPlayer)
-      .catch(error => {
+      .catch((error) => {
         this.props.onError(error);
       });
   }
@@ -115,7 +115,7 @@ class TwitchPlayer extends React.PureComponent<ITwitchProps> {
     this.stopAwaitDuration();
   }
 
-  initPlayer = Twitch => {
+  initPlayer = (Twitch) => {
     const { playing, muted, playerOptions, onInit, onReady } = this.props;
     const src = this.props.src as string;
     const isChannel = CHANNEL_URL_REGEX.test(src);

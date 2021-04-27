@@ -48,13 +48,14 @@ const memoizeOne = memoizeOneModule.default || memoizeOneModule;
 
 type LoadablePopper = PopperProps & { fallback: any };
 
-const lazyPopperFactory = (memoizeOne as any)(key =>
+const lazyPopperFactory = (memoizeOne as any)((key) =>
   process.env.NODE_ENV === 'test'
     ? require('./components/Popper').default
-    : loadable(() =>
-        import(
-          /* webpackPrefetch: true, webpackChunkName: "wuc-popover-next" */ './components/Popper'
-        ),
+    : loadable(
+        () =>
+          import(
+            /* webpackPrefetch: true, webpackChunkName: "wuc-popover-next" */ './components/Popper'
+          ),
       ),
 ) as (key: number) => React.ComponentType<LoadablePopper>;
 
@@ -215,7 +216,7 @@ export class PopoverNext extends React.Component<
   renderPopperContent(childrenObject) {
     const { shown, cacheId } = this.state;
 
-    const grabScheduleUpdater = scheduleUpdate =>
+    const grabScheduleUpdater = (scheduleUpdate) =>
       (this.popperScheduleUpdate = scheduleUpdate);
 
     const detachStyles = () =>
@@ -362,9 +363,9 @@ export class PopoverNext extends React.Component<
     }
   }
 
-  recoverFromError = event =>
+  recoverFromError = (event) =>
     this.setState(
-      state => ({
+      (state) => ({
         cacheId: state.cacheId + 1,
       }),
       () => this.props.onMouseLeave && this.props.onMouseLeave(event),
@@ -445,7 +446,7 @@ export class PopoverNext extends React.Component<
               id={id}
               {...filterDataProps(this.props)}
             >
-              <Reference innerRef={r => (this.targetRef = r)}>
+              <Reference innerRef={(r) => (this.targetRef = r)}>
                 {({ ref }) => (
                   <div
                     ref={ref}

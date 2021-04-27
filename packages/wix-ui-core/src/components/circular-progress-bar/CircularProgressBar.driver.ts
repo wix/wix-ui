@@ -17,7 +17,7 @@ export interface CircularProgressBarDriver extends BaseDriver {
   isLabelDisplayed(): boolean;
   /** Get the text content displayed */
   getLabelTextContent(): string;
-  /** Get the progress percentages value */  
+  /** Get the progress percentages value */
   getValue(): string;
   /** Returms true if has progress completed (value is 100) */
   isCompleted(): boolean;
@@ -30,11 +30,11 @@ export const circularProgressBarDriverFactory: DriverFactory<CircularProgressBar
 }: ComponentFactory) => {
   const stylableDOMUtil = new StylableDOMUtil(style);
 
-  const getElement = dataHook =>
+  const getElement = (dataHook) =>
     element.querySelector(`[data-hook="${dataHook}"]`);
   const getValue = () =>
     !element ? null : getElement('progress-indicator').innerHTML;
-  const getByLabelText = () => 
+  const getByLabelText = () =>
     !element ? null : getElement('label').innerHTML;
 
   const driver = {

@@ -17,9 +17,9 @@ export interface TimePickerDriver extends BaseDriver {
   getValue(): Promise<string>;
 }
 
-export const timePickerDriverFactory: DriverFactory<
-  TimePickerDriver
-> = component => {
+export const timePickerDriverFactory: DriverFactory<TimePickerDriver> = (
+  component,
+) => {
   const inputDriver = inputDriverFactory(component);
   const tickerUp = component.$('[data-hook="ticker-button-up"]');
   const tickerDown = component.$('[data-hook="ticker-button-down"]');

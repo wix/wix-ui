@@ -30,12 +30,9 @@ describe('Autocomplete', () => {
     await driver.enterText('very');
     expect(await driver.dropdownContent().getOptionsCount()).toEqual(1);
 
-    expect(
-      await driver
-        .dropdownContent()
-        .optionAt(0)
-        .getText(),
-    ).toBe('This is a very very very very very long option');
+    expect(await driver.dropdownContent().optionAt(0).getText()).toBe(
+      'This is a very very very very very long option',
+    );
   });
 
   eyes.it('should choose one of autocomplete items', async () => {
@@ -43,10 +40,7 @@ describe('Autocomplete', () => {
     await waitForVisibilityOf(driver.element(), 'Cannot find Autocomplete');
 
     driver.focus();
-    driver
-      .dropdownContent()
-      .optionAt(1)
-      .click();
+    driver.dropdownContent().optionAt(1).click();
 
     expect(driver.getText()).toBe('value1');
   });
@@ -57,10 +51,7 @@ describe('Autocomplete', () => {
 
     await driver.focus();
     await driver.enterText('value');
-    await driver
-      .dropdownContent()
-      .optionAt(0)
-      .click();
+    await driver.dropdownContent().optionAt(0).click();
 
     expect(await driver.getText()).toBe('value0');
   });

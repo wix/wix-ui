@@ -1,4 +1,4 @@
 export enum dataHooks {
   prefixIcon = 'prefix-icon',
-  suffixIcon = 'suffix-icon'
+  suffixIcon = 'suffix-icon',
 }

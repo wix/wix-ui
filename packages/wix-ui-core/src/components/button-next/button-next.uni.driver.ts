@@ -5,7 +5,7 @@ import {
 import { UniDriver } from 'wix-ui-test-utils/unidriver';
 import { dataHooks } from './constants';
 
-const byDataHook = dataHook => `[data-hook="${dataHook}"]`;
+const byDataHook = (dataHook) => `[data-hook="${dataHook}"]`;
 
 export interface ButtonNextDriver extends BaseUniDriver {
   /** returns button text */
@@ -28,7 +28,9 @@ export const buttonNextDriverFactory = (base: UniDriver): ButtonNextDriver => ({
     //Using aria-disabled to know if button is disabled.
     return (await base.attr('aria-disabled')) === 'true';
   },
-  
-  isPrefixIconExists: async () => base.$(byDataHook(dataHooks.prefixIcon)).exists(),
-  isSuffixIconExists: async () => base.$(byDataHook(dataHooks.suffixIcon)).exists(),
+
+  isPrefixIconExists: async () =>
+    base.$(byDataHook(dataHooks.prefixIcon)).exists(),
+  isSuffixIconExists: async () =>
+    base.$(byDataHook(dataHooks.suffixIcon)).exists(),
 });

@@ -4,12 +4,14 @@ export interface Suggestion {
   types: string[];
 }
 
-export type ClientAutocompleteRequest = string | {
-  input: string;
-  componentRestrictions?: {
-    country: string;
-  };
-}
+export type ClientAutocompleteRequest =
+  | string
+  | {
+      input: string;
+      componentRestrictions?: {
+        country: string;
+      };
+    };
 
 export interface ClientGeocodeRequest {
   placeId: string;

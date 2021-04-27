@@ -16,12 +16,12 @@ export interface TickersProps {
 }
 
 export class Tickers extends React.PureComponent<TickersProps> {
-  handleIncrement = e => {
+  handleIncrement = (e) => {
     e.preventDefault();
     this.props.onIncrement(e);
   };
 
-  handleDecrement = e => {
+  handleDecrement = (e) => {
     e.preventDefault();
     this.props.onDecrement(e);
   };

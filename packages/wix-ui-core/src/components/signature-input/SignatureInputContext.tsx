@@ -32,9 +32,9 @@ export const SignatureInputContextProvider = SignatureInputContext.Provider;
 export const withSignatureInputContext = <P extends WithSignaturePadProps>(
   WrappedComponent: React.ComponentType<P>,
 ): React.FunctionComponent<Omit<P, keyof WithSignaturePadProps>> => {
-  return props => (
+  return (props) => (
     <SignatureInputContext.Consumer>
-      {contextProps => {
+      {(contextProps) => {
         return (
           <WrappedComponent {...contextProps} {...((props as unknown) as P)} />
         );

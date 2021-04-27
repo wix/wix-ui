@@ -339,9 +339,9 @@ export class Pagination extends React.Component<
         aria-label={upperCaseFirst(type) + ' Page'}
         aria-disabled={disabled}
         tabIndex={disabled || pageUrl ? null : 0}
-        onClick={disabled ? null : event => this.handlePageClick(event, page)}
+        onClick={disabled ? null : (event) => this.handlePageClick(event, page)}
         onKeyDown={
-          disabled ? null : event => this.handlePageKeyDown(event, page)
+          disabled ? null : (event) => this.handlePageKeyDown(event, page)
         }
         href={!disabled && pageUrl ? pageUrl(page) : null}
       >
@@ -374,7 +374,7 @@ export class Pagination extends React.Component<
 
     return (
       <nav
-        ref={el => (this.rootNode = el)}
+        ref={(el) => (this.rootNode = el)}
         id={this.getId('')}
         aria-label="Pagination Navigation"
         aria-disabled={disabled}

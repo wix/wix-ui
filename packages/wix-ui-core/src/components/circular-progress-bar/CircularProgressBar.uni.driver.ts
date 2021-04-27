@@ -24,7 +24,7 @@ export interface CircularProgressBarUniDriver extends BaseUniDriver {
   hasError(): Promise<boolean>;
 }
 
-const byDataHook = dataHook => `[data-hook="${dataHook}"]`;
+const byDataHook = (dataHook) => `[data-hook="${dataHook}"]`;
 
 export const circularProgressBarUniDriverFactory = (
   base: UniDriver,
@@ -43,10 +43,8 @@ export const circularProgressBarUniDriverFactory = (
       base.$(byDataHook(dataHooks.successIcon)).exists(),
     isErrorIconDisplayed: () =>
       base.$(byDataHook(dataHooks.errorIcon)).exists(),
-    isLabelDisplayed: () =>
-      base.$(byDataHook(dataHooks.label)).exists(),
-      getLabelTextContent: () =>
-      base.$(byDataHook(dataHooks.label)).text(),
+    isLabelDisplayed: () => base.$(byDataHook(dataHooks.label)).exists(),
+    getLabelTextContent: () => base.$(byDataHook(dataHooks.label)).text(),
     isPercentagesProgressDisplayed: () =>
       base.$(byDataHook(dataHooks.progressIndicator)).exists(),
     getValue: () => getValue(),

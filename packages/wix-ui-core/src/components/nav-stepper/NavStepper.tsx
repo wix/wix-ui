@@ -15,9 +15,7 @@ export interface NavStepperProps {
 }
 
 export class NavStepper extends React.PureComponent<NavStepperProps> {
-  public static Step: React.ComponentClass<
-    ExternalNavStepProps
-  > = NavStep as any;
+  public static Step: React.ComponentClass<ExternalNavStepProps> = NavStep as any;
 
   render() {
     const { activeStep, children, className } = this.props;
