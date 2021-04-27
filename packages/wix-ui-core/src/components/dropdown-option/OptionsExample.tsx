@@ -19,7 +19,7 @@ export const generateOptions = (
   optionsExample[13] = OptionFactory.create({
     id: 13,
     value: 'Custom Item',
-    render: (value) => <span style={{ color: 'red' }}>{value}</span>,
+    render:value => <span style={{ color: 'red' }}>{value}</span>,
   });
 
   return optionsExample;

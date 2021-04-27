@@ -30,7 +30,7 @@ describe('GoogleMapsIframeClient', () => {
   it('should return a resolved promise once the status sent by iframesManager is OK', async () => {
     iframeManagerPrototype.hasIframe.mockImplementationOnce(() => true);
     iframeManagerPrototype.getIframe.mockImplementationOnce(() => ({
-      postMessage: (requestObj) => {
+      postMessage:requestObj => {
         const targetOrigin = '*';
         const { requestId } = requestObj;
         (global as any).postMessage(
@@ -123,7 +123,7 @@ describe('GoogleMapsIframeClient', () => {
   it('should return a rejected promise once the status sent by iframesManager is ERROR', async () => {
     iframeManagerPrototype.hasIframe.mockImplementationOnce(() => true);
     iframeManagerPrototype.getIframe.mockImplementationOnce(() => ({
-      postMessage: (requestObj) => {
+      postMessage:requestObj => {
         const targetOrigin = '*';
         const { requestId } = requestObj;
         (global as any).postMessage(
@@ -147,7 +147,7 @@ describe('GoogleMapsIframeClient', () => {
   it('should return results and trigger addIframe if the iframe does not exist', async () => {
     iframeManagerPrototype.hasIframe.mockImplementationOnce(() => false);
     iframeManagerPrototype.addIframe.mockImplementationOnce(() => ({
-      postMessage: (requestObj) => {
+      postMessage:requestObj => {
         const targetOrigin = '*';
         const { requestId } = requestObj;
         (global as any).postMessage(
@@ -167,7 +167,7 @@ describe('GoogleMapsIframeClient', () => {
   it('should return a rejected promise and trigger addIframe if the iframe does not exist', async () => {
     iframeManagerPrototype.hasIframe.mockImplementationOnce(() => false);
     iframeManagerPrototype.addIframe.mockImplementationOnce(() => ({
-      postMessage: (requestObj) => {
+      postMessage:requestObj => {
         const targetOrigin = '*';
         const { requestId } = requestObj;
         (global as any).postMessage(
@@ -194,7 +194,7 @@ describe('GoogleMapsIframeClient', () => {
 
     iframeManagerPrototype.hasIframe.mockImplementation(() => true);
     iframeManagerPrototype.getIframe.mockImplementation(() => ({
-      postMessage: (requestObj) => {
+      postMessage:requestObj => {
         const targetOrigin = '*';
         const { requestId, request } = requestObj;
         const timeout = request === firstRequest ? 20 : 10;
@@ -227,7 +227,7 @@ describe('GoogleMapsIframeClient', () => {
 
     iframeManagerPrototype.hasIframe.mockImplementation(() => true);
     iframeManagerPrototype.getIframe.mockImplementation(() => ({
-      postMessage: (requestObj) => {
+      postMessage:requestObj => {
         const targetOrigin = '*';
         const { requestId, request } = requestObj;
         const timeout = request === firstRequest ? 20 : 10;
@@ -279,7 +279,7 @@ describe('GoogleMapsIframeClient', () => {
     expect(targetOrigin).toBe('*');
   });
 
-  ['autocomplete', 'geocode', 'placeDetails'].forEach((method) => {
+  ['autocomplete', 'geocode', 'placeDetails'].forEach(method => {
     it(`should create iframe with apiKey (${method})`, () => {
       const postMessageMock = jest.fn();
 

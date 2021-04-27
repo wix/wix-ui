@@ -33,7 +33,7 @@ export interface ToggleSwitchUniDriver extends BaseUniDriver {
 export const toggleSwitchUniDriverFactory = (
   base: UniDriver,
 ): ToggleSwitchUniDriver => {
-  const byDataHook = (dataHook) => `[data-hook="${dataHook}"]`;
+  const byDataHook =dataHook => `[data-hook="${dataHook}"]`;
 
   const knob = base.$(byDataHook(dataHooks.knob));
   const knobIcon = base.$(byDataHook(dataHooks.knobIcon));

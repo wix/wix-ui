@@ -215,7 +215,7 @@ class SigningPadComp extends React.Component<SigningPadProps, SigningPadState> {
     this.invokeIfDefined(canvasRef)(canvas);
   };
 
-  handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+  handleInputChange: React.ChangeEventHandler<HTMLInputElement> =e => {
     const { onDraw, direction } = this.props;
 
     // clears drawns curves and typed characters and restore drawn curves
@@ -277,7 +277,7 @@ class SigningPadComp extends React.Component<SigningPadProps, SigningPadState> {
           aria-required={!!required}
           onFocus={this.invokeIfDefined(onFocus)}
           onBlur={this.invokeIfDefined(onBlur)}
-          ref={(inputRef) => (this.a11yInputEl = inputRef)}
+          ref={inputRef => (this.a11yInputEl = inputRef)}
           {...(titleId && { 'aria-labelledby': titleId })}
         />
         <canvas

@@ -13,7 +13,7 @@ import {
   dataHooksContent,
 } from './testSettings';
 
-const byDataHook = (dataHook) => $(`[data-hook="${dataHook}"]`);
+const byDataHook =dataHook => $(`[data-hook="${dataHook}"]`);
 
 async function goToTestPage(testName) {
   const storyUrl = createStoryUrl({ kind: testFolder, story: testName });

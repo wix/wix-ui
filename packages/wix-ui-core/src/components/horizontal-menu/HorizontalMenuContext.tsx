@@ -25,9 +25,9 @@ export const withHorizontalMenuContext = <
   P extends WithHorizontalMenuContextProps
 >(
   WrappedComponent: React.ComponentType<P>,
-): React.FC<Omit<P, keyof WithHorizontalMenuContextProps>> => (props) => (
+): React.FC<Omit<P, keyof WithHorizontalMenuContextProps>> =>props => (
   <HorizontalMenuContext.Consumer>
-    {(context) => (
+    {context => (
       <WrappedComponent {...((props as unknown) as P)} menuContext={context} />
     )}
   </HorizontalMenuContext.Consumer>

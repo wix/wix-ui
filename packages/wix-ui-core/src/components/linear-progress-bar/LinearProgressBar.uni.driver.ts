@@ -46,7 +46,7 @@ export interface LinearProgressBarUniDriver extends BaseUniDriver {
 export const linearProgressBarUniDriverFactory = (
   base: UniDriver,
 ): LinearProgressBarUniDriver => {
-  const byDataHook = (dataHook) => `[data-hook="${dataHook}"]`;
+  const byDataHook =dataHook => `[data-hook="${dataHook}"]`;
 
   const getValue = async () => {
     if (!(await base.exists())) {

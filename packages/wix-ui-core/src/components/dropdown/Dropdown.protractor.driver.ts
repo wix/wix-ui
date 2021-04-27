@@ -12,9 +12,7 @@ export interface DropdownDriver extends PopoverDriver {
   dropdownContent(): DropdownContentDriver;
 }
 
-export const dropdownDriverFactory: DriverFactory<DropdownDriver> = (
-  component,
-) => {
+export const dropdownDriverFactory: DriverFactory<DropdownDriver> =component => {
   const popoverDriver: PopoverDriver = popoverDriverFactory(component);
 
   return {

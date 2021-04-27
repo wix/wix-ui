@@ -7,11 +7,11 @@ const EXPECTED_CLIENT_URL = `//maps.googleapis.com/maps/api/js?libraries=places&
 
 const scheduler =
   typeof setImmediate === 'function'
-    ? (data) => setImmediate(data)
-    : (data) => setTimeout(data);
+    ?data => setImmediate(data)
+    :data => setTimeout(data);
 
 const flushPromises = () =>
-  new Promise((resolve) => {
+  new Promise(resolve => {
     scheduler(resolve);
   });
 
@@ -23,7 +23,7 @@ describe('GoogleMapsBasicClient', () => {
   let status = 'OK';
 
   const getStatus = () => status;
-  const setStatus = (newStatus) => (status = newStatus);
+  const setStatus =newStatus => (status = newStatus);
 
   const setUpGoogleMapsMock = () => {
     const getPlacePredictions = jest.fn((request, callback) => {

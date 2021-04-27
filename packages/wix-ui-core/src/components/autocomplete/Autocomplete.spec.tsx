@@ -49,7 +49,7 @@ describe('Autocomplete', () => {
     expect(driver.getOptionsCount()).toBe(options.length);
   });
 
-  ['ArrowUp', 'ArrowDown'].forEach((key) => {
+  ['ArrowUp', 'ArrowDown'].forEach(key => {
     it(`should not filter items according to predicate function when pressing ${key}`, () => {
       const driver = createDriver(<Autocomplete options={options} />);
       driver.keyDown(key);

@@ -38,7 +38,7 @@ export class CaptchaTestComponent extends React.Component {
     return (
       <div>
         <Captcha
-          ref={(e) => (this.captchaRef = e)}
+          ref={e => (this.captchaRef = e)}
           loader={<ExampleLoader />}
           data-hook={constants.dataHook}
           sitekey={constants.demoSiteKey}

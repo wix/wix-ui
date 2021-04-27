@@ -13,7 +13,7 @@ export const opacity = Opacity;
 export const border = Border;
 
 const getClassNames = (values, stylesheet, rootcls?) => {
-  const clsArray = values.map((cls) => stylesheet[cls] || null);
+  const clsArray = values.map(cls => stylesheet[cls] || null);
   return classNames(stylesheet[rootcls], clsArray);
 };
 

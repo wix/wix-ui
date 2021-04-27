@@ -18,7 +18,7 @@ export interface ThumbnailProps {
   disabled?: boolean;
 }
 
-export const Thumbnail: React.FunctionComponent<ThumbnailProps> = (props) => {
+export const Thumbnail: React.FunctionComponent<ThumbnailProps> =props => {
   const children = React.Children.only(props.children);
   const { selected, selectedIcon, onClick, disabled, className } = props;
 

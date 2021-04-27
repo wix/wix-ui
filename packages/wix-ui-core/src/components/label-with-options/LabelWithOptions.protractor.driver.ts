@@ -16,9 +16,7 @@ export interface LabelWithOptionsDriver extends LabelDriver, DropdownDriver {
   isCheckboxModeOn(): Promise<boolean>;
 }
 
-export const labelWithOptionsDriverFactory: DriverFactory<LabelWithOptionsDriver> = (
-  component,
-) => {
+export const labelWithOptionsDriverFactory: DriverFactory<LabelWithOptionsDriver> =component => {
   const dropdownDriver = dropdownDriverFactory(component);
   const labelDriver = labelDriverFactory(
     dropdownDriver.getTargetElement().$('[data-hook=label]'),

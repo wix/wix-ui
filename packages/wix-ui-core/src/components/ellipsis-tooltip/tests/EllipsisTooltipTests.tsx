@@ -20,7 +20,7 @@ storiesOf(testFolder, module)
   .add(testNames.haveEllipsis, () => (
     <div style={wrapperStylesWithEllipsis}>
       <EllipsisTooltip data-hook={dataHooks.haveEllipsis}>
-        {(extenedStyleProps) => (
+        {extenedStyleProps => (
           <div
             data-hook={dataHooksContent.haveEllipsis}
             {...extenedStyleProps()}
@@ -34,7 +34,7 @@ storiesOf(testFolder, module)
   .add(testNames.noStylesInTooltip, () => (
     <div style={wrapperStylesWithEllipsis}>
       <EllipsisTooltip data-hook={dataHooks.noStylesInTooltip}>
-        {(extenedStyleProps) => (
+        {extenedStyleProps => (
           <span
             data-hook={dataHooksContent.noStylesInTooltip}
             {...extenedStyleProps({ style: { color: 'purple' } })}
@@ -48,7 +48,7 @@ storiesOf(testFolder, module)
   .add(testNames.mandatoryNonoverridableCss, () => (
     <div style={wrapperStylesWithEllipsis}>
       <EllipsisTooltip data-hook={dataHooks.mandatoryNonoverridableCss}>
-        {(extenedStyleProps) => (
+        {extenedStyleProps => (
           <span
             data-hook={dataHooksContent.mandatoryNonoverridableCss}
             {...extenedStyleProps({
@@ -65,7 +65,7 @@ storiesOf(testFolder, module)
   .add(testNames.noEllipsis, () => (
     <div style={wrapperStylesNoEllipsis}>
       <EllipsisTooltip data-hook={dataHooks.noEllipsis}>
-        {(extenedStyleProps) => (
+        {extenedStyleProps => (
           <span
             data-hook={dataHooksContent.noEllipsis}
             {...extenedStyleProps()}

@@ -16,7 +16,7 @@ export const isValidTime = (timeStr: string, useAmPm: boolean = false) => {
   return useAmPm ? test12.test(timeStr) : test24.test(timeStr);
 };
 
-const parseIntOrZero = (str) => parseInt(str, 10) || 0;
+const parseIntOrZero =str => parseInt(str, 10) || 0;
 
 const changeTime = ({ value, field, step = 1 }) => {
   let { hour, minute } = parseTime(value);

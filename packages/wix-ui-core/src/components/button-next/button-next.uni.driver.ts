@@ -5,7 +5,7 @@ import {
 import { UniDriver } from 'wix-ui-test-utils/unidriver';
 import { dataHooks } from './constants';
 
-const byDataHook = (dataHook) => `[data-hook="${dataHook}"]`;
+const byDataHook =dataHook => `[data-hook="${dataHook}"]`;
 
 export interface ButtonNextDriver extends BaseUniDriver {
   /** returns button text */

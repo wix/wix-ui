@@ -9,7 +9,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<any> {
 /**
  * Button
  */
-export const Button: React.FunctionComponent<ButtonProps> = (props) => {
+export const Button: React.FunctionComponent<ButtonProps> =props => {
   const { disabled } = props;
 
   return (

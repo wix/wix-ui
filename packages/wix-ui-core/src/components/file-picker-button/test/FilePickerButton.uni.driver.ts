@@ -30,7 +30,7 @@ export const filePickerButtonUniDriverFactory = (
     getContent: () =>
       base
         .$$(`${byDataHook(DataHook.ChooseFileButton)} > *`)
-        .map((ud) => ud.getNative()),
+        .map(ud => ud.getNative()),
     getText: () => chooseFileButtonUniDriver.text(),
     getAccept: () => fileInputUniDriver.attr('accept'),
     isRequired: async () => (await fileInputUniDriver.attr('required')) === '',

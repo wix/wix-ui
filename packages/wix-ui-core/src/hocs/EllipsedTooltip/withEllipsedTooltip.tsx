@@ -100,7 +100,7 @@ class EllipsedTooltip extends React.Component<
           whiteSpace: 'nowrap',
         }}
         data-hook={component.props['data-hook']}
-        ref={(n) => (this.textNode = ReactDOM.findDOMNode(n) as HTMLElement)}
+        ref={n => (this.textNode = ReactDOM.findDOMNode(n) as HTMLElement)}
       >
         {component}
       </StateFullComponentWrap>
@@ -161,10 +161,8 @@ export const withEllipsedTooltip = ({
   showTooltip?: boolean;
   shouldLoadAsync?: boolean;
   tooltipProps?: object;
-} = {}) => (Comp) => {
-  const WrapperComponent: React.FunctionComponent<WrapperComponentProps> = (
-    props,
-  ) => (
+} = {}) =>Comp => {
+  const WrapperComponent: React.FunctionComponent<WrapperComponentProps> =props => (
     <EllipsedTooltip
       {...props}
       component={React.createElement(Comp, props)}

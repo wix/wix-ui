@@ -151,7 +151,7 @@ export class RadioButton extends React.Component<
           tabIndex={tabIndex}
           onChange={() => null}
           onKeyDown={this.handleInputKeyDown}
-          ref={(radio) => (this.radioRef = radio)}
+          ref={radio => (this.radioRef = radio)}
           aria-label={this.props['aria-label']}
           aria-describedby={this.props['aria-describedby']}
         />

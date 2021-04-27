@@ -13,7 +13,7 @@ class LoadableTooltip extends Loadable<{
   Tooltip: React.ComponentType<TooltipProps>;
 }> {}
 
-const getTooltipDriverFactory = wrapper =>
+const getTooltipDriverFactory = (wrapper) =>
   tooltipDriverFactory({
     element: wrapper.getDOMNode(),
   });
@@ -75,7 +75,7 @@ describe('Loadable with sync loader', () => {
 
   it('should load modules after `shouldLoadComponent` changed', () => {
     const { rerender, container } = render(
-      renderSync({ shouldLoadComponent: false })
+      renderSync({ shouldLoadComponent: false }),
     );
 
     const tooltipTestkit = tooltipDriverFactory({ element: container });
@@ -111,7 +111,7 @@ describe('Loadable with async loader', () => {
 
   it('should load modules after `shouldLoadComponent` changed', async () => {
     const { rerender, container } = render(
-      renderAsync({ shouldLoadComponent: false })
+      renderAsync({ shouldLoadComponent: false }),
     );
 
     const tooltipTestkit = tooltipDriverFactory({ element: container });

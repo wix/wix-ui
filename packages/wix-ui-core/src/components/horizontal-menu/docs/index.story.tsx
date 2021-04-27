@@ -19,7 +19,8 @@ import { storySettings } from '../test/storySettings';
 
 import { HorizontalMenu } from '..';
 
-const code = config => baseCode({ components: { HorizontalMenu }, ...config });
+const code = (config) =>
+  baseCode({ components: { HorizontalMenu }, ...config });
 
 const exampleColumnChildren = (
   <HorizontalMenu.Item label="[fullWidth] Column Layout" expandSize="fullWidth">
@@ -179,7 +180,7 @@ export default {
 
           columns([
             importExample(
-              'import {HorizontalMenu} from \'wix-ui-core/horizontal-menu\';',
+              "import {HorizontalMenu} from 'wix-ui-core/horizontal-menu';",
             ),
           ]),
 

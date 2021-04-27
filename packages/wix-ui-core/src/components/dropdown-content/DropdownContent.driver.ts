@@ -6,7 +6,7 @@ export const dropdownContentDriverFactory = ({ element, eventTrigger }) => {
     exists: () => !!element,
     getOptionsCount: () => getOptions().length,
     getSelectedOptionsCount: () =>
-      Array.from(getOptions()).filter((option) =>
+      Array.from(getOptions()).filter(option =>
         dropdownOptionDriverFactory({
           element: option,
           eventTrigger,

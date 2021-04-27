@@ -140,10 +140,10 @@ export class HorizontalMenuItem extends React.PureComponent<
 
     return (
       <HorizontalMenuContext.Consumer>
-        {(menuContext) => {
+        {menuContext => {
           return (
             <HorizontalMenuItemContext.Consumer>
-              {(menuItemContext) => {
+              {menuItemContext => {
                 const isMenuOpen = menuItemContext.isOpen || isOpen;
 
                 return (

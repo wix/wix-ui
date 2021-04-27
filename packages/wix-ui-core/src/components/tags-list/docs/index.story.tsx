@@ -23,7 +23,7 @@ import {
 } from '../../../../stories/utils';
 import compoundReadmeApi from './CompoundComponentsAPI.md';
 
-const liveCode = config =>
+const liveCode = (config) =>
   code({
     compact: true,
     components: allComponents,

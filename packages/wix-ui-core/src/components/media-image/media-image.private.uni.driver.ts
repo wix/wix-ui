@@ -18,7 +18,7 @@ export const mediaImageDriverFactory = (base: UniDriver): MediaImageDriver => {
 
   return {
     ...publicDriver,
-    hasClass: (className) => base.hasClass(className),
+    hasClass:className => base.hasClass(className),
     getWidthAttribute: () => attributeToNumber(base, 'width'),
     getHeightAttribute: () => attributeToNumber(base, 'height'),
     getTagName: async () => (await base.getNative()).tagName,

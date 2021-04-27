@@ -24,7 +24,7 @@ export interface CircularProgressBarUniDriver extends BaseUniDriver {
   hasError(): Promise<boolean>;
 }
 
-const byDataHook = (dataHook) => `[data-hook="${dataHook}"]`;
+const byDataHook =dataHook => `[data-hook="${dataHook}"]`;
 
 export const circularProgressBarUniDriverFactory = (
   base: UniDriver,

@@ -114,7 +114,7 @@ export class Loadable<LoadableExports> extends React.Component<
       if (loadableItem instanceof Promise) {
         // Handling `import('Tooltop') -> Promise<module>`
         resolvedAsyncModules[loadableItemKey] = loadableItem
-          .then((loaded) =>
+          .then(loaded =>
             this.resolveModule(loaded, namedExports[loadableItemKey]),
           )
           .catch(() => {
@@ -137,8 +137,7 @@ export class Loadable<LoadableExports> extends React.Component<
     }
 
     const resolvedKeys = Object.keys(resolvedAsyncModules);
-    Promise.all(resolvedKeys.map((key) => resolvedAsyncModules[key])).then(
-      (modules) => {
+    Promise.all(resolvedKeys.map(key => resolvedAsyncModules[key])).then(modules => {
         modules.forEach((resolvedModule, index) => {
           const moduleName = resolvedKeys[index];
           resolvedModules[moduleName] = resolvedModule;

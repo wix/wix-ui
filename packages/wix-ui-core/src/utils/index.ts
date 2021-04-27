@@ -42,5 +42,5 @@ export const isReactElement = <T>(
   return child && child.type === Element;
 };
 
-export const isStatelessComponent = (Component) =>
+export const isStatelessComponent =Component =>
   !(Component.prototype && Component.prototype.render);

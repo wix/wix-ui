@@ -184,7 +184,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     return this.isVertical() ? size.width : size.height;
   }
 
-  setTrackNode = (track) => {
+  setTrackNode =track => {
     this.track = track;
   };
 
@@ -201,7 +201,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     this.setState({ mouseDown: false, dragging: false });
   };
 
-  handleKeyDown = (ev) => {
+  handleKeyDown =ev => {
     const { min, max, value, disabled, readOnly, dir } = this.props;
     const ltr = dir === 'ltr';
 
@@ -259,7 +259,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     }
   };
 
-  handleMouseMove = (ev) => {
+  handleMouseMove =ev => {
     if (this.state.mouseDown && !this.state.dragging) {
       this.setState({ dragging: true });
     }
@@ -304,7 +304,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     return !this.props.step;
   }
 
-  moveThumbByMouse = (ev) => {
+  moveThumbByMouse =ev => {
     if (ev.touches) {
       ev.preventDefault();
       ev = ev.touches[0];
@@ -526,7 +526,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
         data-dir={dir}
         tabIndex={0}
         style={inlineStyle}
-        ref={(root) => (this.root = root)}
+        ref={root => (this.root = root)}
         role="slider"
         aria-valuemin={min}
         aria-valuemax={max}

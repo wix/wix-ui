@@ -5,12 +5,12 @@ import * as style from './Dropdown.st.css';
 
 const stylableUtil = new StylableDOMUtil(style);
 
-export const dropdownDriverFactory = (args) => {
+export const dropdownDriverFactory =args => {
   const popoverDriver = popoverDriverFactory(args);
 
   return {
     ...popoverDriver,
-    hasStyleState: (state) => stylableUtil.hasStyleState(args.element, state),
+    hasStyleState:state => stylableUtil.hasStyleState(args.element, state),
 
     //DropdownContent
     getOptionsCount: () => getDropdownContentDriver(args).getOptionsCount(),

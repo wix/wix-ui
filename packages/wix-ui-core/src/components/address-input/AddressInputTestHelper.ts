@@ -79,9 +79,9 @@ export const waitForSingleOption = (option, driver) => {
   });
 };
 
-export const getOptionsText = (driver) => {
+export const getOptionsText =driver => {
   const indices = Array(driver.getOptionsCount())
     .fill(null)
     .map((v, i) => i);
-  return indices.map((index) => driver.optionAt(index).getText());
+  return indices.map(index => driver.optionAt(index).getText());
 };

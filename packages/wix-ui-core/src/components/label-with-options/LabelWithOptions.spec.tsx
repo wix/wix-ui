@@ -15,9 +15,9 @@ describe('LabelWithOptions', () => {
     .createLegacyRenderer(labelWithOptionsDriverFactory);
 
   const options = generateOptions();
-  const createLabelWithOptions = props => (
+  const createLabelWithOptions = (props) => (
     <LabelWithOptions
-      renderSuffix={isError => (
+      renderSuffix={(isError) => (
         <div data-hook="suffix">{isError ? 'error!' : 'no errors'}</div>
       )}
       {...props}
@@ -50,11 +50,11 @@ describe('LabelWithOptions', () => {
       const driver = createDriver(
         createLabelWithOptions({
           options,
-          initialSelectedIds: selectedOptions.map(option => option.id),
+          initialSelectedIds: selectedOptions.map((option) => option.id),
         }),
       );
       const expectedLabelText = selectedOptions
-        .map(option => option.value)
+        .map((option) => option.value)
         .join(', ');
       expect(driver.getLabelText()).toEqual(expectedLabelText);
     });
@@ -129,7 +129,7 @@ describe('LabelWithOptions', () => {
       driver.optionAt(0).click();
       driver.optionAt(4).click();
       const expectedLabelText = selectedOptions
-        .map(option => option.value)
+        .map((option) => option.value)
         .join(', ');
       expect(driver.getLabelText()).toEqual(expectedLabelText);
     });
@@ -163,7 +163,7 @@ describe('LabelWithOptions', () => {
         createLabelWithOptions({
           options,
           multi: true,
-          initialSelectedIds: selectedOptions.map(option => option.id),
+          initialSelectedIds: selectedOptions.map((option) => option.id),
         }),
       );
       driver.click();

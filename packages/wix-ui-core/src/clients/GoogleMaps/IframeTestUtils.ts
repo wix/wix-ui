@@ -9,7 +9,7 @@ export const getIframeWithLangAndApiKey = (
 ): HTMLIFrameElement | null =>
   document.querySelector(`iframe[data-lang=${lang}][data-api-key=${apiKey}]`);
 
-export const isIframeVisible = (iframe) => iframe.style.display !== 'none';
+export const isIframeVisible =iframe => iframe.style.display !== 'none';
 
 export const triggerIframeInitAutocomplete = (
   mockedGoogleInstance,
@@ -61,7 +61,7 @@ export class EventEmitterMock {
   }
 
   triggerMessage(event) {
-    this.eventListeners.forEach((callback) => callback(event));
+    this.eventListeners.forEach(callback => callback(event));
   }
 }
 

@@ -22,7 +22,7 @@ describe('TimePicker', () => {
   });
 
   describe('tickers', () => {
-    afterEach(async () => new Promise((rs) => setTimeout(rs, 3000)));
+    afterEach(async () => new Promise(rs => setTimeout(rs, 3000)));
 
     describe('ticker up', () => {
       eyes.it('should increment minutes [before being focused]', async () => {

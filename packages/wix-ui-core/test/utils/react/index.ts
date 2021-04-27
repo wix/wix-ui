@@ -21,7 +21,7 @@ interface rendererTypes {
  * @param [React.Element] jsx a jsx element to render
  * @param [string] dataHook if provided then the driver would be created with the element which is found by the dataHook. If not provided then it assumes that the rendered root element is the component's root element and it will be used for the driver.
  */
-export const createRendererWithDriver = driverFactory => (
+export const createRendererWithDriver = (driverFactory) => (
   jsx: React.ReactElement,
   dataHook?: string,
 ) => {
@@ -47,7 +47,7 @@ export const createRendererWithDriver = driverFactory => (
  * @param [React.Element] jsx a jsx element to render
  * @param [string] dataHook if provided then the driver would be created with the element which is found by the dataHook. If not provided then it assumes that the rendered root element is the component's root element and it will be used for the driver.
  */
-export const createRendererWithUniDriver = driverFactory => (
+export const createRendererWithUniDriver = (driverFactory) => (
   jsx: React.ReactElement,
   dataHook?: string,
 ) => {

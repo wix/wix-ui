@@ -19,18 +19,18 @@ import { classes } from '../Video.st.css';
 
 const URL_REGEX = /vimeo\.com\/.+/;
 
-export const verifier: VerifierType = (url) =>
+export const verifier: VerifierType =url =>
   isString(url) && URL_REGEX.test(url as string);
 
 const SDKConfig: ISDKConfig = {
   name: 'Vimeo',
   url: 'https://player.vimeo.com/api/player.js',
   isRequireAllow: true,
-  resolveRequire: (sdk) => ({ Player: sdk }),
+  resolveRequire:sdk => ({ Player: sdk }),
 };
 
 const mapPropsToPlayer: IPropsToPlayer = {
-  src: (instance) => instance.reload(),
+  src:instance => instance.reload(),
   playing: (instance, player, nextPlaying) => {
     if (nextPlaying) {
       player.play();
@@ -52,12 +52,12 @@ const mapMethodsToPlayer: IMethodsToPlayer = {
   play: 'play',
   pause: 'pause',
   stop: 'unload',
-  getDuration: (instance) => instance.ref.duration,
-  getCurrentTime: (instance) => instance.ref.currentTime,
+  getDuration:instance => instance.ref.duration,
+  getCurrentTime:instance => instance.ref.currentTime,
   seekTo: 'setCurrentTime',
-  getVolume: (instance) => instance.ref.volume,
+  getVolume:instance => instance.ref.volume,
   setVolume: (instance, player, fraction) => player.setVolume(fraction / 100),
-  isMuted: (instance) => instance.ref.volume === 0,
+  isMuted:instance => instance.ref.volume === 0,
   mute: (instance, player) => player.setVolume(0),
   unMute: (instance, player) => player.setVolume(1),
 };
@@ -86,7 +86,7 @@ class VimeoPlayer extends React.PureComponent<IVimeoProps> {
   componentDidMount() {
     getSDK(SDKConfig)
       .then(this.initPlayer)
-      .catch((error) => {
+      .catch(error => {
         this.props.onError(error);
       });
   }
@@ -98,7 +98,7 @@ class VimeoPlayer extends React.PureComponent<IVimeoProps> {
     this.eventEmitter.removeAllListeners();
   }
 
-  initPlayer = (Vimeo) => {
+  initPlayer =Vimeo => {
     const {
       src,
       playing,
@@ -125,7 +125,7 @@ class VimeoPlayer extends React.PureComponent<IVimeoProps> {
     this.player.ready().then(() => {
       onReady();
 
-      this.player.getDuration().then((duration) => {
+      this.player.getDuration().then(duration => {
         this.duration = duration;
         onDuration(duration);
       });

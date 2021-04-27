@@ -36,7 +36,7 @@ export const paginationDriverFactory = ({
     /** Returns displayed page elements */
     getPages: () => getPageElements(),
     /** Returns the text content of the displayed pages in "pages" mode */
-    getPageLabels: (): string[] => getPageElements().map((p) => p.textContent),
+    getPageLabels: (): string[] => getPageElements().map(p => p.textContent),
     /** Returns the page element given its index in the page strip */
     getPageByIndex: (idx?: number): Element | null =>
       getPageElements()[idx] || null,

@@ -20,8 +20,8 @@ export const buttonNextPrivateDriverFactory = (
   return {
     ...publicButtonDriver(base),
     suffixExists: async () => getSuffix().exists(),
-    hasSuffixClass: async (className) => getSuffix().hasClass(className),
+    hasSuffixClass: async className => getSuffix().hasClass(className),
     prefixExists: async () => getPrefix().exists(),
-    hasPrefixClass: async (className) => getPrefix().hasClass(className),
+    hasPrefixClass: async className => getPrefix().hasClass(className),
   };
 };

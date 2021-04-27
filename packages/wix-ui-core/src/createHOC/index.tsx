@@ -7,10 +7,10 @@ export interface WixComponentProps {
   dataClass?: string;
 }
 
-const isStatelessComponent = (Component) =>
+const isStatelessComponent =Component =>
   !(Component.prototype && Component.prototype.render);
 
-export const createHOC = (Component) => {
+export const createHOC =Component => {
   class WixComponent extends React.PureComponent<WixComponentProps> {
     private wrappedComponentRef: React.Component = null;
 
@@ -44,7 +44,7 @@ export const createHOC = (Component) => {
         <Component {...this.props} />
       ) : (
         <Component
-          ref={(ref) => (this.wrappedComponentRef = ref)}
+          ref={ref => (this.wrappedComponentRef = ref)}
           {...this.props}
         />
       );
@@ -54,7 +54,7 @@ export const createHOC = (Component) => {
   return isStatelessComponent(Component)
     ? WixComponent
     : hoistNonReactMethods(WixComponent, Component, {
-        delegateTo: (c) => c.wrappedComponentRef,
+        delegateTo:c => c.wrappedComponentRef,
         hoistStatics: true,
       });
 };

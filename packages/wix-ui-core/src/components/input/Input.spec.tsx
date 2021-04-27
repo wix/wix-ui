@@ -12,10 +12,10 @@ const stylableUtil = new StylableDOMUtil(style);
 
 describe('Input', () => {
   const container = new ReactDOMTestContainer().unmountAfterEachTest();
-  const render = jsx =>
+  const render = (jsx) =>
     container
       .renderWithRef(jsx)
-      .then(ref => new InputDriver(container.componentNode, ref));
+      .then((ref) => new InputDriver(container.componentNode, ref));
 
   describe('Style states', () => {
     it('should support disabled state', async () => {

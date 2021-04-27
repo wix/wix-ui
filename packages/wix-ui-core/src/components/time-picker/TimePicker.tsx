@@ -461,7 +461,7 @@ export class TimePicker extends React.PureComponent<
           className={st(classes.root, className)}
           type="time"
           value={sanitizedValue}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={e => onChange(e.target.value)}
           style={inlineStyle}
         />
       );
@@ -488,7 +488,7 @@ export class TimePicker extends React.PureComponent<
       <Input
         {...passThroughProps}
         className={st(classes.root, { focus }, className)}
-        ref={(ref) => (this._inputRef = ref)}
+        ref={ref => (this._inputRef = ref)}
         type="text"
         value={value}
         suffix={tickers}
@@ -499,7 +499,7 @@ export class TimePicker extends React.PureComponent<
         onMouseUp={this._onMouseUp}
         onMouseMove={this._onMouseMove}
         onClick={this._onClick}
-        onDragStart={(e) => e.stopPropagation()}
+        onDragStart={e => e.stopPropagation()}
         style={inlineStyle}
         {...filterDataProps(this.props)}
       />

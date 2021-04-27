@@ -21,19 +21,19 @@ import { PreloadType } from 'playable/dist/statics/modules/playback-engine/types
 
 const URL_REGEX = /\.(mp4|og[gv]|webm|mov|m4v)($|\?)/i;
 
-export const verifier: VerifierType = (url) => {
+export const verifier: VerifierType =url => {
   if (isString(url)) {
     return URL_REGEX.test(url as string);
   }
   if (isArray(url)) {
-    return (url as string[]).some((item) => URL_REGEX.test(item));
+    return (url as string[]).some(item => URL_REGEX.test(item));
   }
 
   return false;
 };
 
 const mapPropsToPlayer: IPropsToPlayer = {
-  src: (instance) => instance.reload(),
+  src:instance => instance.reload(),
   playing: (instance, player, nextPlaying) => {
     if (nextPlaying) {
       player.play();
@@ -223,7 +223,7 @@ class PlayablePlayer extends React.PureComponent<
       this.eventEmitter.emit(EVENTS.ENDED);
     });
 
-    this.player.on(VIDEO_EVENTS.CURRENT_TIME_UPDATED, (currentTime) => {
+    this.player.on(VIDEO_EVENTS.CURRENT_TIME_UPDATED,currentTime => {
       onProgress(currentTime);
     });
 
@@ -287,7 +287,7 @@ class PlayablePlayer extends React.PureComponent<
   }
 
   registerModules(modules: any = {}) {
-    Object.keys(modules).forEach((moduleName) =>
+    Object.keys(modules).forEach(moduleName =>
       registerModule(moduleName, modules[moduleName]),
     );
   }
@@ -296,7 +296,7 @@ class PlayablePlayer extends React.PureComponent<
     this.player.play();
   };
 
-  _handleRightClick = (event) => event.preventDefault();
+  _handleRightClick =event => event.preventDefault();
 
   render() {
     return (

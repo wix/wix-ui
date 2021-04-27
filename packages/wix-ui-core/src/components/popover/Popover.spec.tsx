@@ -16,7 +16,7 @@ import { classes } from './Popover.st.css';
 import { PopoverNext } from '../popover-next/popover-next';
 
 function delay(millis: number): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, millis));
+  return new Promise((resolve) => setTimeout(resolve, millis));
 }
 
 const renderPopover = (props: PopoverProps, content: string = 'Content') => (
@@ -236,7 +236,7 @@ function runTests(createDriver, container, popoverWithProps, Component) {
         'viewport',
         'scrollParent',
       ];
-      appendToValues.map(value => {
+      appendToValues.map((value) => {
         it(`should not be triggered when content is clicked and appended to ${value}`, async () => {
           const onClickOutside = jest.fn();
 
@@ -750,28 +750,28 @@ function runTests(createDriver, container, popoverWithProps, Component) {
         expect(queryPopoverPortal().classList).not.toContain(classes.root);
       });
 
-        it(`should add contentClassName to the popover content if passed`, async () => {
-            const contentClassName = 'some-content-classname';
+      it(`should add contentClassName to the popover content if passed`, async () => {
+        const contentClassName = 'some-content-classname';
 
-            await createDriver(
-                popoverWithProps({
-                    shown: true,
-                    appendTo: portalContainer.node,
-                    contentClassName,
-                }),
-            );
+        await createDriver(
+          popoverWithProps({
+            shown: true,
+            appendTo: portalContainer.node,
+            contentClassName,
+          }),
+        );
 
-            await createDriver(
-                popoverWithProps({
-                    shown: true,
-                    appendTo: portalContainer.node,
-                    contentClassName,
-                }),
-            );
+        await createDriver(
+          popoverWithProps({
+            shown: true,
+            appendTo: portalContainer.node,
+            contentClassName,
+          }),
+        );
 
-            expect(queryPopoverContent()).toBeTruthy();
-            expect(queryPopoverContent().classList).toContain(contentClassName);
-        });
+        expect(queryPopoverContent()).toBeTruthy();
+        expect(queryPopoverContent().classList).toContain(contentClassName);
+      });
     });
   });
 

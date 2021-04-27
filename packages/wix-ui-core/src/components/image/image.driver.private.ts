@@ -26,7 +26,7 @@ export const imageDriverFactory = (base: UniDriver): ImageDriver => {
     ...publicDriver,
     getResizeMode: async () => getStyleState('resizeMode'),
     getSrcSet: () => base.attr('srcSet'),
-    hasClass: (className) => base.hasClass(className),
+    hasClass:className => base.hasClass(className),
     getTagName: async () => (await base.getNative()).tagName,
   };
 };

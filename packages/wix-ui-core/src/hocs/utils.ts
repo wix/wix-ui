@@ -1,4 +1,4 @@
-export const getDisplayName = (Component) => {
+export const getDisplayName =Component => {
   if (typeof Component === 'string') {
     return Component;
   }

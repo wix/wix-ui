@@ -16,7 +16,7 @@ import {
 import { Popover } from '../Popover';
 import { Category, baseScope } from '../../../../stories/utils';
 
-const example = config => baseExample({ components: baseScope, ...config });
+const example = (config) => baseExample({ components: baseScope, ...config });
 
 import * as examples from './examples';
 

@@ -66,7 +66,7 @@ class ButtonNextComponent extends React.Component<ButtonProps> {
     const reference =
       isStatelessComponent(Component) && typeof Component !== 'string'
         ? undefined
-        : (ref) => (this.innerComponentRef = ref);
+        :ref => (this.innerComponentRef = ref);
 
     return (
       <Component

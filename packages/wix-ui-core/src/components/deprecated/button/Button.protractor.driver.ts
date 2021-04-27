@@ -15,7 +15,7 @@ export interface ButtonDriver extends BaseDriver {
   isButtonDisabled(): Promise<boolean>;
 }
 
-export const buttonDriverFactory: DriverFactory<ButtonDriver> = (element) => ({
+export const buttonDriverFactory: DriverFactory<ButtonDriver> =element => ({
   element: () => element,
   exists: async () => element.isPresent(),
   getButtonTextContent: async () => element.getText(),
@@ -27,4 +27,4 @@ export const buttonDriverFactory: DriverFactory<ButtonDriver> = (element) => ({
 const hasAttribute = async (
   elementFinder: ElementFinder,
   attributeName: string,
-) => elementFinder.getAttribute(attributeName).then((value) => value !== null);
+) => elementFinder.getAttribute(attributeName).then(value => value !== null);

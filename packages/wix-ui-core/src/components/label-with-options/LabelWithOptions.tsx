@@ -148,7 +148,7 @@ export class LabelWithOptions extends React.PureComponent<
   private readonly onDeselect = (option: Option) => {
     this.setState(
       {
-        selectedIds: this.state.selectedIds.filter((id) => id !== option.id),
+        selectedIds: this.state.selectedIds.filter(id => id !== option.id),
         isDirty: true,
       },
       () => this.props.onDeselect(option),
@@ -160,7 +160,7 @@ export class LabelWithOptions extends React.PureComponent<
       return this.props.options;
     }
 
-    return this.props.options.map((option) => {
+    return this.props.options.map(option => {
       const newOption: Option = {
         id: option.id,
         isDisabled: option.isDisabled,
@@ -172,7 +172,7 @@ export class LabelWithOptions extends React.PureComponent<
       const checked = this.state.selectedIds.includes(option.id);
 
       newOption.render = option.isSelectable
-        ? (value) => (
+        ?value => (
             <div
               className={classes.optionContainer}
               data-hook="checkbox-option-container"
@@ -194,8 +194,8 @@ export class LabelWithOptions extends React.PureComponent<
     const { selectedIds } = this.state;
     return selectedIds && selectedIds.length
       ? this.props.options
-          .filter((option) => selectedIds.includes(option.id))
-          .map((option) => option.value)
+          .filter(option => selectedIds.includes(option.id))
+          .map(option => option.value)
           .join(', ')
       : this.props.placeholder;
   };

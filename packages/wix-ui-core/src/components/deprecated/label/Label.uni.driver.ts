@@ -27,6 +27,6 @@ export const labelUniDriverFactory = (base: UniDriver): LabelDriver => {
     getForAttribute: () => base.attr('for'),
     hasEllipsis: async () => (await base.attr('data-ellipsis')) === 'true',
     isDisabled: async () => (await base.attr('data-disabled')) === 'true',
-    keyDown: (key) => base.pressKey(key),
+    keyDown:key => base.pressKey(key),
   };
 };

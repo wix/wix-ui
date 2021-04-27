@@ -7,7 +7,7 @@ import { IEventEmitter, IMethodsToPlayer, IPropsToPlayer } from '../types';
 import { EVENTS } from '../constants';
 
 const mapPropsToPlayer: IPropsToPlayer = {
-  src: instance => instance.reload(),
+  src: (instance) => instance.reload(),
   playing: (instance, player, nextPlaying) => {
     if (nextPlaying) {
       player.play();
@@ -108,7 +108,7 @@ describe('playerHOC', () => {
       let playerRef;
 
       await container.render(
-        <Player onInit={onInit} ref={r => (playerRef = r)} />,
+        <Player onInit={onInit} ref={(r) => (playerRef = r)} />,
       );
 
       await eventually(() => {
@@ -132,7 +132,7 @@ describe('playerHOC', () => {
 
       await container.render(
         <Player
-          ref={r => (playerRef = r)}
+          ref={(r) => (playerRef = r)}
           onReady={onReady}
           onFirstPlay={onFirstPlay}
           onPlay={onPlay}
@@ -158,7 +158,7 @@ describe('playerHOC', () => {
 
       await container.render(
         <Player
-          ref={r => (playerRef = r)}
+          ref={(r) => (playerRef = r)}
           onReady={onReady}
           onPause={onPause}
         />,
@@ -182,7 +182,7 @@ describe('playerHOC', () => {
 
       await container.render(
         <Player
-          ref={r => (playerRef = r)}
+          ref={(r) => (playerRef = r)}
           onReady={onReady}
           onFirstEnded={onFirstEnded}
           onEnded={onEnded}
@@ -206,7 +206,7 @@ describe('playerHOC', () => {
       let playerRef;
 
       await container.render(
-        <Player ref={r => (playerRef = r)} onReady={onReady} />,
+        <Player ref={(r) => (playerRef = r)} onReady={onReady} />,
       );
       await eventually(() => {
         expect(onReady).toHaveBeenCalled();
@@ -227,7 +227,7 @@ describe('playerHOC', () => {
 
       await container.render(
         <Player
-          ref={r => (playerRef = r)}
+          ref={(r) => (playerRef = r)}
           onReady={onReady}
           onFirstPlay={onFirstPlay}
           onPlay={onPlay}
@@ -251,24 +251,27 @@ describe('playerHOC', () => {
   describe('methods', () => {
     const Player = playerHOC(MockPlayer, mapPropsToPlayer, mapMethodsToPlayer);
 
-    [['play', 'videoPlay'], ['pause', 'videoPause'], ['stop', 'videoStop']].map(
-      ([method, playerMethod]) =>
-        it(`should call \`${playerMethod}\` when \`${method}\` is triggered`, async () => {
-          let playerRef: any;
+    [
+      ['play', 'videoPlay'],
+      ['pause', 'videoPause'],
+      ['stop', 'videoStop'],
+    ].map(([method, playerMethod]) =>
+      it(`should call \`${playerMethod}\` when \`${method}\` is triggered`, async () => {
+        let playerRef: any;
 
-          await container.render(
-            <Player ref={r => (playerRef = r)} onReady={onReady} />,
-          );
-          await eventually(() => {
-            expect(onReady).toHaveBeenCalled();
-          });
+        await container.render(
+          <Player ref={(r) => (playerRef = r)} onReady={onReady} />,
+        );
+        await eventually(() => {
+          expect(onReady).toHaveBeenCalled();
+        });
 
-          playerRef[method]();
+        playerRef[method]();
 
-          await eventually(() => {
-            expect(mockAPI[playerMethod]).toHaveBeenCalled();
-          });
-        }),
+        await eventually(() => {
+          expect(mockAPI[playerMethod]).toHaveBeenCalled();
+        });
+      }),
     );
   });
 });

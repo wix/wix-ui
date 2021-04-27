@@ -8,9 +8,7 @@ export interface RadioButtonDriver extends BaseDriver {
   isSelected(): Promise<boolean>;
 }
 
-export const radioButtonDriverFactory: DriverFactory<RadioButtonDriver> = (
-  component,
-) => ({
+export const radioButtonDriverFactory: DriverFactory<RadioButtonDriver> =component => ({
   element: () => component,
   select: async () => component.click(),
   isSelected: async () => {

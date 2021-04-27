@@ -25,7 +25,7 @@ describe('getAppendToElement', () => {
   });
 
   it('should return matching ancestor by predicate [when] filter function', () => {
-    const predicate = (el) => el.getAttribute('some-attr') === 'some-value';
+    const predicate =el => el.getAttribute('some-attr') === 'some-value';
     const element = document.createElement('div');
     const parent = document.createElement('div');
     parent.setAttribute('some-attr', 'some-value');
@@ -34,7 +34,7 @@ describe('getAppendToElement', () => {
   });
 
   it('should return undefined [when] predicate is not matched', () => {
-    const predicate = (el) => el.getAttribute('some-attr') === 'some-value';
+    const predicate =el => el.getAttribute('some-attr') === 'some-value';
     const element = document.createElement('div');
     expect(getAppendToElement(predicate, element)).toBe(undefined);
   });

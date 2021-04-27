@@ -37,7 +37,7 @@ export class InputWithOptionsTestFixture extends React.Component<any, any> {
     });
   };
 
-  handleOnChange = (e) => {
+  handleOnChange =e => {
     this.setState({
       value: e.target.value,
     });

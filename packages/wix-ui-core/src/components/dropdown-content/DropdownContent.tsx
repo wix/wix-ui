@@ -58,8 +58,7 @@ export class DropdownContent extends React.PureComponent<
 
   componentDidMount() {
     if (this.props.selectedIds.length) {
-      const selectedIndex = this.props.options.findIndex(
-        (option) => option.id === this.props.selectedIds[0],
+      const selectedIndex = this.props.options.findIndex(option => option.id === this.props.selectedIds[0],
       );
 
       if (selectedIndex > -1) {
@@ -241,7 +240,7 @@ export class DropdownContent extends React.PureComponent<
           role="menu"
           className={classes.optionsContainer}
           id={optionsContainerId}
-          ref={(optionsContainer) =>
+          ref={optionsContainer =>
             (this.optionsContainerRef = optionsContainer)
           }
         >
@@ -261,7 +260,7 @@ export class DropdownContent extends React.PureComponent<
               }
               onMouseEnterHandler={
                 this.isValidOptionForSelection(option)
-                  ? (evt) => this.onMouseEnter(evt, index)
+                  ?evt => this.onMouseEnter(evt, index)
                   : undefined
               }
               onMouseLeaveHandler={() => {

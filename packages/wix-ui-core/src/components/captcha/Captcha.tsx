@@ -132,7 +132,7 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
         )}
         <div className={classes.captcha}>
           <Reaptcha
-            ref={(e) => (this.captchaRef = e)}
+            ref={e => (this.captchaRef = e)}
             sitekey={sitekey}
             captchaType={captchaType}
             size={size}

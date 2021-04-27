@@ -26,7 +26,7 @@ describe('Avatar', () => {
     return avatarDriverFactory(base);
   };
 
-  const expectImgEventuallyLoaded = (driver) =>
+  const expectImgEventuallyLoaded =driver =>
     eventually(async () =>
       expect((await driver.getContentType()) === 'image').toBeTruthy(),
     );
@@ -240,7 +240,7 @@ describe('Avatar', () => {
 
       await testContainer.render(
         <AvatarWrapper
-          ref={(inst) => (wrapper = inst)}
+          ref={inst => (wrapper = inst)}
           imgProps={{
             src: TEST_IMG_URL,
             ['data-hook']: dataHook,

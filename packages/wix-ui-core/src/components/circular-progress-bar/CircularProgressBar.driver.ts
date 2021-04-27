@@ -30,7 +30,7 @@ export const circularProgressBarDriverFactory: DriverFactory<CircularProgressBar
 }: ComponentFactory) => {
   const stylableDOMUtil = new StylableDOMUtil(style);
 
-  const getElement = (dataHook) =>
+  const getElement =dataHook =>
     element.querySelector(`[data-hook="${dataHook}"]`);
   const getValue = () =>
     !element ? null : getElement('progress-indicator').innerHTML;

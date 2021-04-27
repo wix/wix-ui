@@ -77,7 +77,7 @@ export class Input extends React.Component<InputProps, InputState> {
         {prefix}
         <input
           {...allOtherProps}
-          ref={(input) => (this.input = input)}
+          ref={input => (this.input = input)}
           className={classnames(classes.nativeInput, inputClassName)}
           onBlur={this.handleBlur}
           onFocus={this.handleFocus}
@@ -106,16 +106,12 @@ export class Input extends React.Component<InputProps, InputState> {
     this.input.setSelectionRange(start, end);
   }
 
-  private readonly handleFocus: React.FocusEventHandler<HTMLInputElement> = (
-    event,
-  ) => {
+  private readonly handleFocus: React.FocusEventHandler<HTMLInputElement> =event => {
     this.setState({ focus: true });
     this.props.onFocus(event);
   };
 
-  private readonly handleBlur: React.FocusEventHandler<HTMLInputElement> = (
-    event,
-  ) => {
+  private readonly handleBlur: React.FocusEventHandler<HTMLInputElement> =event => {
     this.setState({ focus: false });
     this.props.onBlur(event);
   };

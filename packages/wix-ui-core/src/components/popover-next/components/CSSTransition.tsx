@@ -2,7 +2,7 @@ import * as React from 'react';
 import { CSSTransition as Transition } from 'react-transition-group';
 import { classes } from '../../popover/Popover.st.css';
 
-const CSSTransition = (props) => {
+const CSSTransition =props => {
   const { shown, timeout, children, shouldAnimate, detachStyles } = props;
 
   return shouldAnimate ? (

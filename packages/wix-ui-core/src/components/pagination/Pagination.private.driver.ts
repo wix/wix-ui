@@ -47,7 +47,7 @@ export class PaginationDriver {
   }
 
   get pageLabels() {
-    return this.pages.map((p) => p.textContent);
+    return this.pages.map(p => p.textContent);
   }
 
   get currentPage() {

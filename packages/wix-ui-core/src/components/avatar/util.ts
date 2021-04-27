@@ -13,7 +13,7 @@ export function nameToInitials(name?: string, limit: 1 | 2 | 3 = 2) {
     limit = 2;
   }
 
-  let initials = name.split(' ').map((s) => s[0]);
+  let initials = name.split(' ').map(s => s[0]);
   if (limit === 1 && initials.length > 1) {
     initials = [initials[0]];
   }
