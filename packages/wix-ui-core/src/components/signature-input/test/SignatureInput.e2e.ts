@@ -77,10 +77,13 @@ describe('Signature Input', () => {
     await a11yInput.enterValue('a value');
   });
 
-  eyes.it('should support drawing characters when component is with rtl direction', async () => {
-    await navigateToStory({ suffix: 'Rtl' });
-    const driver = createDriver();
-    const a11yInput = driver.getA11yInput();
-    await a11yInput.enterValue('ערך מימין לשמאל');
-  });
+  eyes.it(
+    'should support drawing characters when component is with rtl direction',
+    async () => {
+      await navigateToStory({ suffix: 'Rtl' });
+      const driver = createDriver();
+      const a11yInput = driver.getA11yInput();
+      await a11yInput.enterValue('ערך מימין לשמאל');
+    },
+  );
 });

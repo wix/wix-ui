@@ -40,7 +40,7 @@ export class ReactDOMTestContainer {
   // We're not returning the result of  ReactDOM.render() because its use
   // is deprecated.
   public render<P>(jsx: React.ReactElement<P>): Promise<void> {
-    return new Promise(resolve => ReactDOM.render(jsx, this.node, resolve));
+    return new Promise((resolve) => ReactDOM.render(jsx, this.node, resolve));
   }
 
   public renderSync<P>(jsx: React.ReactElement<P>) {

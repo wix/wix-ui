@@ -27,10 +27,10 @@ export const timePickerDriverFactory = ({ element, eventTrigger }) => {
     getValue: () => inputDriver.getValue(),
 
     /** sets the value of the time picker */
-    setValue: value => inputDriver.setValue(value),
+    setValue: (value) => inputDriver.setValue(value),
 
     /** simulates a keyDown event on the input element */
-    keyDown: key => inputDriver.keyDown(key),
+    keyDown: (key) => inputDriver.keyDown(key),
 
     /** simulates a focus event on the input element */
     focus: () => inputDriver.focus(),
