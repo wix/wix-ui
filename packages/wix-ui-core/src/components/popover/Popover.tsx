@@ -219,7 +219,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     this.contentHook = `popover-content-${props['data-hook'] || ''}-${testId}`;
   }
 
-  _handleClickOutside = event => {
+  _handleClickOutside = (event) => {
     const {
       onClickOutside: onClickOutsideCallback,
       shown,
@@ -557,7 +557,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
             id={id}
             {...filterDataProps(this.props)}
           >
-            <Reference innerRef={r => (this.targetRef = r)}>
+            <Reference innerRef={(r) => (this.targetRef = r)}>
               {({ ref }) => (
                 <div
                   ref={ref}

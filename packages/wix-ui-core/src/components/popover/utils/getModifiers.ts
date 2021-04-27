@@ -1,6 +1,6 @@
 import { Modifiers, Boundary, Placement } from 'popper.js';
 
-const getUnit = value => {
+const getUnit = (value) => {
   if (typeof value === 'string') {
     return value;
   }
@@ -91,7 +91,7 @@ export const getModifiers = ({
     modifiers.setPopperWidth = {
       enabled: true,
       order: 840,
-      fn: data => {
+      fn: (data) => {
         const { width: referenceWidth } = data.offsets.reference;
         data.styles = {
           ...data.styles,

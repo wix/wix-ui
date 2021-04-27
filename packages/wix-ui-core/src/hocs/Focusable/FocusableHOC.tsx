@@ -38,7 +38,7 @@ const inputMethod = new (class {
   setMethod(method) {
     if (method !== this.method) {
       this.method = method;
-      this.subscribers.forEach(f => f());
+      this.subscribers.forEach((f) => f());
     }
   }
 })();
@@ -51,7 +51,7 @@ const inputMethod = new (class {
  *  - the static hoisting
  *  - set displayName
  */
-export const withFocusable = Component => {
+export const withFocusable = (Component) => {
   interface IFocusableHOCState {
     focus: boolean;
     focusVisible: boolean;
@@ -106,7 +106,7 @@ export const withFocusable = Component => {
       this.setState({ focus: false, focusVisible: false });
     };
 
-    onFocus = event => {
+    onFocus = (event) => {
       const { onFocus } = this.props;
       onFocus
         ? onFocus(event, {
@@ -116,7 +116,7 @@ export const withFocusable = Component => {
         : this.markAsFocused();
     };
 
-    onBlur = event => {
+    onBlur = (event) => {
       const { onBlur } = this.props;
       onBlur
         ? onBlur(event, { blur: this.markAsBlurred, focus: this.markAsFocused })
@@ -126,7 +126,7 @@ export const withFocusable = Component => {
     render() {
       const reference = isStatelessComponent(Component)
         ? undefined
-        : ref => (this.wrappedComponentRef = ref);
+        : (ref) => (this.wrappedComponentRef = ref);
 
       return (
         <Component
@@ -150,7 +150,7 @@ export const withFocusable = Component => {
   return isStatelessComponent(Component)
     ? FocusableHOC
     : hoistNonReactMethods(FocusableHOC, Component, {
-        delegateTo: c => c.wrappedComponentRef,
+        delegateTo: (c) => c.wrappedComponentRef,
         hoistStatics: true,
       });
 };

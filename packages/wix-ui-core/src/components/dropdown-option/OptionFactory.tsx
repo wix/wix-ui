@@ -17,15 +17,15 @@ const createOption = (option: Partial<Option> = null): Option => ({
   isDisabled: false,
   isSelectable: true,
   value: null,
-  render: val => val,
+  render: (val) => val,
   ...option,
 });
 
 const escapeRegExp = (s: string) => s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
 const highlightRegExt = (s: string) =>
   new RegExp(`(${s.replace(/ /g, '|')})`, 'gi');
-const isEven = i => i % 2 === 0;
-const isOdd = i => i % 2 === 1;
+const isEven = (i) => i % 2 === 0;
+const isOdd = (i) => i % 2 === 1;
 
 const highlightMatches = (option: Option, searchTerm: string): Option => {
   const regExp = highlightRegExt(escapeRegExp(searchTerm.trim()));
