@@ -10,7 +10,7 @@ class WixStorybookWebpackPlugin {
       compilation.hooks.normalModuleLoader.tap('WixStorybookWebpackPlugin', (_, module) => {
         if (test.test(module.userRequest)) {
           module.loaders.push({
-            loader: require.resolve('../src/loader/index.js'),
+            loader: require.resolve('../loader/index.js'),
             options: loaderOptions,
           });
         }
@@ -18,6 +18,5 @@ class WixStorybookWebpackPlugin {
     });
   }
 }
-
+  
 module.exports = WixStorybookWebpackPlugin;
-
