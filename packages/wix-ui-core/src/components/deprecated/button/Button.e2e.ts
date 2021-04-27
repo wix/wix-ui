@@ -51,10 +51,7 @@ describe('Button', () => {
     browser
       .wait(EC.alertIsPresent(), 2000, 'Alert is not getting present :(')
       .then(() => {
-        browser
-          .switchTo()
-          .alert()
-          .accept();
+        browser.switchTo().alert().accept();
       });
   });
 });

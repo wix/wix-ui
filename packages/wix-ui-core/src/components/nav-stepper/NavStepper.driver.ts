@@ -49,7 +49,7 @@ export class NavStepperDriver implements BaseDriver {
   activeStep() {
     return Array.from<HTMLLIElement>(
       this.element.getElementsByTagName('li'),
-    ).find(step => this.hasStyleState(step, 'active'));
+    ).find((step) => this.hasStyleState(step, 'active'));
   }
 }
 
