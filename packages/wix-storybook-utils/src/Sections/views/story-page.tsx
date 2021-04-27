@@ -78,6 +78,7 @@ const title = (text: string) => ({ type: SectionType.Title, title: text });
 
 const designTab = (props: StoryPageSection, storyConfig: StoryConfig) => {
   const { content } = props;
+  const showCommonUseCaseExamples = props.content.commonUseCaseExamples?.length;
   return {
     title: 'Design',
     type: SectionType.Tab,
@@ -93,8 +94,8 @@ const designTab = (props: StoryPageSection, storyConfig: StoryConfig) => {
       divider(),
       title('Variations'),
       ...examples(props.content.featureExamples, props.examples),
-      divider(),
-      title('Common Use Cases'),
+      showCommonUseCaseExamples && divider(),
+      showCommonUseCaseExamples && title('Common Use Cases'),
       ...examples(props.content.commonUseCaseExamples, props.examples),
       divider(),
       title('Feedback'),
