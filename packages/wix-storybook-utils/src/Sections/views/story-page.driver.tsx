@@ -153,6 +153,8 @@ const buildOutput = (content: any) => {
       component: content.demo,
     };
   };
+  const showCommonUseCaseExamples = content.commonUseCaseExamples.length;
+
   return [
     { type: 'header', sourceUrl: '/Story' },
     {
@@ -173,8 +175,11 @@ const buildOutput = (content: any) => {
             { type: 'divider' },
             { type: 'title', title: 'Variations' },
             ...featureExamples,
-            { type: 'divider' },
-            { type: 'title', title: 'Common Use Cases' },
+            showCommonUseCaseExamples && { type: 'divider' },
+            showCommonUseCaseExamples && {
+              type: 'title',
+              title: 'Common Use Cases',
+            },
             ...commonUseCaseExamples,
             { type: 'divider' },
             { type: 'title', title: 'Feedback' },
