@@ -39,7 +39,7 @@ describe('Input', () => {
     const { input } = await render(
       <Input
         autoComplete="on"
-        id='id'
+        id="id"
         disabled
         maxLength={10}
         placeholder="placeholder"
