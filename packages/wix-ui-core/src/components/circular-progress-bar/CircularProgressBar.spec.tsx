@@ -243,7 +243,7 @@ describe('CircularProgressBar', () => {
       it('should display label when received', async () => {
         const props = {
           label: 'custom label',
-        }
+        };
         const driver = await render(createCircularProgressBar(props));
         expect(await driver.isLabelDisplayed()).toBe(true);
       });
@@ -252,7 +252,7 @@ describe('CircularProgressBar', () => {
         const label = 'custom label';
         const props = {
           label,
-        }
+        };
         const driver = await render(createCircularProgressBar(props));
         expect(await driver.getLabelTextContent()).toEqual(label);
       });
@@ -262,11 +262,11 @@ describe('CircularProgressBar', () => {
           showProgressIndication: true,
           value: 40,
           label: 'custom label',
-        }
+        };
         const driver = await render(createCircularProgressBar(props));
         expect(await driver.isPercentagesProgressDisplayed()).toBe(false);
       });
-    })
+    });
   }
 
   runTestkitExistsSuite({

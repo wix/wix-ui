@@ -14,20 +14,20 @@ export class CheckboxTestFixture extends React.Component {
   render() {
     return (
       <div>
-          <Checkbox
-            onFocusByKeyboard={() =>
-              this.setState({ isOnFocusByKeyboardCalled: true })
-            }
-            checkedIcon={<CheckboxChecked />}
-            onChange={() => {}}
-            data-hook={`checkbox-first`}
-          />
-          <Checkbox
-            checkedIcon={<CheckboxChecked />}
-            onChange={() => {}}
-            checked={this.state.isOnFocusByKeyboardCalled}
-            data-hook={`checkbox-second`}
-          />
+        <Checkbox
+          onFocusByKeyboard={() =>
+            this.setState({ isOnFocusByKeyboardCalled: true })
+          }
+          checkedIcon={<CheckboxChecked />}
+          onChange={() => {}}
+          data-hook={`checkbox-first`}
+        />
+        <Checkbox
+          checkedIcon={<CheckboxChecked />}
+          onChange={() => {}}
+          checked={this.state.isOnFocusByKeyboardCalled}
+          data-hook={`checkbox-second`}
+        />
       </div>
     );
   }

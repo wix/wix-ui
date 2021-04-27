@@ -389,10 +389,7 @@ describe('Dropdown', () => {
       );
 
       const driver = dropdownDriverFactory({
-        element: wrapper
-          .children()
-          .at(0)
-          .getDOMNode(),
+        element: wrapper.children().at(0).getDOMNode(),
         eventTrigger: Simulate,
       });
 
@@ -421,10 +418,7 @@ describe('Dropdown', () => {
       );
 
       const driver = dropdownDriverFactory({
-        element: wrapper
-          .children()
-          .at(0)
-          .getDOMNode(),
+        element: wrapper.children().at(0).getDOMNode(),
         eventTrigger: Simulate,
       });
 
@@ -457,11 +451,11 @@ describe('Dropdown', () => {
 
   describe('props for Popover', () => {
     /*
-    * Some props are passed down to `<Popover>` component used internally.
-    * Behaviour of those props are tested in `<Popover>` implementation.
-    * Thus, these tests just confirm that props are really passed
-    */
-  
+     * Some props are passed down to `<Popover>` component used internally.
+     * Behaviour of those props are tested in `<Popover>` implementation.
+     * Thus, these tests just confirm that props are really passed
+     */
+
     const propsAndValues = {
       placement: 'test',
       appendTo: 'test',
@@ -472,7 +466,7 @@ describe('Dropdown', () => {
       flip: 'test',
       role: 'test',
     };
-  
+
     Object.entries(propsAndValues).forEach(([prop, value]) => {
       it(`Popover should receive ${prop}=${value} prop`, () => {
         const mounted = mount(createDropdown({ [prop]: value }));
