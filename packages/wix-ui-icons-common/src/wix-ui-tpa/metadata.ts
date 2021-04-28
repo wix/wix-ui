@@ -1,6 +1,6 @@
 import { IconMetadata } from "../types";
 
-const generalIconsMetadata: Array<IconMetadata> = [
+const tpaIconsMetadata: Array<IconMetadata> = [
   {
     title: "VisibleFill",
     category: "Toggle",
@@ -808,4 +808,4 @@ const generalIconsMetadata: Array<IconMetadata> = [
   },
 ];
 
-export default generalIconsMetadata;
+export default tpaIconsMetadata;
