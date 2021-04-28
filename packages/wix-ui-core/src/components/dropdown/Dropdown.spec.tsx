@@ -65,31 +65,34 @@ describe('Dropdown', () => {
     it('should show content on `Enter`', () => {
       const driver = createDriver(createDropdown({ options }));
 
+      expect(driver.dropdownContentDisplayed()).toBeFalsy();
       Simulate.keyDown(document.querySelector(
           '[data-hook="open-dropdown-button"]'),
           { keyCode: 13 },
           );
-      expect(driver.isContentElementExists()).toBeTruthy();
+      expect(driver.dropdownContentDisplayed()).toBeTruthy();
     });
 
-    it('should show content on `Space` when `enableSpaceToggleMenu` is true', () => {
+    it('should show content on `Space` when `enableToggleMenuOnSpace` is true', () => {
       const driver = createDriver(createDropdown({ options, enableToggleMenuOnSpace: true, }));
 
+      expect(driver.dropdownContentDisplayed()).toBeFalsy();
       Simulate.keyDown(document.querySelector(
           '[data-hook="open-dropdown-button"]'),
           { keyCode: 32 },
           );
-      expect(driver.isContentElementExists()).toBeTruthy();
+      expect(driver.dropdownContentDisplayed()).toBeTruthy();
     });
 
-    it('should not show content on `Space`  when `enableSpaceToggleMenu` is false', () => {
+    it('should not show content on `Space`  when `enableToggleMenuOnSpace` is false', () => {
       const driver = createDriver(createDropdown({ options, enableToggleMenuOnSpace: false, }));
 
+      expect(driver.dropdownContentDisplayed()).toBeFalsy();
       Simulate.keyDown(document.querySelector(
           '[data-hook="open-dropdown-button"]'),
           { keyCode: 32 },
           );
-      expect(driver.isContentElementExists()).toBeTruthy();
+      expect(driver.dropdownContentDisplayed()).toBeFalsy();
     });
 
     it('should preventDefault on up/down arrows key press inside dropdown content in order to prevent outer scroll', () => {
