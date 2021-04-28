@@ -1,7 +1,7 @@
 const { default: InjectPlugin, ENTRY_ORDER } = require('webpack-inject-plugin');
 
 const storyPattern = /\.story\.[j|t]sx?$/;
-const propTypesParserInjector = () => "import 'wix-storybook-utils/propTypesParser'; console.log('smth')";
+const propTypesParserInjector = () => "import 'wix-storybook-utils/propTypesParser';";
 
 class WixStorybookWebpackPlugin {
   constructor(options) {
