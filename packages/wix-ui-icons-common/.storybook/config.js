@@ -24,7 +24,7 @@ const loadStories = () => {
   require("../stories/system/index.story");
   require("../stories/classic-editor/general/index.story");
   require("../stories/classic-editor/system/index.story");
-  /*require("../stories/wix-ui-tpa/index.story");*/
+  require("../stories/wix-ui-tpa/index.story");
 };
 
 configure(loadStories, module);
