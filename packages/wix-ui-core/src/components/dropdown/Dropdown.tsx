@@ -198,21 +198,21 @@ export class DropdownComponent extends React.PureComponent<
     return key === 'Tab' || key === 'Enter' || key === 'Escape' || (enableToggleMenuOnSpace && key === ' ');
   }
 
-  onKeyDownSelect(evt: React.KeyboardEvent<HTMLElement>) {
-    this.onKeyboardSelect();
-    const { multi } = this.props;
-    !multi && this.close();
-
-    if (this.getSelectedOption() !== null) {
-      evt.preventDefault();
-    }
-  }
-
   onKeyDown(evt: React.KeyboardEvent<HTMLElement>) {
+
     const eventKey = evt.key;
+    console.log('onKeyDown eventKey = ', eventKey);
+    console.log('onKeyDown eventKey = ', eventKey);
+    console.log('onKeyDown eventKey = ', eventKey);
+    console.log('onKeyDown eventKey = ', eventKey);
+    console.log('onKeyDown eventKey = ', eventKey);
     const { enableToggleMenuOnSpace } = this.props;
 
     if (!this.state.isOpen && this.isClosingKey(eventKey)) {
+      return;
+    }
+
+    if (enableToggleMenuOnSpace && !(eventKey === 'Enter' || eventKey === ' ' || eventKey === 'ArrowDown') && !this.state.isOpen) {
       return;
     }
 
@@ -222,12 +222,25 @@ export class DropdownComponent extends React.PureComponent<
 
       switch (eventKey) {
         case 'Enter': {
-          this.onKeyDownSelect(evt);
+          this.onKeyboardSelect();
+          const { multi } = this.props;
+          !multi && this.close();
+
+          if (this.getSelectedOption() !== null) {
+            evt.preventDefault();
+          }
           break;
         }
         case ' ': {
           if (enableToggleMenuOnSpace) {
-            this.onKeyDownSelect(evt);
+            this.onKeyboardSelect();
+            const { multi } = this.props;
+            !multi && this.close();
+
+            if (this.getSelectedOption() !== null) {
+              evt.preventDefault();
+            }
+            break;
           }
           break;
         }
