@@ -61,6 +61,11 @@ export type DropdownProps = Pick<PopoverProps, 'fixed' | 'flip' | 'moveBy'> & {
   /** Element to append the dropdown to */
   appendTo?: AppendTo;
   className?: string;
+  /** Whether to enable toggling (expand, collapse) the options menu on space key.
+   * When the trigger element is not an input both `enter` and `space` keys should toggle (expand, collapse) the options menu
+   * but in case that it is an input only enter key should toggle the list.
+   * */
+  enableToggleMenuOnSpace?: boolean;
 };
 
 export interface DropdownState {
@@ -188,13 +193,26 @@ export class DropdownComponent extends React.PureComponent<
   }
 
   isClosingKey(key) {
-    return key === 'Tab' || key === 'Enter' || key === 'Escape' || key === ' ';
+    const { enableToggleMenuOnSpace } = this.props;
+
+    return key === 'Tab' || key === 'Enter' || key === 'Escape' || (enableToggleMenuOnSpace && key === ' ');
   }
 
   onKeyDown(evt: React.KeyboardEvent<HTMLElement>) {
+
     const eventKey = evt.key;
+    console.log('onKeyDown eventKey = ', eventKey);
+    console.log('onKeyDown eventKey = ', eventKey);
+    console.log('onKeyDown eventKey = ', eventKey);
+    console.log('onKeyDown eventKey = ', eventKey);
+    console.log('onKeyDown eventKey = ', eventKey);
+    const { enableToggleMenuOnSpace } = this.props;
 
     if (!this.state.isOpen && this.isClosingKey(eventKey)) {
+      return;
+    }
+
+    if (enableToggleMenuOnSpace && !(eventKey === 'Enter' || eventKey === ' ' || eventKey === 'ArrowDown') && !this.state.isOpen) {
       return;
     }
 
@@ -203,14 +221,26 @@ export class DropdownComponent extends React.PureComponent<
         this.dropdownContentRef.onKeyDown(eventKey, evt);
 
       switch (eventKey) {
-        case 'Enter':
-        case ' ': {
+        case 'Enter': {
           this.onKeyboardSelect();
           const { multi } = this.props;
           !multi && this.close();
 
           if (this.getSelectedOption() !== null) {
             evt.preventDefault();
+          }
+          break;
+        }
+        case ' ': {
+          if (enableToggleMenuOnSpace) {
+            this.onKeyboardSelect();
+            const { multi } = this.props;
+            !multi && this.close();
+
+            if (this.getSelectedOption() !== null) {
+              evt.preventDefault();
+            }
+            break;
           }
           break;
         }

@@ -62,6 +62,28 @@ describe('Dropdown', () => {
       );
     });
 
+    it('should show content on `Enter`', () => {
+      const driver = createDriver(createDropdown({ options }));
+
+      expect(driver.dropdownContentDisplayed()).toBeFalsy();
+      Simulate.keyDown(document.querySelector(
+          '[data-hook="open-dropdown-button"]'),
+          { keyCode: 13 },
+          );
+      expect(driver.dropdownContentDisplayed()).toBeTruthy();
+    });
+
+    it('should select option on `Space`', () => {
+      const driver = createDriver(createDropdown({ options, enableToggleMenuOnSpace: true, }));
+
+      expect(driver.dropdownContentDisplayed()).toBeFalsy();
+      Simulate.keyDown(document.querySelector(
+          '[data-hook="open-dropdown-button"]'),
+          { keyCode: 32 },
+          );
+      expect(driver.dropdownContentDisplayed()).toBeTruthy();
+    });
+
     it('should preventDefault on up/down arrows key press inside dropdown content in order to prevent outer scroll', () => {
       const driver = createDriver(createDropdown({ options }));
       const preventDefaultSpy = jest.fn();
@@ -103,6 +125,31 @@ describe('Dropdown', () => {
       driver.click();
       driver.optionAt(0).click();
       expect(onSelect).toHaveBeenCalledWith(options[0]);
+    });
+
+    it('should select option on `Space`', async () => {
+      const onSelect = jest.fn();
+      const preventDefaultSpy = jest.fn();
+      const driver = createDriver(createDropdown({ options, enableToggleMenuOnSpace: true, onSelect }));
+
+      expect(driver.dropdownContentDisplayed()).toBeFalsy();
+      Simulate.keyDown(document.querySelector(
+          '[data-hook="open-dropdown-button"]'),
+          { keyCode: 32, preventDefault: preventDefaultSpy },
+      );
+      expect(driver.dropdownContentDisplayed()).toBeTruthy();
+
+      Simulate.keyDown(document.querySelector(
+          '[data-hook="open-dropdown-button"]'),
+          { keyCode: 40, preventDefault: preventDefaultSpy },
+      );
+
+      Simulate.keyDown(document.querySelector(
+          '[data-hook="open-dropdown-button"]'),
+          { keyCode: 32, preventDefault: preventDefaultSpy },
+      );
+
+      expect(onSelect).toHaveBeenCalledWith(options[1])
     });
 
     it('should not be called when selecting disabled item', () => {
