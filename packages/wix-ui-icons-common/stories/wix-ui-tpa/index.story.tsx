@@ -8,11 +8,10 @@ import {
   title,
   divider,
 } from "wix-storybook-utils/Sections";
-import HeaderIcons from "../components/header-icons";
 import IconsExample from "../components/icons-example";
 import * as iconComponents from "../../src/wix-ui-tpa/dist";
 import API_Table from "../APITable";
-import WixUiTpaCategoryList from './wixUiTpaCategoryList'
+import WixUiTpaCategoryList from './WixUiTpaCategoryList'
 import { WUT_CATEGORY } from '../constants'
 
 export default {
