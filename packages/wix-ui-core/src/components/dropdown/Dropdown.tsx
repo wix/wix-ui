@@ -188,6 +188,7 @@ export class DropdownComponent extends React.PureComponent<
   }
 
   isClosingKey(key) {
+    // a comment to sign my commits
     return key === 'Tab' || key === 'Enter' || key === 'Escape';
   }
 
