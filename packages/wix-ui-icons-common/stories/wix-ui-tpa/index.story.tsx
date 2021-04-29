@@ -32,12 +32,8 @@ export default {
       tab({
         title: "Icon List",
         sections: [
-          description({
-            title: "Adding New Icons",
-            text: `Base UI Icons are owned by Hive Team.<br/>If you can’t find an icon for your needs or some adjustments need to be made to existing ones, please submit <a href="https://docs.google.com/forms/d/e/1FAIpQLScLrVAwWsVVqlL1dvtVIMRX_mmTZAWIKHv1Mf0LYKkj8i1xUw/viewform">Icon Request.</a>`,
-          }),
           importExample(
-            "import Duplicate from 'wix-ui-icons-common/classic-editor/Duplicate';"
+            "import Duplicate from 'wix-ui-icons-common/wix-ui-tpa/Duplicate';"
           ),
           divider(),
           title("Categories"),

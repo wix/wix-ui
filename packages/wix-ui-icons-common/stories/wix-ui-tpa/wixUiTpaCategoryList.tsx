@@ -23,7 +23,7 @@ const tableHeaderTitles = [
 
 const searchKeys = ["title", "sizes.20", "sizes.24", "sizes.30", "tags", "aliases"];
 
-const wixUiTpaCategoryList: React.FC<GeneralCategoryListProps> = () => {
+const wixUiTpaCategoryList: React.FC = () => {
 
   const mapIconToRow = (
     {
