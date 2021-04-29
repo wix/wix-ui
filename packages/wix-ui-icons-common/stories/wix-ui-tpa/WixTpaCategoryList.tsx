@@ -3,7 +3,7 @@ import CategoryList from "../components/category-list";
 import * as iconComponents from '../../src/wix-ui-tpa/dist';
 import tpaIconsMetadata from '../../src/wix-ui-tpa/metadata';
 import { IconMetadata } from "../../src/types";
-import { GeneralCategoryListProps, TpaTableRow } from '../types';
+import { TpaTableRow } from '../types';
 
 const tableHeaderTitles = [
   "24x24",
