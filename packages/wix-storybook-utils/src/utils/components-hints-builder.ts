@@ -75,7 +75,7 @@ const getCompoundComponentsHints = (
     );
 };
 
-export const getHints = (componentsScope?: ComponentsScope) => {
+export const getComponentsHints = (componentsScope?: ComponentsScope) => {
   if (!componentsScope) {
     return null;
   }

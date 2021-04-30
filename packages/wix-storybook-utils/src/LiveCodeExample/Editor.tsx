@@ -1,7 +1,6 @@
 import React from 'react';
 import debounce from 'lodash/debounce';
 import { UnControlled as ReactCodeMirror } from 'react-codemirror2';
-import * as CodeMirror from 'codemirror';
 import 'codemirror/mode/jsx/jsx';
 import 'codemirror/addon/edit/closetag';
 import 'codemirror/addon/edit/closebrackets';
@@ -9,14 +8,30 @@ import 'codemirror/addon/hint/show-hint';
 import 'codemirror/addon/hint/xml-hint';
 
 import { formatCode } from './doctor-code';
+import {
+  completeAfter,
+  completeIfInTag,
+  completeIfInTagNewAttribute,
+  handleIndentation,
+} from './autocomplete-utils';
 import './styles.global.scss';
-import { Hints } from './constants';
+import { ComponentsHints } from '../typings/components-hints';
+
+const autoCompleteHotkeysMap = {
+  "'<'": completeAfter,
+  'Cmd-I': completeIfInTag,
+  'Ctrl-I': completeIfInTag,
+  "'='": completeIfInTag,
+  Space: completeIfInTagNewAttribute,
+  Enter: completeIfInTagNewAttribute,
+  Tab: handleIndentation,
+};
 
 interface Props {
   initialFormattedCode?: string;
   onChange: Function;
   editorCodeUpdater: Function;
-  hints?: Hints;
+  hints?: ComponentsHints;
 }
 
 const Editor = ({
@@ -69,51 +84,6 @@ const Editor = ({
     }
   };
 
-  const completeAfter = (
-    codemirror: CodeMirror.Editor,
-    predicate?: () => boolean,
-  ) => {
-    if (!predicate || predicate()) {
-      setTimeout(() => {
-        if (!codemirror.state.completionActive) {
-          codemirror.showHint({ completeSingle: false });
-        }
-      }, 100);
-    }
-
-    return CodeMirror.Pass;
-  };
-
-  const completeIfInTag = (
-    codemirror: CodeMirror.Editor,
-    ignoreAutocomplete?: boolean,
-  ) => {
-    return completeAfter(codemirror, () => {
-      const token = codemirror.getTokenAt(codemirror.getCursor());
-
-      if (
-        ignoreAutocomplete ||
-        (token.type === 'string' &&
-          (!/['"]/.test(token.string.charAt(token.string.length - 1)) ||
-            token.string.length === 1))
-      ) {
-        return false;
-      }
-
-      const inner = CodeMirror.innerMode(codemirror.getMode(), token.state)
-        .state;
-      return inner.tagName;
-    });
-  };
-
-  const completeIfInTagNewAttribute = (codemirror: CodeMirror.Editor) => {
-    const { line, ch } = codemirror.getCursor();
-    const nextChar = codemirror.getRange({ line, ch }, { line, ch: ch + 1 });
-    const enableAutocomplete = !nextChar || /[\s>]/.test(nextChar);
-
-    return completeIfInTag(codemirror, !enableAutocomplete);
-  };
-
   return (
     <ReactCodeMirror
       onChange={debouncedOnCodeChange}
@@ -129,23 +99,7 @@ const Editor = ({
         hintOptions: {
           schemaInfo: hints,
         } as CodeMirror.ShowHintOptions,
-        extraKeys: {
-          Tab: codemirror => {
-            if (codemirror.somethingSelected()) {
-              codemirror.indentSelection('add');
-            } else {
-              const indent = codemirror.getOption('indentUnit');
-              const spaces = Array(indent + 1).join(' ');
-              codemirror.replaceSelection(spaces);
-            }
-          },
-          "'<'": completeAfter,
-          'Cmd-I': completeIfInTag,
-          'Ctrl-I': completeIfInTag,
-          "'='": completeIfInTag,
-          "' '": completeIfInTagNewAttribute,
-          Enter: completeIfInTagNewAttribute,
-        },
+        extraKeys: autoCompleteHotkeysMap,
       }}
     />
   );

@@ -15,7 +15,8 @@ import ToggleSwitch from '../ui/toggle-switch';
 import TextButton from '../TextButton';
 import Editor from './Editor';
 import styles from './index.scss';
-import { Hints } from './constants';
+import { getComponentsHints } from '../utils';
+import { ComponentsHints } from '../typings/components-hints';
 
 export interface Props {
   initialCode?: string;
@@ -29,7 +30,7 @@ export interface Props {
   noBackground?: boolean;
   onChange?: Function;
   previewWarning?({ onConfirm: Function }): React.ReactNode | null;
-  hints?: Hints;
+  hints?: ComponentsHints;
 }
 
 interface State {
@@ -41,6 +42,7 @@ interface State {
   parseError: object | null;
   renderPreview: boolean;
   setEditorValue: Function;
+  hints?: ComponentsHints;
 }
 
 export default class LiveCodeExample extends React.PureComponent<Props, State> {
@@ -95,6 +97,11 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
     ) {
       this.setState({ renderPreview: false });
     }
+  }
+
+  componentDidMount() {
+    const { hints, scope } = this.props;
+    this.setState({ hints: hints || getComponentsHints(scope) });
   }
 
   prettifyCode = () => {
@@ -171,7 +178,6 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
       previewProps,
       autoRender,
       noBackground,
-      hints,
     } = this.props;
 
     const {
@@ -180,6 +186,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
       isDarkBackground,
       isEditorOpened,
       renderPreview,
+      hints,
     } = this.state;
 
     const dirty = this.state.initialFormattedCode !== this.state.code;

@@ -6,7 +6,7 @@ import { StoryConfig } from '../typings/story-config';
 import AutoExample from '../AutoExample';
 import StoryPage from '../StoryPage';
 import Remount from './RemountHoc';
-import { isE2E } from '../utils';
+import { isE2E, getComponentsHints } from '../utils';
 import { scrollToElementByHash } from './utils';
 
 declare global {
@@ -44,7 +44,10 @@ export default ({ _config, _metadata, ...storyConfig }) =>
       ) : (
         <StoryPage
           {...{
-            ...(storyConfig as StoryConfig),
+            ...({
+              ...storyConfig,
+              hints: getComponentsHints(_config.playgroundComponents),
+            } as StoryConfig),
             metadata: _metadata,
             config: _config,
           }}

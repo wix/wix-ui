@@ -19,6 +19,7 @@ export const code: (a: CodeSection, b: StoryConfig) => React.ReactNode = (
   storyConfig,
 ) => {
   const playgroundComponents = storyConfig.config.playgroundComponents || {};
+
   if (interactive) {
     const LiveCodeExample = React.lazy(() => import('../../LiveCodeExample'));
     return (
@@ -36,6 +37,7 @@ export const code: (a: CodeSection, b: StoryConfig) => React.ReactNode = (
             },
             initialCode: source.trim(),
             initiallyOpen,
+            hints: storyConfig.hints,
           }}
         />
       </React.Suspense>

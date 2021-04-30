@@ -1,8 +1,8 @@
-import { getHints } from './hints-builder';
+import { getComponentsHints } from './components-hints-builder';
 
-describe('getHints', () => {
+describe('getComponentsHints', () => {
   it('should return null if components scope is not provided', () => {
-    expect(getHints()).toBe(null);
+    expect(getComponentsHints()).toBe(null);
   });
 
   it("should return empty hints object if provided components don't have propTypes", () => {
@@ -11,7 +11,7 @@ describe('getHints', () => {
       Text: {},
     };
 
-    expect(getHints(componentsScope)).toEqual({});
+    expect(getComponentsHints(componentsScope)).toEqual({});
   });
   it('sort components', () => {
     const componentsScope = {
@@ -27,7 +27,10 @@ describe('getHints', () => {
       },
     };
 
-    expect(Object.keys(getHints(componentsScope))).toEqual(['Box', 'Text']);
+    expect(Object.keys(getComponentsHints(componentsScope))).toEqual([
+      'Box',
+      'Text',
+    ]);
   });
 
   it('sort attributes', () => {
@@ -50,7 +53,7 @@ describe('getHints', () => {
       },
     };
 
-    const hints = getHints(componentsScope) as any;
+    const hints = getComponentsHints(componentsScope) as any;
 
     expect(Object.keys(hints.Box.attrs)).toEqual([
       'color',
@@ -82,7 +85,7 @@ describe('getHints', () => {
       },
     };
 
-    expect(getHints(componentsScope)).toEqual({
+    expect(getComponentsHints(componentsScope)).toEqual({
       Box: {
         attrs: {
           color: null,
@@ -118,7 +121,7 @@ describe('getHints', () => {
       },
     };
 
-    expect(getHints(componentsScope)).toEqual({
+    expect(getComponentsHints(componentsScope)).toEqual({
       Card: {
         attrs: {
           hideOverflow: null,
