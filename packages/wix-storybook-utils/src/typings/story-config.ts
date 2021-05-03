@@ -3,6 +3,7 @@ import { Metadata } from './metadata';
 import { Config } from './config';
 import { StorySection } from './story-section';
 import { StoryContent, StoryDemo, StoryExamples, StoryTabs } from './story';
+import { ComponentsHints } from './components-hints';
 
 export interface StoryConfig {
   metadata: Metadata;
@@ -38,4 +39,5 @@ export interface StoryConfig {
     demo: StoryDemo;
     tabs: StoryTabs;
   };
+  hints?: ComponentsHints;
 }

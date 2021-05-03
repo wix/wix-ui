@@ -3,15 +3,7 @@ import PropTypes from 'prop-types';
 import { LiveProvider, LiveError, LivePreview } from 'react-live';
 import classnames from 'classnames';
 import { Collapse } from 'react-collapse';
-import debounce from 'lodash/debounce';
-import { DebouncedFunc } from 'lodash';
-import { UnControlled as ReactCodeMirror } from 'react-codemirror2';
-import { Editor } from 'codemirror';
-import 'codemirror/mode/jsx/jsx';
-import 'codemirror/addon/edit/closetag';
-import 'codemirror/addon/edit/closebrackets';
 
-import './styles.global.scss';
 import DuplicateSmall from '../icons/DuplicateSmall';
 import RevertSmall from '../icons/RevertSmall';
 import CodeSmall from '../icons/CodeSmall';
@@ -21,8 +13,11 @@ import { transformCode, formatCode } from './doctor-code';
 import { CopyButton } from '../CopyButton';
 import ToggleSwitch from '../ui/toggle-switch';
 import TextButton from '../TextButton';
-
+import Editor from './Editor';
 import styles from './index.scss';
+import { getComponentsHints } from '../utils';
+import { ComponentsHints } from '../typings/components-hints';
+
 export interface Props {
   initialCode?: string;
   scope?: object;
@@ -35,6 +30,7 @@ export interface Props {
   noBackground?: boolean;
   onChange?: Function;
   previewWarning?({ onConfirm: Function }): React.ReactNode | null;
+  hints?: ComponentsHints;
 }
 
 interface State {
@@ -45,11 +41,11 @@ interface State {
   isEditorOpened: boolean;
   parseError: object | null;
   renderPreview: boolean;
-  editorInstance: Editor | null;
+  setEditorValue: Function;
+  hints?: ComponentsHints;
 }
-export default class LiveCodeExample extends React.PureComponent<Props, State> {
-  debouncedOnCodeChange: DebouncedFunc<() => any>;
 
+export default class LiveCodeExample extends React.PureComponent<Props, State> {
   static propTypes = {
     initialCode: PropTypes.string,
     scope: PropTypes.object,
@@ -77,10 +73,6 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    this.debouncedOnCodeChange = debounce(this.onCodeChange, 100, {
-      trailing: true,
-    });
-
     const formattedCode = formatCode(props.initialCode).trim();
 
     this.state = {
@@ -91,7 +83,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
       isEditorOpened: !props.compact || props.initiallyOpen,
       parseError: null,
       renderPreview: !Boolean(props.previewWarning),
-      editorInstance: null,
+      setEditorValue: null,
     };
   }
 
@@ -107,47 +99,31 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
     }
   }
 
+  componentDidMount() {
+    const { hints, scope } = this.props;
+    this.setState({ hints: hints || getComponentsHints(scope) });
+  }
+
   prettifyCode = () => {
     try {
       this.setState(
         ({ code }) => ({ code: formatCode(code) }),
-        () => this.setEditorValue(this.state.code),
+        () => this.state.setEditorValue(this.state.code),
       );
     } catch (e) {
       console.error('Unable to prettify code', e);
     }
   };
 
-  liveEditorOnKeyDown = (editor: Editor, e: KeyboardEvent) => {
-    const shouldPrettify = [
-      /* windows & unix: ctrl + s */
-      e.ctrlKey && e.key === 's',
-
-      /* osx: command + s */
-      e.metaKey && e.key === 's',
-    ].some(Boolean);
-
-    if (shouldPrettify) {
-      e.stopPropagation();
-      e.preventDefault();
-
-      const editorDoc = editor.getDoc();
-      const { ch, line } = editorDoc.getCursor();
-
-      this.prettifyCode();
-
-      editorDoc.setCursor({ ch, line });
-    }
-  };
-
   onResetCode = () => {
     const code = formatCode(this.props.initialCode);
-    this.setEditorValue(code);
+    this.state.setEditorValue(code);
     this.setState({ code });
   };
 
-  onCodeChange = (_editor, _data, code) =>
+  onEditorChange = code => {
     this.setState({ code }, () => this.props.onChange(this.state.code));
+  };
 
   onToggleRtl = (isRtl: boolean) => this.setState({ isRtl });
   onToggleBackground = (isDarkBackground: boolean) =>
@@ -194,16 +170,6 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
     return null;
   };
 
-  setEditorValue = (value: string) => {
-    this.state.editorInstance.getDoc().setValue(value);
-  };
-
-  editorDidMount = (editor: Editor) => {
-    this.setState({ editorInstance: editor }, () =>
-      this.setEditorValue(this.state.initialFormattedCode),
-    );
-  };
-
   render() {
     const {
       scope,
@@ -220,6 +186,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
       isDarkBackground,
       isEditorOpened,
       renderPreview,
+      hints,
     } = this.state;
 
     const dirty = this.state.initialFormattedCode !== this.state.code;
@@ -305,31 +272,14 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
 
               {this.renderError()}
             </div>
-
             <Collapse isOpened={isEditorOpened} className={styles.editor}>
-              <ReactCodeMirror
-                onChange={this.debouncedOnCodeChange}
-                editorDidMount={this.editorDidMount}
-                onKeyDown={this.liveEditorOnKeyDown}
-                options={{
-                  mode: 'jsx',
-                  autoCloseTags: true,
-                  autoCloseBrackets: true,
-                  theme: 'wsr',
-                  viewportMargin: 50,
-                  lineNumbers: true,
-                  extraKeys: {
-                    Tab: cm => {
-                      if (cm.somethingSelected()) {
-                        cm.indentSelection('add');
-                      } else {
-                        const indent = cm.getOption('indentUnit');
-                        const spaces = Array(indent + 1).join(' ');
-                        cm.replaceSelection(spaces);
-                      }
-                    },
-                  },
-                }}
+              <Editor
+                initialFormattedCode={this.state.initialFormattedCode}
+                onChange={this.onEditorChange}
+                hints={hints}
+                editorCodeUpdater={updater =>
+                  this.setState({ setEditorValue: updater })
+                }
               />
             </Collapse>
           </div>

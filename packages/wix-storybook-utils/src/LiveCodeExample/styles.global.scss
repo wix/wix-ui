@@ -57,3 +57,34 @@
   padding:0;
   color:#e0e2e5;
 }
+
+.CodeMirror-hints {
+  position: absolute;
+  z-index: 1000;
+  overflow: hidden;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  box-shadow: 0 2px 8px rgba(18, 21, 26, 0.3);
+  border-radius: 4px;
+  background-color: #fff;
+  font-size: 90%;
+  line-height: 150%;
+  font-family: Source Code Pro, Firacode, Hasklig, Menlo, monospace;
+  max-height: 20em;
+  overflow-y: auto;
+}
+
+.CodeMirror-hint {
+  margin: 0;
+  padding: 4px 8px;
+  border-radius: 2px;
+  white-space: pre;
+  color: #000;
+  cursor: pointer;
+}
+
+li.CodeMirror-hint-active {
+  background-color: #0088ff;
+  color: #fff;
+}
