@@ -73,8 +73,8 @@ describe('Dropdown', () => {
       expect(driver.dropdownContentDisplayed()).toBeTruthy();
     });
 
-    it('should select option on `Space`', () => {
-      const driver = createDriver(createDropdown({ options, enableToggleMenuOnSpace: true, }));
+    it('should show content on `Space` when dropdownA11yFixes is true', () => {
+      const driver = createDriver(createDropdown({ options, dropdownA11yFixes: true, }));
 
       expect(driver.dropdownContentDisplayed()).toBeFalsy();
       Simulate.keyDown(document.querySelector(
@@ -127,10 +127,10 @@ describe('Dropdown', () => {
       expect(onSelect).toHaveBeenCalledWith(options[0]);
     });
 
-    it('should select option on `Space`', async () => {
+    it('should select option on `Space` in case that dropdownA11yFixes is true', async () => {
       const onSelect = jest.fn();
       const preventDefaultSpy = jest.fn();
-      const driver = createDriver(createDropdown({ options, enableToggleMenuOnSpace: true, onSelect }));
+      const driver = createDriver(createDropdown({ options, dropdownA11yFixes: true, onSelect }));
 
       expect(driver.dropdownContentDisplayed()).toBeFalsy();
       Simulate.keyDown(document.querySelector(

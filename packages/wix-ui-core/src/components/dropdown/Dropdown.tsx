@@ -61,11 +61,13 @@ export type DropdownProps = Pick<PopoverProps, 'fixed' | 'flip' | 'moveBy'> & {
   /** Element to append the dropdown to */
   appendTo?: AppendTo;
   className?: string;
-  /** Whether to enable toggling (expand, collapse) the options menu on space key.
+  /** Fix the a11y behaviour for a dropdown with a trigger element that is not an input.
+   * We added this prop in order to fix the behaviour for the WUT dropdown without breaking any other uses.
+   * When this prop is true, the options menu is toggled (expand, collapse) on enter / space key.
    * When the trigger element is not an input both `enter` and `space` keys should toggle (expand, collapse) the options menu
    * but in case that it is an input only enter key should toggle the list.
    * */
-  enableToggleMenuOnSpace?: boolean;
+  dropdownA11yFixes?: boolean;
 };
 
 export interface DropdownState {
@@ -193,9 +195,9 @@ export class DropdownComponent extends React.PureComponent<
   }
 
   isClosingKey(key) {
-    const { enableToggleMenuOnSpace } = this.props;
+    const { dropdownA11yFixes } = this.props;
 
-    return key === 'Tab' || key === 'Enter' || key === 'Escape' || (enableToggleMenuOnSpace && key === ' ');
+    return key === 'Tab' || key === 'Enter' || key === 'Escape' || (dropdownA11yFixes && key === ' ');
   }
 
   onKeyDown(evt: React.KeyboardEvent<HTMLElement>) {
@@ -206,13 +208,14 @@ export class DropdownComponent extends React.PureComponent<
     console.log('onKeyDown eventKey = ', eventKey);
     console.log('onKeyDown eventKey = ', eventKey);
     console.log('onKeyDown eventKey = ', eventKey);
-    const { enableToggleMenuOnSpace } = this.props;
+    const { dropdownA11yFixes } = this.props;
 
     if (!this.state.isOpen && this.isClosingKey(eventKey)) {
       return;
     }
 
-    if (enableToggleMenuOnSpace && !(eventKey === 'Enter' || eventKey === ' ' || eventKey === 'ArrowDown') && !this.state.isOpen) {
+    // Prevent opening the list on key down which is not arrowDown, space or enter.
+    if (dropdownA11yFixes && !(eventKey === 'Enter' || eventKey === ' ' || eventKey === 'ArrowDown') && !this.state.isOpen) {
       return;
     }
 
@@ -232,7 +235,7 @@ export class DropdownComponent extends React.PureComponent<
           break;
         }
         case ' ': {
-          if (enableToggleMenuOnSpace) {
+          if (dropdownA11yFixes) {
             this.onKeyboardSelect();
             const { multi } = this.props;
             !multi && this.close();
