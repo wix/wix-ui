@@ -96,6 +96,10 @@ const Editor = ({
         theme: 'wsr',
         viewportMargin: 50,
         lineNumbers: true,
+        /**
+         * Need to cast the type here, because xml-hint
+         * plugin enhances hintOptions parameter with additional properties
+         */
         hintOptions: {
           schemaInfo: hints,
         } as CodeMirror.ShowHintOptions,
