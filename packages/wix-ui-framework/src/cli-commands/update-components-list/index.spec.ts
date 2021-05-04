@@ -199,6 +199,45 @@ describe('updateComponentsList', () => {
     });
   });
 
+  describe('given --verbose-output option', () => {
+    it('should write output to both --output and --verbose-output paths', async () => {
+      const fakeFs = cista({
+        '.wuf/required-component-files.json': `{ "index.js": "" }`,
+        'src/components/test-component/index.js': '',
+      });
+
+      await updateComponentsList({
+        verboseOutput: '.wuf/components.meta.json',
+        _process: { cwd: fakeFs.dir },
+      });
+
+      const output = fs.readFileSync(
+        `${fakeFs.dir}/.wuf/components.json`,
+        'utf8',
+      );
+
+      const verboseOutput = fs.readFileSync(
+        `${fakeFs.dir}/.wuf/components.meta.json`,
+        'utf8',
+      );
+
+      const expectedOutput = {
+        'test-component': {
+          path: 'src/components/test-component',
+        },
+      };
+
+      const expectedVerboseOutput = {
+        'test-component': {
+          path: 'src/components/test-component',
+        },
+      };
+
+      expect(JSON.parse(output)).toEqual(expectedOutput);
+      expect(JSON.parse(verboseOutput)).toEqual(expectedVerboseOutput);
+    });
+  });
+
   describe('dirty flag', () => {
     it('should be added for changed components', async () => {
       const gitTestkit = new GitTestkit();
@@ -228,11 +267,12 @@ describe('updateComponentsList', () => {
 
       await updateComponentsList({
         components: 'src',
+        verboseOutput: '.wuf/yo.whatsup',
         _process: { cwd: gitTestkit.cwd },
       });
 
       const output = JSON.parse(
-        fs.readFileSync(`${gitTestkit.cwd}/.wuf/components.json`, 'utf8'),
+        fs.readFileSync(`${gitTestkit.cwd}/.wuf/yo.whatsup`, 'utf8'),
       );
 
       const expectedOutput = {
@@ -289,12 +329,13 @@ describe('updateComponentsList', () => {
 
       await updateComponentsList({
         components: 'src/components',
+        verboseOutput: '.wuf/components.meta.json',
         _process: { cwd: path.join(gitTestkit.cwd, 'packages/wix-ui-tpa') },
       });
 
       const output = JSON.parse(
         fs.readFileSync(
-          `${gitTestkit.cwd}/packages/wix-ui-tpa/.wuf/components.json`,
+          `${gitTestkit.cwd}/packages/wix-ui-tpa/.wuf/components.meta.json`,
           'utf8',
         ),
       );

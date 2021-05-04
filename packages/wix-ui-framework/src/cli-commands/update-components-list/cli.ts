@@ -15,6 +15,10 @@ export const cli = (program) =>
       'Path to output file. Default is `.wuf/components.json`',
     )
     .option(
+      '--verbose-output <string>',
+      'Path to verbose output file. This file includes same JSON data as --output file but with additional information. File is not created if option not given. Default is undefined.',
+    )
+    .option(
       '--exclude <string>',
       'Regular expression of known paths to exclude. For example --exclude (Button|Table). Default is undefined',
     )

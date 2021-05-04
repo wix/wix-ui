@@ -21,6 +21,7 @@ interface Options {
   shape?: Path;
   components?: Path;
   output?: Path;
+  verboseOutput?: Path;
   maxMismatch?: number;
   exclude?: string;
   _process: Process;
@@ -68,6 +69,10 @@ const guards: (a: Options) => Promise<void> = async (unsafeOptions) => {
     maxMismatch: unsafeOptions.maxMismatch || 0,
     exclude: unsafeOptions.exclude,
   };
+
+  if (unsafeOptions.verboseOutput) {
+    options.verboseOutput = pathResolve(options.verboseOutput);
+  }
 
   if (!(await fileExists(options.shape))) {
     throw new Error(
@@ -179,22 +184,27 @@ const makeOutput: (a: Options) => Promise<void> = async (options) => {
     output,
   );
 
-  let changedFiles: string[];
-  try {
-    changedFiles = await getChangedFiles({ cwd: options._process.cwd });
-  } catch (e) {
-    changedFiles = [];
+  if (options.verboseOutput) {
+    let changedFiles: string[];
+    try {
+      changedFiles = await getChangedFiles({ cwd: options._process.cwd });
+    } catch (e) {
+      changedFiles = [];
+    }
+
+    const verboseOutput = await augmentWithDirty({
+      cwd: options._process.cwd,
+      components: jsonOutput,
+      changedFiles,
+    });
+
+    await fsWriteFile(
+      options.verboseOutput,
+      JSON.stringify(verboseOutput, null, 2),
+    );
   }
 
-  const outputToWrite = changedFiles.length
-    ? await augmentWithDirty({
-        cwd: options._process.cwd,
-        components: jsonOutput,
-        changedFiles,
-      })
-    : jsonOutput;
-
-  await fsWriteFile(options.output, JSON.stringify(outputToWrite, null, 2));
+  await fsWriteFile(options.output, JSON.stringify(jsonOutput, null, 2));
 };
 
 export const updateComponentsList: (a: Options) => Promise<void> = guards;
