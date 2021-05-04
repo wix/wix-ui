@@ -60,10 +60,11 @@ exports[`wuf update --help should render help text 1`] = `
 Update components list file
 
 Options:
-  --shape <string>         Path to json file describing folder structure of required files. Default is \`.wuf/required-component-files.json\`
-  --components <string>    Path to folder where components reside. Default is \`src/components\`
-  --output <string>        Path to output file. Default is \`.wuf/components.json\`
-  --exclude <string>       Regular expression of known paths to exclude. For example --exclude (Button|Table). Default is undefined
-  --max-mismatch <number>  Optional number of maximum mismatches between shape defined in required-component-files.json and component. Default is 0
-  -h, --help               output usage information"
+  --shape <string>           Path to json file describing folder structure of required files. Default is \`.wuf/required-component-files.json\`
+  --components <string>      Path to folder where components reside. Default is \`src/components\`
+  --output <string>          Path to output file. Default is \`.wuf/components.json\`
+  --verbose-output <string>  Path to verbose output file. This file includes same JSON data as --output file but with additional information. File is not created if option not given. Default is undefined.
+  --exclude <string>         Regular expression of known paths to exclude. For example --exclude (Button|Table). Default is undefined
+  --max-mismatch <number>    Optional number of maximum mismatches between shape defined in required-component-files.json and component. Default is 0
+  -h, --help                 output usage information"
 `;
