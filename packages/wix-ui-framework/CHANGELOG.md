@@ -11,6 +11,13 @@ Types of changes:
 1. **Fixed** for any bug fixes.
 1. **Security** in case of vulnerabilities.
 
+# 3.6.0 - 2021-05-04
+## Added
+- `wuf update` - add `--verbose-output` option to allow saving
+  additional more verbose file, similar to `--output`. That file
+  includes `dirty: true` flag for components that are different when
+  compared to `master` branch
+
 # 3.5.1 - 2020-01-20
 ## Fixed
 - `wuf generate` - make codemods run in sequence (and not concurrently)
