@@ -1,10 +1,15 @@
- .tableList th:nth-child(1),
+.tableList table {
+  table-layout: fixed;
+}
+
+.tableList th:nth-child(1),
 .tableList th:nth-child(3),
 .tableList th:nth-child(5),
 .tableList th:nth-child(7),
 .tableList th:nth-child(9),
 .tableList th:nth-child(11) {
-  padding-right: 20px;
+  padding-right: 35px;
+  width: 36px;
 }
 
 .tableList th:nth-child(2),
@@ -13,5 +18,6 @@
 .tableList th:nth-child(8),
 .tableList th:nth-child(10),
 .tableList th:nth-child(12) {
-  padding-right: 40px;
+  padding-right: 20px;
+  width: 160px;
 }
