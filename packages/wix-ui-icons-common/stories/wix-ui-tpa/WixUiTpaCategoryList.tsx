@@ -4,6 +4,7 @@ import * as iconComponents from '../../src/wix-ui-tpa/dist';
 import tpaIconsMetadata from '../../src/wix-ui-tpa/metadata';
 import { IconMetadata } from "../../src/types";
 import { TpaTableRow } from '../types';
+import { classes } from "./WixUiTpaCategoryList.st.css";
 
 const tableHeaderTitles = [
   "24x24",
@@ -56,6 +57,7 @@ const WixUiTpaCategoryList: React.FC = () => {
   return (
     <CategoryList
       dataHook="icon-list"
+      className={classes.tableList}
       iconsMetadata={tpaIconsMetadata}
       {...{
         tableHeaderTitles,

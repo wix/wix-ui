@@ -1,0 +1,17 @@
+ .tableList th:nth-child(1),
+.tableList th:nth-child(3),
+.tableList th:nth-child(5),
+.tableList th:nth-child(7),
+.tableList th:nth-child(9),
+.tableList th:nth-child(11) {
+  padding-right: 20px;
+}
+
+.tableList th:nth-child(2),
+.tableList th:nth-child(4),
+.tableList th:nth-child(6),
+.tableList th:nth-child(8),
+.tableList th:nth-child(10),
+.tableList th:nth-child(12) {
+  padding-right: 40px;
+}
