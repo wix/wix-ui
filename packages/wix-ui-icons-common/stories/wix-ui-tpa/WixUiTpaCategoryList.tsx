@@ -7,17 +7,17 @@ import { TpaTableRow } from '../types';
 import { classes } from "./WixUiTpaCategoryList.st.css";
 
 const tableHeaderTitles = [
-  "24x24",
+  "16x16",
+  "Icon Name",
+  "12x12",
   "Icon Name",
   "20x20",
   "Icon Name",
-  "30x30",
+  "8x8",
   "Icon Name",
-  "16x16",
+  "48x48",
   "Icon Name",
-  "60x60",
-  "Icon Name",
-  "12x12",
+  "6x6",
   "Icon Name",
   "Use for",
 ];
