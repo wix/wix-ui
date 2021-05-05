@@ -456,7 +456,7 @@ export const generalIconsMetadata: Array<IconMetadata> = [
     'category': 'Status',
     'description': '',
     'tags': [],
-    'sizes': {'18': 'UnlockSmall', '24': 'LockUnlocked'},
+    'sizes': {'18': 'LockUnlockedSmall', '24': 'LockUnlocked'},
   }, {
     'title': 'LockUnlockedBold',
     'category': 'Status',
