@@ -464,6 +464,18 @@ export const generalIconsMetadata: Array<IconMetadata> = [
     'tags': [],
     'sizes': {'24': 'LockUnlockedBold'},
   }, {
+    'title': 'WarningSign',
+    'category': 'Status',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'WarningSign'},
+  }, {
+    'title': 'WarningSignBold',
+    'category': 'Status',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'WarningSignBold'},
+  }, {
     'title': 'Warning',
     'category': 'Status',
     'description': '',
@@ -474,13 +486,13 @@ export const generalIconsMetadata: Array<IconMetadata> = [
     'category': 'Status',
     'description': '',
     'tags': [],
-    'sizes': {'24': 'WarningBold'},
+    'sizes': {'24': 'WarningeBold'},
   }, {
-    'title': 'ConfirmCircle',
+    'title': 'ConfirmBold',
     'category': 'Status',
     'description': '',
     'tags': [],
-    'sizes': {'24': 'ConfirmCircle'},
+    'sizes': {'24': 'ConfirmBold'},
   }, {
     'title': 'MinusCircle',
     'category': 'Status',
@@ -991,7 +1003,12 @@ export const generalIconsMetadata: Array<IconMetadata> = [
     'description': '',
     'tags': [],
     'sizes': {'24': 'QuickActionBar'},
-  }, {'title': 'Rss', 'category': 'Components', 'description': '', 'tags': [], 'sizes': {'24': 'Rss'}}, {
+  }, {
+    'title': 'Rss',
+    'category': 'Components',
+    'description': '', 'tags': [],
+    'sizes': {'24': 'Rss'}
+  }, {
     'title': 'Seo',
     'category': 'Components',
     'description': '',
@@ -1255,7 +1272,13 @@ export const generalIconsMetadata: Array<IconMetadata> = [
     'description': '',
     'tags': [],
     'sizes': {'24': 'MapPinBold'},
-  }, {'title': 'Tag', 'category': 'General', 'description': '', 'tags': [], 'sizes': {'24': 'Tag'}}, {
+  }, {
+    'title': 'Tag',
+    'category': 'General',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'Tag'}
+    }, {
     'title': 'Phone',
     'category': 'General',
     'description': '',
@@ -1375,7 +1398,13 @@ export const generalIconsMetadata: Array<IconMetadata> = [
     'description': '',
     'tags': [],
     'sizes': {'24': 'FormBold'},
-  }, {'title': 'Undo', 'category': 'Actions', 'description': '', 'tags': [], 'sizes': {'24': 'Undo'}}, {
+  }, {
+    'title': 'Undo',
+    'category': 'Actions',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'Undo'}
+    }, {
     'title': 'Redo',
     'category': 'Actions',
     'description': '',
@@ -1736,6 +1765,174 @@ export const generalIconsMetadata: Array<IconMetadata> = [
     'tags': [],
     'sizes': {'24': 'Paypal'},
   }, {
+    'title': 'HelpCircle',
+    'category': 'General',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'HelpCircle'}
+  }, {
+    'title': 'HelpBold',
+    'category': 'General',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'HelpBold'}
+  }, {
+    'title': 'ChevronUpSmall',
+    'category': 'Arrows',
+    'description': '',
+    'tags': [],
+    'sizes': {'18': 'ChevronUpSmall'}
+  }, {
+    'title': 'ChevronDownSmall',
+    'category': 'Arrows',
+    'description': '',
+    'tags': [],
+    'sizes': {'18': 'ChevronDownSmall'}
+  }, {
+    'title': 'ChevronRightSmall',
+    'category': 'Arrows',
+    'description': '',
+    'tags': [],
+    'sizes': {'18': 'ChevronRightSmall'}
+  }, {
+    'title': 'ChevronLeftSmall',
+    'category': 'Arrows',
+    'description': '',
+    'tags': [],
+    'sizes': {'18': 'ChevronLeftSmall'}
+  }, {
+    'title': 'ChevronUp',
+    'category': 'Arrows',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'ChevronUp'}
+  }, {
+    'title': 'ChevronDown',
+    'category': 'Arrows',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'ChevronDown'}
+  }, {
+    'title': 'ChevronRight',
+    'category': 'Arrows',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'ChevronRight'}
+  }, {
+    'title': 'ChevronLeft',
+    'category': 'Arrows',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'ChevronLeft'}
+  }, {
+    'title': 'Add',
+    'category': 'Actions',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'Add'}
+  }, {
+    'title': 'AddBold',
+    'category': 'Actions',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'AddBold'}
+  }, {
+    'title': 'ContextMenu',
+    'category': 'Actions',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'ContextMenu'}
+  }, {
+    'title': 'CloseButton',
+    'category': 'Components',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'CloseButton'}
+  }, {
+    'title': 'Heading1',
+    'category': 'Components',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'Heading1'}
+  }, {
+    'title': 'Heading2',
+    'category': 'Components',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'Heading2'}
+  }, {
+    'title': 'Heading3',
+    'category': 'Components',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'Heading3'}
+  }, {
+    'title': 'Heading4',
+    'category': 'Components',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'Heading4'}
+  }, {
+    'title': 'Heading5',
+    'category': 'Components',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'Heading5'}
+  }, {
+    'title': 'Heading6',
+    'category': 'Components',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'Heading6'}
+  }, {
+    'title': 'WixChat',
+    'category': 'Wix Brands',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'WixChat'}
+  }, {
+    'title': 'Dashboard',
+    'category': 'General',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'Dashboard'}
+  }, {
+    'title': 'Table',
+    'category': 'Components',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'Table'}
+  }, {
+    'title': 'ShapeCropBold',
+    'category': 'Composer',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'ShapeCropBold'}
+  }, {
+    'title': 'Lightbox',
+    'category': 'Components',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'Lightbox'}
+  }, {
+    'title': 'SocialBar',
+    'category': 'Components',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'SocialBar'}
+  }, {
+    'title': 'BlockQuote',
+    'category': 'Components',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'BlockQuote'}
+  }, {
+    'title': 'MandatoryCircleSmall',
+    'category': 'Status',
+    'description': '',
+    'tags': [],
+    'sizes': {'18': 'MandatoryCircleSmall'}
+  }, {
     'title': 'PlayBold',
     'category': 'Media',
     'description': '',
@@ -1747,6 +1944,48 @@ export const generalIconsMetadata: Array<IconMetadata> = [
     'description': '',
     'tags': [],
     'sizes': {'18': 'StopBoldSmall'}
+  }, {
+    'title': 'ESignature',
+    'category': 'Components',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'ESignature'}
+  }, {
+    'title': 'AnimatedSlide',
+    'category': 'Components',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'AnimatedSlide'}
+  }, {
+    'title': 'Info',
+    'category': 'General',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'Info'}
+  }, {
+    'title': 'Adjustments',
+    'category': 'General',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'Adjustments'}
+  }, {
+    'title': 'SelectedCircleSmall',
+    'category': 'Status',
+    'description': '',
+    'tags': [],
+    'sizes': {'18': 'SelectedCircleSmall'}
+  }, {
+    'title': 'DismissCircleBold',
+    'category': 'Status',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'DismissCircleBold'}
+  }, {
+    'title': 'ConfirmCircleBold',
+    'category': 'Status',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'ConfirmCircleBold'}
   },
 ]
 
