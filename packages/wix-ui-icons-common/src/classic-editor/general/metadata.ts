@@ -486,25 +486,19 @@ export const generalIconsMetadata: Array<IconMetadata> = [
     'category': 'Status',
     'description': '',
     'tags': [],
-    'sizes': {'24': 'WarningeCircleBold'},
+    'sizes': {'24': 'WarningeCircleBold', '18': 'WarningCircleBoldSmall',},
   }, {
     'title': 'ConfirmCircleBold',
     'category': 'Status',
     'description': '',
     'tags': [],
-    'sizes': {'24': 'ConfirmCircleBold'},
+    'sizes': {'24': 'ConfirmCircleBold', '18': 'ConfirmCircleBoldSmall',},
   }, {
     'title': 'AlertCircleBold',
     'category': 'Status',
     'description': '',
     'tags': [],
-    'sizes': {'24': 'AlertCircleBold'},
-  }, {
-    'title': 'AlertCircleBold',
-    'category': 'Status',
-    'description': '',
-    'tags': [],
-    'sizes': {'24': 'AlertCircleBold'},
+    'sizes': {'24': 'AlertCircleBold', '18': 'AlertCircleBoldSmall',},
   }, {
     'title': 'MinusCircle',
     'category': 'Status',
