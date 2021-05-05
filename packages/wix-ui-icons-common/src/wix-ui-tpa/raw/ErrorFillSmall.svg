@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>ErrorFill_Small_20X20</title>
+    <g id="ErrorFill_Small_20X20" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M9,10 L10,10 L10,7 L9,7 L9,10 Z M9,12 L10,12 L10,11 L9,11 L9,12 Z M9.5,3 C5.916,3 3,5.916 3,9.5 C3,13.084 5.916,16 9.5,16 C13.084,16 16,13.084 16,9.5 C16,5.916 13.084,3 9.5,3 L9.5,3 Z" id="Fill-2" fill="#000000"></path>
+    </g>
+</svg>
