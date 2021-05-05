@@ -1987,11 +1987,29 @@ export const generalIconsMetadata: Array<IconMetadata> = [
     'tags': [],
     'sizes': {'24': 'DismissCircleBold'}
   }, {
-    'title': 'ConfirmCircleBold',
+    'title': 'ConfirmBold',
     'category': 'Status',
     'description': '',
     'tags': [],
-    'sizes': {'24': 'ConfirmCircleBold'}
+    'sizes': {'24': 'ConfirmBold'}
+  }, {
+    'title': 'CodeBold',
+    'category': 'Files & Data',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'CodeBold'}
+  }, {
+    'title': 'DataTableBold',
+    'category': 'Files & Data',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'DataTableBold'}
+  }, {
+    'title': 'DataWidgetsBold',
+    'category': 'Files & Data',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'DataWidgetsBold'}
   },
 ]
 
