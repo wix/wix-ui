@@ -1435,7 +1435,7 @@ export const generalIconsMetadata: Array<IconMetadata> = [
     'tags': [],
     'sizes': {'24': 'DeleteBold'},
   }, {
-    'title': 'Edit',
+    'title': 'xw',
     'category': 'Actions',
     'description': '',
     'tags': [],
