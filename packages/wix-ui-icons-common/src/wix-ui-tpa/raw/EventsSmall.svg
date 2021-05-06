@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="21px" height="20px" viewBox="0 0 21 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>Events_Small_20X20</title>
-    <g id="Events_Small_20X20" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(1.000000, 0.000000)">
-        <path d="M7,3 L7,4 L13,4 L13,3 L14,3 L14,4 L14.5,4 C15.327,4 16,4.673 16,5.5 L16,5.5 L16,14.5 C16,15.327 15.327,16 14.5,16 L14.5,16 L5.5,16 C4.673,16 4,15.327 4,14.5 L4,14.5 L4,5.5 C4,4.673 4.673,4 5.5,4 L5.5,4 L6,4 L6,3 L7,3 Z M15,8 L5,8 L5,14.5 C5,14.776 5.224,15 5.5,15 L5.5,15 L14.5,15 C14.776,15 15,14.776 15,14.5 L15,14.5 L15,8 Z M11.6475,9.5488 L12.3545,10.2558 L9.3345,13.2758 L7.6475,11.5898 L8.3545,10.8828 L9.3345,11.8618 L11.6475,9.5488 Z M14.5,5 L5.5,5 C5.224,5 5,5.224 5,5.5 L5,5.5 L5,7 L15,7 L15,5.5 C15,5.224 14.776,5 14.5,5 L14.5,5 Z" id="Combined-Shape" fill="#000000"></path>
-    </g>
-</svg>

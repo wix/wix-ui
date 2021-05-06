@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="17px" height="16px" viewBox="0 0 17 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>Lock_XSmall_16X16</title>
-    <g id="Lock_XSmall_16X16" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(1.000000, 0.000000)">
-        <path d="M6,5.5 C6,4.673 6.673,4 7.5,4 C8.327,4 9,4.673 9,5.5 L9,7 L6,7 L6,5.5 Z M11,7 L10,7 L10,5.5 C10,4.121 8.878,3 7.5,3 C6.122,3 5,4.121 5,5.5 L5,7 L4,7 C3.449,7 3,7.448 3,8 L3,12 C3,12.552 3.449,13 4,13 L11,13 C11.551,13 12,12.552 12,12 L12,8 C12,7.448 11.551,7 11,7 L11,7 Z" id="Fill-2" fill="#000000"></path>
-    </g>
-</svg>

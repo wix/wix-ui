@@ -37,25 +37,3 @@ export type GeneralCategoryListProps = {
   iconComponents: Record<string, React.FC<IconProps>>;
   iconsMetadata: Array<IconMetadata>
 }
-
-/** [icon component, icon name, small icon component,
- * small icon name, large icon component,
- * large icon name, xsmall icon component,
- * xsmall icon name, xlarge icon component,
- * xlarge icon name, xxsmall icon component,
- * xxsmall icon name, description] */
- export type TpaTableRow = [
-  React.ReactNode,
-  string | undefined,
-  React.ReactNode,
-  string | undefined,
-  React.ReactNode,
-  string | undefined,
-  React.ReactNode,
-  string | undefined,
-  React.ReactNode,
-  string | undefined,
-  React.ReactNode,
-  string | undefined,
-  string | undefined
-];

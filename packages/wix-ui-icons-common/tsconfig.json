@@ -25,7 +25,6 @@
     // Used for sharing story with external Storybooks (e.g. wix-style-react)
     "./stories/general/GeneralCategoryList.tsx",
     "./stories/classic-editor/general/classicEditorGeneralCategoryList.tsx",
-    "./stories/wix-ui-tpa/WixUiTpaCategoryList.tsx",
     "./stories/APITable.tsx"
   ]
 }
