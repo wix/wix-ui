@@ -14,6 +14,7 @@
     "dist",
     "system",
     "classic-editor",
+    "wix-ui-tpa",
     "*.js",
     "*.d.ts",
     "*.svg",
