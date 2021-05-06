@@ -10,12 +10,20 @@ const getCompoundComponents = (
   componentName: string,
 ) => {
   const component = componentsScope[componentName];
+  const { includAllCoumpoundComponents } = component;
 
   return Object.keys(component).reduce((result, componentProperty) => {
     if (isUpperCaseLetter(componentProperty[0])) {
       return {
         ...result,
-        [`${componentName}.${componentProperty}`]: component[componentProperty],
+        [`${componentName}.${componentProperty}`]: {
+          ...component[componentProperty],
+          ...(includAllCoumpoundComponents
+            ? {
+                propTypes: component[componentProperty].propTypes || {},
+              }
+            : {}),
+        },
       };
     }
     return result;
@@ -67,9 +75,9 @@ const getCompoundComponentsHints = (
   return Object.keys(compoundComponents)
     .sort()
     .reduce(
-      (result, componentName1) => ({
+      (result, compoundComponentName) => ({
         ...result,
-        ...getParsedComponent(compoundComponents, componentName1),
+        ...getParsedComponent(compoundComponents, compoundComponentName),
       }),
       {},
     );
