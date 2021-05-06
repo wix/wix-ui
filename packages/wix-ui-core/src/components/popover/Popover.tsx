@@ -126,6 +126,16 @@ export interface PopoverProps {
    * the classname to be passed to the popover's content container
    */
   contentClassName?: string;
+  /**
+   * can focus on popover content element
+   */
+  isFocusableContent?: boolean;
+  /**
+   * can focus on popover content element
+   */
+  ['aria-label']?: string;
+  ['aria-labelledby']?: string;
+  ['aria-describedby']?: string;
 }
 
 export interface PopoverState {
@@ -194,6 +204,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
   portalClasses: string;
   appendToNode: HTMLElement = null;
   clickOutsideRef: any = null;
+  popoverContentRef: React.RefObject<HTMLDivElement>;
   clickOutsideClass: string;
   contentHook: string;
 
@@ -215,6 +226,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     }
 
     this.clickOutsideRef = React.createRef();
+    this.popoverContentRef = React.createRef();
     this.clickOutsideClass = uniqueId('clickOutside');
     this.contentHook = `popover-content-${props['data-hook'] || ''}-${testId}`;
   }
@@ -229,6 +241,12 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       onClickOutsideCallback(event);
     }
   };
+
+  focus() {
+    if (this.popoverContentRef.current) {
+      this.popoverContentRef.current.focus();
+    }
+  }
 
   getPopperContentStructure(childrenObject) {
     const {
@@ -249,6 +267,10 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       dynamicWidth,
       excludeClass = this.clickOutsideClass,
       contentClassName,
+      isFocusableContent,
+      ['aria-label']: ariaLabel,
+      ['aria-labelledby']: ariaLabelledby,
+      ['aria-describedby']: ariaDescribedBy,
     } = this.props;
     const shouldAnimate = shouldAnimatePopover(this.props);
 
@@ -307,7 +329,12 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
                       key="popover-content"
                       id={id}
                       role={role}
+                      tabIndex={isFocusableContent ? -1 : undefined}
+                      ref={this.popoverContentRef}
                       className={showArrow ? classes.popoverContent : ''}
+                      aria-label={ariaLabel}
+                      aria-labelledby={ariaLabelledby}
+                      aria-describedby={ariaDescribedBy}
                     >
                       <PopoverContext.Provider
                         value={{
