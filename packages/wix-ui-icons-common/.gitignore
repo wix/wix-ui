@@ -19,6 +19,7 @@ storybook-e2e
 /*.svg
 /system
 /classic-editor
+/wix-ui-tpa
 
 !wallaby.js
 !protractor.conf.js
