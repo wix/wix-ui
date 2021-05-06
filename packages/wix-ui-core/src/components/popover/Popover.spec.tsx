@@ -1042,18 +1042,18 @@ function runTests(createDriver, container, popoverWithProps, Component, isPopove
     });
 
     if (!isPopoverNext) {
-        describe('isFocusableContent', () => {
+        describe('withFocusableContent', () => {
             let popoverWrapper;
 
             afterEach(() => {
                 popoverWrapper.unmount();
             });
 
-            it('can focus content element when isFocusableContent = true', async () => {
+            it('can focus content element when withFocusableContent = true', async () => {
                 const role = 'someRoleValue';
                 popoverWrapper = mount(popoverWithProps({
                     shown: true,
-                    isFocusableContent: true,
+                    withFocusableContent: true,
                     role,
                 }))
 
@@ -1063,10 +1063,11 @@ function runTests(createDriver, container, popoverWithProps, Component, isPopove
                 expect(document.activeElement.getAttribute('role')).toBe(role);
             });
 
-            it("can't focus content element when isFocusableContent = false", async () => {
+            it("can't focus content element when withFocusableContent = false", async () => {
                 const role = 'someRoleValue';
                 popoverWrapper = mount(popoverWithProps({
                     shown: true,
+                    withFocusableContent: false,
                     role,
                 }))
 

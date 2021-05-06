@@ -1,10 +1,27 @@
 export const simple = `
 () => {
   const [shown, setShown] = React.useState(true)
+  const ref = React.useRef()
+  
+  if (ref.current) {
+    ref.current.focus()
+  }
+  
+  const onRequestClose = () => {
+    setShown(false)
+  }
+  
   return (
-    <Popover shown={shown} onClick={() => setShown(!shown)} placement="top" showArrow>
+    <Popover shown={shown} 
+             onClick={() => setShown(!shown)} 
+             placement="top" 
+             showArrow 
+             withFocusableContent
+             onPopoverBlur={onRequestClose}
+             onEscPress={onRequestClose} 
+             ref={ref}>
       <Popover.Element>The Element</Popover.Element>
-      <Popover.Content>The content</Popover.Content>
+      <Popover.Content><input /></Popover.Content>
     </Popover>
   )
 }
