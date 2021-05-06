@@ -28,7 +28,7 @@ const getParsedComponent = (
 ) => {
   const component = componentsScope[componentName];
 
-  if (!component.propTypes) {
+  if (!component.propTypes && !component.displayName) {
     return {};
   }
 
@@ -67,9 +67,9 @@ const getCompoundComponentsHints = (
   return Object.keys(compoundComponents)
     .sort()
     .reduce(
-      (result, componentName1) => ({
+      (result, compoundComponentName) => ({
         ...result,
-        ...getParsedComponent(compoundComponents, componentName1),
+        ...getParsedComponent(compoundComponents, compoundComponentName),
       }),
       {},
     );

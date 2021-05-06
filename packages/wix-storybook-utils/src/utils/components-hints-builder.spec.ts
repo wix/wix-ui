@@ -133,6 +133,9 @@ describe('getComponentsHints', () => {
           size: ['medium', 'large'],
         },
       },
+      'Card.Divider': {
+        attrs: {},
+      },
     });
   });
 });
