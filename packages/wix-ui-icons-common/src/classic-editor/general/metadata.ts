@@ -2010,6 +2010,138 @@ export const generalIconsMetadata: Array<IconMetadata> = [
     'description': '',
     'tags': [],
     'sizes': {'24': 'DataWidgetsBold'}
+  }, {
+    'title': 'Bold',
+    'category': 'Text Formatting',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'Bold'}
+  }, {
+    'title': 'Italic',
+    'category': 'Text Formatting',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'Italic'}
+  }, {
+    'title': 'Underline',
+    'category': 'Text Formatting',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'Underline'}
+  }, {
+    'title': 'TextRTL',
+    'category': 'Text Formatting',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'TextRTL'}
+  }, {
+    'title': 'TextLTR',
+    'category': 'Text Formatting',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'TextLTR'}
+  }, {
+    'title': 'BulletListRight',
+    'category': 'Text Formatting',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'BulletListRight'}
+  }, {
+    'title': 'BulletListLeft',
+    'category': 'Text Formatting',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'BulletListLeft'}
+  }, {
+    'title': 'NumericListRight',
+    'category': 'Text Formatting',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'NumericListRight'}
+  }, {
+    'title': 'NumericListLeft',
+    'category': 'Text Formatting',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'NumericListLeft'}
+  }, {
+    'title': 'CharacterSpacing',
+    'category': 'Text Formatting',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'CharacterSpacing'}
+  }, {
+    'title': 'LineSpacing',
+    'category': 'Text Formatting',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'LineSpacing'}
+  }, {
+    'title': 'TextAlignLeft',
+    'category': 'Text Formatting',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'TextAlignLeft'}
+  }, {
+    'title': 'TextAlignRight',
+    'category': 'Text Formatting',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'TextAlignRight'}
+  }, {
+    'title': 'TextAlignCenter',
+    'category': 'Text Formatting',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'TextAlignCenter'}
+  }, {
+    'title': 'TextAlignJustify',
+    'category': 'Text Formatting',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'TextAlignJustify'}
+  }, {
+    'title': 'TextLTRIncrease',
+    'category': 'Text Formatting',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'TextLTRIncrease'}
+  }, {
+    'title': 'TextRTLIncrease',
+    'category': 'Text Formatting',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'TextRTLIncrease'}
+  }, {
+    'title': 'TextRTLDecreas',
+    'category': 'Text Formatting',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'TextRTLDecreas'}
+  }, {
+    'title': 'TextLTRDecrease',
+    'category': 'Text Formatting',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'TextLTRDecrease'}
+  }, {
+    'title': 'TextColor',
+    'category': 'Text Formatting',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'TextColor'}
+  }, {
+    'title': '',
+    'category': 'Text Formatting',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': ''}
+  }, {
+    'title': '',
+    'category': 'Text Formatting',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': ''}
   },
 ]
 
