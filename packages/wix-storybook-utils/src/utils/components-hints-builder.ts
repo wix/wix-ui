@@ -10,20 +10,12 @@ const getCompoundComponents = (
   componentName: string,
 ) => {
   const component = componentsScope[componentName];
-  const { includAllCoumpoundComponents } = component;
 
   return Object.keys(component).reduce((result, componentProperty) => {
     if (isUpperCaseLetter(componentProperty[0])) {
       return {
         ...result,
-        [`${componentName}.${componentProperty}`]: {
-          ...component[componentProperty],
-          ...(includAllCoumpoundComponents
-            ? {
-                propTypes: component[componentProperty].propTypes || {},
-              }
-            : {}),
-        },
+        [`${componentName}.${componentProperty}`]: component[componentProperty],
       };
     }
     return result;
@@ -36,7 +28,7 @@ const getParsedComponent = (
 ) => {
   const component = componentsScope[componentName];
 
-  if (!component.propTypes) {
+  if (!component.propTypes && !component.displayName) {
     return {};
   }
 
