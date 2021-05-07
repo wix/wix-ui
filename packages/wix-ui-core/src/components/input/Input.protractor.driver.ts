@@ -10,12 +10,12 @@ export interface InputDriver extends BaseDriver {
   pressKey(key: string): Promise<void>;
 }
 
-export const inputDriverFactory: DriverFactory<InputDriver> = component => {
+export const inputDriverFactory: DriverFactory<InputDriver> = (component) => {
   const input = component.$('input');
 
   return {
     element: () => component,
-    enterText: async text => {
+    enterText: async (text) => {
       await input.clear();
       await input.sendKeys(text);
     },

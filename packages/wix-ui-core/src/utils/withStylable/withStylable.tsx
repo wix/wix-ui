@@ -15,7 +15,8 @@ function withStylableStateful<CoreProps, ExtendedProps = {}>(
   getState: (p?: any, s?: any, c?: any) => StateMap,
   extendedDefaultProps: object,
 ): React.ComponentClass<CoreProps & ExtendedProps> {
-  return class StylableComponent extends Component
+  return class StylableComponent
+    extends Component
     implements React.PureComponent<CoreProps & ExtendedProps> {
     static defaultProps = Object.assign(
       {},

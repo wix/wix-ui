@@ -21,7 +21,7 @@ export interface RadioUniDriver extends BaseUniDriver {
 }
 
 export const radioButtonUniDriverFactory = (
-  base: UniDriver
+  base: UniDriver,
 ): RadioUniDriver => {
   const byHook = (hook: string) => base.$(`[data-hook="${hook}"]`);
 
@@ -32,7 +32,7 @@ export const radioButtonUniDriverFactory = (
   return {
     ...baseUniDriverFactory(base),
 
-    keyDown: key => getInput().pressKey(key),
+    keyDown: (key) => getInput().pressKey(key),
     value: async () => getInput().attr('value'),
     name: async () => getInput().attr('name'),
     id: async () => getInput().attr('id'),

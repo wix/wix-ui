@@ -9,9 +9,9 @@ export interface CheckboxDriver extends BaseDriver {
   isChecked(): Promise<boolean>;
 }
 
-export const checkboxDriverFactory: DriverFactory<
-  CheckboxDriver
-> = component => {
+export const checkboxDriverFactory: DriverFactory<CheckboxDriver> = (
+  component,
+) => {
   const input = component.$('input');
 
   return {
@@ -21,7 +21,7 @@ export const checkboxDriverFactory: DriverFactory<
     click: async () => component.click(),
     /** Indicates whether the component is disabled or not */
     isDisabled: async () =>
-      component.getAttribute('disabled').then(v => v !== null),
+      component.getAttribute('disabled').then((v) => v !== null),
     /** returns a boolean indicating if the checkbox is checked */
     isChecked: async () => input.isSelected(),
   };

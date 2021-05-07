@@ -22,9 +22,9 @@ import {
   captchaDriverFactory,
   CaptchaDriver,
 } from '../components/captcha/Captcha.uni.driver';
-export const captchaTestkitFactory = puppeteerUniTestkitFactoryCreator<
-  CaptchaDriver
->(captchaDriverFactory);
+export const captchaTestkitFactory = puppeteerUniTestkitFactoryCreator<CaptchaDriver>(
+  captchaDriverFactory,
+);
 export { CaptchaDriver };
 
 import {
@@ -40,18 +40,18 @@ import {
   LinearProgressBarUniDriver,
   linearProgressBarUniDriverFactory,
 } from '../components/linear-progress-bar/LinearProgressBar.uni.driver';
-export const linearProgressBarTestkitFactory = puppeteerUniTestkitFactoryCreator<
-  LinearProgressBarUniDriver
->(linearProgressBarUniDriverFactory);
+export const linearProgressBarTestkitFactory = puppeteerUniTestkitFactoryCreator<LinearProgressBarUniDriver>(
+  linearProgressBarUniDriverFactory,
+);
 export { LinearProgressBarUniDriver };
 
 import {
   CircularProgressBarUniDriver,
   circularProgressBarUniDriverFactory,
 } from '../components/circular-progress-bar/CircularProgressBar.uni.driver';
-export const circularProgressBarTestkitFactory = puppeteerUniTestkitFactoryCreator<
-  CircularProgressBarUniDriver
->(circularProgressBarUniDriverFactory);
+export const circularProgressBarTestkitFactory = puppeteerUniTestkitFactoryCreator<CircularProgressBarUniDriver>(
+  circularProgressBarUniDriverFactory,
+);
 export { CircularProgressBarUniDriver };
 
 import {

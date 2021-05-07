@@ -11,7 +11,7 @@ export interface BadgeProps {
 /**
  * Badge
  */
-export const Badge: React.FunctionComponent<BadgeProps> = props => (
+export const Badge: React.FunctionComponent<BadgeProps> = (props) => (
   <span
     data-hook={props['data-hook']}
     className={st(classes.root, props.className)}

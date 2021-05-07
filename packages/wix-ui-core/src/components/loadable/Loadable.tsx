@@ -85,8 +85,8 @@ export class Loadable<LoadableExports> extends React.Component<
     if (!moduleItem[key]) {
       console.warn(
         `You have used <Loadable />, but module you are accessing via 'loader' prop has different exports. Use componentKey="${Object.keys(
-          moduleItem
-        ).slice(0)}" to access exported component property. `
+          moduleItem,
+        ).slice(0)}" to access exported component property. `,
       );
     }
     return moduleItem[key] || moduleItem;
@@ -114,8 +114,8 @@ export class Loadable<LoadableExports> extends React.Component<
       if (loadableItem instanceof Promise) {
         // Handling `import('Tooltop') -> Promise<module>`
         resolvedAsyncModules[loadableItemKey] = loadableItem
-          .then(loaded =>
-            this.resolveModule(loaded, namedExports[loadableItemKey])
+          .then((loaded) =>
+            this.resolveModule(loaded, namedExports[loadableItemKey]),
           )
           .catch(() => {
             console.error(`Asset wasn't loaded: ${loadableItem}`);
@@ -124,7 +124,7 @@ export class Loadable<LoadableExports> extends React.Component<
         // Handling `require('Tooltop') -> module`
         resolvedModules[loadableItemKey] = this.resolveModule(
           loadableItem,
-          namedExports[loadableItemKey]
+          namedExports[loadableItemKey],
         );
       }
     }
@@ -137,15 +137,15 @@ export class Loadable<LoadableExports> extends React.Component<
     }
 
     const resolvedKeys = Object.keys(resolvedAsyncModules);
-    Promise.all(resolvedKeys.map(key => resolvedAsyncModules[key])).then(
-      modules => {
+    Promise.all(resolvedKeys.map((key) => resolvedAsyncModules[key])).then(
+      (modules) => {
         modules.forEach((resolvedModule, index) => {
           const moduleName = resolvedKeys[index];
           resolvedModules[moduleName] = resolvedModule;
         });
         this.props.onLoad && this.props.onLoad();
         this.setState({ loaded: resolvedModules, isLoading: false });
-      }
+      },
     );
     return null;
   };

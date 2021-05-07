@@ -1,6 +1,6 @@
 import { popoverDriverFactory } from '../popover/Popover.driver';
 
-export const tooltipDriverFactory = args => {
+export const tooltipDriverFactory = (args) => {
   const popoverDriver = popoverDriverFactory(args);
   const getTooltipStyle = () =>
     window.getComputedStyle(

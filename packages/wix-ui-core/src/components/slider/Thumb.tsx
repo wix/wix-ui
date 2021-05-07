@@ -70,7 +70,7 @@ class BarThumb extends React.PureComponent<any> {
 const thumbShapes = {
   circle: {
     component: CircleThumb,
-    getThumbSize: sliderSize => ({ width: sliderSize, height: sliderSize }),
+    getThumbSize: (sliderSize) => ({ width: sliderSize, height: sliderSize }),
   },
   rectangle: {
     component: RectangleThumb,
@@ -81,7 +81,7 @@ const thumbShapes = {
   },
   square: {
     component: SquareThumb,
-    getThumbSize: sliderSize => ({ width: sliderSize, height: sliderSize }),
+    getThumbSize: (sliderSize) => ({ width: sliderSize, height: sliderSize }),
   },
   bar: {
     component: BarThumb,

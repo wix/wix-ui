@@ -142,7 +142,7 @@ export interface AddressInputState {
 function filterAddressesByType(addresses: Address[], filterTypes?: string[]) {
   return filterTypes && filterTypes.length > 0
     ? (addresses || []).filter(
-        address => intersection(address.types, filterTypes).length > 0,
+        (address) => intersection(address.types, filterTypes).length > 0,
       )
     : addresses;
 }
@@ -294,7 +294,7 @@ export class AddressInput extends React.PureComponent<
     const requestId = ++this.addressRequestId;
     let resolveCurrentAddressRequest;
     this.currentAddressRequest = new Promise(
-      resolve => (resolveCurrentAddressRequest = resolve),
+      (resolve) => (resolveCurrentAddressRequest = resolve),
     );
     const { lang, filterTypes } = this.props;
     const results = await this.client.autocomplete(
@@ -541,7 +541,7 @@ export class AddressInput extends React.PureComponent<
       value: this.state.inputValue,
       prefix,
       suffix,
-      ref: ref => (this.inputRef = ref),
+      ref: (ref) => (this.inputRef = ref),
       onClick: this.props.onClick,
       onDoubleClick: this.props.onDoubleClick,
       onMouseEnter: this.props.onMouseEnter,
@@ -571,7 +571,7 @@ export class AddressInput extends React.PureComponent<
         style={inlineStyles}
         fixedFooter={hasOptions && fixedFooter}
         id={id}
-        ref={ref => (this.inputWithOptionsRef = ref)}
+        ref={(ref) => (this.inputWithOptionsRef = ref)}
         allowReselect
         filterPredicate={() => true}
         flip={flip}

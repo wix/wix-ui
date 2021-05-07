@@ -21,7 +21,7 @@ import { PopoverNext } from '../popover-next/popover-next';
 import { checkboxDriverFactory } from '../checkbox/Checkbox.driver';
 
 function delay(millis: number): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, millis));
+  return new Promise((resolve) => setTimeout(resolve, millis));
 }
 
 const renderPopover = (props: PopoverProps, content: string = 'Content') => (
@@ -247,7 +247,7 @@ function runTests(
         'viewport',
         'scrollParent',
       ];
-      appendToValues.map(value => {
+      appendToValues.map((value) => {
         it(`should not be triggered when content is clicked and appended to ${value}`, async () => {
           const onClickOutside = jest.fn();
 

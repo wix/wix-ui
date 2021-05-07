@@ -6,8 +6,8 @@ const pickBy = require('lodash/pickBy');
 
 export const trySetStreetNumberIfNotReceived = (google, inputValue) => {
   const addressParts = inputValue.match(/^\d+[ -/]*\d*[^\D]/);
-  const hasStreetNumber = google.address_components.some(address =>
-    address.types.some(t => t === 'street_number'),
+  const hasStreetNumber = google.address_components.some((address) =>
+    address.types.some((t) => t === 'street_number'),
   );
   if (hasStreetNumber || !addressParts) {
     return google;
@@ -53,7 +53,7 @@ function formatLatLng(location) {
 
 export function convertToFullAddress(googleResponse) {
   const addressComponents = {};
-  googleResponse.address_components.forEach(addressComponent => {
+  googleResponse.address_components.forEach((addressComponent) => {
     const type = first(
       intersection(addressComponent.types, FULL_ADDRESS_ALLOWED_TYPES),
     );
@@ -76,7 +76,7 @@ export function convertToFullAddress(googleResponse) {
 
 function getShortValues(googleResponse) {
   const result = {};
-  googleResponse.address_components.forEach(addressComponent => {
+  googleResponse.address_components.forEach((addressComponent) => {
     const type = first(
       intersection(addressComponent.types, FULL_ADDRESS_ALLOWED_TYPES),
     );
@@ -116,5 +116,5 @@ export function convertToPartialAddress(googleResponse) {
 }
 
 function removeUndefined(obj) {
-  return pickBy(obj, value => !isUndefined(value));
+  return pickBy(obj, (value) => !isUndefined(value));
 }

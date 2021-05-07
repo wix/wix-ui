@@ -6,7 +6,7 @@ import { NavStepper } from './NavStepper';
 describe('NavStepper', () => {
   const container = new ReactDOMTestContainer().unmountAfterEachTest();
 
-  const render = jsx =>
+  const render = (jsx) =>
     container
       .render(jsx)
       .then(() => new NavStepperDriver(container.componentNode));

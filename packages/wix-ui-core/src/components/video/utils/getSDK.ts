@@ -25,7 +25,7 @@ const loadSDK = (name, url, onLoaded, onError, onReady) => {
         onLoaded(window[name]);
       }
     },
-    error: err => {
+    error: (err) => {
       onError(err);
     },
   });
@@ -34,11 +34,11 @@ const loadSDK = (name, url, onLoaded, onError, onReady) => {
 const requireSDK = (name, url, onLoaded, onError, resolveRequire) => {
   (window as any).require(
     [url],
-    sdk => {
+    (sdk) => {
       window[name] = resolveRequire(sdk);
       onLoaded(window[name]);
     },
-    err => {
+    (err) => {
       onError(err);
     },
   );
@@ -49,7 +49,7 @@ export function getSDK({
   url,
   onReady,
   isLoaded = () => true,
-  resolveRequire = sdk => sdk,
+  resolveRequire = (sdk) => sdk,
   isRequireAllow,
 }: ISDKConfig): Promise<any> {
   if (window[name] && isLoaded(window[name])) {
@@ -63,8 +63,8 @@ export function getSDK({
     }
     stack[url] = [resolve];
 
-    const onLoaded = sdk => {
-      stack[url].forEach(resolveItem => resolveItem(sdk));
+    const onLoaded = (sdk) => {
+      stack[url].forEach((resolveItem) => resolveItem(sdk));
     };
 
     if (

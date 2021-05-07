@@ -107,7 +107,11 @@ describe('MediaImage', () => {
 
   it('should set the container dimensions as attributes when provided', async () => {
     const mediaImageDriver = await createDriver(
-      <MediaImage mediaPlatformItem={mediaPlatformItem} width={WIDTH} height={HEIGHT} />,
+      <MediaImage
+        mediaPlatformItem={mediaPlatformItem}
+        width={WIDTH}
+        height={HEIGHT}
+      />,
     );
 
     expect(await mediaImageDriver.getWidthAttribute()).toEqual(WIDTH);
@@ -132,7 +136,7 @@ describe('MediaImage', () => {
     const mediaImageDriver = await createDriver(
       <MediaImage className={expectedClassName} />,
     );
-    
+
     expect(await mediaImageDriver.hasClass(expectedClassName)).toBe(true);
   });
 

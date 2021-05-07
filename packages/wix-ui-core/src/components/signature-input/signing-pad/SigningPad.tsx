@@ -215,7 +215,7 @@ class SigningPadComp extends React.Component<SigningPadProps, SigningPadState> {
     this.invokeIfDefined(canvasRef)(canvas);
   };
 
-  handleInputChange: React.ChangeEventHandler<HTMLInputElement> = e => {
+  handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const { onDraw, direction } = this.props;
 
     // clears drawns curves and typed characters and restore drawn curves
@@ -228,9 +228,11 @@ class SigningPadComp extends React.Component<SigningPadProps, SigningPadState> {
     this.setState(updateA11yValue(e.target.value));
     const ctx = this.canvasEl.getContext('2d');
     ctx.font = '25px Sacramento';
-    ctx.fillText(e.target.value,
-      direction === 'rtl' ? (this.canvasEl.offsetWidth - 20) : 20,
-      this.canvasEl.offsetHeight / 2);
+    ctx.fillText(
+      e.target.value,
+      direction === 'rtl' ? this.canvasEl.offsetWidth - 20 : 20,
+      this.canvasEl.offsetHeight / 2,
+    );
     this.invokeIfDefined(onDraw)(e);
   };
 
@@ -275,7 +277,7 @@ class SigningPadComp extends React.Component<SigningPadProps, SigningPadState> {
           aria-required={!!required}
           onFocus={this.invokeIfDefined(onFocus)}
           onBlur={this.invokeIfDefined(onBlur)}
-          ref={inputRef => (this.a11yInputEl = inputRef)}
+          ref={(inputRef) => (this.a11yInputEl = inputRef)}
           {...(titleId && { 'aria-labelledby': titleId })}
         />
         <canvas

@@ -115,7 +115,7 @@ export default function playerHOC(
 
       return result instanceof Promise
         ? result
-        : new Promise(resolve => {
+        : new Promise((resolve) => {
             this.ref.eventEmitter.once(EVENTS.PLAYING, () => resolve());
           });
     }
@@ -125,7 +125,7 @@ export default function playerHOC(
 
       return result instanceof Promise
         ? result
-        : new Promise(resolve => {
+        : new Promise((resolve) => {
             this.ref.eventEmitter.once(EVENTS.PAUSED, () => resolve());
           });
     }
@@ -137,7 +137,7 @@ export default function playerHOC(
 
       return result instanceof Promise
         ? result
-        : new Promise(resolve => {
+        : new Promise((resolve) => {
             this.ref.eventEmitter.once(event, () => resolve());
           });
     }

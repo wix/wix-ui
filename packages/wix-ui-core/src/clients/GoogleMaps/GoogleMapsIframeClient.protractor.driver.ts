@@ -11,9 +11,9 @@ export interface GoogleMapsIframeClientDriver extends BaseDriver {
   selectByValue(value: string): Promise<void>;
 }
 
-export const googleMapsIframeClientDriverFactory: DriverFactory<
-  GoogleMapsIframeClientDriver
-> = component => {
+export const googleMapsIframeClientDriverFactory: DriverFactory<GoogleMapsIframeClientDriver> = (
+  component,
+) => {
   const getButtons = () => component.$$('button');
   const input = component.$('input');
   const resultsElementWrapper = component.$('pre');
@@ -33,9 +33,7 @@ export const googleMapsIframeClientDriverFactory: DriverFactory<
         .getText()
         .then((names: string) => {
           const btnIdx = names.indexOf(value);
-          getButtons()
-            .get(btnIdx)
-            .click();
+          getButtons().get(btnIdx).click();
         });
     },
     element: () => component,

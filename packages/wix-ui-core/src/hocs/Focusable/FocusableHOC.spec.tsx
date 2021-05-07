@@ -7,7 +7,7 @@ import {
 } from './FocusableHOC.driver';
 
 describe('FocusableHOC', () => {
-  const render = Comp =>
+  const render = (Comp) =>
     mount(Comp, { attachTo: document.createElement('div') });
 
   describe('Pure component HOC', () => {

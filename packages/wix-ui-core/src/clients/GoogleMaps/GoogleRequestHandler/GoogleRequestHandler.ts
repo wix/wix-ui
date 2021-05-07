@@ -21,11 +21,11 @@ export const googleRequestHandler = (eventEmitter, handlersName) => {
     handler(event);
   }
 
-  const locationFuncOrValue = locationProp => {
+  const locationFuncOrValue = (locationProp) => {
     return typeof locationProp === 'function' ? locationProp() : locationProp;
   };
 
-  const serializeResult = results =>
+  const serializeResult = (results) =>
     Object.assign(results, {
       geometry: {
         location: {
@@ -99,7 +99,7 @@ export const googleRequestHandler = (eventEmitter, handlersName) => {
       } else {
         event.source.postMessage(
           {
-            results: results.map(element => serializeResult(element)),
+            results: results.map((element) => serializeResult(element)),
             status,
             requestId: event.data.requestId,
           },
@@ -137,7 +137,7 @@ export const googleRequestHandler = (eventEmitter, handlersName) => {
     });
   }
 
-  const initRequestHandler = googleInstance => {
+  const initRequestHandler = (googleInstance) => {
     context.googleInstance = googleInstance;
 
     context._autocomplete = new googleInstance.maps.places.AutocompleteService();
@@ -146,7 +146,7 @@ export const googleRequestHandler = (eventEmitter, handlersName) => {
     const map = new googleInstance.maps.Map(document.createElement('div'));
     context._placesServices = new googleInstance.maps.places.PlacesService(map);
 
-    context.requestsQueue.forEach(request => handleGoogleRequest(request));
+    context.requestsQueue.forEach((request) => handleGoogleRequest(request));
   };
 
   eventEmitter.addEventListener('message', context.handleGoogleRequest, false);

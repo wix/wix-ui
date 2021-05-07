@@ -40,7 +40,7 @@ export class FilePickerButtonTestFixture extends React.Component<
           ref={this.filePickerButtonRef}
         />
         <div data-hook={DataHook.FileNames}>
-          {selectedFiles.map(f => f.name).join(',')}
+          {selectedFiles.map((f) => f.name).join(',')}
         </div>
         <div data-hook={DataHook.OnChangeCount}>{onChangeCount}</div>
         <button

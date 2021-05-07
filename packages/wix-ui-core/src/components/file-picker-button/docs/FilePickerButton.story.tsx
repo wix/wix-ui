@@ -13,7 +13,7 @@ export default {
     accept: '.jpeg,.png,.jpg',
   },
   exampleProps: {
-    onChange: files =>
-      `Triggered onChange with "${files.map(f => f.name).join(',')}"`,
+    onChange: (files) =>
+      `Triggered onChange with "${files.map((f) => f.name).join(',')}"`,
   },
 };

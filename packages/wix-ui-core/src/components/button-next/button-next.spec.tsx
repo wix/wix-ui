@@ -86,7 +86,7 @@ describe('ButtonNext', () => {
   });
 
   describe(`'as' prop`, () => {
-    const Test = props => <span {...props} />;
+    const Test = (props) => <span {...props} />;
     class TestReact extends React.Component {
       render() {
         return <p>{this.props.children}</p>;

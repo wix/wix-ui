@@ -9,7 +9,7 @@ export const loadableDriverFactory = ({
 }: ComponentFactory): LoadableDriver => {
   return {
     exists: () => !!element,
-    existsChild: selector =>
+    existsChild: (selector) =>
       !!element.parentElement.querySelector(`[data-hook=${selector}]`),
   };
 };

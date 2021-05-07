@@ -12,7 +12,7 @@ import { getArrowShift } from '../../popover/utils/getArrowShift';
 
 import { classes } from '../../popover/Popover.st.css';
 
-const Arrow = props => {
+const Arrow = (props) => {
   const { arrowProps, moveArrowTo, placement, customArrow } = props;
 
   const commonProps = {
@@ -106,8 +106,7 @@ const Popper: React.FC<PopperProps> = ({
               maxWidth,
             }}
             data-placement={popperPlacement || placement}
-            className={classNames(classes.popover,
-              contentClassName, {
+            className={classNames(classes.popover, contentClassName, {
               [classes.withArrow]: showArrow,
               [classes.popoverContent]: !showArrow,
             })}

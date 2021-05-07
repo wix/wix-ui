@@ -19,18 +19,18 @@ import {
   linearProgressBarDriverFactory,
   LinearProgressBarDriver,
 } from '../components/linear-progress-bar/LinearProgressBar.driver';
-export const linearProgressBarTestkitFactory = enzymeTestkitFactoryCreator<
-  LinearProgressBarDriver
->(linearProgressBarDriverFactory);
+export const linearProgressBarTestkitFactory = enzymeTestkitFactoryCreator<LinearProgressBarDriver>(
+  linearProgressBarDriverFactory,
+);
 export { LinearProgressBarDriver };
 
 import {
   circularProgressBarDriverFactory,
   CircularProgressBarDriver,
 } from '../components/circular-progress-bar/CircularProgressBar.driver';
-export const circularProgressBarTestkitFactory = enzymeTestkitFactoryCreator<
-  CircularProgressBarDriver
->(circularProgressBarDriverFactory);
+export const circularProgressBarTestkitFactory = enzymeTestkitFactoryCreator<CircularProgressBarDriver>(
+  circularProgressBarDriverFactory,
+);
 export { CircularProgressBarDriver };
 
 import { paginationDriverFactory } from '../components/pagination/Pagination.driver';
@@ -67,18 +67,18 @@ import {
   buttonNextDriverFactory,
   ButtonNextDriver,
 } from '../components/button-next/button-next.uni.driver';
-export const buttonNextTestkitFactory = enzymeUniTestkitFactoryCreator<
-  ButtonNextDriver
->(buttonNextDriverFactory);
+export const buttonNextTestkitFactory = enzymeUniTestkitFactoryCreator<ButtonNextDriver>(
+  buttonNextDriverFactory,
+);
 export { ButtonNextDriver };
 
 import {
   badgeDriverFactory as stylableBadgeDriverFactory,
   BadgeDriver as StylableBadgeDriver,
 } from '../components/deprecated/stylable-badge/Badge.driver';
-export const stylableBadgeTestkitFactory = enzymeTestkitFactoryCreator<
-  StylableBadgeDriver
->(stylableBadgeDriverFactory);
+export const stylableBadgeTestkitFactory = enzymeTestkitFactoryCreator<StylableBadgeDriver>(
+  stylableBadgeDriverFactory,
+);
 export { StylableBadgeDriver };
 
 import { radioButtonDriverFactory } from '../components/radio-button/RadioButton.driver';
@@ -120,9 +120,9 @@ import {
   thumbnailDriverFactory,
   ThumbnailDriver,
 } from '../components/thumbnail/Thumbnail.driver';
-export const thumbnailTestkitFactory = enzymeTestkitFactoryCreator<
-  ThumbnailDriver
->(thumbnailDriverFactory);
+export const thumbnailTestkitFactory = enzymeTestkitFactoryCreator<ThumbnailDriver>(
+  thumbnailDriverFactory,
+);
 export { ThumbnailDriver };
 
 import { popoverDriverFactory } from '../components/popover/Popover.driver';

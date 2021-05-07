@@ -7,9 +7,9 @@ export interface DividerDriver extends BaseDriver {
   exists(): Promise<boolean>;
 }
 
-export const dividerDriverFactory: DriverFactory<
-  DividerDriver
-> = component => ({
+export const dividerDriverFactory: DriverFactory<DividerDriver> = (
+  component,
+) => ({
   /** returns the element */
   element: () => component,
 

@@ -121,10 +121,7 @@ export const CircularProgressBar: React.FunctionComponent<CircularProgressBarPro
     >
       {renderArcs(_props)}
       {label && (
-        <div
-          data-hook={dataHooks.label}
-          className={classes.label}
-        >
+        <div data-hook={dataHooks.label} className={classes.label}>
           {label}
         </div>
       )}

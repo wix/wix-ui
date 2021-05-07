@@ -27,10 +27,7 @@ describe('InputWithOptions', () => {
     await waitForVisibilityOf(driver.element(), 'Cannot find InputWithOptions');
     await driver.enterText('value');
 
-    await driver
-      .dropdownContent()
-      .optionAt(0)
-      .click();
+    await driver.dropdownContent().optionAt(0).click();
 
     const onSelectCount = await getElementByDataHook(
       DataHook.onSelectCount,
@@ -50,10 +47,7 @@ describe('InputWithOptions', () => {
     });
     await waitForVisibilityOf(driver.element(), 'Cannot find InputWithOptions');
     await driver.enterText('kjhasmasdl');
-    const emptyStateText = await driver
-      .dropdownContent()
-      .optionAt(0)
-      .getText();
+    const emptyStateText = await driver.dropdownContent().optionAt(0).getText();
     expect(emptyStateText).toEqual('No results');
   });
 });

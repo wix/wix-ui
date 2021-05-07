@@ -42,10 +42,7 @@ describe('Slider', () => {
     const valueAfterDrop = await driver.getSliderValue();
 
     //When
-    browser.driver
-      .actions()
-      .mouseMove({ x: 400, y: 0 })
-      .perform();
+    browser.driver.actions().mouseMove({ x: 400, y: 0 }).perform();
 
     //Then
     const valueAfterDropAndMove = await driver.getSliderValue();

@@ -207,9 +207,9 @@ import {
   thumbnailDriverFactory,
   ThumbnailDriver,
 } from '../components/thumbnail/Thumbnail.protractor.driver';
-export const thumbnailTestkitFactory = protractorTestkitFactoryCreator<
-  ThumbnailDriver
->(thumbnailDriverFactory);
+export const thumbnailTestkitFactory = protractorTestkitFactoryCreator<ThumbnailDriver>(
+  thumbnailDriverFactory,
+);
 export { ThumbnailDriver };
 
 import {
@@ -225,9 +225,9 @@ import {
   captchaDriverFactory,
   CaptchaDriver,
 } from '../components/captcha/Captcha.uni.driver';
-export const captchaTestkitFactory = protractorUniTestkitFactoryCreator<
-  CaptchaDriver
->(captchaDriverFactory);
+export const captchaTestkitFactory = protractorUniTestkitFactoryCreator<CaptchaDriver>(
+  captchaDriverFactory,
+);
 export { CaptchaDriver };
 
 import {

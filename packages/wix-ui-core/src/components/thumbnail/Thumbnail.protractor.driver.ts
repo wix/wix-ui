@@ -9,9 +9,9 @@ export interface ThumbnailDriver extends BaseDriver {
   mouseEnter(): Promise<void>;
 }
 
-export const thumbnailDriverFactory: DriverFactory<
-  ThumbnailDriver
-> = component => ({
+export const thumbnailDriverFactory: DriverFactory<ThumbnailDriver> = (
+  component,
+) => ({
   /** returns the component element */
   element: () => component,
   /** triggers a mouseEnter event on the compomnent */

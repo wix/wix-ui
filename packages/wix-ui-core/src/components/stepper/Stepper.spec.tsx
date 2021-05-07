@@ -5,7 +5,7 @@ import { Stepper } from './Stepper';
 describe('Stepper', () => {
   const container = new ReactDOMTestContainer().unmountAfterEachTest();
 
-  const render = jsx =>
+  const render = (jsx) =>
     container.render(jsx).then(() => container.componentNode);
 
   it('should mark a step as active', async () => {

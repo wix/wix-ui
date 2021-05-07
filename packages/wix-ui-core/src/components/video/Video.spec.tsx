@@ -100,7 +100,7 @@ describe('Video', () => {
 
         let wrapper;
         const driver = await createDriver(
-          <VideoWrapper ref={ref => (wrapper = ref)} />,
+          <VideoWrapper ref={(ref) => (wrapper = ref)} />,
         );
 
         expect(await driver.getPlayerName()).toBe('Playable');

@@ -43,22 +43,13 @@ describe('ToggleSwitch', () => {
     ).then(() => {
       expect(driver.checked()).toBe(false);
 
-      browser
-        .actions()
-        .sendKeys(Key.TAB, Key.SPACE)
-        .perform();
+      browser.actions().sendKeys(Key.TAB, Key.SPACE).perform();
       expect(driver.checked()).toBe(true);
 
-      browser
-        .actions()
-        .sendKeys(Key.SPACE)
-        .perform();
+      browser.actions().sendKeys(Key.SPACE).perform();
       expect(driver.checked()).toBe(false);
 
-      browser
-        .actions()
-        .sendKeys(Key.CONTROL)
-        .perform();
+      browser.actions().sendKeys(Key.CONTROL).perform();
       expect(driver.checked()).toBe(false);
     });
   });

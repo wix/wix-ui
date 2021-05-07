@@ -39,9 +39,7 @@ interface StateFullComponentWrapProps {
   [propName: string]: any;
 }
 
-class StateFullComponentWrap extends React.Component<
-  StateFullComponentWrapProps
-> {
+class StateFullComponentWrap extends React.Component<StateFullComponentWrapProps> {
   render() {
     const { children, ...props } = this.props;
     return React.cloneElement(children, props);
@@ -100,7 +98,7 @@ class EllipsedTooltip extends React.Component<
           ...style,
           whiteSpace: 'nowrap',
         }}
-        ref={n => (this.textNode = ReactDOM.findDOMNode(n) as HTMLElement)}
+        ref={(n) => (this.textNode = ReactDOM.findDOMNode(n) as HTMLElement)}
       >
         {component}
       </StateFullComponentWrap>
@@ -163,8 +161,10 @@ export const withEllipsedTooltipNext = ({
   showTooltip?: boolean;
 
   tooltipProps?: object;
-} = {}) => Comp => {
-  const WrapperComponent: React.FunctionComponent<WrapperComponentProps> = props => (
+} = {}) => (Comp) => {
+  const WrapperComponent: React.FunctionComponent<WrapperComponentProps> = (
+    props,
+  ) => (
     <EllipsedTooltip
       {...props}
       component={React.createElement(Comp, props)}

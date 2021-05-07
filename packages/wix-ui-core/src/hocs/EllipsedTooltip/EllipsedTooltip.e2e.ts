@@ -111,15 +111,9 @@ describe('EllipsedTooltip', () => {
     expect(await hasEllipsis(textElementFinder)).toBe(false);
     expect(await tooltipTestkit.isContentElementExists()).toBe(false);
 
-    const originalWindowSize = await browser.driver
-      .manage()
-      .window()
-      .getSize();
+    const originalWindowSize = await browser.driver.manage().window().getSize();
 
-    await browser.driver
-      .manage()
-      .window()
-      .setSize(250, 900);
+    await browser.driver.manage().window().setSize(250, 900);
     expect(await hasEllipsis(textElementFinder)).toBe(true);
 
     await mouseEnter(textElementFinder);

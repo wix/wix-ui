@@ -49,7 +49,7 @@ export const linearProgressBarDriverFactory: DriverFactory<LinearProgressBarDriv
 }: ComponentFactory) => {
   const stylableDOMUtil = new StylableDOMUtil(style);
 
-  const getElement = dataHook =>
+  const getElement = (dataHook) =>
     element.querySelector(`[data-hook="${dataHook}"]`);
   const getValue = () =>
     !element

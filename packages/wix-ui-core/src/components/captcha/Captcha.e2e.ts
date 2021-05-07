@@ -14,9 +14,9 @@ import {
 import { constants } from './test-assets/constants';
 import { Category } from '../../../stories/utils';
 
-const captchaTestInstanceFactory = protractorUniTestkitFactoryCreator<
-  CaptchaTestComponentDriver
->(CaptchaTestInstanceDriverFactory);
+const captchaTestInstanceFactory = protractorUniTestkitFactoryCreator<CaptchaTestComponentDriver>(
+  CaptchaTestInstanceDriverFactory,
+);
 
 describe('Captcha', () => {
   const storyUrl = createStoryUrl({

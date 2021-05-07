@@ -96,21 +96,17 @@ describe('AddressInput', () => {
   it('Should call MapsClient.autocomplete upon typing', () => {
     init();
     driver.setValue('n');
-    expect(GoogleMapsClientStub.prototype.autocomplete).toHaveBeenCalledWith(
-      helper.API_KEY,
-      'en',
-      { input: 'n' },
-    );
+    expect(
+      GoogleMapsClientStub.prototype.autocomplete,
+    ).toHaveBeenCalledWith(helper.API_KEY, 'en', { input: 'n' });
   });
 
   it('Should call MapsClient.autocomplete with clientId upon typing', () => {
     init({ clientId: 'client-id' });
     driver.setValue('n');
-    expect(GoogleMapsClientStub.prototype.autocomplete).toHaveBeenCalledWith(
-      'client-id',
-      'en',
-      { input: 'n' },
-    );
+    expect(
+      GoogleMapsClientStub.prototype.autocomplete,
+    ).toHaveBeenCalledWith('client-id', 'en', { input: 'n' });
   });
 
   it('Should use callback provided in case of error [Search error]', () => {
@@ -198,11 +194,9 @@ describe('AddressInput', () => {
     const types = ['hello', 'world'];
     init({ types });
     driver.setValue('n');
-    expect(GoogleMapsClientStub.prototype.autocomplete).toHaveBeenCalledWith(
-      helper.API_KEY,
-      'en',
-      { input: 'n', types },
-    );
+    expect(
+      GoogleMapsClientStub.prototype.autocomplete,
+    ).toHaveBeenCalledWith(helper.API_KEY, 'en', { input: 'n', types });
   });
 
   it('Should not display results until user typed', () => {
@@ -376,11 +370,11 @@ describe('AddressInput', () => {
 
     driver.optionAt(1).click();
 
-    expect(GoogleMapsClientStub.prototype.geocode).toHaveBeenCalledWith(
-      helper.API_KEY,
-      'en',
-      { placeId: helper.ADDRESS_2.place_id },
-    );
+    expect(
+      GoogleMapsClientStub.prototype.geocode,
+    ).toHaveBeenCalledWith(helper.API_KEY, 'en', {
+      placeId: helper.ADDRESS_2.place_id,
+    });
     return eventually(
       () => {
         expect(onSelectSpy).toHaveBeenCalledWith({
@@ -405,11 +399,11 @@ describe('AddressInput', () => {
 
     driver.optionAt(1).click();
 
-    expect(GoogleMapsClientStub.prototype.geocode).toHaveBeenCalledWith(
-      'client-id',
-      'en',
-      { placeId: helper.ADDRESS_2.place_id },
-    );
+    expect(
+      GoogleMapsClientStub.prototype.geocode,
+    ).toHaveBeenCalledWith('client-id', 'en', {
+      placeId: helper.ADDRESS_2.place_id,
+    });
     return eventually(
       () => {
         expect(onSelectSpy).toHaveBeenCalledWith({
@@ -430,11 +424,12 @@ describe('AddressInput', () => {
     driver.click();
     driver.setValue('n');
 
-    expect(GoogleMapsClientStub.prototype.autocomplete).toHaveBeenCalledWith(
-      helper.API_KEY,
-      'en',
-      { input: 'n', componentRestrictions: { country: 'il' } },
-    );
+    expect(
+      GoogleMapsClientStub.prototype.autocomplete,
+    ).toHaveBeenCalledWith(helper.API_KEY, 'en', {
+      input: 'n',
+      componentRestrictions: { country: 'il' },
+    });
 
     await waitForCond(() => driver.isContentElementExists());
 
@@ -480,11 +475,11 @@ describe('AddressInput', () => {
     await waitForCond(() => driver.isContentElementExists());
 
     driver.optionAt(1).click();
-    expect(GoogleMapsClientStub.prototype.placeDetails).toHaveBeenCalledWith(
-      helper.API_KEY,
-      'en',
-      { placeId: helper.ADDRESS_2.place_id },
-    );
+    expect(
+      GoogleMapsClientStub.prototype.placeDetails,
+    ).toHaveBeenCalledWith(helper.API_KEY, 'en', {
+      placeId: helper.ADDRESS_2.place_id,
+    });
     return eventually(
       () => {
         expect(onSelectSpy).toHaveBeenCalledWith({
@@ -508,11 +503,11 @@ describe('AddressInput', () => {
     await waitForCond(() => driver.isContentElementExists());
 
     driver.optionAt(1).click();
-    expect(GoogleMapsClientStub.prototype.placeDetails).toHaveBeenCalledWith(
-      'client-id',
-      'en',
-      { placeId: helper.ADDRESS_2.place_id },
-    );
+    expect(
+      GoogleMapsClientStub.prototype.placeDetails,
+    ).toHaveBeenCalledWith('client-id', 'en', {
+      placeId: helper.ADDRESS_2.place_id,
+    });
     return eventually(
       () => {
         expect(onSelectSpy).toHaveBeenCalledWith({
@@ -626,11 +621,9 @@ describe('AddressInput', () => {
 
       return eventually(
         () => {
-          expect(GoogleMapsClientStub.prototype.geocode).toHaveBeenCalledWith(
-            helper.API_KEY,
-            'en',
-            { address: 'n' },
-          );
+          expect(
+            GoogleMapsClientStub.prototype.geocode,
+          ).toHaveBeenCalledWith(helper.API_KEY, 'en', { address: 'n' });
           expect(onSelectSpy).toHaveBeenCalledWith(
             expect.objectContaining({
               googleResult: helper.GEOCODE_1,
@@ -666,11 +659,9 @@ describe('AddressInput', () => {
       driver.keyDown('Enter');
       return eventually(
         () => {
-          expect(GoogleMapsClientStub.prototype.geocode).toHaveBeenCalledWith(
-            helper.API_KEY,
-            'en',
-            { address: 'n' },
-          );
+          expect(
+            GoogleMapsClientStub.prototype.geocode,
+          ).toHaveBeenCalledWith(helper.API_KEY, 'en', { address: 'n' });
           expect(onSelectSpy).toHaveBeenCalledWith(
             expect.objectContaining({
               googleResult: helper.GEOCODE_1,
@@ -1074,11 +1065,11 @@ describe('AddressInput', () => {
           const firstCallArgument = onSelectSpy.mock.calls[0][0];
           const { formatted_address } = firstCallArgument.googleResult;
           expect(formatted_address).toBe('1 East Broadway, New York, NY, USA');
-          expect(GoogleMapsClientStub.prototype.geocode).toHaveBeenCalledWith(
-            helper.API_KEY,
-            'en',
-            { placeId: helper.ADDRESS_1.place_id },
-          );
+          expect(
+            GoogleMapsClientStub.prototype.geocode,
+          ).toHaveBeenCalledWith(helper.API_KEY, 'en', {
+            placeId: helper.ADDRESS_1.place_id,
+          });
         },
         { interval: 5 },
       );
@@ -1100,11 +1091,11 @@ describe('AddressInput', () => {
           expect(GoogleMapsClientStub.prototype.geocode).toHaveBeenCalledTimes(
             1,
           );
-          expect(GoogleMapsClientStub.prototype.geocode).toHaveBeenCalledWith(
-            helper.API_KEY,
-            'en',
-            { placeId: helper.ADDRESS_2.place_id },
-          );
+          expect(
+            GoogleMapsClientStub.prototype.geocode,
+          ).toHaveBeenCalledWith(helper.API_KEY, 'en', {
+            placeId: helper.ADDRESS_2.place_id,
+          });
         },
         { interval: 5 },
       );
@@ -1118,7 +1109,7 @@ describe('AddressInput', () => {
         this.state = { value: '' };
       }
 
-      handleOnSelect = e => {
+      handleOnSelect = (e) => {
         const { address } = e;
         this.setState({ value: address.formatted });
         this.props.onSelect && this.props.onSelect(e);

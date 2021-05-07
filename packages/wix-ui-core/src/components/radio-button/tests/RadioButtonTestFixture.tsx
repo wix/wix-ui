@@ -27,7 +27,7 @@ export class RadioButtonTestFixture extends React.Component {
       <div style={{ fontSize: '20px' }}>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <h3>Radio Button</h3>
-          {['1', '2', '3', '4'].map(value =>
+          {['1', '2', '3', '4'].map((value) =>
             this.createRadio({ value, label: `Star ${value}` }),
           )}
         </div>
@@ -44,7 +44,9 @@ export class RadioButtonTestFixture extends React.Component {
         </div>
         <div>
           <RadioButton
-            onFocusByKeyboard={() => this.setState({isOnFocusByKeyboardCalled: true})}
+            onFocusByKeyboard={() =>
+              this.setState({ isOnFocusByKeyboardCalled: true })
+            }
             label={<span>first radio button</span>}
             checkedIcon={<span>🔘</span>}
             uncheckedIcon={<span>⚪</span>}
