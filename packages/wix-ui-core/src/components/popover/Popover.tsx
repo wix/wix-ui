@@ -131,9 +131,9 @@ export interface PopoverProps {
    */
   contentClassName?: string;
   /**
-   * can focus on popover content element
+   * tabindex for popover content element
    */
-  withFocusableContent?: boolean;
+  tabIndex?: number;
   /**
    * can focus on popover content element
    */
@@ -281,7 +281,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       excludeClass = this.clickOutsideClass,
       contentClassName,
       onEscPress,
-      withFocusableContent,
+      tabIndex,
       ['aria-label']: ariaLabel,
       ['aria-labelledby']: ariaLabelledby,
       ['aria-describedby']: ariaDescribedBy,
@@ -343,7 +343,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
                       key="popover-content"
                       id={id}
                       role={role}
-                      tabIndex={withFocusableContent ? -1 : undefined}
+                      tabIndex={tabIndex}
                       ref={this.popoverContentRef}
                       className={showArrow ? classes.popoverContent : ''}
                       onKeyDown={shown && onEscPress ? this._onKeyDown : undefined}
