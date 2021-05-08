@@ -28,9 +28,26 @@ describe('Popover', () => {
 
     expect(await element(by.id('blurred-hook')).isDisplayed()).toBe(false);
 
-    const popoverContentElement = element(by.css['[role="dialog"]']);
+    const popoverContentElement = element(by.css('[role="dialog"]'));
 
     popoverContentElement.sendKeys(Key.TAB);
+
+    expect(await element(by.id('blurred-hook')).isDisplayed()).toBe(true);
+  });
+
+  it('should call onPopoverBlur when clicking outside of popover', async () => {
+    const driver = popoverTestkitFactory({ dataHook: popoverDataHook });
+    await waitForVisibilityOf(driver.element(), 'Cannot find Popover');
+
+    await eventually(async () => {
+      expect(await driver.isContentElementExists()).toBe(true);
+    });
+
+    await element(by.buttonText('Focus Input')).click();
+
+    expect(await element(by.id('blurred-hook')).isDisplayed()).toBe(false);
+
+    await element(by.id('focus-catcher')).click();
 
     expect(await element(by.id('blurred-hook')).isDisplayed()).toBe(true);
   });
@@ -47,7 +64,7 @@ describe('Popover', () => {
 
     expect(await element(by.id('escape-hook')).isDisplayed()).toBe(false);
 
-    const popoverContentElement = element(by.css['[role="dialog"]']);
+    const popoverContentElement = element(by.css('[role="dialog"]'));
 
     popoverContentElement.sendKeys(Key.ESCAPE);
 
@@ -66,7 +83,7 @@ describe('Popover', () => {
 
     expect(await element(by.id('escape-hook')).isDisplayed()).toBe(false);
 
-    const popoverContentElement = element(by.css['[role="dialog"]']);
+    const popoverContentElement = element(by.css('[role="dialog"]'));
 
     popoverContentElement.sendKeys(Key.ESCAPE);
 

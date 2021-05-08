@@ -240,9 +240,14 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       onClickOutside: onClickOutsideCallback,
       shown,
       disableClickOutsideWhenClosed,
+      onPopoverBlur,
     } = this.props;
     if (onClickOutsideCallback && !(disableClickOutsideWhenClosed && !shown)) {
       onClickOutsideCallback(event);
+
+      if (onPopoverBlur) {
+        onPopoverBlur(event);
+      }
     }
   };
 

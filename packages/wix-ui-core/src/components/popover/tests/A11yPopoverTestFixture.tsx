@@ -66,7 +66,7 @@ export class A11yPopoverTestFixture extends React.PureComponent {
           </Popover.Content>
         </Popover>
         <br />
-        <input style={{ margin: 60 }} type="text" /> {/* To catch focus */}
+        <input id={'focus-catcher'} style={{ margin: 60 }} type="text" /> {/* To catch focus */}
         <br />
         <div
           id="blurred-hook"
