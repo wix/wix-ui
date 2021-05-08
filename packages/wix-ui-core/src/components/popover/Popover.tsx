@@ -246,11 +246,11 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     }
   };
 
-  _onKeyDown = (e) => {
+  _onKeyDown = e => {
     const { onEscPress } = this.props;
 
-    if (e.keyCode === 27) {
-      onEscPress();
+    if (onEscPress && e.keyCode === 27) {
+      onEscPress(e);
     }
   };
 
@@ -258,7 +258,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     if (this.popoverContentRef.current) {
       this.popoverContentRef.current.focus();
     }
-  };
+  }
 
   getPopperContentStructure(childrenObject) {
     const { shown } = this.state;
@@ -346,7 +346,9 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
                       tabIndex={tabIndex}
                       ref={this.popoverContentRef}
                       className={showArrow ? classes.popoverContent : ''}
-                      onKeyDown={shown && onEscPress ? this._onKeyDown : undefined}
+                      onKeyDown={
+                        shown && onEscPress ? this._onKeyDown : undefined
+                      }
                       aria-label={ariaLabel}
                       aria-labelledby={ariaLabelledby}
                       aria-describedby={ariaDescribedBy}
@@ -443,28 +445,32 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     const { shown } = this.props;
     this.initAppendToNode();
     if (shown) {
-      this._setBlurListener()
+      this._setBlurByKeyboardListener();
     }
     this.setState({ isMounted: true });
   }
 
-  _blurListener = () => {
+  _onDocumentKeyUp = e => {
     const { onPopoverBlur } = this.props;
 
-    if (this.popoverContentRef.current && !this.popoverContentRef.current.contains(document.activeElement)) {
-      onPopoverBlur();
+    if (
+      typeof document !== 'undefined' &&
+      this.popoverContentRef.current &&
+      !this.popoverContentRef.current.contains(document.activeElement)
+    ) {
+      onPopoverBlur(e);
     }
-  }
+  };
 
-  _setBlurListener() {
+  _setBlurByKeyboardListener() {
     if (typeof document !== 'undefined') {
-      document.addEventListener('keyup', this._blurListener);
+      document.addEventListener('keyup', this._onDocumentKeyUp, true);
     }
   }
 
   _removeBlurListener() {
     if (typeof document !== 'undefined') {
-      document.addEventListener('keyup', this._blurListener);
+      document.removeEventListener('keyup', this._onDocumentKeyUp, true);
     }
   }
 
@@ -506,7 +512,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     }
 
     if (onPopoverBlur) {
-      this._removeBlurListener()
+      this._removeBlurListener();
     }
 
     if (hideDelay) {
@@ -532,7 +538,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     }
 
     if (onPopoverBlur) {
-      this._setBlurListener()
+      this._setBlurByKeyboardListener();
     }
 
     if (showDelay) {
