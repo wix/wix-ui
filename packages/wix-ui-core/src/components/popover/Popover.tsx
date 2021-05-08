@@ -45,7 +45,7 @@ export interface PopoverProps {
   /** Provides callback to invoke when clicked outside of the popover */
   onClickOutside?: Function;
   /** Provides callback to invoke when popover loses focus */
-  onPopoverBlur?: Function;
+  onTabOut?: Function;
   /** Provides callback to invoke when popover loses focus */
   onEscPress?: Function;
   /**
@@ -235,23 +235,18 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     this.contentHook = `popover-content-${props['data-hook'] || ''}-${testId}`;
   }
 
-  _handleClickOutside = event => {
+  _handleClickOutside = (event) => {
     const {
       onClickOutside: onClickOutsideCallback,
       shown,
       disableClickOutsideWhenClosed,
-      onPopoverBlur,
     } = this.props;
     if (onClickOutsideCallback && !(disableClickOutsideWhenClosed && !shown)) {
       onClickOutsideCallback(event);
-
-      if (onPopoverBlur) {
-        onPopoverBlur(event);
-      }
     }
   };
 
-  _onKeyDown = e => {
+  _onKeyDown = (e) => {
     const { onEscPress } = this.props;
 
     if (onEscPress && e.keyCode === 27) {
@@ -455,15 +450,15 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     this.setState({ isMounted: true });
   }
 
-  _onDocumentKeyUp = e => {
-    const { onPopoverBlur } = this.props;
+  _onDocumentKeyUp = (e) => {
+    const { onTabOut } = this.props;
 
     if (
       typeof document !== 'undefined' &&
       this.popoverContentRef.current &&
       !this.popoverContentRef.current.contains(document.activeElement)
     ) {
-      onPopoverBlur(e);
+      onTabOut(e);
     }
   };
 
@@ -505,7 +500,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
 
   hidePopover() {
     const { isMounted } = this.state;
-    const { hideDelay, onPopoverBlur } = this.props;
+    const { hideDelay, onTabOut } = this.props;
 
     if (!isMounted || this._hideTimeout) {
       return;
@@ -516,7 +511,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       this._showTimeout = null;
     }
 
-    if (onPopoverBlur) {
+    if (onTabOut) {
       this._removeBlurListener();
     }
 
@@ -531,7 +526,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
 
   showPopover() {
     const { isMounted } = this.state;
-    const { showDelay, onPopoverBlur } = this.props;
+    const { showDelay, onTabOut } = this.props;
 
     if (!isMounted || this._showTimeout) {
       return;
@@ -542,7 +537,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       this._hideTimeout = null;
     }
 
-    if (onPopoverBlur) {
+    if (onTabOut) {
       this._setBlurByKeyboardListener();
     }
 
@@ -642,7 +637,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
             id={id}
             {...filterDataProps(this.props)}
           >
-            <Reference innerRef={r => (this.targetRef = r)}>
+            <Reference innerRef={(r) => (this.targetRef = r)}>
               {({ ref }) => (
                 <div
                   ref={ref}

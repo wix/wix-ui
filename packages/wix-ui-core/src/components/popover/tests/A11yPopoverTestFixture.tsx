@@ -14,7 +14,7 @@ export class A11yPopoverTestFixture extends React.PureComponent {
     this.setState({ escPress: true });
   };
 
-  _onPopoverBlur = () => {
+  _onTabOut = () => {
     this.setState({ blurred: true });
   };
 
@@ -54,7 +54,7 @@ export class A11yPopoverTestFixture extends React.PureComponent {
           role={'dialog'}
           tabIndex={-1}
           onEscPress={this._onEscPress}
-          onPopoverBlur={this._onPopoverBlur}
+          onTabOut={this._onTabOut}
           ref={this._setPopoverRef}
         >
           <Popover.Element>
@@ -66,7 +66,7 @@ export class A11yPopoverTestFixture extends React.PureComponent {
           </Popover.Content>
         </Popover>
         <br />
-        <input id={'focus-catcher'} style={{ margin: 60 }} type="text" /> {/* To catch focus */}
+        <input id={'focus-catcher'} style={{ marginTop: 60 }} type="text" />
         <br />
         <div
           id="blurred-hook"

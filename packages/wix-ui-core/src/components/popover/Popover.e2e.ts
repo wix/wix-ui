@@ -16,7 +16,7 @@ describe('Popover', () => {
 
   beforeEach(() => browser.get(storyUrl));
 
-  it('should call onPopoverBlur when tabbing out of the popover', async () => {
+  it('should call onTabOut when tabbing out of the popover', async () => {
     const driver = popoverTestkitFactory({ dataHook: popoverDataHook });
     await waitForVisibilityOf(driver.element(), 'Cannot find Popover');
 
@@ -28,28 +28,13 @@ describe('Popover', () => {
 
     expect(await element(by.id('blurred-hook')).isDisplayed()).toBe(false);
 
-    const popoverContentElement = element(by.css('[role="dialog"]'));
+    const nestedInputElement = element(by.css('[role="dialog"] input'));
 
-    popoverContentElement.sendKeys(Key.TAB);
-
-    expect(await element(by.id('blurred-hook')).isDisplayed()).toBe(true);
-  });
-
-  it('should call onPopoverBlur when clicking outside of popover', async () => {
-    const driver = popoverTestkitFactory({ dataHook: popoverDataHook });
-    await waitForVisibilityOf(driver.element(), 'Cannot find Popover');
+    nestedInputElement.sendKeys(Key.TAB);
 
     await eventually(async () => {
-      expect(await driver.isContentElementExists()).toBe(true);
+      expect(await element(by.id('blurred-hook')).isDisplayed()).toBe(true);
     });
-
-    await element(by.buttonText('Focus Input')).click();
-
-    expect(await element(by.id('blurred-hook')).isDisplayed()).toBe(false);
-
-    await element(by.id('focus-catcher')).click();
-
-    expect(await element(by.id('blurred-hook')).isDisplayed()).toBe(true);
   });
 
   it('should call onEscPress when popover is focused and esc is pressed', async () => {

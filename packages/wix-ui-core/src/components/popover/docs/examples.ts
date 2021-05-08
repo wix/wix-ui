@@ -16,8 +16,8 @@ export const simple = `
              onClick={() => setShown(!shown)} 
              placement="top" 
              showArrow 
-             withFocusableContent
-             onPopoverBlur={onRequestClose}
+             tabIndex={-1}
+             onTabOut={onRequestClose}
              onEscPress={onRequestClose} 
              ref={ref}>
       <Popover.Element>The Element</Popover.Element>

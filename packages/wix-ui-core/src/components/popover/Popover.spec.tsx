@@ -1114,37 +1114,5 @@ function runTests(
         }
       });
     });
-
-    // describe('onPopoverBlur', () => {
-    //   let popoverWrapper;
-    //
-    //   afterEach(() => {
-    //     popoverWrapper.unmount();
-    //   });
-    //
-    //   it('should be triggered when focus is outside of popover', async () => {
-    //     const onPopoverBlur = jest.fn();
-    //     const role = 'someRoleValue';
-    //     popoverWrapper = mount(
-    //       popoverWithProps({
-    //         shown: true,
-    //         tabIndex: -1,
-    //         role,
-    //         onPopoverBlur,
-    //       }),
-    //     );
-    //     const focusableElementForTest = document.createElement('button');
-    //
-    //     document.body.appendChild(focusableElementForTest);
-    //
-    //     popoverWrapper.instance().focus();
-    //
-    //     expect(onPopoverBlur).not.toBeCalled();
-    //
-    //     Simulate.keyPress(document.activeElement, { key: 'Tab' });
-    //
-    //     expect(onPopoverBlur).toBeCalled();
-    //   });
-    // });
   }
 }
