@@ -164,12 +164,6 @@ export const generalIconsMetadata: Array<IconMetadata> = [
     'tags': [],
     'sizes': {'24': 'PlayCircle'},
   }, {
-    'title': 'PlayBold',
-    'category': 'Media',
-    'description': '',
-    'tags': [],
-    'sizes': {'24': 'PlayBold'},
-  }, {
     'title': 'Video',
     'category': 'Media',
     'description': '',
@@ -1735,7 +1729,25 @@ export const generalIconsMetadata: Array<IconMetadata> = [
     'description': '',
     'tags': [],
     'sizes': {'24': 'ITunes'},
-  }, {'title': 'Paypal', 'category': 'Brand', 'description': '', 'tags': [], 'sizes': {'24': 'Paypal'}},
+  }, {
+    'title': 'Paypal',
+    'category': 'Brand',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'Paypal'},
+  }, {
+    'title': 'PlayBold',
+    'category': 'Media',
+    'description': '',
+    'tags': [],
+    'sizes': {'18': 'PlayBoldSmall'}
+  }, {
+    'title': 'StopBold',
+    'category': 'Media',
+    'description': '',
+    'tags': [],
+    'sizes': {'18': 'StopBoldSmall'}
+  },
 ]
 
 export default generalIconsMetadata;
