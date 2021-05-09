@@ -164,12 +164,6 @@ export const generalIconsMetadata: Array<IconMetadata> = [
     'tags': [],
     'sizes': {'24': 'PlayCircle'},
   }, {
-    'title': 'PlayBold',
-    'category': 'Media',
-    'description': '',
-    'tags': [],
-    'sizes': {'24': 'PlayBold'},
-  }, {
     'title': 'Video',
     'category': 'Media',
     'description': '',
