@@ -44,6 +44,10 @@ export interface PopoverProps {
   onClick?: React.MouseEventHandler<HTMLDivElement>;
   /** Provides callback to invoke when clicked outside of the popover */
   onClickOutside?: Function;
+  /** Provides callback to invoke when popover loses focus */
+  onTabOut?: Function;
+  /** Provides callback to invoke when popover loses focus */
+  onEscPress?: Function;
   /**
    * Clicking on elements with this excluded class will will not trigger onClickOutside callback
    */
@@ -126,6 +130,16 @@ export interface PopoverProps {
    * the classname to be passed to the popover's content container
    */
   contentClassName?: string;
+  /**
+   * tabindex for popover content element
+   */
+  tabIndex?: number;
+  /**
+   * can focus on popover content element
+   */
+  ['aria-label']?: string;
+  ['aria-labelledby']?: string;
+  ['aria-describedby']?: string;
 }
 
 export interface PopoverState {
@@ -194,6 +208,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
   portalClasses: string;
   appendToNode: HTMLElement = null;
   clickOutsideRef: any = null;
+  popoverContentRef: React.RefObject<HTMLDivElement>;
   clickOutsideClass: string;
   contentHook: string;
 
@@ -215,6 +230,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     }
 
     this.clickOutsideRef = React.createRef();
+    this.popoverContentRef = React.createRef();
     this.clickOutsideClass = uniqueId('clickOutside');
     this.contentHook = `popover-content-${props['data-hook'] || ''}-${testId}`;
   }
@@ -230,7 +246,22 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     }
   };
 
+  _onKeyDown = e => {
+    const { onEscPress } = this.props;
+
+    if (onEscPress && e.key === 'Escape') {
+      onEscPress(e);
+    }
+  };
+
+  public focus() {
+    if (this.popoverContentRef.current) {
+      this.popoverContentRef.current.focus();
+    }
+  }
+
   getPopperContentStructure(childrenObject) {
+    const { shown } = this.state;
     const {
       moveBy,
       appendTo,
@@ -249,6 +280,11 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       dynamicWidth,
       excludeClass = this.clickOutsideClass,
       contentClassName,
+      onEscPress,
+      tabIndex,
+      ['aria-label']: ariaLabel,
+      ['aria-labelledby']: ariaLabelledby,
+      ['aria-describedby']: ariaDescribedBy,
     } = this.props;
     const shouldAnimate = shouldAnimatePopover(this.props);
 
@@ -307,7 +343,15 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
                       key="popover-content"
                       id={id}
                       role={role}
+                      tabIndex={tabIndex}
+                      ref={this.popoverContentRef}
                       className={showArrow ? classes.popoverContent : ''}
+                      onKeyDown={
+                        shown && onEscPress ? this._onKeyDown : undefined
+                      }
+                      aria-label={ariaLabel}
+                      aria-labelledby={ariaLabelledby}
+                      aria-describedby={ariaDescribedBy}
                     >
                       <PopoverContext.Provider
                         value={{
@@ -398,8 +442,39 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
   }
 
   componentDidMount() {
+    const { shown, onTabOut } = this.props;
     this.initAppendToNode();
+    if (onTabOut && shown) {
+      this._setBlurByKeyboardListener();
+    }
     this.setState({ isMounted: true });
+  }
+
+  /**
+   * Checks to see if the focused element is outside the Popover content
+   */
+  _onDocumentKeyUp = e => {
+    const { onTabOut } = this.props;
+
+    if (
+      typeof document !== 'undefined' &&
+      this.popoverContentRef.current &&
+      !this.popoverContentRef.current.contains(document.activeElement)
+    ) {
+      onTabOut(e);
+    }
+  };
+
+  _setBlurByKeyboardListener() {
+    if (typeof document !== 'undefined') {
+      document.addEventListener('keyup', this._onDocumentKeyUp, true);
+    }
+  }
+
+  _removeBlurListener() {
+    if (typeof document !== 'undefined') {
+      document.removeEventListener('keyup', this._onDocumentKeyUp, true);
+    }
   }
 
   initAppendToNode() {
@@ -428,7 +503,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
 
   hidePopover() {
     const { isMounted } = this.state;
-    const { hideDelay } = this.props;
+    const { hideDelay, onTabOut } = this.props;
 
     if (!isMounted || this._hideTimeout) {
       return;
@@ -437,6 +512,10 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     if (this._showTimeout) {
       clearTimeout(this._showTimeout);
       this._showTimeout = null;
+    }
+
+    if (onTabOut) {
+      this._removeBlurListener();
     }
 
     if (hideDelay) {
@@ -450,7 +529,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
 
   showPopover() {
     const { isMounted } = this.state;
-    const { showDelay } = this.props;
+    const { showDelay, onTabOut } = this.props;
 
     if (!isMounted || this._showTimeout) {
       return;
@@ -459,6 +538,10 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     if (this._hideTimeout) {
       clearTimeout(this._hideTimeout);
       this._hideTimeout = null;
+    }
+
+    if (onTabOut) {
+      this._setBlurByKeyboardListener();
     }
 
     if (showDelay) {

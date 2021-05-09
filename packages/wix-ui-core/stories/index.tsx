@@ -13,6 +13,7 @@ import { FilePickerButtonTestFixture } from '../src/components/file-picker-butto
 import { FocusableHOCTestFixture } from '../src/hocs/Focusable/test/FocusableHOCTestFixture';
 import { InputWithOptionsTestFixture } from '../src/components/input-with-options/InputWithOptionsTestFixture';
 import { NestedPopoverTestFixture } from '../src/components/popover/tests/NestedPopoverTestFixture';
+import { A11yPopoverTestFixture } from '../src/components/popover/tests/A11yPopoverTestFixture';
 import { RadioButtonTestFixture } from '../src/components/radio-button/tests/RadioButtonTestFixture';
 import { CheckboxTestFixture } from '../src/components/checkbox/tests/CheckboxTestFixture';
 import { SignatureInputTestFixture } from '../src/components/signature-input/test/SignatureInputTestFixture';
@@ -82,6 +83,7 @@ Tests.add('RadioButton', () => <RadioButtonTestFixture />);
 Tests.add('Checkbox', () => <CheckboxTestFixture />);
 Tests.add('InputWithOptions', () => <InputWithOptionsTestFixture />);
 Tests.add('Popover - Nested', () => <NestedPopoverTestFixture />);
+Tests.add('Popover - A11Y', () => <A11yPopoverTestFixture />);
 Tests.add(SIGNATURE_INPUT_METADATA.displayName, () => (
   <SignatureInputTestFixture />
 ));

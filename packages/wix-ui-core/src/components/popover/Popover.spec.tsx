@@ -1,10 +1,14 @@
 import * as React from 'react';
+import { mount } from 'enzyme';
 import * as eventually from 'wix-eventually';
 import { queryHook } from 'wix-ui-test-utils/dom';
 import { AppendTo } from './Popover';
 import { createModifiers } from './modifiers';
 
-import { ReactDOMTestContainer } from '../../../test/dom-test-container';
+import {
+  createDOMContainer,
+  ReactDOMTestContainer,
+} from '../../../test/dom-test-container';
 import { Simulate } from 'react-dom/test-utils';
 
 import { Popover, PopoverProps } from './';
@@ -14,6 +18,7 @@ import { classes } from './Popover.st.css';
 
 /** PopoverNext  */
 import { PopoverNext } from '../popover-next/popover-next';
+import { checkboxDriverFactory } from '../checkbox/Checkbox.driver';
 
 function delay(millis: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, millis));
@@ -72,15 +77,21 @@ describe('Popover && PopoverNext', () => {
   });
 
   describe('[sync] PopoverNext', () => {
-    runTests(regularDriver, container, renderPopoverNext, PopoverNext);
+    runTests(regularDriver, container, renderPopoverNext, PopoverNext, true);
   });
 
   describe('[async] PopoverNext', () => {
-    runTests(uniDriver, container, renderPopoverNext, PopoverNext);
+    runTests(uniDriver, container, renderPopoverNext, PopoverNext, true);
   });
 });
 
-function runTests(createDriver, container, popoverWithProps, Component) {
+function runTests(
+  createDriver,
+  container,
+  popoverWithProps,
+  Component,
+  isPopoverNext = false,
+) {
   it('should render', async () => {
     const driver = await createDriver(
       popoverWithProps({
@@ -750,28 +761,28 @@ function runTests(createDriver, container, popoverWithProps, Component) {
         expect(queryPopoverPortal().classList).not.toContain(classes.root);
       });
 
-        it(`should add contentClassName to the popover content if passed`, async () => {
-            const contentClassName = 'some-content-classname';
+      it(`should add contentClassName to the popover content if passed`, async () => {
+        const contentClassName = 'some-content-classname';
 
-            await createDriver(
-                popoverWithProps({
-                    shown: true,
-                    appendTo: portalContainer.node,
-                    contentClassName,
-                }),
-            );
+        await createDriver(
+          popoverWithProps({
+            shown: true,
+            appendTo: portalContainer.node,
+            contentClassName,
+          }),
+        );
 
-            await createDriver(
-                popoverWithProps({
-                    shown: true,
-                    appendTo: portalContainer.node,
-                    contentClassName,
-                }),
-            );
+        await createDriver(
+          popoverWithProps({
+            shown: true,
+            appendTo: portalContainer.node,
+            contentClassName,
+          }),
+        );
 
-            expect(queryPopoverContent()).toBeTruthy();
-            expect(queryPopoverContent().classList).toContain(contentClassName);
-        });
+        expect(queryPopoverContent()).toBeTruthy();
+        expect(queryPopoverContent().classList).toContain(contentClassName);
+      });
     });
   });
 
@@ -1039,4 +1050,67 @@ function runTests(createDriver, container, popoverWithProps, Component) {
       expect(arrowElement.getAttribute('data-test')).toBe('custom-arrow-top');
     });
   });
+
+  // Tests that run on Popover.tsx only
+  if (!isPopoverNext) {
+    describe('tabIndex', () => {
+      const role = 'someRoleValue';
+      const mountComponent = new ReactDOMTestContainer().unmountAfterEachTest();
+
+      it('can focus content element when tabIndex = true', async () => {
+        const popoverWrapper = await mountComponent.renderWithRef(
+          popoverWithProps({
+            shown: true,
+            tabIndex: -1,
+            role,
+          }),
+        );
+        popoverWrapper.focus();
+
+        expect(document.activeElement.getAttribute('role')).toBe(role);
+      });
+
+      it('can\'t focus content element without tabIndex', async () => {
+        const popoverWrapper = await mountComponent.renderWithRef(
+          popoverWithProps({
+            shown: true,
+            role,
+          }),
+        );
+
+        popoverWrapper.focus();
+
+        expect(document.activeElement.getAttribute('role')).not.toBe(role);
+      });
+    });
+
+    describe('contentAriaAttrs', () => {
+      it('should pass aria attrs to content wrapper', async () => {
+        const role = 'someRole';
+        const ariaAttrs = {
+          ['aria-label']: 'someAriaLabel',
+          ['aria-labelledby']: 'someAriaLabelledby',
+          ['aria-describedby']: 'someAriaDescribedby',
+        };
+        const driver = await createDriver(
+          popoverWithProps({
+            shown: true,
+            role,
+            ...ariaAttrs,
+          }),
+        );
+
+        await eventually(async () => {
+          expect(await driver.isContentElementExists()).toBe(true);
+        });
+
+        const contentElement = await driver.getContentElement();
+        const contentWrapper = contentElement.querySelector(`[role="${role}"]`);
+
+        for (const [ariaAttr, ariaAttrValue] of Object.entries(ariaAttrs)) {
+          expect(contentWrapper.getAttribute(ariaAttr)).toBe(ariaAttrValue);
+        }
+      });
+    });
+  }
 }
