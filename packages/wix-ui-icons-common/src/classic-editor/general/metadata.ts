@@ -476,12 +476,6 @@ export const generalIconsMetadata: Array<IconMetadata> = [
     'tags': [],
     'sizes': {'24': 'WarningSignBold'},
   }, {
-    'title': 'WarningCircle',
-    'category': 'Status',
-    'description': '',
-    'tags': [],
-    'sizes': {'24': 'WarningCircle'},
-  }, {
     'title': 'WarningCircleBold',
     'category': 'Status',
     'description': '',
@@ -1249,12 +1243,6 @@ export const generalIconsMetadata: Array<IconMetadata> = [
     'tags': [],
     'sizes': {'24': 'AppMarket'},
   }, {
-    'title': 'AppMarketBold',
-    'category': 'General',
-    'description': '',
-    'tags': [],
-    'sizes': {'24': 'AppMarketBold'},
-  }, {
     'title': 'Chat',
     'category': 'General',
     'description': '',
@@ -1350,12 +1338,6 @@ export const generalIconsMetadata: Array<IconMetadata> = [
     'description': '',
     'tags': [],
     'sizes': {'24': 'CalendarBold'},
-  }, {
-    'title': 'MandatoryCircle',
-    'category': 'General',
-    'description': '',
-    'tags': [],
-    'sizes': {'24': 'MandatoryCircle'},
   }, {
     'title': 'ExternalLink',
     'category': 'General',
