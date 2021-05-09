@@ -5,7 +5,10 @@ import { queryHook } from 'wix-ui-test-utils/dom';
 import { AppendTo } from './Popover';
 import { createModifiers } from './modifiers';
 
-import { ReactDOMTestContainer } from '../../../test/dom-test-container';
+import {
+  createDOMContainer,
+  ReactDOMTestContainer,
+} from '../../../test/dom-test-container';
 import { Simulate } from 'react-dom/test-utils';
 
 import { Popover, PopoverProps } from './';
@@ -15,6 +18,7 @@ import { classes } from './Popover.st.css';
 
 /** PopoverNext  */
 import { PopoverNext } from '../popover-next/popover-next';
+import { checkboxDriverFactory } from '../checkbox/Checkbox.driver';
 
 function delay(millis: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, millis));
@@ -1050,39 +1054,31 @@ function runTests(
   // Tests that run on Popover.tsx only
   if (!isPopoverNext) {
     describe('tabIndex', () => {
-      let popoverWrapper;
-
-      afterEach(() => {
-        popoverWrapper.unmount();
-      });
+      const role = 'someRoleValue';
+      const mountComponent = new ReactDOMTestContainer().unmountAfterEachTest();
 
       it('can focus content element when tabIndex = true', async () => {
-        const role = 'someRoleValue';
-        popoverWrapper = mount(
+        const popoverWrapper = await mountComponent.renderWithRef(
           popoverWithProps({
             shown: true,
             tabIndex: -1,
             role,
           }),
         );
+        popoverWrapper.focus();
 
-        popoverWrapper.instance().focus();
-
-        await eventually(async () => {
-          expect(document.activeElement.getAttribute('role')).toBe(role);
-        });
+        expect(document.activeElement.getAttribute('role')).toBe(role);
       });
 
       it('can\'t focus content element without tabIndex', async () => {
-        const role = 'someRoleValue';
-        popoverWrapper = mount(
+        const popoverWrapper = await mountComponent.renderWithRef(
           popoverWithProps({
             shown: true,
             role,
           }),
         );
 
-        popoverWrapper.instance().focus();
+        popoverWrapper.focus();
 
         expect(document.activeElement.getAttribute('role')).not.toBe(role);
       });
