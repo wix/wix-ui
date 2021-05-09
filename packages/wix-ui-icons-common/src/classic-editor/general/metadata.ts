@@ -486,7 +486,7 @@ export const generalIconsMetadata: Array<IconMetadata> = [
     'category': 'Status',
     'description': '',
     'tags': [],
-    'sizes': {'24': 'WarningeCircleBold', '18': 'WarningCircleBoldSmall',},
+    'sizes': {'24': 'WarningCircleBold', '18': 'WarningCircleBoldSmall',},
   }, {
     'title': 'ConfirmCircleBold',
     'category': 'Status',
@@ -1783,53 +1783,29 @@ export const generalIconsMetadata: Array<IconMetadata> = [
     'tags': [],
     'sizes': {'24': 'HelpBold'}
   }, {
-    'title': 'ChevronUpSmall',
-    'category': 'Arrows',
-    'description': '',
-    'tags': [],
-    'sizes': {'18': 'ChevronUpSmall'}
-  }, {
-    'title': 'ChevronDownSmall',
-    'category': 'Arrows',
-    'description': '',
-    'tags': [],
-    'sizes': {'18': 'ChevronDownSmall'}
-  }, {
-    'title': 'ChevronRightSmall',
-    'category': 'Arrows',
-    'description': '',
-    'tags': [],
-    'sizes': {'18': 'ChevronRightSmall'}
-  }, {
-    'title': 'ChevronLeftSmall',
-    'category': 'Arrows',
-    'description': '',
-    'tags': [],
-    'sizes': {'18': 'ChevronLeftSmall'}
-  }, {
     'title': 'ChevronUp',
     'category': 'Arrows',
     'description': '',
     'tags': [],
-    'sizes': {'24': 'ChevronUp'}
+    'sizes': {'24': 'ChevronUp', '18': 'ChevronUpSmall'}
   }, {
     'title': 'ChevronDown',
     'category': 'Arrows',
     'description': '',
     'tags': [],
-    'sizes': {'24': 'ChevronDown'}
+    'sizes': {'24': 'ChevronDown', '18': 'ChevronDownSmall'}
   }, {
     'title': 'ChevronRight',
     'category': 'Arrows',
     'description': '',
     'tags': [],
-    'sizes': {'24': 'ChevronRight'}
+    'sizes': {'24': 'ChevronRight', '18': 'ChevronRightSmall'}
   }, {
     'title': 'ChevronLeft',
     'category': 'Arrows',
     'description': '',
     'tags': [],
-    'sizes': {'24': 'ChevronLeft'}
+    'sizes': {'24': 'ChevronLeft', '18': 'ChevronLeftSmall'}
   }, {
     'title': 'Add',
     'category': 'Actions',
@@ -2113,11 +2089,11 @@ export const generalIconsMetadata: Array<IconMetadata> = [
     'tags': [],
     'sizes': {'24': 'TextRTLIncrease'}
   }, {
-    'title': 'TextRTLDecreas',
+    'title': 'TextRTLDecrease',
     'category': 'Text Formatting',
     'description': '',
     'tags': [],
-    'sizes': {'24': 'TextRTLDecreas'}
+    'sizes': {'24': 'TextRTLDecrease'}
   }, {
     'title': 'TextLTRDecrease',
     'category': 'Text Formatting',
@@ -2130,18 +2106,6 @@ export const generalIconsMetadata: Array<IconMetadata> = [
     'description': '',
     'tags': [],
     'sizes': {'24': 'TextColor'}
-  }, {
-    'title': '',
-    'category': 'Text Formatting',
-    'description': '',
-    'tags': [],
-    'sizes': {'24': ''}
-  }, {
-    'title': '',
-    'category': 'Text Formatting',
-    'description': '',
-    'tags': [],
-    'sizes': {'24': ''}
   },
 ]
 
