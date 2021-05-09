@@ -235,7 +235,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     this.contentHook = `popover-content-${props['data-hook'] || ''}-${testId}`;
   }
 
-  _handleClickOutside = (event) => {
+  _handleClickOutside = event => {
     const {
       onClickOutside: onClickOutsideCallback,
       shown,
@@ -246,7 +246,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     }
   };
 
-  _onKeyDown = (e) => {
+  _onKeyDown = e => {
     const { onEscPress } = this.props;
 
     if (onEscPress && e.keyCode === 27) {
@@ -450,7 +450,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     this.setState({ isMounted: true });
   }
 
-  _onDocumentKeyUp = (e) => {
+  _onDocumentKeyUp = e => {
     const { onTabOut } = this.props;
 
     if (
@@ -637,7 +637,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
             id={id}
             {...filterDataProps(this.props)}
           >
-            <Reference innerRef={(r) => (this.targetRef = r)}>
+            <Reference innerRef={r => (this.targetRef = r)}>
               {({ ref }) => (
                 <div
                   ref={ref}

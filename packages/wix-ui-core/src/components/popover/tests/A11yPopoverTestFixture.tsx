@@ -18,11 +18,11 @@ export class A11yPopoverTestFixture extends React.PureComponent {
     this.setState({ blurred: true });
   };
 
-  _setPopoverRef = (el) => {
+  _setPopoverRef = el => {
     this._popoverRef = el;
   };
 
-  _setInputRef = (el) => {
+  _setInputRef = el => {
     this._inputRef = el;
   };
 
