@@ -480,25 +480,37 @@ export const generalIconsMetadata: Array<IconMetadata> = [
     'category': 'Status',
     'description': '',
     'tags': [],
-    'sizes': {'24': 'WarningCircleBold', '18': 'WarningCircleBoldSmall',},
+    'sizes': {'24': 'WarningCircleBold', '18': 'WarningCircleBoldSmall'},
   }, {
     'title': 'ConfirmCircleBold',
     'category': 'Status',
     'description': '',
     'tags': [],
-    'sizes': {'24': 'ConfirmCircleBold', '18': 'ConfirmCircleBoldSmall',},
+    'sizes': {'24': 'ConfirmCircleBold',},
   }, {
     'title': 'AlertCircleBold',
     'category': 'Status',
     'description': '',
     'tags': [],
-    'sizes': {'24': 'AlertCircleBold', '18': 'AlertCircleBoldSmall',},
+    'sizes': {'24': 'AlertCircleBold', '18': 'AlertCircleBoldSmall'},
+  }, {
+    'title': 'PremiumBoldSmall',
+    'category': 'Status',
+    'description': '',
+    'tags': [],
+    'sizes': {'18': 'PremiumBoldSmall'},
   }, {
     'title': 'MinusCircle',
     'category': 'Status',
     'description': '',
     'tags': [],
     'sizes': {'24': 'MinusCircle'},
+  }, {
+    'title': 'ConfirmCircle',
+    'category': 'Status',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'ConfirmCircle'},
   }, {
     'title': 'Box',
     'category': 'Components',
@@ -565,6 +577,18 @@ export const generalIconsMetadata: Array<IconMetadata> = [
     'description': '',
     'tags': [],
     'sizes': {'24': 'StripBold'},
+  }, {
+    'title': 'FullWidthStrip',
+    'category': 'Components',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'FullWidthStrip'},
+  }, {
+    'title': 'FullWidthStripBold',
+    'category': 'Components',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'FullWidthStripBold'},
   }, {
     'title': 'Menu',
     'category': 'Components',
@@ -1879,12 +1903,6 @@ export const generalIconsMetadata: Array<IconMetadata> = [
     'tags': [],
     'sizes': {'24': 'Lightbox'}
   }, {
-    'title': 'SocialBar',
-    'category': 'Components',
-    'description': '',
-    'tags': [],
-    'sizes': {'24': 'SocialBar'}
-  }, {
     'title': 'BlockQuote',
     'category': 'Components',
     'description': '',
@@ -1921,11 +1939,11 @@ export const generalIconsMetadata: Array<IconMetadata> = [
     'tags': [],
     'sizes': {'24': 'AnimatedSlide'}
   }, {
-    'title': 'Info',
+    'title': 'InfoSmall',
     'category': 'General',
     'description': '',
     'tags': [],
-    'sizes': {'24': 'Info'}
+    'sizes': {'18': 'InfoSmall'}
   }, {
     'title': 'Adjustments',
     'category': 'General',
@@ -1939,11 +1957,11 @@ export const generalIconsMetadata: Array<IconMetadata> = [
     'tags': [],
     'sizes': {'18': 'SelectedCircleSmall'}
   }, {
-    'title': 'DismissCircleBold',
+    'title': 'DismissBold',
     'category': 'Status',
     'description': '',
     'tags': [],
-    'sizes': {'24': 'DismissCircleBold'}
+    'sizes': {'24': 'DismissBold'}
   }, {
     'title': 'ConfirmBold',
     'category': 'Status',
@@ -2088,6 +2106,12 @@ export const generalIconsMetadata: Array<IconMetadata> = [
     'description': '',
     'tags': [],
     'sizes': {'24': 'TextColor'}
+  }, {
+    'title': 'SiteTools',
+    'category': 'General',
+    'description': '',
+    'tags': [],
+    'sizes': {'24': 'SiteTools'}
   },
 ]
 
