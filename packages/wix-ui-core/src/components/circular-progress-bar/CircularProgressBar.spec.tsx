@@ -68,7 +68,8 @@ describe('CircularProgressBar', () => {
       it('should display success icon when reaching 100% and value passed as STRING', async () => {
         const props = {
           value: '100' as any,
-          showProgressIndication: true /* was in original test. I think it can be removed */,
+          showProgressIndication:
+            true /* was in original test. I think it can be removed */,
         };
 
         const driver = await render(

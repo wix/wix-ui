@@ -153,29 +153,31 @@ class EllipsedTooltip extends React.Component<
   }
 }
 
-export const withEllipsedTooltip = ({
-  showTooltip,
-  shouldLoadAsync,
-  tooltipProps = {},
-}: {
-  showTooltip?: boolean;
-  shouldLoadAsync?: boolean;
-  tooltipProps?: object;
-} = {}) => (Comp) => {
-  const WrapperComponent: React.FunctionComponent<WrapperComponentProps> = (
-    props,
-  ) => (
-    <EllipsedTooltip
-      {...props}
-      component={React.createElement(Comp, props)}
-      shouldLoadAsync={shouldLoadAsync}
-      showTooltip={showTooltip}
-      data-hook="ellipsed-tooltip-wrapper"
-      tooltipProps={tooltipProps}
-    />
-  );
+export const withEllipsedTooltip =
+  ({
+    showTooltip,
+    shouldLoadAsync,
+    tooltipProps = {},
+  }: {
+    showTooltip?: boolean;
+    shouldLoadAsync?: boolean;
+    tooltipProps?: object;
+  } = {}) =>
+  (Comp) => {
+    const WrapperComponent: React.FunctionComponent<WrapperComponentProps> = (
+      props,
+    ) => (
+      <EllipsedTooltip
+        {...props}
+        component={React.createElement(Comp, props)}
+        shouldLoadAsync={shouldLoadAsync}
+        showTooltip={showTooltip}
+        data-hook="ellipsed-tooltip-wrapper"
+        tooltipProps={tooltipProps}
+      />
+    );
 
-  WrapperComponent.displayName = getDisplayName(Comp);
+    WrapperComponent.displayName = getDisplayName(Comp);
 
-  return WrapperComponent;
-};
+    return WrapperComponent;
+  };

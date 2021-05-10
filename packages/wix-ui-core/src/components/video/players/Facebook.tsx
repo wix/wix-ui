@@ -253,14 +253,8 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
   };
 
   render() {
-    const {
-      src,
-      playing,
-      controls,
-      width,
-      height,
-      isResponsiveMode,
-    } = this.props;
+    const { src, playing, controls, width, height, isResponsiveMode } =
+      this.props;
 
     return (
       <div

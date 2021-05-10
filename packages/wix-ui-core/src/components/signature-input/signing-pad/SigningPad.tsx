@@ -238,9 +238,11 @@ class SigningPadComp extends React.Component<SigningPadProps, SigningPadState> {
 
   isA11yInputEmpty = () => !this.state.a11yInputValue;
 
-  invokeIfDefined = <T extends unknown>(fn?: (e: T) => void) => (e: T) => {
-    fn && fn(e);
-  };
+  invokeIfDefined =
+    <T extends unknown>(fn?: (e: T) => void) =>
+    (e: T) => {
+      fn && fn(e);
+    };
 
   render() {
     const {

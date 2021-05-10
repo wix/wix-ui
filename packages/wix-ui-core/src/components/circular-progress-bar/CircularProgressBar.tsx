@@ -101,41 +101,40 @@ const normalizeProps = (props: CircularProgressBarProps) => {
   return { ...props, value };
 };
 
-export const CircularProgressBar: React.FunctionComponent<CircularProgressBarProps> = (
-  props: CircularProgressBarProps,
-) => {
-  const { label, error, showProgressIndication } = props;
-  const _props = normalizeProps(props);
-  const success = _props.value === FULL_PROGRESS;
-  const value =
-    error && _props.errorLabel
-      ? _props.errorLabel
-      : `${Math.floor(_props.value)}%`;
+export const CircularProgressBar: React.FunctionComponent<CircularProgressBarProps> =
+  (props: CircularProgressBarProps) => {
+    const { label, error, showProgressIndication } = props;
+    const _props = normalizeProps(props);
+    const success = _props.value === FULL_PROGRESS;
+    const value =
+      error && _props.errorLabel
+        ? _props.errorLabel
+        : `${Math.floor(_props.value)}%`;
 
-  const shouldShowProgressIndication = showProgressIndication && !label;
-  return (
-    <div
-      className={st(classes.root, { error, success }, _props.className)}
-      data-error={error}
-      {...filterDataProps(props)}
-    >
-      {renderArcs(_props)}
-      {label && (
-        <div data-hook={dataHooks.label} className={classes.label}>
-          {label}
-        </div>
-      )}
-      {shouldShowProgressIndication && (
-        <div
-          data-hook={dataHooks.progressIndicator}
-          className={classes.progressIndicator}
-        >
-          {value}
-        </div>
-      )}
-    </div>
-  );
-};
+    const shouldShowProgressIndication = showProgressIndication && !label;
+    return (
+      <div
+        className={st(classes.root, { error, success }, _props.className)}
+        data-error={error}
+        {...filterDataProps(props)}
+      >
+        {renderArcs(_props)}
+        {label && (
+          <div data-hook={dataHooks.label} className={classes.label}>
+            {label}
+          </div>
+        )}
+        {shouldShowProgressIndication && (
+          <div
+            data-hook={dataHooks.progressIndicator}
+            className={classes.progressIndicator}
+          >
+            {value}
+          </div>
+        )}
+      </div>
+    );
+  };
 
 CircularProgressBar.displayName = 'CircularProgressBar';
 

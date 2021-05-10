@@ -13,13 +13,12 @@ import {
 
 export interface InputWithOptionsDriver extends InputDriver, DropdownDriver {}
 
-export const inputWithOptionsDriverFactory: DriverFactory<InputWithOptionsDriver> = (
-  component,
-) => {
-  const dropdownDriver = dropdownDriverFactory(component);
-  const inputDriver = inputDriverFactory(
-    dropdownDriver.getTargetElement().$('[data-hook=input]'),
-  );
+export const inputWithOptionsDriverFactory: DriverFactory<InputWithOptionsDriver> =
+  (component) => {
+    const dropdownDriver = dropdownDriverFactory(component);
+    const inputDriver = inputDriverFactory(
+      dropdownDriver.getTargetElement().$('[data-hook=input]'),
+    );
 
-  return { ...dropdownDriver, ...inputDriver };
-};
+    return { ...dropdownDriver, ...inputDriver };
+  };

@@ -17,7 +17,8 @@ import {
 } from '../types';
 import { classes } from '../Video.st.css';
 
-const URL_REGEX = /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})/;
+const URL_REGEX =
+  /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})/;
 
 export const verifier: VerifierType = (url) =>
   isString(url) && URL_REGEX.test(url as string);
@@ -143,25 +144,27 @@ class YouTubePlayer extends React.PureComponent<IYouTubeProps> {
     onInit(this.player, YouTubePlayer.playerName);
   };
 
-  onStateChange = (PlayerState: any) => ({ data }): void => {
-    const { PLAYING, PAUSED, ENDED } = PlayerState;
+  onStateChange =
+    (PlayerState: any) =>
+    ({ data }): void => {
+      const { PLAYING, PAUSED, ENDED } = PlayerState;
 
-    switch (data) {
-      case PLAYING:
-        this.eventEmitter.emit(EVENTS.PLAYING);
-        this.progress();
-        break;
-      case PAUSED:
-        this.eventEmitter.emit(EVENTS.PAUSED);
-        this.stopProgress();
-        break;
-      case ENDED:
-        this.eventEmitter.emit(EVENTS.ENDED);
-        this.stopProgress();
-        break;
-      default:
-    }
-  };
+      switch (data) {
+        case PLAYING:
+          this.eventEmitter.emit(EVENTS.PLAYING);
+          this.progress();
+          break;
+        case PAUSED:
+          this.eventEmitter.emit(EVENTS.PAUSED);
+          this.stopProgress();
+          break;
+        case ENDED:
+          this.eventEmitter.emit(EVENTS.ENDED);
+          this.stopProgress();
+          break;
+        default:
+      }
+    };
 
   progress = () => {
     this.stopProgress();

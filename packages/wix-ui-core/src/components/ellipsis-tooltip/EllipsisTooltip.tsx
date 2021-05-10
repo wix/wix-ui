@@ -10,9 +10,7 @@ const debounce = require('lodash/debounce');
 
 interface EllipsisTooltipProps {
   /** a children render prop - usually a text component */
-  children(
-    childrenProps: any,
-  ): {
+  children(childrenProps: any): {
     className?: string;
     style?: object;
     [otherPropName: string]: any;

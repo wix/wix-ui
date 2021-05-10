@@ -1070,7 +1070,7 @@ function runTests(
         expect(document.activeElement.getAttribute('role')).toBe(role);
       });
 
-      it('can\'t focus content element without tabIndex', async () => {
+      it("can't focus content element without tabIndex", async () => {
         const popoverWrapper = await mountComponent.renderWithRef(
           popoverWithProps({
             shown: true,

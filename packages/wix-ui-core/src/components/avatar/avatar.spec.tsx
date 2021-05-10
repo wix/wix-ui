@@ -17,9 +17,8 @@ const PLACEHOLDER_AS_TEXT = <span>XXXXX</span>;
 describe('Avatar', () => {
   const testContainer = new ReactDOMTestContainer().unmountAfterEachTest();
 
-  const createDriver = testContainer.createUniRendererAsync(
-    avatarDriverFactory,
-  );
+  const createDriver =
+    testContainer.createUniRendererAsync(avatarDriverFactory);
 
   const createDriverFromContainer = () => {
     const base = reactUniDriver(testContainer.componentNode);

@@ -37,9 +37,9 @@ export const filePickerButtonUniDriverFactory = (
     isDisabled: async () => (await fileInputUniDriver.attr('disabled')) === '',
     selectFile: async (file: Partial<File>) => {
       if (base.type === 'protractor') {
-        await ((await fileInputUniDriver.getNative()) as ElementFinder).sendKeys(
-          file.name,
-        );
+        await (
+          (await fileInputUniDriver.getNative()) as ElementFinder
+        ).sendKeys(file.name);
       } else if (base.type === 'react') {
         const el: HTMLInputElement = await fileInputUniDriver.getNative();
         Object.defineProperty(el, 'files', {

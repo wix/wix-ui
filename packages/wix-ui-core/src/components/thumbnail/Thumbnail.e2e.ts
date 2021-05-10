@@ -18,9 +18,8 @@ describe('Thumbnail', () => {
     const dataHook = 'storybook-thumbnail';
     const driver = thumbnailTestkitFactory({ dataHook });
 
-    return waitForVisibilityOf(
-      driver.element(),
-      'Cannot find Thumbnail',
-    ).then(() => expect(driver.element().isPresent()).toBe(true));
+    return waitForVisibilityOf(driver.element(), 'Cannot find Thumbnail').then(
+      () => expect(driver.element().isPresent()).toBe(true),
+    );
   });
 });

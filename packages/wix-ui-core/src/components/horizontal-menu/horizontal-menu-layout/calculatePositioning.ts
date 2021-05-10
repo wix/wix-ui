@@ -33,10 +33,8 @@ function calculateColumnExpandStyles({
     y: menuItemY,
   } = menuItemRef.getBoundingClientRect();
 
-  const {
-    width: layoutWidth,
-    height: layoutHeight,
-  } = layoutRef.getBoundingClientRect();
+  const { width: layoutWidth, height: layoutHeight } =
+    layoutRef.getBoundingClientRect();
 
   const topOrBottom =
     menuItemY + menuItemHeight + layoutHeight > window.innerHeight &&
@@ -93,10 +91,8 @@ function calculateMenuExpandStyles({
   rootMenuRef: HTMLUListElement;
   layoutRef: HTMLDivElement;
 }) {
-  const {
-    height: menuItemHeight,
-    y: menuItemY,
-  } = menuItemRef.getBoundingClientRect();
+  const { height: menuItemHeight, y: menuItemY } =
+    menuItemRef.getBoundingClientRect();
 
   const { height: menuHeight, y: menuY } = rootMenuRef.getBoundingClientRect();
 
@@ -139,10 +135,8 @@ function calculateFullWidthExpandStyles({
   rootMenuRef: HTMLUListElement;
   layoutRef: HTMLDivElement;
 }) {
-  const {
-    height: menuItemHeight,
-    y: menuItemY,
-  } = menuItemRef.getBoundingClientRect();
+  const { height: menuItemHeight, y: menuItemY } =
+    menuItemRef.getBoundingClientRect();
 
   const {
     left: menuLeft,

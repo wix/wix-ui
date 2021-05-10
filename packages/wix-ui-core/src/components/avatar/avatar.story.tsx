@@ -34,8 +34,7 @@ export default {
       {
         label: 'image1',
         value: {
-          src:
-            'https://static.wixstatic.com/media/9ab0d1_8f1d1bd00e6c4bcd8764e1cae938f872~mv1.png',
+          src: 'https://static.wixstatic.com/media/9ab0d1_8f1d1bd00e6c4bcd8764e1cae938f872~mv1.png',
         },
       },
       {

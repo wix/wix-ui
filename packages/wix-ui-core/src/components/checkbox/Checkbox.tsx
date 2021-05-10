@@ -130,25 +130,24 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
     this.props.onChange({ checked: !this.props.checked, ...e });
   };
 
-  private readonly handleInputKeyDown: React.KeyboardEventHandler<HTMLInputElement> = () => {
-    this.setState({ focusVisible: true });
-  };
+  private readonly handleInputKeyDown: React.KeyboardEventHandler<HTMLInputElement> =
+    () => {
+      this.setState({ focusVisible: true });
+    };
 
-  private readonly handleInputBlur: React.FocusEventHandler<HTMLInputElement> = (
-    event: React.FocusEvent<HTMLInputElement>,
-  ) => {
-    this.state.isFocused &&
-      this.setState({ isFocused: false, focusVisible: false });
-    this.focusedByMouse = false;
-    this.props.onBlur && this.props.onBlur(event);
-  };
+  private readonly handleInputBlur: React.FocusEventHandler<HTMLInputElement> =
+    (event: React.FocusEvent<HTMLInputElement>) => {
+      this.state.isFocused &&
+        this.setState({ isFocused: false, focusVisible: false });
+      this.focusedByMouse = false;
+      this.props.onBlur && this.props.onBlur(event);
+    };
 
-  private readonly handleInputFocus: React.FocusEventHandler<HTMLInputElement> = (
-    event: React.FocusEvent<HTMLInputElement>,
-  ) => {
-    !this.focusedByMouse &&
-      this.props.onFocusByKeyboard &&
-      this.props.onFocusByKeyboard(event);
-    this.setState({ isFocused: true, focusVisible: !this.focusedByMouse });
-  };
+  private readonly handleInputFocus: React.FocusEventHandler<HTMLInputElement> =
+    (event: React.FocusEvent<HTMLInputElement>) => {
+      !this.focusedByMouse &&
+        this.props.onFocusByKeyboard &&
+        this.props.onFocusByKeyboard(event);
+      this.setState({ isFocused: true, focusVisible: !this.focusedByMouse });
+    };
 }

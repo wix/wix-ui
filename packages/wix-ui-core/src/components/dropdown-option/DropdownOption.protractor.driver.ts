@@ -8,12 +8,11 @@ export interface DropdownOptionDriver extends BaseDriver {
   getText(): Promise<string>;
 }
 
-export const dropdownOptionDriverFactory: DriverFactory<DropdownOptionDriver> = (
-  component,
-) => {
-  return {
-    element: () => component,
-    click: async () => component.click(),
-    getText: async () => component.getText(),
+export const dropdownOptionDriverFactory: DriverFactory<DropdownOptionDriver> =
+  (component) => {
+    return {
+      element: () => component,
+      click: async () => component.click(),
+      getText: async () => component.getText(),
+    };
   };
-};

@@ -173,8 +173,7 @@ export default {
           columns([
             description({
               title: 'Description',
-              text:
-                'HorizontalMenu component describes page/site navigation. It helps to organize items and submenus of navigation quick and simple.',
+              text: 'HorizontalMenu component describes page/site navigation. It helps to organize items and submenus of navigation quick and simple.',
             }),
           ]),
 

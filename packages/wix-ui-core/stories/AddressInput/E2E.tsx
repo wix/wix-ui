@@ -13,7 +13,8 @@ export const DataHooks = {
   latLng: 'lat-lng',
 };
 
-const Client: MapsClientConstructor = GoogleMapsClientStub as MapsClientConstructor;
+const Client: MapsClientConstructor =
+  GoogleMapsClientStub as MapsClientConstructor;
 
 export class AddressInputE2E extends React.Component<any, any> {
   constructor(props) {

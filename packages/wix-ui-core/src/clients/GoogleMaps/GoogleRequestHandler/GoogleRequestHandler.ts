@@ -140,7 +140,8 @@ export const googleRequestHandler = (eventEmitter, handlersName) => {
   const initRequestHandler = (googleInstance) => {
     context.googleInstance = googleInstance;
 
-    context._autocomplete = new googleInstance.maps.places.AutocompleteService();
+    context._autocomplete =
+      new googleInstance.maps.places.AutocompleteService();
     context._geocoder = new googleInstance.maps.Geocoder();
 
     const map = new googleInstance.maps.Map(document.createElement('div'));

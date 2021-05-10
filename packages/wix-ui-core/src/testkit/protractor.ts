@@ -7,18 +7,16 @@ import {
   avatarDriverFactory,
   AvatarDriver,
 } from '../components/avatar/avatar.uni.driver';
-export const avatarTestkitFactory = protractorUniTestkitFactoryCreator(
-  avatarDriverFactory,
-);
+export const avatarTestkitFactory =
+  protractorUniTestkitFactoryCreator(avatarDriverFactory);
 export { AvatarDriver };
 
 import {
   buttonDriverFactory,
   ButtonDriver,
 } from '../components/deprecated/button/Button.protractor.driver';
-export const buttonTestkitFactory = protractorTestkitFactoryCreator(
-  buttonDriverFactory,
-);
+export const buttonTestkitFactory =
+  protractorTestkitFactoryCreator(buttonDriverFactory);
 export { ButtonDriver };
 
 import {
@@ -35,18 +33,16 @@ import {
   popoverDriverFactory,
   PopoverDriver,
 } from '../components/popover/Popover.protractor.driver';
-export const popoverTestkitFactory = protractorTestkitFactoryCreator(
-  popoverDriverFactory,
-);
+export const popoverTestkitFactory =
+  protractorTestkitFactoryCreator(popoverDriverFactory);
 export { PopoverDriver };
 
 import {
   inputDriverFactory,
   InputDriver,
 } from '../components/input/Input.protractor.driver';
-export const inputTestkitFactory = protractorTestkitFactoryCreator(
-  inputDriverFactory,
-);
+export const inputTestkitFactory =
+  protractorTestkitFactoryCreator(inputDriverFactory);
 export { InputDriver };
 
 import {
@@ -71,27 +67,24 @@ import {
   tooltipDriverFactory,
   TooltipDriver,
 } from '../components/tooltip/Tooltip.protractor.driver';
-export const tooltipTestkitFactory = protractorTestkitFactoryCreator(
-  tooltipDriverFactory,
-);
+export const tooltipTestkitFactory =
+  protractorTestkitFactoryCreator(tooltipDriverFactory);
 export { TooltipDriver };
 
 import {
   dividerDriverFactory,
   DividerDriver,
 } from '../components/deprecated/divider/Divider.protractor.driver';
-export const dividerTestkitFactory = protractorTestkitFactoryCreator(
-  dividerDriverFactory,
-);
+export const dividerTestkitFactory =
+  protractorTestkitFactoryCreator(dividerDriverFactory);
 export { DividerDriver };
 
 import {
   googleMapsIframeClientDriverFactory,
   GoogleMapsIframeClientDriver,
 } from '../clients/GoogleMaps/GoogleMapsIframeClient.protractor.driver';
-export const googleMapsIframeClientTestkitFactory = protractorTestkitFactoryCreator(
-  googleMapsIframeClientDriverFactory,
-);
+export const googleMapsIframeClientTestkitFactory =
+  protractorTestkitFactoryCreator(googleMapsIframeClientDriverFactory);
 export { GoogleMapsIframeClientDriver };
 
 import {
@@ -116,9 +109,8 @@ import {
   circularProgressBarDriverFactory,
   CircularProgressBarDriver,
 } from '../components/circular-progress-bar/CircularProgressBar.protractor.driver';
-export const circularProgressBarTestkitFactory = protractorTestkitFactoryCreator(
-  circularProgressBarDriverFactory,
-);
+export const circularProgressBarTestkitFactory =
+  protractorTestkitFactoryCreator(circularProgressBarDriverFactory);
 export { CircularProgressBarDriver };
 
 //Stylable
@@ -153,9 +145,8 @@ import {
   sliderDriverFactory,
   SliderDriver,
 } from '../components/slider/Slider.protractor.driver';
-export const sliderTestkitFactory = protractorTestkitFactoryCreator(
-  sliderDriverFactory,
-);
+export const sliderTestkitFactory =
+  protractorTestkitFactoryCreator(sliderDriverFactory);
 export { SliderDriver };
 
 import {
@@ -171,9 +162,8 @@ import {
   labelDriverFactory,
   LabelDriver,
 } from '../components/deprecated/label/Label.protractor.driver';
-export const labelTestkitFactory = protractorTestkitFactoryCreator(
-  labelDriverFactory,
-);
+export const labelTestkitFactory =
+  protractorTestkitFactoryCreator(labelDriverFactory);
 export { LabelDriver };
 
 import {
@@ -207,9 +197,8 @@ import {
   thumbnailDriverFactory,
   ThumbnailDriver,
 } from '../components/thumbnail/Thumbnail.protractor.driver';
-export const thumbnailTestkitFactory = protractorTestkitFactoryCreator<ThumbnailDriver>(
-  thumbnailDriverFactory,
-);
+export const thumbnailTestkitFactory =
+  protractorTestkitFactoryCreator<ThumbnailDriver>(thumbnailDriverFactory);
 export { ThumbnailDriver };
 
 import {
@@ -225,18 +214,16 @@ import {
   captchaDriverFactory,
   CaptchaDriver,
 } from '../components/captcha/Captcha.uni.driver';
-export const captchaTestkitFactory = protractorUniTestkitFactoryCreator<CaptchaDriver>(
-  captchaDriverFactory,
-);
+export const captchaTestkitFactory =
+  protractorUniTestkitFactoryCreator<CaptchaDriver>(captchaDriverFactory);
 export { CaptchaDriver };
 
 import {
   filePickerButtonUniDriverFactory,
   FilePickerButtonUniDriver,
 } from '../components/file-picker-button/test/FilePickerButton.uni.driver';
-export const filePickerButtonTestkitFactory = protractorUniTestkitFactoryCreator(
-  filePickerButtonUniDriverFactory,
-);
+export const filePickerButtonTestkitFactory =
+  protractorUniTestkitFactoryCreator(filePickerButtonUniDriverFactory);
 export { FilePickerButtonUniDriver };
 
 import {

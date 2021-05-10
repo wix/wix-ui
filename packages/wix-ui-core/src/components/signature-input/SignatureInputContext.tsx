@@ -36,7 +36,7 @@ export const withSignatureInputContext = <P extends WithSignaturePadProps>(
     <SignatureInputContext.Consumer>
       {(contextProps) => {
         return (
-          <WrappedComponent {...contextProps} {...((props as unknown) as P)} />
+          <WrappedComponent {...contextProps} {...(props as unknown as P)} />
         );
       }}
     </SignatureInputContext.Consumer>

@@ -44,54 +44,55 @@ export interface LinearProgressBarDriver extends BaseDriver {
   getAriaValueText(): string;
 }
 
-export const linearProgressBarDriverFactory: DriverFactory<LinearProgressBarDriver> = ({
-  element,
-}: ComponentFactory) => {
-  const stylableDOMUtil = new StylableDOMUtil(style);
+export const linearProgressBarDriverFactory: DriverFactory<LinearProgressBarDriver> =
+  ({ element }: ComponentFactory) => {
+    const stylableDOMUtil = new StylableDOMUtil(style);
 
-  const getElement = (dataHook) =>
-    element.querySelector(`[data-hook="${dataHook}"]`);
-  const getValue = () =>
-    !element
-      ? null
-      : getElement(ProgressBarDataHooks.progressPercentage).querySelector(
-          'span',
-        ).innerHTML;
-  const getDataAttribute = (key: string, parsingFunction?: Function) => {
-    if (!element || !element.getAttribute(key)) {
-      return null;
-    }
-    const value = element.getAttribute(key);
-    return !!parsingFunction && parsingFunction instanceof Function
-      ? parsingFunction(value)
-      : value;
-  };
-  const driver = {
-    exists: () => !!element,
-    getWidth: () => {
-      const el = getElement(ProgressBarDataHooks.foreground) as HTMLElement;
-      return el ? el.style.width : '0';
-    },
-    isSuccessIconDisplayed: () =>
-      !!getElement(ProgressBarDataHooks.successIcon),
-    isErrorIconDisplayed: () => !!getElement(ProgressBarDataHooks.errorIcon),
-    isPercentagesProgressDisplayed: () =>
-      !!getElement(ProgressBarDataHooks.progressPercentage),
-    getValue: () => getValue(),
-    isCompleted: () => getValue() >= getDataAttribute(ProgressBarDataKeys.max),
-    hasError: () => stylableDOMUtil.hasStyleState(element, 'error'),
-    getNumericValue: () => getDataAttribute(ProgressBarDataKeys.value, Number),
-    getMinValue: () => getDataAttribute(ProgressBarDataKeys.min, Number),
-    getMaxValue: () => getDataAttribute(ProgressBarDataKeys.max, Number),
-    getAriaValueNow: () =>
-      getDataAttribute(ProgressBarAriaKeys.valuenow, Number),
-    getAriaValueMax: () =>
-      getDataAttribute(ProgressBarAriaKeys.valuemax, Number),
-    getAriaValueMin: () =>
-      getDataAttribute(ProgressBarAriaKeys.valuemin, Number),
-    getRoleAttribute: () => getDataAttribute('role'),
-    getAriaValueText: () => getDataAttribute(ProgressBarAriaKeys.valuetext),
-  };
+    const getElement = (dataHook) =>
+      element.querySelector(`[data-hook="${dataHook}"]`);
+    const getValue = () =>
+      !element
+        ? null
+        : getElement(ProgressBarDataHooks.progressPercentage).querySelector(
+            'span',
+          ).innerHTML;
+    const getDataAttribute = (key: string, parsingFunction?: Function) => {
+      if (!element || !element.getAttribute(key)) {
+        return null;
+      }
+      const value = element.getAttribute(key);
+      return !!parsingFunction && parsingFunction instanceof Function
+        ? parsingFunction(value)
+        : value;
+    };
+    const driver = {
+      exists: () => !!element,
+      getWidth: () => {
+        const el = getElement(ProgressBarDataHooks.foreground) as HTMLElement;
+        return el ? el.style.width : '0';
+      },
+      isSuccessIconDisplayed: () =>
+        !!getElement(ProgressBarDataHooks.successIcon),
+      isErrorIconDisplayed: () => !!getElement(ProgressBarDataHooks.errorIcon),
+      isPercentagesProgressDisplayed: () =>
+        !!getElement(ProgressBarDataHooks.progressPercentage),
+      getValue: () => getValue(),
+      isCompleted: () =>
+        getValue() >= getDataAttribute(ProgressBarDataKeys.max),
+      hasError: () => stylableDOMUtil.hasStyleState(element, 'error'),
+      getNumericValue: () =>
+        getDataAttribute(ProgressBarDataKeys.value, Number),
+      getMinValue: () => getDataAttribute(ProgressBarDataKeys.min, Number),
+      getMaxValue: () => getDataAttribute(ProgressBarDataKeys.max, Number),
+      getAriaValueNow: () =>
+        getDataAttribute(ProgressBarAriaKeys.valuenow, Number),
+      getAriaValueMax: () =>
+        getDataAttribute(ProgressBarAriaKeys.valuemax, Number),
+      getAriaValueMin: () =>
+        getDataAttribute(ProgressBarAriaKeys.valuemin, Number),
+      getRoleAttribute: () => getDataAttribute('role'),
+      getAriaValueText: () => getDataAttribute(ProgressBarAriaKeys.valuetext),
+    };
 
-  return driver;
-};
+    return driver;
+  };

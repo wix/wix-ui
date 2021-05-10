@@ -2,9 +2,8 @@ import { LinearProgressBar } from './LinearProgressBar';
 import Registry from '@ui-autotools/registry';
 import { st } from '../../../stories/LinearProgressBar/style.st.css';
 
-const linearProgressBarMetadata = Registry.getComponentMetadata(
-  LinearProgressBar,
-);
+const linearProgressBarMetadata =
+  Registry.getComponentMetadata(LinearProgressBar);
 
 linearProgressBarMetadata.exportInfo = {
   path: 'src/components/linear-progress-bar/LinearProgressBar',

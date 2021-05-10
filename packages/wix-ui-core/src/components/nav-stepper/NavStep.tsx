@@ -11,14 +11,8 @@ export type NavStepProps = StepProps & ExternalNavStepProps;
 
 export class NavStep extends React.PureComponent<NavStepProps> {
   render() {
-    const {
-      active,
-      disabled,
-      visited,
-      children,
-      className,
-      ...rest
-    } = this.props;
+    const { active, disabled, visited, children, className, ...rest } =
+      this.props;
     const ariaProps: any = {};
     active && (ariaProps['aria-current'] = 'page');
 

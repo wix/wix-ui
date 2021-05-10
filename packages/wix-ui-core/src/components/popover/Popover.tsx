@@ -246,7 +246,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     }
   };
 
-  _onKeyDown = e => {
+  _onKeyDown = (e) => {
     const { onEscPress } = this.props;
 
     if (onEscPress && e.key === 'Escape') {
@@ -453,7 +453,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
   /**
    * Checks to see if the focused element is outside the Popover content
    */
-  _onDocumentKeyUp = e => {
+  _onDocumentKeyUp = (e) => {
     const { onTabOut } = this.props;
 
     if (

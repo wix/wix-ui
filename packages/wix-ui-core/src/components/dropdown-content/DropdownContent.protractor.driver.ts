@@ -12,17 +12,16 @@ export interface DropdownContentDriver extends BaseDriver {
   optionAt(index: number): DropdownOptionDriver;
 }
 
-export const dropdownContentDriverFactory: DriverFactory<DropdownContentDriver> = (
-  component,
-) => {
-  const getOptions = () => component.$$('[data-hook="option"]');
+export const dropdownContentDriverFactory: DriverFactory<DropdownContentDriver> =
+  (component) => {
+    const getOptions = () => component.$$('[data-hook="option"]');
 
-  return {
-    element: () => component,
-    getOptionsCount: async () => getOptions().count(),
-    optionAt: (index: number) => {
-      const option = getOptions().get(index);
-      return dropdownOptionDriverFactory(option);
-    },
+    return {
+      element: () => component,
+      getOptionsCount: async () => getOptions().count(),
+      optionAt: (index: number) => {
+        const option = getOptions().get(index);
+        return dropdownOptionDriverFactory(option);
+      },
+    };
   };
-};

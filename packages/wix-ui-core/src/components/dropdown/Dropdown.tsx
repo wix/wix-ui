@@ -123,11 +123,8 @@ export class DropdownComponent extends React.PureComponent<
   };
 
   initializeSelectedOptions() {
-    const {
-      initialSelectedIds,
-      options,
-      onInitialSelectedOptionsSet,
-    } = this.props;
+    const { initialSelectedIds, options, onInitialSelectedOptionsSet } =
+      this.props;
 
     const selectedOptions = (initialSelectedIds || [])
       .map((id) => options.find((option) => id === option.id))

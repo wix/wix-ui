@@ -23,14 +23,8 @@ export interface MenuItemProps {
 }
 
 export const MenuItem: React.FunctionComponent<MenuItemProps> = (props) => {
-  const {
-    selected,
-    highlighted,
-    disabled,
-    onSelect,
-    className,
-    ...rest
-  } = props;
+  const { selected, highlighted, disabled, onSelect, className, ...rest } =
+    props;
 
   return (
     <div

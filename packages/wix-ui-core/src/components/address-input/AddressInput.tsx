@@ -244,14 +244,8 @@ export class AddressInput extends React.PureComponent<
   }
 
   componentDidMount() {
-    const {
-      clientId,
-      Client,
-      instance,
-      lang,
-      externalBaseUrl,
-      locale,
-    } = this.props;
+    const { clientId, Client, instance, lang, externalBaseUrl, locale } =
+      this.props;
     this.client = new Client({ lang, locale, instance, externalBaseUrl });
     if (this.client.name === 'google' && clientId) {
       this.client.useClientId();

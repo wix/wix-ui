@@ -17,7 +17,8 @@ function withStylableStateful<CoreProps, ExtendedProps = {}>(
 ): React.ComponentClass<CoreProps & ExtendedProps> {
   return class StylableComponent
     extends Component
-    implements React.PureComponent<CoreProps & ExtendedProps> {
+    implements React.PureComponent<CoreProps & ExtendedProps>
+  {
     static defaultProps = Object.assign(
       {},
       Component.defaultProps,

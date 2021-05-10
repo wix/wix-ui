@@ -2,9 +2,8 @@ import * as React from 'react';
 import Registry from '@ui-autotools/registry';
 import { FilePickerButton } from '../FilePickerButton';
 
-const filePickerButtonMetadata = Registry.getComponentMetadata(
-  FilePickerButton,
-);
+const filePickerButtonMetadata =
+  Registry.getComponentMetadata(FilePickerButton);
 filePickerButtonMetadata.addSim({
   title: 'FilePickerButton simulation',
   props: {

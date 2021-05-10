@@ -103,8 +103,7 @@ export default {
         sections: [
           description({
             title: 'Description',
-            text:
-              'A canvas based signature input, it also provides reset button and title',
+            text: 'A canvas based signature input, it also provides reset button and title',
           }),
           importExample(
             "import {SignatureInput} from 'wix-ui-core/signature-input';",
