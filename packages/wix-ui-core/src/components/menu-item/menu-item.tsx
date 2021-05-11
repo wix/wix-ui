@@ -22,15 +22,9 @@ export interface MenuItemProps {
   disabled?: boolean;
 }
 
-export const MenuItem: React.FunctionComponent<MenuItemProps> = props => {
-  const {
-    selected,
-    highlighted,
-    disabled,
-    onSelect,
-    className,
-    ...rest
-  } = props;
+export const MenuItem: React.FunctionComponent<MenuItemProps> = (props) => {
+  const { selected, highlighted, disabled, onSelect, className, ...rest } =
+    props;
 
   return (
     <div

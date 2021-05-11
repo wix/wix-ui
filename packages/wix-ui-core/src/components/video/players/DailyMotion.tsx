@@ -17,21 +17,22 @@ import {
 } from '../types';
 import { classes } from '../Video.st.css';
 
-const URL_REGEX = /^(?:(?:https?):)?(?:\/\/)?(?:www\.)?(?:(?:dailymotion\.com(?:\/embed)?\/video)|dai\.ly)\/([a-zA-Z0-9]+)(?:_[\w_-]+)?$/;
+const URL_REGEX =
+  /^(?:(?:https?):)?(?:\/\/)?(?:www\.)?(?:(?:dailymotion\.com(?:\/embed)?\/video)|dai\.ly)\/([a-zA-Z0-9]+)(?:_[\w_-]+)?$/;
 
-export const verifier: VerifierType = url =>
+export const verifier: VerifierType = (url) =>
   isString(url) && URL_REGEX.test(url as string);
 
 const SDKConfig: ISDKConfig = {
   name: 'DM',
   url: 'https://api.dmcdn.net/all.js',
   onReady: 'dmAsyncInit',
-  isLoaded: DM => !!DM.player,
+  isLoaded: (DM) => !!DM.player,
   isRequireAllow: false,
 };
 
 const mapPropsToPlayer: IPropsToPlayer = {
-  src: instance => instance.reload(),
+  src: (instance) => instance.reload(),
   playing: (instance, player, nextPlaying) => {
     if (nextPlaying) {
       player.play();
@@ -47,7 +48,7 @@ const mapPropsToPlayer: IPropsToPlayer = {
 const mapMethodsToPlayer: IMethodsToPlayer = {
   play: 'play',
   pause: 'pause',
-  stop: instance => instance.reload(),
+  stop: (instance) => instance.reload(),
   getDuration: (instance, player) => player.duration || 0,
   getCurrentTime: (instance, player) => player.currentTime || 0,
   seekTo: 'setCurrentTime',
@@ -79,7 +80,7 @@ class DailyMotionPlayer extends React.PureComponent<IDailyMotionProps> {
   componentDidMount() {
     getSDK(SDKConfig)
       .then(this.initPlayer)
-      .catch(error => {
+      .catch((error) => {
         this.props.onError(error);
       });
   }
@@ -89,7 +90,7 @@ class DailyMotionPlayer extends React.PureComponent<IDailyMotionProps> {
     this.stopProgress();
   }
 
-  initPlayer = DM => {
+  initPlayer = (DM) => {
     const {
       playing,
       muted,
@@ -135,7 +136,7 @@ class DailyMotionPlayer extends React.PureComponent<IDailyMotionProps> {
           this.eventEmitter.emit(EVENTS.ENDED);
           this.stopProgress();
         },
-        error: event => onError(event),
+        error: (event) => onError(event),
       },
     });
 

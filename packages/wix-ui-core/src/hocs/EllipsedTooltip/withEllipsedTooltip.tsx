@@ -40,9 +40,7 @@ interface StateFullComponentWrapProps {
   [propName: string]: any;
 }
 
-class StateFullComponentWrap extends React.Component<
-  StateFullComponentWrapProps
-> {
+class StateFullComponentWrap extends React.Component<StateFullComponentWrapProps> {
   render() {
     const { children, ...props } = this.props;
     return React.cloneElement(children, props);
@@ -102,7 +100,7 @@ class EllipsedTooltip extends React.Component<
           whiteSpace: 'nowrap',
         }}
         data-hook={component.props['data-hook']}
-        ref={n => (this.textNode = ReactDOM.findDOMNode(n) as HTMLElement)}
+        ref={(n) => (this.textNode = ReactDOM.findDOMNode(n) as HTMLElement)}
       >
         {component}
       </StateFullComponentWrap>
@@ -155,27 +153,31 @@ class EllipsedTooltip extends React.Component<
   }
 }
 
-export const withEllipsedTooltip = ({
-  showTooltip,
-  shouldLoadAsync,
-  tooltipProps = {},
-}: {
-  showTooltip?: boolean;
-  shouldLoadAsync?: boolean;
-  tooltipProps?: object;
-} = {}) => Comp => {
-  const WrapperComponent: React.FunctionComponent<WrapperComponentProps> = props => (
-    <EllipsedTooltip
-      {...props}
-      component={React.createElement(Comp, props)}
-      shouldLoadAsync={shouldLoadAsync}
-      showTooltip={showTooltip}
-      data-hook="ellipsed-tooltip-wrapper"
-      tooltipProps={tooltipProps}
-    />
-  );
+export const withEllipsedTooltip =
+  ({
+    showTooltip,
+    shouldLoadAsync,
+    tooltipProps = {},
+  }: {
+    showTooltip?: boolean;
+    shouldLoadAsync?: boolean;
+    tooltipProps?: object;
+  } = {}) =>
+  (Comp) => {
+    const WrapperComponent: React.FunctionComponent<WrapperComponentProps> = (
+      props,
+    ) => (
+      <EllipsedTooltip
+        {...props}
+        component={React.createElement(Comp, props)}
+        shouldLoadAsync={shouldLoadAsync}
+        showTooltip={showTooltip}
+        data-hook="ellipsed-tooltip-wrapper"
+        tooltipProps={tooltipProps}
+      />
+    );
 
-  WrapperComponent.displayName = getDisplayName(Comp);
+    WrapperComponent.displayName = getDisplayName(Comp);
 
-  return WrapperComponent;
-};
+    return WrapperComponent;
+  };

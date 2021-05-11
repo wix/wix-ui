@@ -37,8 +37,9 @@ export class Ticks extends React.PureComponent<TicksProps> {
   renderTick(i, min, max, vertical, thumbSize) {
     const { tickMarksShape, className } = this.props;
     const pct = (i - min) / (max - min);
-    const val = `calc(${pct} * calc(100% - ${thumbSize}px) + ${thumbSize /
-      2}px)`;
+    const val = `calc(${pct} * calc(100% - ${thumbSize}px) + ${
+      thumbSize / 2
+    }px)`;
 
     return (
       <div

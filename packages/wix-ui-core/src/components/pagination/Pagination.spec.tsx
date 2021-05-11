@@ -20,7 +20,7 @@ function spaceForPages(n) {
 
 describe('Pagination', () => {
   const container = new ReactDOMTestContainer().unmountAfterEachTest();
-  const render = jsx =>
+  const render = (jsx) =>
     container
       .render(jsx)
       /* tslint:disable-next-line:no-non-null-assertion */
@@ -352,7 +352,7 @@ describe('Pagination', () => {
 
     it('shows first and last buttons when showFirstLastNavButtons is on', async () => {
       const p = await render(
-        <Pagination totalPages={3} showFirstLastNavButtons />
+        <Pagination totalPages={3} showFirstLastNavButtons />,
       );
 
       expect(p.firstButton).toBeTruthy();
@@ -367,7 +367,7 @@ describe('Pagination', () => {
           currentPage={3}
           showFirstLastNavButtons
           onChange={onChange}
-        />
+        />,
       );
 
       Simulate.click(p.previousButton);
@@ -383,7 +383,7 @@ describe('Pagination', () => {
     it('disables first and previous buttons when on the first page', async () => {
       const onChange = jest.fn();
       const p = await render(
-        <Pagination totalPages={5} currentPage={1} showFirstLastNavButtons />
+        <Pagination totalPages={5} currentPage={1} showFirstLastNavButtons />,
       );
 
       Simulate.click(p.previousButton);
@@ -395,7 +395,7 @@ describe('Pagination', () => {
     it('disables next and last buttons when on the last page', async () => {
       const onChange = jest.fn();
       const p = await render(
-        <Pagination totalPages={5} currentPage={5} showFirstLastNavButtons />
+        <Pagination totalPages={5} currentPage={5} showFirstLastNavButtons />,
       );
 
       Simulate.click(p.nextButton);
@@ -413,7 +413,7 @@ describe('Pagination', () => {
           previousLabel="previous-label"
           nextLabel="next-label"
           lastLabel="last-label"
-        />
+        />,
       );
       expect(p.firstButton.textContent).toEqual('first-label');
       expect(p.previousButton.textContent).toEqual('previous-label');
@@ -427,7 +427,7 @@ describe('Pagination', () => {
           totalPages={5}
           showNextLabel={false}
           showPreviousLabel={false}
-        />
+        />,
       );
       expect(p.nextButton.textContent).toBe('');
       expect(p.previousButton.textContent).toBe('');
@@ -655,7 +655,7 @@ describe('Pagination', () => {
       <Pagination
         totalPages={3}
         currentPage={1}
-        pageUrl={n => `https://example.com/${n}/`}
+        pageUrl={(n) => `https://example.com/${n}/`}
         showFirstLastNavButtons
       />,
     );

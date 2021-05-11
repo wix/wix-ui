@@ -68,7 +68,8 @@ describe('CircularProgressBar', () => {
       it('should display success icon when reaching 100% and value passed as STRING', async () => {
         const props = {
           value: '100' as any,
-          showProgressIndication: true /* was in original test. I think it can be removed */,
+          showProgressIndication:
+            true /* was in original test. I think it can be removed */,
         };
 
         const driver = await render(
@@ -243,7 +244,7 @@ describe('CircularProgressBar', () => {
       it('should display label when received', async () => {
         const props = {
           label: 'custom label',
-        }
+        };
         const driver = await render(createCircularProgressBar(props));
         expect(await driver.isLabelDisplayed()).toBe(true);
       });
@@ -252,7 +253,7 @@ describe('CircularProgressBar', () => {
         const label = 'custom label';
         const props = {
           label,
-        }
+        };
         const driver = await render(createCircularProgressBar(props));
         expect(await driver.getLabelTextContent()).toEqual(label);
       });
@@ -262,11 +263,11 @@ describe('CircularProgressBar', () => {
           showProgressIndication: true,
           value: 40,
           label: 'custom label',
-        }
+        };
         const driver = await render(createCircularProgressBar(props));
         expect(await driver.isPercentagesProgressDisplayed()).toBe(false);
       });
-    })
+    });
   }
 
   runTestkitExistsSuite({

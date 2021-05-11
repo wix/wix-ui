@@ -9,7 +9,7 @@ export const inputDriverFactory = ({ element, eventTrigger }) => {
     /** checks if element exists */
     exists: () => !!element,
 
-    hasStyleState: stateName => styleUtil.hasStyleState(element, stateName),
+    hasStyleState: (stateName) => styleUtil.hasStyleState(element, stateName),
 
     /** get input element */
     getInput: () => input,
@@ -38,7 +38,7 @@ export const inputDriverFactory = ({ element, eventTrigger }) => {
     isReadOnly: () => input.readOnly,
 
     /** set value */
-    setValue: value => {
+    setValue: (value) => {
       input.value = value;
       eventTrigger.change(input, { target: { value } });
     },
@@ -50,6 +50,6 @@ export const inputDriverFactory = ({ element, eventTrigger }) => {
     blur: () => eventTrigger.blur(input),
 
     /** trigger keyDown */
-    keyDown: key => eventTrigger.keyDown(input, { key }),
+    keyDown: (key) => eventTrigger.keyDown(input, { key }),
   };
 };

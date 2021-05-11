@@ -10,9 +10,7 @@ const debounce = require('lodash/debounce');
 
 interface EllipsisTooltipProps {
   /** a children render prop - usually a text component */
-  children(
-    childrenProps: any,
-  ): {
+  children(childrenProps: any): {
     className?: string;
     style?: object;
     [otherPropName: string]: any;
@@ -112,7 +110,7 @@ export class EllipsisTooltip extends React.Component<
 
     return (
       <StateFullComponentWrap
-        ref={n => (this.textNode = ReactDOM.findDOMNode(n) as HTMLElement)}
+        ref={(n) => (this.textNode = ReactDOM.findDOMNode(n) as HTMLElement)}
       >
         {children(enhancedChildrenProps)}
       </StateFullComponentWrap>

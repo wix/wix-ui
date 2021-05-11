@@ -123,17 +123,14 @@ export class DropdownComponent extends React.PureComponent<
   };
 
   initializeSelectedOptions() {
-    const {
-      initialSelectedIds,
-      options,
-      onInitialSelectedOptionsSet,
-    } = this.props;
+    const { initialSelectedIds, options, onInitialSelectedOptionsSet } =
+      this.props;
 
     const selectedOptions = (initialSelectedIds || [])
-      .map(id => options.find(option => id === option.id))
-      .filter(option => option && !option.isDisabled && option.isSelectable);
+      .map((id) => options.find((option) => id === option.id))
+      .filter((option) => option && !option.isDisabled && option.isSelectable);
 
-    const selectedIds = selectedOptions.map(x => x && x.id);
+    const selectedIds = selectedOptions.map((x) => x && x.id);
     this.setState({
       selectedIds: selectedIds as (string | number)[],
     });
@@ -249,7 +246,7 @@ export class DropdownComponent extends React.PureComponent<
         // if option was clicked (could be null when Autocomplete receives a new string)
         if (selectedIds.includes(option.id)) {
           // if clicked a selected option, unselect it
-          newState.selectedIds = selectedIds.filter(x => x !== option.id);
+          newState.selectedIds = selectedIds.filter((x) => x !== option.id);
           callback = onDeselect;
         } else {
           // if clicked a new option, add it to selection
@@ -344,7 +341,9 @@ export class DropdownComponent extends React.PureComponent<
           <DropdownContent
             className={classes.dropdownContent}
             data-hook="dropdown-content"
-            ref={dropdownContent => (this.dropdownContentRef = dropdownContent)}
+            ref={(dropdownContent) =>
+              (this.dropdownContentRef = dropdownContent)
+            }
             options={options}
             fixedFooter={fixedFooter}
             fixedHeader={fixedHeader}

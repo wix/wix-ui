@@ -17,16 +17,15 @@ const PLACEHOLDER_AS_TEXT = <span>XXXXX</span>;
 describe('Avatar', () => {
   const testContainer = new ReactDOMTestContainer().unmountAfterEachTest();
 
-  const createDriver = testContainer.createUniRendererAsync(
-    avatarDriverFactory,
-  );
+  const createDriver =
+    testContainer.createUniRendererAsync(avatarDriverFactory);
 
   const createDriverFromContainer = () => {
     const base = reactUniDriver(testContainer.componentNode);
     return avatarDriverFactory(base);
   };
 
-  const expectImgEventuallyLoaded = driver =>
+  const expectImgEventuallyLoaded = (driver) =>
     eventually(async () =>
       expect((await driver.getContentType()) === 'image').toBeTruthy(),
     );
@@ -240,7 +239,7 @@ describe('Avatar', () => {
 
       await testContainer.render(
         <AvatarWrapper
-          ref={inst => (wrapper = inst)}
+          ref={(inst) => (wrapper = inst)}
           imgProps={{
             src: TEST_IMG_URL,
             ['data-hook']: dataHook,

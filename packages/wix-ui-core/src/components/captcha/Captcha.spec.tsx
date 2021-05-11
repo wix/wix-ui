@@ -7,9 +7,8 @@ import { captchaDriverFactory } from './Captcha.uni.driver';
 describe('Captcha', () => {
   const testContainer = new ReactDOMTestContainer().unmountAfterEachTest();
 
-  const createDriver = testContainer.createUniRendererAsync(
-    captchaDriverFactory,
-  );
+  const createDriver =
+    testContainer.createUniRendererAsync(captchaDriverFactory);
 
   const getDefaultProps = () => ({
     sitekey: constants.demoSiteKey,

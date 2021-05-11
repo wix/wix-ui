@@ -29,7 +29,7 @@ describe('Autocomplete', () => {
     const id = 'test-input-id';
     const index = 2;
     const driver = createDriver(
-        <Autocomplete options={options} inputId={id} />
+      <Autocomplete options={options} inputId={id} />,
     );
     driver.click();
     const optionElement: HTMLElement = driver.optionAt(index).getElement();
@@ -49,7 +49,7 @@ describe('Autocomplete', () => {
     expect(driver.getOptionsCount()).toBe(options.length);
   });
 
-  ['ArrowUp', 'ArrowDown'].forEach(key => {
+  ['ArrowUp', 'ArrowDown'].forEach((key) => {
     it(`should not filter items according to predicate function when pressing ${key}`, () => {
       const driver = createDriver(<Autocomplete options={options} />);
       driver.keyDown(key);

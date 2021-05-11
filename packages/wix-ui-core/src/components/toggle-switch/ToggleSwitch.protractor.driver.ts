@@ -9,9 +9,9 @@ export interface ToggleSwitchDriver extends BaseDriver {
   checked(): Promise<boolean>;
 }
 
-export const toggleSwitchDriverFactory: DriverFactory<
-  ToggleSwitchDriver
-> = component => {
+export const toggleSwitchDriverFactory: DriverFactory<ToggleSwitchDriver> = (
+  component,
+) => {
   const input = component.$('input');
 
   return {
@@ -22,6 +22,6 @@ export const toggleSwitchDriverFactory: DriverFactory<
     /** returns a boolean indicating if the toggleSwitch is checked */
     checked: async () => input.isSelected(),
     /** returns a boolean indicating if the toggleSwitch is disabled */
-    isDisabled: async () => input.isEnabled().then(enabled => !enabled),
+    isDisabled: async () => input.isEnabled().then((enabled) => !enabled),
   };
 };

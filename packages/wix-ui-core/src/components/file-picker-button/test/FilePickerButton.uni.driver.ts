@@ -30,16 +30,16 @@ export const filePickerButtonUniDriverFactory = (
     getContent: () =>
       base
         .$$(`${byDataHook(DataHook.ChooseFileButton)} > *`)
-        .map(ud => ud.getNative()),
+        .map((ud) => ud.getNative()),
     getText: () => chooseFileButtonUniDriver.text(),
     getAccept: () => fileInputUniDriver.attr('accept'),
     isRequired: async () => (await fileInputUniDriver.attr('required')) === '',
     isDisabled: async () => (await fileInputUniDriver.attr('disabled')) === '',
     selectFile: async (file: Partial<File>) => {
       if (base.type === 'protractor') {
-        await ((await fileInputUniDriver.getNative()) as ElementFinder).sendKeys(
-          file.name,
-        );
+        await (
+          (await fileInputUniDriver.getNative()) as ElementFinder
+        ).sendKeys(file.name);
       } else if (base.type === 'react') {
         const el: HTMLInputElement = await fileInputUniDriver.getNative();
         Object.defineProperty(el, 'files', {

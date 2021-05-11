@@ -21,23 +21,21 @@ interface rendererTypes {
  * @param [React.Element] jsx a jsx element to render
  * @param [string] dataHook if provided then the driver would be created with the element which is found by the dataHook. If not provided then it assumes that the rendered root element is the component's root element and it will be used for the driver.
  */
-export const createRendererWithDriver = driverFactory => (
-  jsx: React.ReactElement,
-  dataHook?: string,
-) => {
-  const rendered = render(jsx);
+export const createRendererWithDriver =
+  (driverFactory) => (jsx: React.ReactElement, dataHook?: string) => {
+    const rendered = render(jsx);
 
-  const element = getElement({ rendered, dataHook });
-  const driver = driverFactory({
-    element,
-    wrapper: rendered.container,
-    eventTrigger: Simulate,
-  });
-  return {
-    ...rendered,
-    driver,
+    const element = getElement({ rendered, dataHook });
+    const driver = driverFactory({
+      element,
+      wrapper: rendered.container,
+      eventTrigger: Simulate,
+    });
+    return {
+      ...rendered,
+      driver,
+    };
   };
-};
 
 /**
  * Creates a `render` function that returns the same object as `react-testing-library`'s render, but
@@ -47,21 +45,19 @@ export const createRendererWithDriver = driverFactory => (
  * @param [React.Element] jsx a jsx element to render
  * @param [string] dataHook if provided then the driver would be created with the element which is found by the dataHook. If not provided then it assumes that the rendered root element is the component's root element and it will be used for the driver.
  */
-export const createRendererWithUniDriver = driverFactory => (
-  jsx: React.ReactElement,
-  dataHook?: string,
-) => {
-  const rendered = render(jsx);
+export const createRendererWithUniDriver =
+  (driverFactory) => (jsx: React.ReactElement, dataHook?: string) => {
+    const rendered = render(jsx);
 
-  const element = getElement({ rendered, dataHook });
-  const driver = driverFactory(
-    reactUniDriver(element),
-    reactUniDriver(document.body),
-  );
-  return {
-    ...rendered,
-    driver,
+    const element = getElement({ rendered, dataHook });
+    const driver = driverFactory(
+      reactUniDriver(element),
+      reactUniDriver(document.body),
+    );
+    return {
+      ...rendered,
+      driver,
+    };
   };
-};
 
 export * from 'react-testing-library';

@@ -67,15 +67,12 @@ describe('Checkbox - onFocusByKeyboard', () => {
     const checkboxSecond = checkboxTestkitFactory({ dataHook: dataHookSecond });
     return waitForVisibilityOf(
       checkboxFirst.element(),
-      'Cannot find Checkout'
+      'Cannot find Checkout',
     ).then(async () => {
       expect(await checkboxSecond.isChecked()).toBeFalsy();
       browser
         .actions()
-        .sendKeys(
-          Key.TAB,
-          Key.chord(Key.SHIFT, Key.TAB),
-        )
+        .sendKeys(Key.TAB, Key.chord(Key.SHIFT, Key.TAB))
         .perform();
       expect(await checkboxSecond.isChecked()).toBeTruthy();
     });

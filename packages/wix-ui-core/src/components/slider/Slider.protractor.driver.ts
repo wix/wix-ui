@@ -13,7 +13,9 @@ export interface SliderDriver extends BaseDriver {
   dragAndDropThumb(position: ILocation): Promise<void>;
 }
 
-export const sliderDriverFactory: DriverFactory<SliderDriver> = component => ({
+export const sliderDriverFactory: DriverFactory<SliderDriver> = (
+  component,
+) => ({
   element: () => component,
   getSliderValue: async () => {
     return component.getAttribute('data-value');
@@ -23,15 +25,11 @@ export const sliderDriverFactory: DriverFactory<SliderDriver> = component => ({
     await waitForVisibilityOf(tooltip);
     return tooltip.getText();
   },
-  clickTrack: async position => {
+  clickTrack: async (position) => {
     const track = component.$(`[data-hook='track']`);
-    await browser.driver
-      .actions()
-      .mouseMove(track, position)
-      .click()
-      .perform();
+    await browser.driver.actions().mouseMove(track, position).click().perform();
   },
-  dragThumb: async position => {
+  dragThumb: async (position) => {
     const thumb = component.$(`[data-hook='thumb']`);
     await browser.driver
       .actions()
@@ -39,7 +37,7 @@ export const sliderDriverFactory: DriverFactory<SliderDriver> = component => ({
       .mouseMove(position)
       .perform();
   },
-  dragAndDropThumb: async position => {
+  dragAndDropThumb: async (position) => {
     const thumb = component.$(`[data-hook='thumb']`);
     return browser.driver
       .actions()

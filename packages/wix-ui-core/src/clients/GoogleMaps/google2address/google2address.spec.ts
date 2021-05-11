@@ -91,7 +91,7 @@ describe('google 2 partial address', () => {
   it('should consider postal_town.short as city if locality is not defined', () => {
     const noLocality = JSON.parse(JSON.stringify(googleResponse));
     noLocality.address_components = noLocality.address_components.filter(
-      ac => ac.types.indexOf('locality') === -1,
+      (ac) => ac.types.indexOf('locality') === -1,
     );
     const fullAddress = convertToPartialAddress(noLocality);
     expect(fullAddress).toMatchObject({
@@ -101,12 +101,14 @@ describe('google 2 partial address', () => {
 
   it('should fall back to admin_area2.short as city if locality and postal_town are not defined', () => {
     const noLocalityAndPostalTown = JSON.parse(JSON.stringify(googleResponse));
-    noLocalityAndPostalTown.address_components = noLocalityAndPostalTown.address_components.filter(
-      ac => ac.types.indexOf('locality') === -1,
-    );
-    noLocalityAndPostalTown.address_components = noLocalityAndPostalTown.address_components.filter(
-      ac => ac.types.indexOf('postal_town') === -1,
-    );
+    noLocalityAndPostalTown.address_components =
+      noLocalityAndPostalTown.address_components.filter(
+        (ac) => ac.types.indexOf('locality') === -1,
+      );
+    noLocalityAndPostalTown.address_components =
+      noLocalityAndPostalTown.address_components.filter(
+        (ac) => ac.types.indexOf('postal_town') === -1,
+      );
     const fullAddress = convertToPartialAddress(noLocalityAndPostalTown);
     expect(fullAddress).toMatchObject({
       city: 'New York County',

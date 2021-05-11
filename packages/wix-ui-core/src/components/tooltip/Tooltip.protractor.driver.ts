@@ -9,15 +9,14 @@ export interface TooltipDriver extends PopoverDriver {
   getTooltipLocation(): Promise<ILocation>;
 }
 
-export const tooltipDriverFactory: DriverFactory<TooltipDriver> = component => {
+export const tooltipDriverFactory: DriverFactory<TooltipDriver> = (
+  component,
+) => {
   const popoverDriver = popoverDriverFactory(component);
 
   return {
     ...popoverDriver,
     getTooltipLocation: async () =>
-      popoverDriver
-        .getContentElement()
-        .getWebElement()
-        .getLocation(),
+      popoverDriver.getContentElement().getWebElement().getLocation(),
   };
 };

@@ -34,7 +34,9 @@ export interface IconWithOptionsProps {
 /**
  * IconWithOptions
  */
-export const IconWithOptions: React.FunctionComponent<IconWithOptionsProps> = props => {
+export const IconWithOptions: React.FunctionComponent<IconWithOptionsProps> = (
+  props,
+) => {
   const {
     placement,
     options,

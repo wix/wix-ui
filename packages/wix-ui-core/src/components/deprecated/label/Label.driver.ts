@@ -18,7 +18,7 @@ export const labelDriverFactory = ({ element, eventTrigger }) => {
     /** click the label */
     click: () => eventTrigger.click(element),
     /** send key down on the label */
-    keyDown: key => eventTrigger.keyDown(element, { key }),
+    keyDown: (key) => eventTrigger.keyDown(element, { key }),
     /** returns true if the label is in ellipsis state */
     hasEllipsis: () => stylableDOMUtil.hasStyleState(element, 'ellipsis'),
   };

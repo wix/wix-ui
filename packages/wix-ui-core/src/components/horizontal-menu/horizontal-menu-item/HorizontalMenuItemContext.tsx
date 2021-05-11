@@ -14,26 +14,26 @@ export interface WithHorizontalMenuItemContextProps {
   menuItemContext: HorizontalMenuItemContextValue;
 }
 
-export const HorizontalMenuItemContext = React.createContext<
-  HorizontalMenuItemContextValue
->({
-  isOpen: false,
-  expandSize: 'column',
-  menuItemRef: React.createRef(),
-  rootMenuRef: React.createRef(),
-});
+export const HorizontalMenuItemContext =
+  React.createContext<HorizontalMenuItemContextValue>({
+    isOpen: false,
+    expandSize: 'column',
+    menuItemRef: React.createRef(),
+    rootMenuRef: React.createRef(),
+  });
 
-export const withHorizontalMenuItemContext = <
-  P extends WithHorizontalMenuItemContextProps
->(
-  WrappedComponent: React.ComponentType<P>,
-): React.FC<Omit<P, keyof WithHorizontalMenuItemContextProps>> => props => (
-  <HorizontalMenuItemContext.Consumer>
-    {context => (
-      <WrappedComponent
-        {...((props as unknown) as P)}
-        menuItemContext={context}
-      />
-    )}
-  </HorizontalMenuItemContext.Consumer>
-);
+export const withHorizontalMenuItemContext =
+  <P extends WithHorizontalMenuItemContextProps>(
+    WrappedComponent: React.ComponentType<P>,
+  ): React.FC<Omit<P, keyof WithHorizontalMenuItemContextProps>> =>
+  (props) =>
+    (
+      <HorizontalMenuItemContext.Consumer>
+        {(context) => (
+          <WrappedComponent
+            {...(props as unknown as P)}
+            menuItemContext={context}
+          />
+        )}
+      </HorizontalMenuItemContext.Consumer>
+    );

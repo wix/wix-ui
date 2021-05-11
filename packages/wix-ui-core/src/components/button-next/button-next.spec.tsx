@@ -86,7 +86,7 @@ describe('ButtonNext', () => {
   });
 
   describe(`'as' prop`, () => {
-    const Test = props => <span {...props} />;
+    const Test = (props) => <span {...props} />;
     class TestReact extends React.Component {
       render() {
         return <p>{this.props.children}</p>;
@@ -163,18 +163,16 @@ describe('ButtonNext', () => {
       it(`should have 'disabled' attribute when disabled`, async () => {
         await testContainer.render(<ButtonNext disabled />);
 
-        const disabledAttribute = testContainer.componentNode.getAttribute(
-          'disabled',
-        );
+        const disabledAttribute =
+          testContainer.componentNode.getAttribute('disabled');
         expect(disabledAttribute).not.toBeNull();
       });
 
       it(`should NOT have 'disabled' attribute when disabled and 'href' is provided`, async () => {
         await testContainer.render(<ButtonNext as="a" disabled href="wix" />);
 
-        const disabledAttribute = testContainer.componentNode.getAttribute(
-          'disabled',
-        );
+        const disabledAttribute =
+          testContainer.componentNode.getAttribute('disabled');
         expect(disabledAttribute).toBeNull();
       });
     });

@@ -21,7 +21,7 @@ import classNames from 'classnames';
 
 const URL_REGEX = /facebook\.com\/([^/?].+\/)?video(s|\.php)[/?].*$/;
 
-export const verifier: VerifierType = url =>
+export const verifier: VerifierType = (url) =>
   isString(url) && URL_REGEX.test(url as string);
 
 const SDKConfig: ISDKConfig = {
@@ -32,7 +32,7 @@ const SDKConfig: ISDKConfig = {
 };
 
 const mapPropsToPlayer: IPropsToPlayer = {
-  src: instance => instance.reload(),
+  src: (instance) => instance.reload(),
   playing: (instance, player, nextPlaying) => {
     if (nextPlaying) {
       player.play();
@@ -53,7 +53,7 @@ const mapPropsToPlayer: IPropsToPlayer = {
 const mapMethodsToPlayer: IMethodsToPlayer = {
   play: 'play',
   pause: 'pause',
-  stop: instance => instance.reload(),
+  stop: (instance) => instance.reload(),
   getDuration: 'getDuration',
   getCurrentTime: 'getCurrentPosition',
   seekTo: 'seek',
@@ -95,7 +95,7 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
   componentDidMount() {
     getSDK(SDKConfig)
       .then(this.initPlayer)
-      .catch(error => {
+      .catch((error) => {
         this.props.onError(error);
       });
   }
@@ -119,7 +119,7 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
     }
   }
 
-  initPlayer = FB => {
+  initPlayer = (FB) => {
     const { appId } = this.props;
 
     FB.init({
@@ -139,7 +139,7 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
     this.parser = FB.XFBML.parse;
   };
 
-  handleReady = msg => {
+  handleReady = (msg) => {
     const { muted, onInit, onReady, onError } = this.props;
 
     if (msg.type === 'video' && msg.id === this.playerId) {
@@ -253,14 +253,8 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
   };
 
   render() {
-    const {
-      src,
-      playing,
-      controls,
-      width,
-      height,
-      isResponsiveMode,
-    } = this.props;
+    const { src, playing, controls, width, height, isResponsiveMode } =
+      this.props;
 
     return (
       <div

@@ -13,24 +13,23 @@ export interface CircularProgressBarDriver extends BaseDriver {
   progressIndicationValue(): promise.Promise<string>;
 }
 
-export const circularProgressBarDriverFactory: DriverFactory<
-  CircularProgressBarDriver
-> = element => {
-  const findByDataHook = dataHook => element.$(`[data-hook="${dataHook}"]`);
-  const foregroundArc = () => findByDataHook('progressarc-foreground');
-  const elementTitle = (e: ElementFinder) =>
-    e.$('title').getAttribute('innerHTML');
-  const progressIndication = () => findByDataHook('progress-indicator');
-  const elementTitleNumberValue = (e: ElementFinder) => {
-    return new promise.Promise<number>(async resolve => {
-      resolve((await elementTitle(e)).match(/\d+/g).map(Number)[0]);
-    });
-  };
+export const circularProgressBarDriverFactory: DriverFactory<CircularProgressBarDriver> =
+  (element) => {
+    const findByDataHook = (dataHook) => element.$(`[data-hook="${dataHook}"]`);
+    const foregroundArc = () => findByDataHook('progressarc-foreground');
+    const elementTitle = (e: ElementFinder) =>
+      e.$('title').getAttribute('innerHTML');
+    const progressIndication = () => findByDataHook('progress-indicator');
+    const elementTitleNumberValue = (e: ElementFinder) => {
+      return new promise.Promise<number>(async (resolve) => {
+        resolve((await elementTitle(e)).match(/\d+/g).map(Number)[0]);
+      });
+    };
 
-  return {
-    element: () => element,
-    exists: () => element.isPresent(),
-    getValue: () => elementTitleNumberValue(foregroundArc()),
-    progressIndicationValue: () => progressIndication().getText(),
+    return {
+      element: () => element,
+      exists: () => element.isPresent(),
+      getValue: () => elementTitleNumberValue(foregroundArc()),
+      progressIndicationValue: () => progressIndication().getText(),
+    };
   };
-};

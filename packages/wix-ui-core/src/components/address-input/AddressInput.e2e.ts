@@ -25,10 +25,7 @@ describe('AddressInput', () => {
     await $fillStubBtn.click();
     await waitForVisibilityOf(driver.element(), 'Cannot find Input');
     await driver.enterText('n');
-    await driver
-      .dropdownContent()
-      .optionAt(0)
-      .click();
+    await driver.dropdownContent().optionAt(0).click();
     const latLngTextContent = await $lagLng.getText();
     expect(latLngTextContent).toEqual('{"lat":40.7127753,"lng":-74.0059728}');
     await $resetStubBtn.click();

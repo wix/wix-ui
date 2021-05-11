@@ -8,6 +8,6 @@ export const getArrowShift = (shift: number | undefined, direction: string) => {
   return {
     [direction === 'top' || direction === 'bottom'
       ? 'left'
-      : 'top']: `${shift}px`
+      : 'top']: `${shift}px`,
   };
 };

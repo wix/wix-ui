@@ -15,11 +15,11 @@ function defer() {
   return { promise, resolve, reject };
 }
 
-const locationFuncOrValue = locationProp => {
+const locationFuncOrValue = (locationProp) => {
   return typeof locationProp === 'function' ? locationProp() : locationProp;
 };
 
-const serializeResult = results => ({
+const serializeResult = (results) => ({
   ...results,
   geometry: {
     ...results.geometry,
@@ -32,7 +32,8 @@ const serializeResult = results => ({
 
 // placeDetails is not required at the moment
 export class GoogleMapsBasicClient
-  implements Omit<GoogleMapsClient, 'placeDetails'> {
+  implements Omit<GoogleMapsClient, 'placeDetails'>
+{
   name;
   private _autocomplete;
   private _geocoder;
@@ -45,7 +46,9 @@ export class GoogleMapsBasicClient
 
   _initServices() {
     if (!this._autocomplete) {
-      this._autocomplete = new (window as any).google.maps.places.AutocompleteService();
+      this._autocomplete = new (
+        window as any
+      ).google.maps.places.AutocompleteService();
     }
 
     if (!this._geocoder) {
@@ -118,7 +121,7 @@ export class GoogleMapsBasicClient
       typeof request === 'string' ? { address: request } : request,
       (results, status) => {
         if (status === PlacesServiceStatusTypes.Ok) {
-          resolve(results.map(result => serializeResult(result)));
+          resolve(results.map((result) => serializeResult(result)));
         } else {
           reject(status);
         }

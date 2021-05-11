@@ -1,173 +1,171 @@
 import * as React from 'react';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
 import { ToggleSwitch } from './';
-import { toggleSwitchTestkitFactory} from '../../testkit';
+import { toggleSwitchTestkitFactory } from '../../testkit';
 import { toggleSwitchTestkitFactory as enzymeToggleSwitchTestkitFactory } from '../../testkit/enzyme';
 import { runTestkitExistsSuite } from '../../common/testkitTests';
 import { toggleSwitchDriverFactory } from './ToggleSwitch.driver';
 import { toggleSwitchUniDriverFactory } from './ToggleSwitch.uni.driver';
 
 describe('ToggleSwitch', () => {
-    const testContainer = new ReactDOMTestContainer().unmountAfterEachTest();
+  const testContainer = new ReactDOMTestContainer().unmountAfterEachTest();
 
-    describe('[sync]', () => {
-        runTests(
-            testContainer.createLegacyRenderer(toggleSwitchDriverFactory)
-        );
+  describe('[sync]', () => {
+    runTests(testContainer.createLegacyRenderer(toggleSwitchDriverFactory));
+  });
+
+  describe('[async]', () => {
+    runTests(
+      testContainer.createUniRendererAsync(toggleSwitchUniDriverFactory),
+    );
+  });
+
+  function runTests(createDriver) {
+    describe('checked prop', () => {
+      it('should be controlled', async () => {
+        const driver = await createDriver(<ToggleSwitch />);
+        expect(await driver.isChecked()).toBe(false);
+        await driver.click();
+        expect(await driver.isChecked()).toBe(false);
+      });
+
+      it('should pass down to input when checked', async () => {
+        const driver = await createDriver(<ToggleSwitch checked />);
+        expect(await driver.isChecked()).toBe(true);
+      });
+
+      it('should pass down to input when not checked', async () => {
+        const driver = await createDriver(<ToggleSwitch checked={false} />);
+        expect(await driver.isChecked()).toBe(false);
+      });
     });
 
-    describe('[async]', () => {
-        runTests(
-            testContainer.createUniRendererAsync(toggleSwitchUniDriverFactory)
+    describe('onChange prop', () => {
+      it('should be called when the input is clicked', async () => {
+        const onChange = jest.fn();
+        const driver = await createDriver(
+          <ToggleSwitch checked={false} onChange={onChange} />,
         );
+        await driver.click();
+        expect(onChange).toBeCalled();
+      });
     });
 
-    function runTests(createDriver){
-        describe('checked prop', () => {
-            it('should be controlled', async () => {
-                const driver = await createDriver(<ToggleSwitch />);
-                expect(await driver.isChecked()).toBe(false);
-                await driver.click();
-                expect(await driver.isChecked()).toBe(false);
-            });
+    describe('disabled prop', () => {
+      it('should not be disabled by default', async () => {
+        const driver = await createDriver(<ToggleSwitch />);
+        expect(await driver.isDisabled()).toBe(false);
+      });
 
-            it('should pass down to input when checked', async () => {
-                const driver = await createDriver(<ToggleSwitch checked />);
-                expect(await driver.isChecked()).toBe(true);
-            });
+      it('should not be clickable when disabled and unchecked', async () => {
+        const onChange = jest.fn();
+        const driver = await createDriver(
+          <ToggleSwitch checked={false} onChange={onChange} disabled />,
+        );
+        await driver.click();
+        expect(onChange).toHaveBeenCalledTimes(0);
+        expect(await driver.isChecked()).toBe(false);
+      });
 
-            it('should pass down to input when not checked', async () => {
-                const driver = await createDriver(<ToggleSwitch checked={false} />);
-                expect(await driver.isChecked()).toBe(false);
-            });
-        });
+      it('should not be clickable when disabled and checked', async () => {
+        const onChange = jest.fn();
+        const driver = await createDriver(
+          <ToggleSwitch checked onChange={onChange} disabled />,
+        );
+        await driver.click();
+        expect(onChange).toHaveBeenCalledTimes(0);
+        expect(await driver.isChecked()).toBe(true);
+      });
+    });
 
-        describe('onChange prop', () => {
-            it('should be called when the input is clicked', async () => {
-                const onChange = jest.fn();
-                const driver = await createDriver(
-                    <ToggleSwitch checked={false} onChange={onChange} />,
-                );
-                await driver.click();
-                expect(onChange).toBeCalled();
-            });
-        });
+    describe('attributes', () => {
+      it('should apply user specified id', async () => {
+        const testId = 'testId';
+        const driver = await createDriver(<ToggleSwitch id={testId} />);
+        expect(await driver.getId()).toBe(testId);
+      });
 
-        describe('disabled prop', () => {
-            it('should not be disabled by default', async () => {
-                const driver = await createDriver(<ToggleSwitch />);
-                expect(await driver.isDisabled()).toBe(false);
-            });
+      it('should have tabIndex=0 by default', async () => {
+        const driver = await createDriver(<ToggleSwitch />);
+        expect(await driver.getTabIndex()).toBe(0);
+      });
 
-            it('should not be clickable when disabled and unchecked', async () => {
-                const onChange = jest.fn();
-                const driver = await createDriver(
-                    <ToggleSwitch checked={false} onChange={onChange} disabled />,
-                );
-                await driver.click();
-                expect(onChange).toHaveBeenCalledTimes(0);
-                expect(await driver.isChecked()).toBe(false);
-            });
+      it('should apply user specified tabIndex', async () => {
+        const driver = await createDriver(<ToggleSwitch tabIndex={7} />);
+        expect(await driver.getTabIndex()).toBe(7);
+      });
+    });
 
-            it('should not be clickable when disabled and checked', async () => {
-                const onChange = jest.fn();
-                const driver = await createDriver(
-                    <ToggleSwitch checked onChange={onChange} disabled />,
-                );
-                await driver.click();
-                expect(onChange).toHaveBeenCalledTimes(0);
-                expect(await driver.isChecked()).toBe(true);
-            });
-        });
+    describe('icons', () => {
+      it('should not have unchecked icon by default', async () => {
+        const driver = await createDriver(<ToggleSwitch />);
+        expect(await driver.hasKnobIcon()).toBe(false);
+        expect((await driver.getKnobIcon()).innerHTML).toBe('');
+      });
 
-        describe('attributes', () => {
-            it('should apply user specified id', async () => {
-                const testId = 'testId';
-                const driver = await createDriver(<ToggleSwitch id={testId} />);
-                expect(await driver.getId()).toBe(testId);
-            });
+      it('should not have checked icon by default', async () => {
+        const driver = await createDriver(<ToggleSwitch checked />);
+        expect(await driver.hasKnobIcon()).toBe(false);
+        expect((await driver.getKnobIcon()).innerHTML).toBe('');
+      });
 
-            it('should have tabIndex=0 by default', async () => {
-                const driver = await createDriver(<ToggleSwitch />);
-                expect(await driver.getTabIndex()).toBe(0);
-            });
+      it('should show uncheckedIcon when unchecked', async () => {
+        const driver = await createDriver(
+          <ToggleSwitch checkedIcon="✅" uncheckedIcon="❎" />,
+        );
+        expect(await driver.hasKnobIcon()).toBe(true);
+        expect((await driver.getKnobIcon()).innerHTML).toBe('❎');
+      });
 
-            it('should apply user specified tabIndex', async () => {
-                const driver = await createDriver(<ToggleSwitch tabIndex={7} />);
-                expect(await driver.getTabIndex()).toBe(7);
-            });
-        });
+      it('should show checkedIcon when checked', async () => {
+        const driver = await createDriver(
+          <ToggleSwitch checked checkedIcon="✅" uncheckedIcon="❎" />,
+        );
+        expect(await driver.hasKnobIcon()).toBe(true);
+        expect((await driver.getKnobIcon()).innerHTML).toBe('✅');
+      });
+    });
 
-        describe('icons', () => {
-            it('should not have unchecked icon by default', async () => {
-                const driver = await createDriver(<ToggleSwitch />);
-                expect(await driver.hasKnobIcon()).toBe(false);
-                expect((await driver.getKnobIcon()).innerHTML).toBe('');
-            });
+    describe('styles', () => {
+      const redRgb = 'rgb(255, 0, 0)';
 
-            it('should not have checked icon by default', async () => {
-                const driver = await createDriver(<ToggleSwitch checked />);
-                expect(await driver.hasKnobIcon()).toBe(false);
-                expect((await driver.getKnobIcon()).innerHTML).toBe('');
-            });
+      it('should pass inline styles to root element', async () => {
+        const styles = {
+          root: { color: redRgb },
+        };
+        const driver = await createDriver(<ToggleSwitch styles={styles} />);
+        expect((await driver.getRootStyles()).color).toBe(redRgb);
+      });
 
-            it('should show uncheckedIcon when unchecked', async () => {
-                const driver = await createDriver(
-                    <ToggleSwitch checkedIcon="✅" uncheckedIcon="❎" />,
-                );
-                expect(await driver.hasKnobIcon()).toBe(true);
-                expect((await driver.getKnobIcon()).innerHTML).toBe('❎');
-            });
+      it('should pass inline styles to track element', async () => {
+        const styles = {
+          track: { color: redRgb },
+        };
+        const driver = await createDriver(<ToggleSwitch styles={styles} />);
+        expect((await driver.getTrackStyles()).color).toBe(redRgb);
+      });
 
-            it('should show checkedIcon when checked', async () => {
-                const driver = await createDriver(
-                    <ToggleSwitch checked checkedIcon="✅" uncheckedIcon="❎" />,
-                );
-                expect(await driver.hasKnobIcon()).toBe(true);
-                expect((await driver.getKnobIcon()).innerHTML).toBe('✅');
-            });
-        });
+      it('should pass inline styles to knob element', async () => {
+        const styles = {
+          knob: { color: redRgb },
+        };
+        const driver = await createDriver(<ToggleSwitch styles={styles} />);
+        expect((await driver.getKnobStyles()).color).toBe(redRgb);
+      });
 
-        describe('styles', () => {
-            const redRgb = 'rgb(255, 0, 0)';
+      it('should pass inline styles to knobIcon element', async () => {
+        const styles = {
+          knobIcon: { color: redRgb },
+        };
+        const driver = await createDriver(<ToggleSwitch styles={styles} />);
+        expect((await driver.getKnobIconStyles()).color).toBe(redRgb);
+      });
+    });
 
-            it('should pass inline styles to root element', async () => {
-                const styles = {
-                    root: { color: redRgb},
-                };
-                const driver = await createDriver(<ToggleSwitch styles={styles} /> );
-                expect((await driver.getRootStyles()).color).toBe(redRgb);
-            });
-
-            it('should pass inline styles to track element', async () => {
-                const styles = {
-                    track: { color: redRgb},
-                };
-                const driver = await createDriver(<ToggleSwitch styles={styles} /> );
-                expect((await driver.getTrackStyles()).color).toBe(redRgb);
-            });
-
-            it('should pass inline styles to knob element', async () => {
-                const styles = {
-                    knob: { color: redRgb},
-                };
-                const driver = await createDriver(<ToggleSwitch styles={styles} /> );
-                expect((await driver.getKnobStyles()).color).toBe(redRgb);
-            });
-
-            it('should pass inline styles to knobIcon element', async () => {
-                const styles = {
-                    knobIcon: { color: redRgb},
-                };
-                const driver = await createDriver(<ToggleSwitch styles={styles} /> );
-                expect((await driver.getKnobIconStyles()).color).toBe(redRgb);
-            });
-        });
-
-        runTestkitExistsSuite({
-            Element:<ToggleSwitch />,
-            testkitFactory: toggleSwitchTestkitFactory,
-            enzymeTestkitFactory: enzymeToggleSwitchTestkitFactory,
-        });
-    }
+    runTestkitExistsSuite({
+      Element: <ToggleSwitch />,
+      testkitFactory: toggleSwitchTestkitFactory,
+      enzymeTestkitFactory: enzymeToggleSwitchTestkitFactory,
+    });
+  }
 });

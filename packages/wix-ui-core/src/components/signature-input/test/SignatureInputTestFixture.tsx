@@ -15,9 +15,7 @@ export interface SignatureInputTestFixtureProps extends SigningPadOwnProps {
   titleText?: string;
 }
 
-export class SignatureInputTestFixture extends React.Component<
-  SignatureInputTestFixtureProps
-> {
+export class SignatureInputTestFixture extends React.Component<SignatureInputTestFixtureProps> {
   render() {
     const {
       onClear,

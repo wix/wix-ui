@@ -89,7 +89,7 @@ describe('HorizontalMenu', () => {
     expect(await item.attr('aria-expanded')).toEqual('false');
     expect(await columnsLayout.attr('data-opened')).toEqual('false');
     await driver.hoverMenuItem(menuItem.label);
-    await new Promise(resolve => setTimeout(resolve, 50));
+    await new Promise((resolve) => setTimeout(resolve, 50));
     expect(await item.attr('aria-selected')).toEqual('true');
     expect(await item.attr('aria-expanded')).toEqual('true');
     expect(await columnsLayout.attr('data-opened')).toEqual('true');
@@ -120,7 +120,7 @@ describe('HorizontalMenu', () => {
     const expandIcon = await driver.getElementByDataHook('expand-icon');
     expect(await expandIcon.attr('data-opened')).toEqual('false');
     await driver.hoverMenuItem(menuItem.label);
-    await new Promise(resolve => setTimeout(resolve, 50));
+    await new Promise((resolve) => setTimeout(resolve, 50));
     expect(await expandIcon.attr('data-opened')).toEqual('true');
   });
 

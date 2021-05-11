@@ -17,21 +17,22 @@ import {
 } from '../types';
 import { classes } from '../Video.st.css';
 
-const URL_REGEX = /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})/;
+const URL_REGEX =
+  /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})/;
 
-export const verifier: VerifierType = url =>
+export const verifier: VerifierType = (url) =>
   isString(url) && URL_REGEX.test(url as string);
 
 const SDKConfig: ISDKConfig = {
   name: 'YT',
   url: 'https://www.youtube.com/iframe_api',
   onReady: 'onYouTubeIframeAPIReady',
-  isLoaded: YT => !!YT.loaded,
+  isLoaded: (YT) => !!YT.loaded,
   isRequireAllow: false,
 };
 
 const mapPropsToPlayer: IPropsToPlayer = {
-  src: instance => instance.reload(),
+  src: (instance) => instance.reload(),
   playing: (instance, player, nextPlaying) => {
     if (nextPlaying) {
       player.playVideo();
@@ -47,7 +48,7 @@ const mapPropsToPlayer: IPropsToPlayer = {
     }
   },
   volume: 'setVolume',
-  loop: instance => {
+  loop: (instance) => {
     // We reinit player to set(based on 'loop' prop) playlist, which is needed to play video in loop.
     instance.reload();
   },
@@ -88,7 +89,7 @@ class YouTubePlayer extends React.PureComponent<IYouTubeProps> {
   componentDidMount() {
     getSDK(SDKConfig)
       .then(this.initPlayer)
-      .catch(error => {
+      .catch((error) => {
         this.props.onError(error);
       });
   }
@@ -101,7 +102,7 @@ class YouTubePlayer extends React.PureComponent<IYouTubeProps> {
     this.stopProgress();
   }
 
-  initPlayer = YT => {
+  initPlayer = (YT) => {
     const {
       playing,
       muted,
@@ -143,25 +144,27 @@ class YouTubePlayer extends React.PureComponent<IYouTubeProps> {
     onInit(this.player, YouTubePlayer.playerName);
   };
 
-  onStateChange = (PlayerState: any) => ({ data }): void => {
-    const { PLAYING, PAUSED, ENDED } = PlayerState;
+  onStateChange =
+    (PlayerState: any) =>
+    ({ data }): void => {
+      const { PLAYING, PAUSED, ENDED } = PlayerState;
 
-    switch (data) {
-      case PLAYING:
-        this.eventEmitter.emit(EVENTS.PLAYING);
-        this.progress();
-        break;
-      case PAUSED:
-        this.eventEmitter.emit(EVENTS.PAUSED);
-        this.stopProgress();
-        break;
-      case ENDED:
-        this.eventEmitter.emit(EVENTS.ENDED);
-        this.stopProgress();
-        break;
-      default:
-    }
-  };
+      switch (data) {
+        case PLAYING:
+          this.eventEmitter.emit(EVENTS.PLAYING);
+          this.progress();
+          break;
+        case PAUSED:
+          this.eventEmitter.emit(EVENTS.PAUSED);
+          this.stopProgress();
+          break;
+        case ENDED:
+          this.eventEmitter.emit(EVENTS.ENDED);
+          this.stopProgress();
+          break;
+        default:
+      }
+    };
 
   progress = () => {
     this.stopProgress();

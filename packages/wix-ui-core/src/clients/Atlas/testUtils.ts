@@ -1,19 +1,21 @@
-const metaSiteInstaceMock = 'some-meta-site-instance'
+const metaSiteInstaceMock = 'some-meta-site-instance';
 const predictRequestMock = {
   input: 'predict-input',
   countryCodes: ['IL'],
-}
+};
 
 const successfulPredictResponseMock = {
-  predictions: [{
-    searchId: 'some-search-id',
-    description: 'some-description'
-  }]
-}
+  predictions: [
+    {
+      searchId: 'some-search-id',
+      description: 'some-description',
+    },
+  ],
+};
 
 const getPlaceRequestMock = {
   placeId: 'some-id',
-}
+};
 
 const successfulGetPlaceResponseMock = {
   place: {
@@ -24,9 +26,9 @@ const successfulGetPlaceResponseMock = {
       city: 'some-city',
       country: 'some-country',
       postalCode: 'some-postalCode',
-    }
-  }
-}
+    },
+  },
+};
 
 export {
   metaSiteInstaceMock,
@@ -34,4 +36,4 @@ export {
   getPlaceRequestMock,
   successfulPredictResponseMock,
   successfulGetPlaceResponseMock,
-}
+};

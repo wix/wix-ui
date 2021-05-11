@@ -16,7 +16,7 @@ import {
 import { Popover } from '../Popover';
 import { Category, baseScope } from '../../../../stories/utils';
 
-const example = config => baseExample({ components: baseScope, ...config });
+const example = (config) => baseExample({ components: baseScope, ...config });
 
 import * as examples from './examples';
 
@@ -118,22 +118,19 @@ export default {
 
           example({
             title: 'MoveBy',
-            text:
-              '<em>x</em> and <em>y</em> axis orientation is relative to the placement of the popover.',
+            text: '<em>x</em> and <em>y</em> axis orientation is relative to the placement of the popover.',
             source: examples.moveBy,
           }),
 
           example({
             title: 'Fluid',
-            text:
-              'To allow trigger element to stretch to its parent container.',
+            text: 'To allow trigger element to stretch to its parent container.',
             source: examples.fluid,
           }),
 
           example({
             title: 'zIndex',
-            text:
-              'If some container got higher zIndex then Popover content - the zIndex of Popover content can be controlled',
+            text: 'If some container got higher zIndex then Popover content - the zIndex of Popover content can be controlled',
             source: examples.zIndex,
           }),
 
@@ -141,15 +138,13 @@ export default {
 
           example({
             title: 'Flip:Enabled & Fixed: Disabled',
-            text:
-              'Focus target element (TAB) and scroll viewport to see behaviour',
+            text: 'Focus target element (TAB) and scroll viewport to see behaviour',
             source: examples.flip,
           }),
 
           example({
             title: 'Flip: Disabled & Fixed: Enabled',
-            text:
-              'Focus target element (TAB) and scroll viewport to see behaviour',
+            text: 'Focus target element (TAB) and scroll viewport to see behaviour',
             source: examples.fixed,
           }),
 

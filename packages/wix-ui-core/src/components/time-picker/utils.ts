@@ -12,11 +12,12 @@ export const parseTime = (timeStr: string) => ({
 export const isValidTime = (timeStr: string, useAmPm: boolean = false) => {
   // HH:MM with optional HH:MM:SS and optional HH:MM:SS.mmm
   const test12 = /^(0[1-9]|1[0-2]):([0-5][0-9])(:([0-5][0-9])(\.[0-9]{3})?)?$/;
-  const test24 = /^([0-1][0-9]|2[0-3]):([0-5][0-9])(:([0-5][0-9])(\.[0-9]{3})?)?$/;
+  const test24 =
+    /^([0-1][0-9]|2[0-3]):([0-5][0-9])(:([0-5][0-9])(\.[0-9]{3})?)?$/;
   return useAmPm ? test12.test(timeStr) : test24.test(timeStr);
 };
 
-const parseIntOrZero = str => parseInt(str, 10) || 0;
+const parseIntOrZero = (str) => parseInt(str, 10) || 0;
 
 const changeTime = ({ value, field, step = 1 }) => {
   let { hour, minute } = parseTime(value);

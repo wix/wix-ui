@@ -23,7 +23,7 @@ import {
 } from '../../../../stories/utils';
 import compoundReadmeApi from './CompoundComponentsAPI.md';
 
-const liveCode = config =>
+const liveCode = (config) =>
   code({
     compact: true,
     components: allComponents,
@@ -63,8 +63,7 @@ export default {
         sections: [
           description({
             title: 'Description',
-            text:
-              'TagsList is a list of tags, which are, bascically, simple labels with checkboxes inside',
+            text: 'TagsList is a list of tags, which are, bascically, simple labels with checkboxes inside',
           }),
           importExample(`import {TagsList, Tag} from 'wix-ui-core/tags-list';`),
           divider(),

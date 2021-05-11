@@ -78,7 +78,7 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
   public render() {
     return (
       <div
-        ref={el => (this.rootNode = el)}
+        ref={(el) => (this.rootNode = el)}
         data-hook={PaginationDataHooks.pageStrip}
         id={this.props.id ? this.props.id + 'pageStrip' : null}
         className={st(classes.pageStrip, this.props.className)}
@@ -162,9 +162,11 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
           aria-disabled={disabled}
           className={st(classes.pageButton, { disabled })}
           tabIndex={disabled || pageUrl ? null : 0}
-          onClick={disabled ? null : e => this.props.onPageClick(e, pageNumber)}
+          onClick={
+            disabled ? null : (e) => this.props.onPageClick(e, pageNumber)
+          }
           onKeyDown={
-            disabled ? null : e => this.props.onPageKeyDown(e, pageNumber)
+            disabled ? null : (e) => this.props.onPageKeyDown(e, pageNumber)
           }
           href={!disabled && pageUrl ? pageUrl(pageNumber) : null}
         >

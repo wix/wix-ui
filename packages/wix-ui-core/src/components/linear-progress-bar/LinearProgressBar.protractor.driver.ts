@@ -17,22 +17,21 @@ export interface LinearProgressBarDriver extends BaseDriver {
   progressIndicationValue(): promise.Promise<string>;
 }
 
-export const linearProgressBarDriverFactory: DriverFactory<
-  LinearProgressBarDriver
-> = element => {
-  const findByDataHook = dataHook => element.$(`[data-hook="${dataHook}"]`);
-  const foregroundBar = () => findByDataHook('progressbar-foreground');
-  const backgroundBar = () => findByDataHook('progressbar-background');
-  const getElementWidth = (e: ElementFinder) =>
-    e.getSize().then(size => size.width);
-  const progressIndication = () => findByDataHook('progress-indicator');
+export const linearProgressBarDriverFactory: DriverFactory<LinearProgressBarDriver> =
+  (element) => {
+    const findByDataHook = (dataHook) => element.$(`[data-hook="${dataHook}"]`);
+    const foregroundBar = () => findByDataHook('progressbar-foreground');
+    const backgroundBar = () => findByDataHook('progressbar-background');
+    const getElementWidth = (e: ElementFinder) =>
+      e.getSize().then((size) => size.width);
+    const progressIndication = () => findByDataHook('progress-indicator');
 
-  return {
-    element: () => element,
-    exists: () => element.isPresent(),
-    getForegroundBarWidth: () => getElementWidth(foregroundBar()),
-    getBackgroundBarWidth: () => getElementWidth(backgroundBar()),
-    isProgressIndicationDisplayed: () => progressIndication().isPresent(),
-    progressIndicationValue: () => progressIndication().getText(),
+    return {
+      element: () => element,
+      exists: () => element.isPresent(),
+      getForegroundBarWidth: () => getElementWidth(foregroundBar()),
+      getBackgroundBarWidth: () => getElementWidth(backgroundBar()),
+      isProgressIndicationDisplayed: () => progressIndication().isPresent(),
+      progressIndicationValue: () => progressIndication().getText(),
+    };
   };
-};

@@ -11,7 +11,7 @@ describe('FilePickerButton', () => {
     .unmountAfterEachTest()
     .createUniRendererAsync(filePickerButtonPrivateUniDriverFactory);
 
-  const getElementByDataHook = dataHook =>
+  const getElementByDataHook = (dataHook) =>
     reactDOMTestContainer.componentNode.querySelector(byDataHook(dataHook));
   const fileFixture: Partial<File> = { name: 'morty.jpg' };
 

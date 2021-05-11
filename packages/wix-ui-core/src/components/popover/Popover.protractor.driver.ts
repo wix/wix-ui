@@ -12,7 +12,9 @@ export interface PopoverDriver extends BaseDriver {
   click(): Promise<void>;
 }
 
-export const popoverDriverFactory: DriverFactory<PopoverDriver> = component => {
+export const popoverDriverFactory: DriverFactory<PopoverDriver> = (
+  component,
+) => {
   const getTargetElement = () => $('[data-hook="popover-element"]');
   const getContentElement = () => $('[data-hook="popover-content"]');
 

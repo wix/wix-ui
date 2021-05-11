@@ -22,13 +22,11 @@ export interface IPureChildComponentProps {
 
 const stylableUtil = new StylableDOMUtil(stylesheet);
 
-const hasFocusState = element => stylableUtil.hasStyleState(element, 'focus');
-const hasFocusVisibleState = element =>
+const hasFocusState = (element) => stylableUtil.hasStyleState(element, 'focus');
+const hasFocusVisibleState = (element) =>
   stylableUtil.hasStyleState(element, 'focus-visible');
 
-export class PureChildComponent extends React.PureComponent<
-  IPureChildComponentProps
-> {
+export class PureChildComponent extends React.PureComponent<IPureChildComponentProps> {
   private readonly id: string;
 
   constructor(props) {
@@ -70,7 +68,7 @@ const focusableDriverFactory = ({ element, eventTrigger }) => {
 
 const driverFactory = createDriverFactory(focusableDriverFactory);
 
-export const createDriver = Component => {
+export const createDriver = (Component) => {
   const driver = driverFactory(Component);
   const fireMouseDown = () =>
     window.dispatchEvent(new window.Event('mousedown'));

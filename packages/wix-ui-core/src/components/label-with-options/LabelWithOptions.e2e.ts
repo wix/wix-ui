@@ -28,20 +28,11 @@ describe('LabelWithOptions', () => {
     expect(driver.isContentElementExists()).toBe(true);
     expect(driver.dropdownContent().getOptionsCount()).toEqual(20);
 
-    driver
-      .dropdownContent()
-      .optionAt(0)
-      .click();
-    driver
-      .dropdownContent()
-      .optionAt(1)
-      .click();
+    driver.dropdownContent().optionAt(0).click();
+    driver.dropdownContent().optionAt(1).click();
 
     expect(driver.getLabelText()).toBe('value0, value1');
-    driver
-      .dropdownContent()
-      .optionAt(1)
-      .click();
+    driver.dropdownContent().optionAt(1).click();
     expect(driver.getLabelText()).toBe('value0');
   });
 

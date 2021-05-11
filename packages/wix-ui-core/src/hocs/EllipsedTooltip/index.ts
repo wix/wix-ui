@@ -1,2 +1,1 @@
 export { withEllipsedTooltip } from './withEllipsedTooltip';
-

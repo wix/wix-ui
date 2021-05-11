@@ -43,7 +43,7 @@ export class IframesManager {
   }
 
   removeAllIframes() {
-    this._iframeMap.forEach(iframe => iframe.remove());
+    this._iframeMap.forEach((iframe) => iframe.remove());
     this._iframeMap.clear();
   }
 

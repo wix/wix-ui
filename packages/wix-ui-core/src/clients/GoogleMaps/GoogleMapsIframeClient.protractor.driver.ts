@@ -11,33 +11,30 @@ export interface GoogleMapsIframeClientDriver extends BaseDriver {
   selectByValue(value: string): Promise<void>;
 }
 
-export const googleMapsIframeClientDriverFactory: DriverFactory<
-  GoogleMapsIframeClientDriver
-> = component => {
-  const getButtons = () => component.$$('button');
-  const input = component.$('input');
-  const resultsElementWrapper = component.$('pre');
+export const googleMapsIframeClientDriverFactory: DriverFactory<GoogleMapsIframeClientDriver> =
+  (component) => {
+    const getButtons = () => component.$$('button');
+    const input = component.$('input');
+    const resultsElementWrapper = component.$('pre');
 
-  return {
-    getParsedResults: async () => {
-      const results = await resultsElementWrapper.getText();
-      return JSON.parse(results);
-    },
-    getResultsElementWrapper: () => resultsElementWrapper,
-    enterText: async (text: string) => {
-      await input.clear();
-      await input.sendKeys(text);
-    },
-    selectByValue: async (value: string) => {
-      return getButtons()
-        .getText()
-        .then((names: string) => {
-          const btnIdx = names.indexOf(value);
-          getButtons()
-            .get(btnIdx)
-            .click();
-        });
-    },
-    element: () => component,
+    return {
+      getParsedResults: async () => {
+        const results = await resultsElementWrapper.getText();
+        return JSON.parse(results);
+      },
+      getResultsElementWrapper: () => resultsElementWrapper,
+      enterText: async (text: string) => {
+        await input.clear();
+        await input.sendKeys(text);
+      },
+      selectByValue: async (value: string) => {
+        return getButtons()
+          .getText()
+          .then((names: string) => {
+            const btnIdx = names.indexOf(value);
+            getButtons().get(btnIdx).click();
+          });
+      },
+      element: () => component,
+    };
   };
-};

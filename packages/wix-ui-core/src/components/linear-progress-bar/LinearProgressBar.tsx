@@ -119,35 +119,34 @@ const getAriaAttributes = (
   };
 };
 
-export const LinearProgressBar: React.FunctionComponent<LinearProgressBarProps> = (
-  props: LinearProgressBarProps,
-) => {
-  const { error, showProgressIndication, className } = props;
-  const _props = normalizeProps(props);
-  const success = _props.value === FULL_PROGRESS;
-  return (
-    <div
-      {...getDataAttributes(_props)}
-      {...getAriaAttributes(props)}
-      data-min={_props.min}
-      data-error={error}
-      role="progressbar"
-      className={st(classes.root, { error, success }, className)}
-      {...filterDataProps(props)}
-    >
-      {renderBarSection(_props.value)}
+export const LinearProgressBar: React.FunctionComponent<LinearProgressBarProps> =
+  (props: LinearProgressBarProps) => {
+    const { error, showProgressIndication, className } = props;
+    const _props = normalizeProps(props);
+    const success = _props.value === FULL_PROGRESS;
+    return (
+      <div
+        {...getDataAttributes(_props)}
+        {...getAriaAttributes(props)}
+        data-min={_props.min}
+        data-error={error}
+        role="progressbar"
+        className={st(classes.root, { error, success }, className)}
+        {...filterDataProps(props)}
+      >
+        {renderBarSection(_props.value)}
 
-      {showProgressIndication && (
-        <div
-          data-hook={ProgressBarDataHooks.progressIndicator}
-          className={classes.progressIndicationSection}
-        >
-          {resolveIndicationElement(_props)}
-        </div>
-      )}
-    </div>
-  );
-};
+        {showProgressIndication && (
+          <div
+            data-hook={ProgressBarDataHooks.progressIndicator}
+            className={classes.progressIndicationSection}
+          >
+            {resolveIndicationElement(_props)}
+          </div>
+        )}
+      </div>
+    );
+  };
 
 LinearProgressBar.displayName = 'LinearProgressBar';
 

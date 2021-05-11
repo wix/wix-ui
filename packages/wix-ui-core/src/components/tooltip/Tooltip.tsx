@@ -99,7 +99,11 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
   };
 
   _renderElement = () => {
-    const { children, disabled, 'aria-describedby': ariaDescribedBy } = this.props;
+    const {
+      children,
+      disabled,
+      'aria-describedby': ariaDescribedBy,
+    } = this.props;
     if (typeof children === 'string' || !children) {
       return children || '';
     }

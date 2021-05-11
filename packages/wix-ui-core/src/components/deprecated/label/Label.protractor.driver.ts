@@ -8,7 +8,7 @@ export interface LabelDriver extends BaseDriver {
   click(): Promise<void>;
 }
 
-export const labelDriverFactory: DriverFactory<LabelDriver> = component => ({
+export const labelDriverFactory: DriverFactory<LabelDriver> = (component) => ({
   /** returns the component element */
   element: () => component,
   /** returns the component label */

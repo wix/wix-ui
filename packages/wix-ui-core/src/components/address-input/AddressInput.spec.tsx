@@ -115,8 +115,9 @@ describe('AddressInput', () => {
 
   it('Should use callback provided in case of error [Search error]', () => {
     const onError = jest.fn();
-    (GoogleMapsClientStub.prototype
-      .autocomplete as jest.Mock).mockImplementationOnce(() =>
+    (
+      GoogleMapsClientStub.prototype.autocomplete as jest.Mock
+    ).mockImplementationOnce(() =>
       Promise.reject(PlacesServiceStatusTypes.InvalidRequest),
     );
     init({ onError });
@@ -132,8 +133,9 @@ describe('AddressInput', () => {
     GoogleMapsClientStub.setAddresses([helper.ADDRESS_1]);
     GoogleMapsClientStub.setGeocode(helper.PLACE_DETAILS_1);
     const onError = jest.fn();
-    (GoogleMapsClientStub.prototype
-      .geocode as jest.Mock).mockImplementationOnce(() =>
+    (
+      GoogleMapsClientStub.prototype.geocode as jest.Mock
+    ).mockImplementationOnce(() =>
       Promise.reject(PlacesServiceStatusTypes.NotFound),
     );
     init({ onError });
@@ -148,8 +150,9 @@ describe('AddressInput', () => {
 
   it('Should display empty state in case no results found', async () => {
     const onError = jest.fn();
-    (GoogleMapsClientStub.prototype
-      .autocomplete as jest.Mock).mockImplementationOnce(() =>
+    (
+      GoogleMapsClientStub.prototype.autocomplete as jest.Mock
+    ).mockImplementationOnce(() =>
       Promise.reject(PlacesServiceStatusTypes.ZeroResults),
     );
     const emptyStateMessage = 'No results.';
@@ -379,7 +382,9 @@ describe('AddressInput', () => {
     expect(GoogleMapsClientStub.prototype.geocode).toHaveBeenCalledWith(
       helper.API_KEY,
       'en',
-      { placeId: helper.ADDRESS_2.place_id },
+      {
+        placeId: helper.ADDRESS_2.place_id,
+      },
     );
     return eventually(
       () => {
@@ -408,7 +413,9 @@ describe('AddressInput', () => {
     expect(GoogleMapsClientStub.prototype.geocode).toHaveBeenCalledWith(
       'client-id',
       'en',
-      { placeId: helper.ADDRESS_2.place_id },
+      {
+        placeId: helper.ADDRESS_2.place_id,
+      },
     );
     return eventually(
       () => {
@@ -433,7 +440,10 @@ describe('AddressInput', () => {
     expect(GoogleMapsClientStub.prototype.autocomplete).toHaveBeenCalledWith(
       helper.API_KEY,
       'en',
-      { input: 'n', componentRestrictions: { country: 'il' } },
+      {
+        input: 'n',
+        componentRestrictions: { country: 'il' },
+      },
     );
 
     await waitForCond(() => driver.isContentElementExists());
@@ -483,7 +493,9 @@ describe('AddressInput', () => {
     expect(GoogleMapsClientStub.prototype.placeDetails).toHaveBeenCalledWith(
       helper.API_KEY,
       'en',
-      { placeId: helper.ADDRESS_2.place_id },
+      {
+        placeId: helper.ADDRESS_2.place_id,
+      },
     );
     return eventually(
       () => {
@@ -511,7 +523,9 @@ describe('AddressInput', () => {
     expect(GoogleMapsClientStub.prototype.placeDetails).toHaveBeenCalledWith(
       'client-id',
       'en',
-      { placeId: helper.ADDRESS_2.place_id },
+      {
+        placeId: helper.ADDRESS_2.place_id,
+      },
     );
     return eventually(
       () => {
@@ -1077,7 +1091,9 @@ describe('AddressInput', () => {
           expect(GoogleMapsClientStub.prototype.geocode).toHaveBeenCalledWith(
             helper.API_KEY,
             'en',
-            { placeId: helper.ADDRESS_1.place_id },
+            {
+              placeId: helper.ADDRESS_1.place_id,
+            },
           );
         },
         { interval: 5 },
@@ -1103,7 +1119,9 @@ describe('AddressInput', () => {
           expect(GoogleMapsClientStub.prototype.geocode).toHaveBeenCalledWith(
             helper.API_KEY,
             'en',
-            { placeId: helper.ADDRESS_2.place_id },
+            {
+              placeId: helper.ADDRESS_2.place_id,
+            },
           );
         },
         { interval: 5 },
@@ -1118,7 +1136,7 @@ describe('AddressInput', () => {
         this.state = { value: '' };
       }
 
-      handleOnSelect = e => {
+      handleOnSelect = (e) => {
         const { address } = e;
         this.setState({ value: address.formatted });
         this.props.onSelect && this.props.onSelect(e);

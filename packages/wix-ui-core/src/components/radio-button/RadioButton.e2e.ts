@@ -23,7 +23,7 @@ describe('RadioButton', () => {
         expect(await radio.isSelected()).toBeFalsy();
         await radio.select();
         expect(await radio.isSelected()).toBeTruthy();
-      }
+      },
     );
   });
 
@@ -34,7 +34,7 @@ describe('RadioButton', () => {
     const radioSecond = radioButtonTestkitFactory({ dataHook: dataHookSecond });
     return waitForVisibilityOf(
       radioFirst.element(),
-      'Cannot find RadioButton'
+      'Cannot find RadioButton',
     ).then(async () => {
       expect(await radioSecond.isSelected()).toBeFalsy();
       browser
@@ -44,7 +44,7 @@ describe('RadioButton', () => {
           Key.ARROW_DOWN,
           Key.ARROW_DOWN,
           Key.ARROW_DOWN,
-          Key.ARROW_DOWN
+          Key.ARROW_DOWN,
         )
         .perform();
       expect(await radioSecond.isSelected()).toBeTruthy();
