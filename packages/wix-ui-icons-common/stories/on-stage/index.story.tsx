@@ -9,9 +9,9 @@ import {
   divider,
 } from "wix-storybook-utils/Sections";
 import IconsExample from "../components/icons-example";
-import * as iconComponents from "../../src/wix-ui-tpa/dist";
+import * as iconComponents from "../../src/on-stage/dist";
 import API_Table from "../APITable";
-import WixUiTpaCategoryList from './WixUiTpaCategoryList'
+import WixUiTpaCategoryList from './OnStageCategoryList'
 import { WUT_CATEGORY } from '../constants'
 
 export default {
@@ -32,7 +32,7 @@ export default {
         title: "Icon List",
         sections: [
           importExample(
-            "import Duplicate from 'wix-ui-icons-common/wix-ui-tpa/Duplicate';"
+            "import Duplicate from 'wix-ui-icons-common/on-stage/Duplicate';"
           ),
           divider(),
           title("Categories"),

@@ -1,9 +1,9 @@
 import * as React from 'react'
 import CategoryList from "../components/category-list";
-import * as iconComponents from '../../src/wix-ui-tpa/dist';
-import tpaIconsMetadata from '../../src/wix-ui-tpa/metadata';
+import * as iconComponents from '../../src/on-stage/dist';
+import tpaIconsMetadata from '../../src/on-stage/metadata';
 import { IconMetadata } from "../../src/types";
-import { classes } from "./WixUiTpaCategoryList.st.css";
+import { classes } from "./OnStageCategoryList.st.css";
 
 const tableHeaderTitles = [
   "16x16",

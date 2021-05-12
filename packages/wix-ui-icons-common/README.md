@@ -22,9 +22,9 @@ import SomeGeneralIcon from 'wix-ui-icons-common/classic-editor/SomeGeneralIcon'
 import SomeSystemIcon from 'wix-ui-icons-common/classic-editor/system/SomeSystemIcon';
 ```
 
-To import and use wix-ui-tpa icons:
+To import and use on-stage icons:
 ```jsx
-import SomeIcon from 'wix-ui-icons-common/wix-ui-tpa/SomeIcon';
+import SomeIcon from 'wix-ui-icons-common/on-stage/SomeIcon';
 ```
 
 ### Properties
