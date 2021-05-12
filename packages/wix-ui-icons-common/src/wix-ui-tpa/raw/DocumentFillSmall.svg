@@ -1,7 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="21px" height="20px" viewBox="0 0 21 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>DocumentFill_Small_20X20</title>
-    <g id="DocumentFill_Small_20X20" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(1.000000, 0.000000)">
-        <path d="M9,3 L9,7.5 C9,8.327 9.673,9 10.5,9 L10.5,9 L15,9 L15,14.5 C15,15.327 14.327,16 13.5,16 L13.5,16 L5.5,16 C4.673,16 4,15.327 4,14.5 L4,14.5 L4,4.5 C4,3.673 4.673,3 5.5,3 L5.5,3 L9,3 Z M10,3.318 C10.05,3.357 10.101,3.394 10.146,3.439 L10.146,3.439 L14.56,7.847 C14.607,7.894 14.646,7.948 14.687,8 L14.687,8 L10.5,8 C10.224,8 10,7.776 10,7.5 L10,7.5 Z" id="Combined-Shape" fill="#000000"></path>
-    </g>
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <path fill-rule="evenodd" d="M9,3 L9,7.5 C9,8.327 9.673,9 10.5,9 L10.5,9 L15,9 L15,14.5 C15,15.327 14.327,16 13.5,16 L13.5,16 L5.5,16 C4.673,16 4,15.327 4,14.5 L4,14.5 L4,4.5 C4,3.673 4.673,3 5.5,3 L5.5,3 L9,3 Z M10,3.318 C10.05,3.357 10.101,3.394 10.146,3.439 L10.146,3.439 L14.56,7.847 C14.607,7.894 14.646,7.948 14.687,8 L14.687,8 L10.5,8 C10.224,8 10,7.776 10,7.5 L10,7.5 Z"/>
 </svg>

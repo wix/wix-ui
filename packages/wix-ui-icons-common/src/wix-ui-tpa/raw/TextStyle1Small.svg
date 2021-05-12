@@ -1,7 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>TextStyle1_Small_20X20</title>
-    <g id="TextStyle1_Small_20X20" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <path d="M13,4.0003 L13,5.0003 L9,5.0003 L9,16.0003 L8,16.0003 L8,5.0003 L4,5.0003 L4,4.0003 L13,4.0003 Z M15,10.0003 L15,15.0003 L16,15.0003 L16,16.0003 L13,16.0003 L13,15.0003 L14,15.0003 L14,11.0003 L13,11.0003 L13,10.0003 L15,10.0003 Z" id="Combined-Shape" fill="#000000"></path>
-    </g>
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <path fill-rule="evenodd" d="M13,4.0003 L13,5.0003 L9,5.0003 L9,16.0003 L8,16.0003 L8,5.0003 L4,5.0003 L4,4.0003 L13,4.0003 Z M15,10.0003 L15,15.0003 L16,15.0003 L16,16.0003 L13,16.0003 L13,15.0003 L14,15.0003 L14,11.0003 L13,11.0003 L13,10.0003 L15,10.0003 Z"/>
 </svg>

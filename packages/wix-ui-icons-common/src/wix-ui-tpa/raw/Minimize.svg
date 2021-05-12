@@ -1,7 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>Minimize_Medium_24X24</title>
-    <g id="Minimize_Medium_24X24" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <path d="M10.9937,13.0058 L10.9937,19.0058 L9.9937,19.0058 L9.9937,14.7128 L4.7007,20.0058 L3.9937,19.2988 L9.2867,14.0058 L4.9937,14.0058 L4.9937,13.0058 L10.9937,13.0058 Z M19.293,4 L20,4.707 L14.707,10 L19,10 L19,11 L13,11 L13,5 L14,5 L14,9.293 L19.293,4 Z" id="Combined-Shape" fill="#000000"></path>
-    </g>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <path fill-rule="evenodd" d="M10.9937,13.0058 L10.9937,19.0058 L9.9937,19.0058 L9.9937,14.7128 L4.7007,20.0058 L3.9937,19.2988 L9.2867,14.0058 L4.9937,14.0058 L4.9937,13.0058 L10.9937,13.0058 Z M19.293,4 L20,4.707 L14.707,10 L19,10 L19,11 L13,11 L13,5 L14,5 L14,9.293 L19.293,4 Z"/>
 </svg>

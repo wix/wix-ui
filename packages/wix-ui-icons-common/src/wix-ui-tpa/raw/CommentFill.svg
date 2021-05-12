@@ -1,7 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="25px" height="24px" viewBox="0 0 25 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>CommentFill_Medium_24X24</title>
-    <g id="CommentFill_Medium_24X24" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(1.000000, 0.000000)">
-        <path d="M18.5,4 L5.5,4 C4.671,4 4,4.672 4,5.5 L4,15.5 C4,16.328 4.671,17 5.5,17 L8,17 L8,20.248 C8,20.9 8.774,21.242 9.255,20.803 L13.425,17 L13.694,17 L18.5,17 C19.329,17 20,16.328 20,15.5 L20,5.5 C20,4.672 19.329,4 18.5,4" id="Fill-2" fill="#000000"></path>
-    </g>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <path fill-rule="evenodd" d="M18.5,4 L5.5,4 C4.671,4 4,4.672 4,5.5 L4,15.5 C4,16.328 4.671,17 5.5,17 L8,17 L8,20.248 C8,20.9 8.774,21.242 9.255,20.803 L13.425,17 L13.694,17 L18.5,17 C19.329,17 20,16.328 20,15.5 L20,5.5 C20,4.672 19.329,4 18.5,4"/>
 </svg>

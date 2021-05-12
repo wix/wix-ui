@@ -1,7 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="21px" height="20px" viewBox="0 0 21 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>More_Small_20X20</title>
-    <g id="More_Small_20X20" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(1.000000, 0.000000)">
-        <path d="M10,13 C10.552,13 11,13.447 11,14 C11,14.553 10.552,15 10,15 C9.448,15 9,14.553 9,14 C9,13.447 9.448,13 10,13 Z M10,9 C10.552,9 11,9.447 11,10 C11,10.553 10.552,11 10,11 C9.448,11 9,10.553 9,10 C9,9.447 9.448,9 10,9 Z M10,5 C10.552,5 11,5.447 11,6 C11,6.553 10.552,7 10,7 C9.448,7 9,6.553 9,6 C9,5.447 9.448,5 10,5 Z" id="Combined-Shape" fill="#000000"></path>
-    </g>
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <path fill-rule="evenodd" d="M10,13 C10.552,13 11,13.447 11,14 C11,14.553 10.552,15 10,15 C9.448,15 9,14.553 9,14 C9,13.447 9.448,13 10,13 Z M10,9 C10.552,9 11,9.447 11,10 C11,10.553 10.552,11 10,11 C9.448,11 9,10.553 9,10 C9,9.447 9.448,9 10,9 Z M10,5 C10.552,5 11,5.447 11,6 C11,6.553 10.552,7 10,7 C9.448,7 9,6.553 9,6 C9,5.447 9.448,5 10,5 Z"/>
 </svg>

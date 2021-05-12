@@ -3,7 +3,6 @@ import CategoryList from "../components/category-list";
 import * as iconComponents from '../../src/wix-ui-tpa/dist';
 import tpaIconsMetadata from '../../src/wix-ui-tpa/metadata';
 import { IconMetadata } from "../../src/types";
-import { TpaTableRow } from '../types';
 import { classes } from "./WixUiTpaCategoryList.st.css";
 
 const tableHeaderTitles = [
@@ -20,6 +19,28 @@ const tableHeaderTitles = [
   "6x6",
   "Icon Name",
   "Use for",
+];
+
+/** [icon component, icon name, small icon component,
+ * small icon name, large icon component,
+ * large icon name, xsmall icon component,
+ * xsmall icon name, xlarge icon component,
+ * xlarge icon name, xxsmall icon component,
+ * xxsmall icon name, description] */
+ export type TpaTableRow = [
+  React.ReactNode,
+  string | undefined,
+  React.ReactNode,
+  string | undefined,
+  React.ReactNode,
+  string | undefined,
+  React.ReactNode,
+  string | undefined,
+  React.ReactNode,
+  string | undefined,
+  React.ReactNode,
+  string | undefined,
+  string | undefined
 ];
 
 const searchKeys = ["title", "sizes.20", "sizes.24", "sizes.30", "tags", "aliases"];
