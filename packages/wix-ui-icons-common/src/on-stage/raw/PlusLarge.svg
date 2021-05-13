@@ -1,3 +1,3 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
-  <path fill-rule="evenodd" d="M15.5,5.5 L15.5,15 L25,15 L25,16 L15.5,16 L15.5,25.5 L14.5,25.5 L14.5,16 L5,16 L5,15 L14.5,15 L14.5,5.5 L15.5,5.5 Z"/>
+  <path fill-rule="evenodd" d="M15.5,5.5 L15.499,15 L25,15 L25,16 L15.499,16 L15.5,25.5 L14.5,25.5 L14.499,16 L5,16 L5,15 L14.499,15 L14.5,5.5 L15.5,5.5 Z"/>
 </svg>

@@ -57,6 +57,6 @@ describe("All icons", () => {
         ExpectedConditions.presenceOf($(`[data-hook="icon-list"]`))
       );
     },
-    { width: 1024, height: 1000 }
+    { width: 1024, height: 7000 }
   );
 });
