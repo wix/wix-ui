@@ -165,6 +165,7 @@ export class Pagination extends React.Component<
     event: React.KeyboardEvent<HTMLInputElement>,
   ): void => {
     // Enter
+    // tslint:disable-next-line: deprecation
     if (event.keyCode === 13) {
       const page = Number(this.state.pageInputValue);
       if (page !== this.props.currentPage) {
@@ -198,6 +199,7 @@ export class Pagination extends React.Component<
     page: number,
   ): void => {
     // Enter or Space
+    // tslint:disable-next-line: deprecation
     if (event.keyCode === 13 || event.keyCode === 32) {
       this.props.onChange({ event, page });
     }
