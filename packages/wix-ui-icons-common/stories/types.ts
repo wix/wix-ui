@@ -36,4 +36,5 @@ export type IconsMetadataIndex = Fuse<IconMetadata>;
 export type GeneralCategoryListProps = {
   iconComponents: Record<string, React.FC<IconProps>>;
   iconsMetadata: Array<IconMetadata>
+  smallSize?: 20 | 18 ;
 }

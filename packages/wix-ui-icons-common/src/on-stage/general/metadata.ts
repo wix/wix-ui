@@ -416,11 +416,11 @@ const tpaIconsMetadata: Array<IconMetadata> = [
     sizes: { "20":"SelectSmall", "24":"Select" },
   },
   {
-    title: "CheckFill",
+    title: "SelectFill",
     category: "Toggle",
     description: "",
     tags: [],
-    sizes: { "24":"CheckFill" },
+    sizes: { "24":"SelectFill" },
   },
   {
     title: "Unlock",
