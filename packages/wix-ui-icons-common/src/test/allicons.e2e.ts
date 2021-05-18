@@ -1,7 +1,7 @@
 import * as eyes from "eyes.it";
 import { getStoryUrl } from "wix-ui-test-utils/protractor";
 import { $, browser, ExpectedConditions } from "protractor";
-import { CLASSIC_EDITOR_CATEGORY, GENERAL_ICONS, SYSTEM_ICONS, WSR_CATEGORY, WUT_CATEGORY } from '../../stories/constants'
+import { CLASSIC_EDITOR_CATEGORY, GENERAL_ICONS, SYSTEM_ICONS, WSR_CATEGORY, ON_STAGE_CATEGORY } from '../../stories/constants'
 
 describe("All icons", () => {
   eyes.it(
@@ -49,14 +49,25 @@ describe("All icons", () => {
     { width: 1024, height: 1000 }
   );
   eyes.it(
-    `check WUT Icons`,
+    `check On-Stage - General Icons`,
     async () => {
-      const storyUrl = getStoryUrl(WUT_CATEGORY, WUT_CATEGORY);
+      const storyUrl = getStoryUrl(ON_STAGE_CATEGORY, GENERAL_ICONS);
       browser.get(storyUrl);
       await browser.wait(
         ExpectedConditions.presenceOf($(`[data-hook="icon-list"]`))
       );
     },
     { width: 1024, height: 7000 }
+  );
+  eyes.it(
+    `check On-Stage - System Icons`,
+    async () => {
+      const storyUrl = getStoryUrl(ON_STAGE_CATEGORY, SYSTEM_ICONS);
+      browser.get(storyUrl);
+      await browser.wait(
+        ExpectedConditions.presenceOf($(`[data-hook="icon-list"]`))
+      );
+    },
+    { width: 1024, height: 1000 }
   );
 });

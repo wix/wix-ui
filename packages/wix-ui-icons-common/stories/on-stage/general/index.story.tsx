@@ -8,18 +8,13 @@ import {
   title,
   divider,
 } from "wix-storybook-utils/Sections";
-import IconsExample from "../components/icons-example";
-import * as iconComponents from "../../src/on-stage/dist";
-import API_Table from "../APITable";
-import WixUiTpaCategoryList from './OnStageCategoryList'
-import { WUT_CATEGORY } from '../constants'
+import API_Table from "../../APITable";
+import OnStageGeneralCatrgoryList from './OnStageGeneralCategoryList'
+import { ON_STAGE_CATEGORY, GENERAL_ICONS } from '../../constants'
 
 export default {
-  category: WUT_CATEGORY,
-  storyName: WUT_CATEGORY,
-  component: () => (
-    <IconsExample dataHook="icon-list" {...{ iconComponents }} />
-  ),
+  category: ON_STAGE_CATEGORY,
+  storyName: GENERAL_ICONS,
 
   sections: [
     header({
@@ -40,7 +35,7 @@ export default {
             text:
               "The usage of each icon type is determined by intention and size. Icons should be used strictly according to the description.",
           }),
-          <WixUiTpaCategoryList />,
+          <OnStageGeneralCatrgoryList />,
         ],
       }),
       tab({
