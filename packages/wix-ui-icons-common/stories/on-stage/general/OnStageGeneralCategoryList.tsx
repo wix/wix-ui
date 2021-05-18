@@ -1,10 +1,11 @@
 import * as React from 'react'
 import CategoryList from "../../components/category-list";
 import { IconMetadata } from "../../../src/types";
-import * as iconComponents from '../../../src/on-stage/general/dist'
-import generalIconsMetadata from '../../../src/on-stage/general/metadata'
+import { classes } from "./OnStageGeneralCategoryList.st.css";
+import * as iconComponents from '../../../src/on-stage/general/dist';
+import generalIconsMetadata from '../../../src/on-stage/general/metadata';
 
-import { GeneralCategoryListProps, GeneralTableRow } from '../../types'
+import { GeneralTableRow } from '../../types'
 
 const tableHeaderTitles = [
   "16x16",
@@ -16,7 +17,7 @@ const tableHeaderTitles = [
 
 const searchKeys = ["title", "sizes.20", "sizes.24", "tags", "aliases"];
 
-const OnStageGeneralCategoryList: React.FC<GeneralCategoryListProps> = () => {
+const OnStageGeneralCategoryList: React.FC = () => {
 
   const mapIconToRow = (
     {
@@ -36,6 +37,7 @@ const OnStageGeneralCategoryList: React.FC<GeneralCategoryListProps> = () => {
 
   return (
     <CategoryList
+      className={classes.tableList}
       dataHook="icon-list"
       iconsMetadata={generalIconsMetadata}
       {...{

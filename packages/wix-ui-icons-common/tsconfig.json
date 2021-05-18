@@ -25,7 +25,7 @@
     // Used for sharing story with external Storybooks (e.g. wix-style-react)
     "./stories/general/GeneralCategoryList.tsx",
     "./stories/classic-editor/general/classicEditorGeneralCategoryList.tsx",
-    "stories/on-stage/OnStageCategoryList.tsx",
+    "stories/on-stage/general/OnStageGeneralCategoryList.tsx",
     "./stories/APITable.tsx"
   ]
 }
