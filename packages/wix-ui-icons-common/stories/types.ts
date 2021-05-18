@@ -38,3 +38,8 @@ export type GeneralCategoryListProps = {
   iconsMetadata: Array<IconMetadata>
   smallSize?: 20 | 18 ;
 }
+
+export type SystemCategoryListProps = {
+  iconComponents: Record<string, React.FC<IconProps>>;
+  iconsMetadata: Array<IconMetadata>
+}

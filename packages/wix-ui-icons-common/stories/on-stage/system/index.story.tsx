@@ -8,37 +8,11 @@ import {
   title,
   divider,
 } from "wix-storybook-utils/Sections";
-import Sizes from "../../system/Sizes";
-import CategoryList from "../../components/category-list";
+import SystemCategoryListBase from "../../components/system-category-list-base/SystemCategoryListBase";
 import systemIconsMetadata from "../../../src/on-stage/system/metadata";
 import * as iconComponents from "../../../src/on-stage/system/dist";
-import { IconMetadata } from "../../../src/types";
-import { SystemTableRow, IconDescriptor } from "../../types";
 import API_Table from "../../APITable";
-import { getIconSizeKeys } from '../../utils'
 import { SYSTEM_ICONS, ON_STAGE_CATEGORY } from '../../constants'
-
-const mapIconToRow = ({
-  title,
-  sizes,
-  description,
-}: IconMetadata): SystemTableRow => {
-  const iconDescriptors: Array<IconDescriptor> = [];
-  for (const [size, name] of Object.entries(sizes)) {
-    const Icon = iconComponents[name];
-    iconDescriptors.push({
-      size,
-      name,
-      Icon,
-    });
-  }
-  return [title, <Sizes sizes={iconDescriptors} />, description];
-};
-
-const tableHeaderTitles = ["Icon Name", "Sizes", "Use for"];
-
-const iconSizeKeys = getIconSizeKeys(systemIconsMetadata);
-const searchKeys = ["title", ...iconSizeKeys, "tags", "aliases"];
 
 export default {
   category: ON_STAGE_CATEGORY,
@@ -63,14 +37,9 @@ export default {
             text:
               "The usage of each icon type is determined by intention and size. Icons should be used strictly according to the description.",
           }),
-          <CategoryList
-            dataHook="icon-list"
+          <SystemCategoryListBase
             iconsMetadata={systemIconsMetadata}
-            {...{
-              tableHeaderTitles,
-              searchKeys,
-              mapIconToRow,
-            }}
+            iconComponents={iconComponents}
           />,
         ],
       }),

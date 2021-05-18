@@ -25,6 +25,7 @@ import SomeSystemIcon from 'wix-ui-icons-common/classic-editor/system/SomeSystem
 To import and use on-stage icons:
 ```jsx
 import SomeIcon from 'wix-ui-icons-common/on-stage/SomeIcon';
+import SomeSystemIcon from 'wix-ui-icons-common/on-stage/system/SomeSystemIcon';
 ```
 
 ### Properties
