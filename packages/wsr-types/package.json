@@ -36,8 +36,8 @@
   },
   "dependencies": {
     "@types/draft-js": "^0.10.38",
-    "@types/react": "^16.8.4",
-    "@types/react-dom": "^16.0.5",
+    "@types/react": "^16.0.0",
+    "@types/react-dom": "^16.0.0",
     "@types/react-window": "^1.8.1",
     "moment": "^2.24.0",
     "wix-ui-backoffice": "^1.0.408",
