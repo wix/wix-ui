@@ -269,6 +269,13 @@ const tpaIconsMetadata: Array<IconMetadata> = [
     sizes: { "24":"ThumbUp" },
   },
   {
+    title: "User",
+    category: "General",
+    description: "",
+    tags: [],
+    sizes: { "24":"User" },
+  },
+  {
     title: "Check",
     category: "Actions",
     description: "",
@@ -379,6 +386,20 @@ const tpaIconsMetadata: Array<IconMetadata> = [
     description: "",
     tags: [],
     sizes: {"24":"Share" },
+  },
+  {
+    title: "Favorite",
+    category: "Toggle",
+    description: "",
+    tags: [],
+    sizes: { "24":"Favorite" },
+  },
+  {
+    title: "FavoriteFill",
+    category: "Toggle",
+    description: "",
+    tags: [],
+    sizes: { "24":"FavoriteFill" },
   },
   {
     title: "LikeHeart",
