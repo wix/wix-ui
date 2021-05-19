@@ -649,7 +649,7 @@ sizes: { "18": "GetStartedSmall", "24": "GetStarted" },
     sizes: { "18": "PublicSmall", "24": "Public" },
   },
 {
-  title:“RelatedApps”,
+  title: "RelatedApps",
   category: "General",
   description: "Button – directs to related app page",
   tags: ["App", "Store"],
