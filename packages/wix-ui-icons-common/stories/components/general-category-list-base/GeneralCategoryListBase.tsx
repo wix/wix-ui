@@ -10,16 +10,14 @@ const GeneralCategoryListBase: React.FC<GeneralCategoryListProps> = ({
   iconsMetadata,
   iconSizes = {
     smallSize: 18,
-    smallTitle: "18",
     mediumSize: 24,
-    mediumTitle: "24",
   },
 }) => {
 
   const tableHeaderTitles = [
-    `${iconSizes.mediumTitle}x${iconSizes.mediumTitle}`,
+    `${iconSizes.mediumSize}x${iconSizes.mediumSize}`,
     "Icon Name",
-    `${iconSizes.smallTitle}x${iconSizes.smallTitle}`,
+    `${iconSizes.smallSize}x${iconSizes.smallSize}`,
     "Icon Name",
     "Use for",
   ];

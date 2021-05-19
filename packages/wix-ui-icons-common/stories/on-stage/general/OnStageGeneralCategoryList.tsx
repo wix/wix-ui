@@ -9,9 +9,7 @@ const OnStageGeneralCategoryList: React.FC = () =>{
 
   const iconSizes: IconSizesType = {
     smallSize: 20,
-    smallTitle: "12",
     mediumSize: 24,
-    mediumTitle: "16",
   }
 
   return (

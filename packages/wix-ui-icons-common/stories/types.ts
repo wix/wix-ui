@@ -35,9 +35,7 @@ export type IconsMetadataIndex = Fuse<IconMetadata>;
 
 export type IconSizesType = {
   mediumSize: number;
-  mediumTitle: string;
   smallSize: number;
-  smallTitle: string;
 };
 
 export type GeneralCategoryListProps = {
