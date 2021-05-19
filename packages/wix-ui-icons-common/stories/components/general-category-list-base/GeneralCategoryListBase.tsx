@@ -4,33 +4,40 @@ import { classes } from "./GeneralCategoryListBase.st.css";
 import { IconMetadata } from "../../../src/types";
 import { GeneralCategoryListProps, GeneralTableRow} from '../../types'
 
-const GeneralCategoryListBase: React.FC<GeneralCategoryListProps> = ({ iconComponents, iconsMetadata, smallSize }) => {
 
-  const smallIconSize = smallSize? smallSize: 18;
-  const smallIconTitle = smallIconSize===20? "12" : "18";
+const GeneralCategoryListBase: React.FC<GeneralCategoryListProps> = ({
+  iconComponents,
+  iconsMetadata,
+  iconSizes = {
+    smallSize: 18,
+    smallTitle: "18",
+    mediumSize: 24,
+    mediumTitle: "24",
+  },
+}) => {
 
   const tableHeaderTitles = [
-    "24x24",
+    `${iconSizes.mediumTitle}x${iconSizes.mediumTitle}`,
     "Icon Name",
-    `${smallIconTitle}x${smallIconTitle}`,
+    `${iconSizes.smallTitle}x${iconSizes.smallTitle}`,
     "Icon Name",
     "Use for",
   ];
 
-  const searchKeys = ["title", `sizes.${smallIconSize}`, "sizes.24", "tags", "aliases"];
+  const searchKeys = ["title", `sizes.${iconSizes.smallSize}`, `sizes.${iconSizes.mediumSize}`, "tags", "aliases"];
 
   const mapIconToRow = (
     {
       description,
       sizes,
     }: IconMetadata): GeneralTableRow => {
-    const Icon = iconComponents[sizes[24]]
-    const SmallIcon = iconComponents[sizes[smallIconSize]]
+    const Icon = iconComponents[sizes[iconSizes.mediumSize]]
+    const SmallIcon = iconComponents[sizes[iconSizes.smallSize]]
     return [
       Icon && <Icon/>,
-      sizes[24],
+      sizes[iconSizes.mediumSize],
       SmallIcon && <SmallIcon/>,
-      sizes[smallIconSize],
+      sizes[iconSizes.smallSize],
       description,
     ]
   }
