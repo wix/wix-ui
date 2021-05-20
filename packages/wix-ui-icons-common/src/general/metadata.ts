@@ -2211,6 +2211,13 @@ sizes: { "18": "ESignatureSmall", "24": "ESignature" },
     tags: ["arena", "hire", "profesional", "wix"],
     sizes: { "18": "WixMarketplaceSmall", "24": "WixMarketplace" },
   },
+	{
+	 title: "Editor X",
+	 category: "Wix Brands",
+	 description: "Button - opens Editor X",
+	 tags: ["Edit", "Go to"],
+	 sizes: { "18": "EditorXSmall", "24": "EditorX" },
+	 },
   {
     title: "TableChart",
     category: "General",
