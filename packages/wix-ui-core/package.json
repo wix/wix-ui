@@ -103,7 +103,8 @@
     "wix-eventually": "^2.2.0",
     "wix-ui-icons-common": "^2.0.0",
     "wix-ui-test-utils": "^1.0.151",
-    "yoshi-stylable-dependencies": "^4.49.0"
+    "yoshi-stylable-dependencies": "^4.49.0",
+    "@stylable/dom-test-kit": "^3.4.1"
   },
   "devDependencies": {
     "@applitools/eyes-storybook": "^3.3.1",
@@ -151,11 +152,9 @@
     "wix-ui-framework": "^3.3.1",
     "wix-ui-mocha-runner": "^1.0.0",
     "@wix/yoshi": "^4.55.1",
-    "yoshi-style-dependencies": "^4.37.1",
-    "@stylable/dom-test-kit": "^3.4.1"
+    "yoshi-style-dependencies": "^4.37.1"
   },
   "peerDependencies": {
-    "@stylable/dom-test-kit": "^3.4.1",
     "@wix/ambassador": "^4.0.489",
     "@wix/ambassador-wix-atlas-service-web": "^1.0.148"
   },
