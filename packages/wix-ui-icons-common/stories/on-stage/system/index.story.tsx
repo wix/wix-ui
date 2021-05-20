@@ -8,6 +8,7 @@ import {
   title,
   divider,
 } from "wix-storybook-utils/Sections";
+import IconsExample from "../../components/icons-example";
 import SystemCategoryListBase from "../../components/system-category-list-base/SystemCategoryListBase";
 import systemIconsMetadata from "../../../src/on-stage/system/metadata";
 import * as iconComponents from "../../../src/on-stage/system/dist";
@@ -17,6 +18,9 @@ import { SYSTEM_ICONS, ON_STAGE_CATEGORY } from '../../constants'
 export default {
   category: ON_STAGE_CATEGORY,
   storyName: SYSTEM_ICONS,
+  component: () => (
+    <IconsExample dataHook="icon-list" {...{ iconComponents }} />
+  ),
 
   sections: [
     header({

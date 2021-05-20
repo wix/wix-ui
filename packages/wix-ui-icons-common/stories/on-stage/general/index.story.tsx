@@ -9,12 +9,17 @@ import {
   divider,
 } from "wix-storybook-utils/Sections";
 import API_Table from "../../APITable";
+import IconsExample from "../../components/icons-example";
+import * as iconComponents from "../../../src/on-stage/general/dist";
 import OnStageGeneralCatrgoryList from './OnStageGeneralCategoryList'
 import { ON_STAGE_CATEGORY, GENERAL_ICONS } from '../../constants'
 
 export default {
   category: ON_STAGE_CATEGORY,
   storyName: GENERAL_ICONS,
+  component: () => (
+    <IconsExample dataHook="icon-list" {...{ iconComponents }} />
+  ),
 
   sections: [
     header({
