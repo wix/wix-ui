@@ -70,6 +70,8 @@ export interface RadioButtonProps {
   className?: string;
   /** Inline style */
   style?: object;
+  /** define whether the native input radio should be auto focused */
+  autoFocus?: boolean;
 }
 
 export interface RadioButtonState {
@@ -95,6 +97,10 @@ export class RadioButton extends React.Component<
     onKeyDown: noop,
     onHover: noop,
     onBlur: noop,
+  };
+
+  focus() {
+    this.radioRef?.focus();
   };
 
   render() {
@@ -154,6 +160,7 @@ export class RadioButton extends React.Component<
           ref={(radio) => (this.radioRef = radio)}
           aria-label={this.props['aria-label']}
           aria-describedby={this.props['aria-describedby']}
+          autoFocus={this.props.autoFocus}
         />
         <span
           className={classes.icon}

@@ -48,6 +48,10 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
   private focusedByMouse = false;
   state = { isFocused: false, focusVisible: false };
 
+  focus() {
+    this.checkbox?.focus();
+  };
+
   public render() {
     const {
       checked,

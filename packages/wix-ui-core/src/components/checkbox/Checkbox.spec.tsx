@@ -143,6 +143,17 @@ describe('Checkbox', () => {
       expect(document.activeElement).toBe(checkbox.input());
     });
 
+    it('should be able to trigger focus', () => {
+      const ref = React.createRef<any>();
+      const checkbox = createDriver(<Checkbox autoFocus={false} ref={ref}/>);
+
+      expect(document.activeElement).not.toBe(checkbox.input());
+
+      ref.current.focus();
+
+      expect(document.activeElement).toBe(checkbox.input());
+    });
+
     it('has error style state', () => {
       const checkbox = createDriver(<Checkbox error />);
 

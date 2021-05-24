@@ -3,8 +3,9 @@ import { radioButtonDriverFactory } from './RadioButton.driver';
 import { radioButtonUniDriverFactory } from './RadioButton.uni.driver';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
 import { RadioButton, RadioButtonProps } from './RadioButton';
+import {Checkbox} from "../checkbox";
 
-function createRadio(props: RadioButtonProps = {}) {
+function createRadio(props: RadioButtonProps & {ref?: any} = {}) {
   return (
     <RadioButton
       label={<span>Horsie</span>}
@@ -129,6 +130,25 @@ describe('RadioButton', () => {
       expect(await radio.isInputFocused()).toBeFalsy();
 
       await radio.click();
+
+      expect(await radio.isInputFocused()).toBeTruthy();
+    });
+
+    it('should pass the autoFocus prop to the input', async () => {
+      const radio = await createDriver(createRadio({autoFocus: true}));
+
+      // Elements in inactive windows cannot gain focus, however on .focus()
+      // call they still become the active element.
+      expect(await radio.isInputFocused()).toBeTruthy();
+    });
+
+    it('should be able to trigger focus', async () => {
+      const ref = React.createRef<any>();
+      const radio = await createDriver(createRadio({autoFocus: false, ref}));
+
+      expect(await radio.isInputFocused()).toBeFalsy();
+
+      ref.current.focus();
 
       expect(await radio.isInputFocused()).toBeTruthy();
     });
