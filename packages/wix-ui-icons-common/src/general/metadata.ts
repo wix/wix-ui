@@ -36,7 +36,7 @@ const generalIconsMetadata: Array<IconMetadata> = [
   category: "Wix Brands",
   description: "Button - opens Loyalty page",
   tags: ["Customer", "Coin", "Discount", "Points"],
-  sizes: { "18": "LoyaltySmall”, "24": "Loyalty" },
+  sizes: { "18": "LoyaltySmall", "24": "Loyalty" },
   },
   {
     title: "PaidPlansSell",
