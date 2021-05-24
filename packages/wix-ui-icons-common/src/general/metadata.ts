@@ -32,6 +32,13 @@ const generalIconsMetadata: Array<IconMetadata> = [
     sizes: { "18": "PaidPlansSmall", "24": "PaidPlans" },
   },
   {
+  title: "Loyalty",
+  category: "Wix Brands",
+  description: "Button - opens Loyalty page",
+  tags: ["Customer", "Coin", "Discount", "Points"],
+  sizes: { "18": "LoyaltySmall", "24": "Loyalty" },
+  },
+  {
     title: "PaidPlansSell",
     category: "Wix Brands",
     description: "Button - opens a dialog for selling a plan to a specific customer",
@@ -2064,6 +2071,13 @@ sizes: { "18": "ESignatureSmall", "24": "ESignature" },
     description: "Button - redirects to Vimeo social network",
     tags: [ "share", "video", "upload"],
     sizes: { "18": "VimeoSmall", "24": "Vimeo" },
+  },
+  {
+  title: "Naver",
+  category: "Brands",
+  description: "Button - redirects to Naver browser",
+  tags: ["browser", "search"],
+  sizes: { "18": "NaverSmall", "24": "Naver" },
   },
   {
     title: "Cart",
