@@ -51,7 +51,7 @@
     "create-classic-editor-aliases": "npm run create-classic-editor-general-aliases && npm run create-classic-editor-system-aliases",
     "create-classic-editor-general-aliases": "node ./scripts/create-aliases.js ./dist/src/classic-editor/general/dist/components classic-editor",
     "create-classic-editor-system-aliases": "node ./scripts/create-aliases.js ./dist/src/classic-editor/system/dist/components classic-editor/system ./dist/src/classic-editor/system/dist",
-    "export-svg-icons": "npm run export-wsr-svg-icons && npm run export-classic-editor-svg-icons && npm run export-on-stage-svg-icons",
+    "export-svg-icons": "npm run export-wsr-svg-icons && npm run export-classic-editor-svg-icons",
     "export-on-stage-svg-icons": "npm run export-on-stage-general-svg-icons && npm run export-on-stage-system-svg-icons",
     "export-on-stage-general-svg-icons": "node ./scripts/export-svg-icons.js ./src/on-stage/general/raw .",
     "export-on-stage-system-svg-icons": "node ./scripts/export-svg-icons.js ./src/on-stage/system/raw system",
