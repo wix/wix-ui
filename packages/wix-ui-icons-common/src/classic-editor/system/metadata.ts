@@ -577,6 +577,13 @@ const systemIconsMetadata: Array<IconMetadata> = [
       '24': 'Rotation',
     },
   },
+  {
+    title: "HeaderBackButton",
+    category: undefined,
+    description: undefined,
+    tags: [],
+    sizes: { "30": "HeaderBackButton" },
+  },
 ]
 
 export default systemIconsMetadata
