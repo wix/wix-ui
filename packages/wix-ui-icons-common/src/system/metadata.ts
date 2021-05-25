@@ -148,13 +148,6 @@ const systemIconsMetadata: Array<IconMetadata> = [
     sizes: { "18x16": "FormFieldWarningFilled" },
   },
   {
-    title: "HeaderBackButton",
-    category: undefined,
-    description: undefined,
-    tags: [],
-    sizes: { "30": "HeaderBackButton" },
-  },
-  {
     title: "Help",
     category: undefined,
     description: undefined,
