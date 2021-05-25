@@ -1,7 +1,9 @@
 import { IconMetadata } from "../../types";
 
 const tpaIconsMetadata: Array<IconMetadata> = [
-  {
+   /*
+   // Large Icons are ignored for now because they are not in the correct size
+   {
     title: "Calendar",
     category: "General",
     description: "",
@@ -56,7 +58,7 @@ const tpaIconsMetadata: Array<IconMetadata> = [
     description: "",
     tags: [],
     sizes: { "30":"TagLarge" },
-  },
+  },*/
   {
     title: "Check",
     category: "Actions",
@@ -69,9 +71,9 @@ const tpaIconsMetadata: Array<IconMetadata> = [
     category: "Actions",
     description: "",
     tags: [],
-    sizes: {"12":"CloseXXSmall", "16":"CloseXSmall", "30":"CloseLarge" },
+    sizes: {"12":"CloseXXSmall", "16":"CloseXSmall", /*"30":"CloseLarge"*/ },
   },
-  {
+  /*{
     title: "Delete",
     category: "Actions",
     description: "",
@@ -98,22 +100,22 @@ const tpaIconsMetadata: Array<IconMetadata> = [
     description: "",
     tags: [],
     sizes: { "30":"LinkLarge" },
-  },
+  },*/
   {
     title: "Minus",
     category: "Actions",
     description: "",
     tags: [],
-    sizes: {"16":"MinusXSmall", "30":"MinusLarge" },
+    sizes: {"16":"MinusXSmall", /*"30":"MinusLarge"*/ },
   },
   {
     title: "Plus",
     category: "Actions",
     description: "",
     tags: [],
-    sizes: {"16":"PlusXSmall", "30":"PlusLarge" },
+    sizes: {"16":"PlusXSmall", /*"30":"PlusLarge"*/ },
   },
-  {
+  /*{
     title: "LikeHeart",
     category: "Toggle",
     description: "",
@@ -126,7 +128,7 @@ const tpaIconsMetadata: Array<IconMetadata> = [
     description: "",
     tags: [],
     sizes: { "30":"LikeHeartFillLarge" },
-  },
+  },*/
   {
     title: "LockFill",
     category: "Toggle",
@@ -134,7 +136,7 @@ const tpaIconsMetadata: Array<IconMetadata> = [
     tags: [],
     sizes: {"16":"LockFillXSmall" },
   },
-  {
+  /*{
     title: "Select",
     category: "Toggle",
     description: "",
@@ -189,7 +191,7 @@ const tpaIconsMetadata: Array<IconMetadata> = [
     description: "",
     tags: [],
     sizes: { "30":"VideoLarge" },
-  },
+  },*/
   {
     title: "VideoFill",
     category: "Media",
@@ -197,7 +199,7 @@ const tpaIconsMetadata: Array<IconMetadata> = [
     tags: [],
     sizes: { "16":"VideoFillXSmall" },
   },
-  {
+  /*{
     title: "Error",
     category: "Notifications",
     description: "",
@@ -217,36 +219,36 @@ const tpaIconsMetadata: Array<IconMetadata> = [
     description: "",
     tags: [],
     sizes: { "30":"NotificationsFillLarge" },
-  },
+  },*/
   {
     title: "ArrowDown",
     category: "Arrows",
     description: "",
     tags: [],
-    sizes: { "16":"ArrowDownXSmall", "30":"ArrowDownLarge", "60":"ArrowDownXLarge" },
+    sizes: { "16":"ArrowDownXSmall"/*, "30":"ArrowDownLarge"*/, "60":"ArrowDownXLarge" },
   },
   {
     title: "ArrowLeft",
     category: "Arrows",
     description: "",
     tags: [],
-    sizes: { "16":"ArrowLeftXSmall", "30":"ArrowLeftLarge", "60":"ArrowLeftXLarge" },
+    sizes: { "16":"ArrowLeftXSmall"/*, "30":"ArrowLeftLarge"*/, "60":"ArrowLeftXLarge" },
   },
   {
     title: "ArrowRight",
     category: "Arrows",
     description: "",
     tags: [],
-    sizes: { "16":"ArrowRightXSmall", "30":"ArrowRightLarge", "60":"ArrowRightXLarge" },
+    sizes: { "16":"ArrowRightXSmall"/*, "30":"ArrowRightLarge"*/, "60":"ArrowRightXLarge" },
   },
   {
     title: "ArrowUp",
     category: "Arrows",
     description: "",
     tags: [],
-    sizes: { "16":"ArrowUpXSmall", "30":"ArrowUpLarge", "60":"ArrowUpXLarge" },
+    sizes: { "16":"ArrowUpXSmall"/*, "30":"ArrowUpLarge"*/, "60":"ArrowUpXLarge" },
   },
-  {
+  /*{
     title: "DoubleArrowRight",
     category: "Arrows",
     description: "",
@@ -308,7 +310,7 @@ const tpaIconsMetadata: Array<IconMetadata> = [
     description: "",
     tags: [],
     sizes: { "40":"SpoilerAlertLarge" },
-  },
+  },*/
 ];
 
 export default tpaIconsMetadata;
