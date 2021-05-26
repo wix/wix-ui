@@ -33,7 +33,18 @@ export type IconDescriptor = {
 // Search index of icons metadata
 export type IconsMetadataIndex = Fuse<IconMetadata>;
 
+export type IconSizesType = {
+  mediumSize: number;
+  smallSize: number;
+};
+
 export type GeneralCategoryListProps = {
+  iconComponents: Record<string, React.FC<IconProps>>;
+  iconsMetadata: Array<IconMetadata>
+  iconSizes?: IconSizesType;
+}
+
+export type SystemCategoryListProps = {
   iconComponents: Record<string, React.FC<IconProps>>;
   iconsMetadata: Array<IconMetadata>
 }

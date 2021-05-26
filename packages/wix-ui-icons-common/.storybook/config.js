@@ -24,6 +24,8 @@ const loadStories = () => {
   require("../stories/system/index.story");
   require("../stories/classic-editor/general/index.story");
   require("../stories/classic-editor/system/index.story");
+  require("../stories/on-stage/general/index.story");
+  require("../stories/on-stage/system/index.story");
 };
 
 configure(loadStories, module);
