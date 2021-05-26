@@ -20,6 +20,7 @@ import { ComponentsHints } from '../typings/components-hints';
 
 export interface Props {
   initialCode?: string;
+  title?: string;
   scope?: object;
   compact?: boolean;
   initiallyOpen?: boolean;
@@ -34,6 +35,7 @@ export interface Props {
 }
 
 interface State {
+  initialOriginalCode: string;
   initialFormattedCode: string;
   code: string;
   isRtl: boolean;
@@ -48,6 +50,7 @@ interface State {
 export default class LiveCodeExample extends React.PureComponent<Props, State> {
   static propTypes = {
     initialCode: PropTypes.string,
+    title: PropTypes.string,
     scope: PropTypes.object,
     compact: PropTypes.bool,
     initiallyOpen: PropTypes.bool,
@@ -73,9 +76,14 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    const formattedCode = formatCode(props.initialCode).trim();
+    const codeFromStorage = window.sessionStorage.getItem(props.title);
+    const initialOriginalCode = formatCode(props.initialCode).trim();
 
+    const formattedCode = codeFromStorage
+      ? codeFromStorage
+      : initialOriginalCode;
     this.state = {
+      initialOriginalCode,
       initialFormattedCode: formattedCode,
       code: formattedCode,
       isRtl: false,
@@ -122,7 +130,10 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
   };
 
   onEditorChange = code => {
-    this.setState({ code }, () => this.props.onChange(this.state.code));
+    const { title, onChange } = this.props;
+    this.setState({ code }, () => onChange(this.state.code));
+    console.log(title);
+    window.sessionStorage.setItem(title, code);
   };
 
   onToggleRtl = (isRtl: boolean) => this.setState({ isRtl });
@@ -189,7 +200,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
       hints,
     } = this.state;
 
-    const dirty = this.state.initialFormattedCode !== this.state.code;
+    const dirty = this.state.initialOriginalCode !== this.state.code;
 
     return (
       <div

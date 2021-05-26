@@ -22,6 +22,6 @@ export default {
     header({ title: "Playground component" }),
     importExample("import Playground from 'wix-storybook-utils/Playground'"),
     description(<Playground initialCode={codeExample} />),
-    code({ source: '<Button>Hello</Button>' })
+    code({ title: 'Playground example', source: '<Button>Hello</Button>' })
   ]
 };
