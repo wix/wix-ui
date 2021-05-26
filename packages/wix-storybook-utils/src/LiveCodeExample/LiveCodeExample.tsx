@@ -76,7 +76,10 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    const codeFromStorage = window.sessionStorage.getItem(props.title);
+    const pageTitle = window.sessionStorage.getItem('storybook-page-title');
+    const codeFromStorage = window.sessionStorage.getItem(
+      `${pageTitle}-${props.title}`,
+    );
     const initialOriginalCode = formatCode(props.initialCode).trim();
 
     const formattedCode = codeFromStorage
@@ -133,7 +136,8 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
     const { title, onChange } = this.props;
     this.setState({ code }, () => onChange(this.state.code));
     console.log(title);
-    window.sessionStorage.setItem(title, code);
+    const pageTitle = window.sessionStorage.getItem('storybook-page-title');
+    window.sessionStorage.setItem(`${pageTitle}-${title}`, code);
   };
 
   onToggleRtl = (isRtl: boolean) => this.setState({ isRtl });
