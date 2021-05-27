@@ -578,6 +578,13 @@ const systemIconsMetadata: Array<IconMetadata> = [
     },
   },
   {
+    title: "HeaderBackButton",
+    category: undefined,
+    description: undefined,
+    tags: [],
+    sizes: { "30": "HeaderBackButton" },
+  },
+  {
     title: "ChevronLeft",
     category: 'Panel Header',
     description: undefined,
