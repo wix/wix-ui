@@ -15,10 +15,6 @@ export const header: (a: HeaderSection, b: StoryConfig) => React.ReactNode = (
   const { title, component, sourceUrl, issueUrl } = section;
   const issueURL = storyConfig.config?.issueURL || issueUrl;
 
-  const headerTitle = storyConfig.storyName || (title && title.toString());
-
-  window.sessionStorage.setItem('storybook-page-title', headerTitle);
-
   return (
     <div className={styles.rootWrapper}>
       <div className={styles.root}>

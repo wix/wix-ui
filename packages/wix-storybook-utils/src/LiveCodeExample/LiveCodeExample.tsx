@@ -21,6 +21,7 @@ import { ComponentsHints } from '../typings/components-hints';
 export interface Props {
   initialCode?: string;
   title?: string;
+  storyName?: string;
   scope?: object;
   compact?: boolean;
   initiallyOpen?: boolean;
@@ -76,11 +77,20 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    const pageTitle = window.sessionStorage.getItem('storybook-page-title');
+    const {
+      storyName,
+      title,
+      initialCode,
+      darkBackground,
+      compact,
+      initiallyOpen,
+      previewWarning,
+    } = props;
+
     const codeFromStorage = window.sessionStorage.getItem(
-      `${pageTitle}-${props.title}`,
+      `${storyName}-${title}`,
     );
-    const initialOriginalCode = formatCode(props.initialCode).trim();
+    const initialOriginalCode = formatCode(initialCode).trim();
 
     const formattedCode = codeFromStorage
       ? codeFromStorage
@@ -90,10 +100,10 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
       initialFormattedCode: formattedCode,
       code: formattedCode,
       isRtl: false,
-      isDarkBackground: props.darkBackground,
-      isEditorOpened: !props.compact || props.initiallyOpen,
+      isDarkBackground: darkBackground,
+      isEditorOpened: !compact || initiallyOpen,
       parseError: null,
-      renderPreview: !Boolean(props.previewWarning),
+      renderPreview: !Boolean(previewWarning),
       setEditorValue: null,
     };
   }
@@ -133,11 +143,10 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
   };
 
   onEditorChange = code => {
-    const { title, onChange } = this.props;
+    const { title, onChange, storyName } = this.props;
     this.setState({ code }, () => onChange(this.state.code));
     console.log(title);
-    const pageTitle = window.sessionStorage.getItem('storybook-page-title');
-    window.sessionStorage.setItem(`${pageTitle}-${title}`, code);
+    window.sessionStorage.setItem(`${storyName}-${title}`, code);
   };
 
   onToggleRtl = (isRtl: boolean) => this.setState({ isRtl });

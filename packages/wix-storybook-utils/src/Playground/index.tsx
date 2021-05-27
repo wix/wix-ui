@@ -103,7 +103,8 @@ const Playground: React.FunctionComponent<Props> = ({
           });
         }}
         previewProps={{ className: styles.overflowPreview }}
-        title="Playground"
+        title="Playground-component"
+        storyName="Playground"
         {...rest}
       />
     ),

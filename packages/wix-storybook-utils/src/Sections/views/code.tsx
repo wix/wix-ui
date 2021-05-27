@@ -40,6 +40,7 @@ export const code: (a: CodeSection, b: StoryConfig) => React.ReactNode = (
             initiallyOpen,
             hints: storyConfig.hints,
             title,
+            storyName: storyConfig.storyName,
           }}
         />
       </React.Suspense>
