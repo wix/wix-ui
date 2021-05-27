@@ -584,6 +584,13 @@ const systemIconsMetadata: Array<IconMetadata> = [
     tags: [],
     sizes: { "30": "HeaderBackButton" },
   },
+  {
+    title: "ChevronLeft",
+    category: 'Panel Header',
+    description: undefined,
+    tags: [],
+    sizes: { "30": "ChevronLeft" },
+  },
 ]
 
 export default systemIconsMetadata
