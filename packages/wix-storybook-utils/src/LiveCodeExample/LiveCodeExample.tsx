@@ -52,6 +52,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
   static propTypes = {
     initialCode: PropTypes.string,
     title: PropTypes.string,
+    storyName: PropTypes.string,
     scope: PropTypes.object,
     compact: PropTypes.bool,
     initiallyOpen: PropTypes.bool,
@@ -145,7 +146,6 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
   onEditorChange = code => {
     const { title, onChange, storyName } = this.props;
     this.setState({ code }, () => onChange(this.state.code));
-    console.log(title);
     window.sessionStorage.setItem(`${storyName}-${title}`, code);
   };
 
