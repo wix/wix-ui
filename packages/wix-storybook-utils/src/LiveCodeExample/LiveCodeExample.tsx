@@ -20,6 +20,7 @@ import { ComponentsHints } from '../typings/components-hints';
 
 export interface Props {
   initialCode?: string;
+  storage?: Storage;
   title?: string;
   storyName?: string;
   scope?: object;
@@ -53,6 +54,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
     initialCode: PropTypes.string,
     title: PropTypes.string,
     storyName: PropTypes.string,
+    storage: PropTypes.object,
     scope: PropTypes.object,
     compact: PropTypes.bool,
     initiallyOpen: PropTypes.bool,
@@ -86,11 +88,10 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
       compact,
       initiallyOpen,
       previewWarning,
+      storage,
     } = props;
 
-    const codeFromStorage = window.sessionStorage.getItem(
-      `${storyName}-${title}`,
-    );
+    const codeFromStorage = storage && storage.getItem(`${storyName}-${title}`);
     const initialOriginalCode = formatCode(initialCode).trim();
 
     const formattedCode = codeFromStorage
@@ -144,9 +145,10 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
   };
 
   onEditorChange = code => {
-    const { title, onChange, storyName } = this.props;
+    const { title, onChange, storyName, storage } = this.props;
     this.setState({ code }, () => onChange(this.state.code));
-    window.sessionStorage.setItem(`${storyName}-${title}`, code);
+
+    storage && storage.setItem(`${storyName}-${title}`, code);
   };
 
   onToggleRtl = (isRtl: boolean) => this.setState({ isRtl });

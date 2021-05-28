@@ -57,15 +57,21 @@ const makeSections: (a: StoryPageProps) => Section[] = props =>
 
 const StoryPage: React.FunctionComponent<StoryPageProps> = (
   props: StoryPageProps,
-) => (
-  <SectionsView
-    {...{
-      ...props,
-      metadata: prepareMetadata(props),
-      sections: makeSections(props),
-    }}
-  />
-);
+) => {
+  React.useEffect(() => {
+    window.sessionStorage.clear();
+  }, []);
+
+  return (
+    <SectionsView
+      {...{
+        ...props,
+        metadata: prepareMetadata(props),
+        sections: makeSections(props),
+      }}
+    />
+  );
+};
 StoryPage.defaultProps = {
   config: {
     importFormat: '',

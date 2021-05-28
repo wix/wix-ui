@@ -105,6 +105,7 @@ const Playground: React.FunctionComponent<Props> = ({
         previewProps={{ className: styles.overflowPreview }}
         title="Playground-component"
         storyName="Playground"
+        storage={window.localStorage}
         {...rest}
       />
     ),

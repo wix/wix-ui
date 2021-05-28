@@ -41,6 +41,7 @@ export const code: (a: CodeSection, b: StoryConfig) => React.ReactNode = (
             hints: storyConfig.hints,
             title,
             storyName: storyConfig.storyName,
+            storage: window.sessionStorage,
           }}
         />
       </React.Suspense>
