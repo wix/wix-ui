@@ -15,6 +15,7 @@ export const code: (a: CodeSection, b: StoryConfig) => React.ReactNode = (
     darkBackground = false,
     noBackground = false,
     initiallyOpen = false,
+    title,
   },
   storyConfig,
 ) => {
@@ -38,6 +39,9 @@ export const code: (a: CodeSection, b: StoryConfig) => React.ReactNode = (
             initialCode: source.trim(),
             initiallyOpen,
             hints: storyConfig.hints,
+            title,
+            storyName: storyConfig.storyName,
+            storage: window.sessionStorage,
           }}
         />
       </React.Suspense>

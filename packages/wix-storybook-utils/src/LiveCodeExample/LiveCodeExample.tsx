@@ -20,6 +20,9 @@ import { ComponentsHints } from '../typings/components-hints';
 
 export interface Props {
   initialCode?: string;
+  storage?: Storage;
+  title?: string;
+  storyName?: string;
   scope?: object;
   compact?: boolean;
   initiallyOpen?: boolean;
@@ -34,6 +37,7 @@ export interface Props {
 }
 
 interface State {
+  initialOriginalCode: string;
   initialFormattedCode: string;
   code: string;
   isRtl: boolean;
@@ -48,6 +52,9 @@ interface State {
 export default class LiveCodeExample extends React.PureComponent<Props, State> {
   static propTypes = {
     initialCode: PropTypes.string,
+    title: PropTypes.string,
+    storyName: PropTypes.string,
+    storage: PropTypes.object,
     scope: PropTypes.object,
     compact: PropTypes.bool,
     initiallyOpen: PropTypes.bool,
@@ -73,16 +80,32 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    const formattedCode = formatCode(props.initialCode).trim();
+    const {
+      storyName,
+      title,
+      initialCode,
+      darkBackground,
+      compact,
+      initiallyOpen,
+      previewWarning,
+      storage,
+    } = props;
 
+    const codeFromStorage = storage && storage.getItem(`${storyName}-${title}`);
+    const initialOriginalCode = formatCode(initialCode).trim();
+
+    const formattedCode = codeFromStorage
+      ? codeFromStorage
+      : initialOriginalCode;
     this.state = {
+      initialOriginalCode,
       initialFormattedCode: formattedCode,
       code: formattedCode,
       isRtl: false,
-      isDarkBackground: props.darkBackground,
-      isEditorOpened: !props.compact || props.initiallyOpen,
+      isDarkBackground: darkBackground,
+      isEditorOpened: !compact || initiallyOpen,
       parseError: null,
-      renderPreview: !Boolean(props.previewWarning),
+      renderPreview: !Boolean(previewWarning),
       setEditorValue: null,
     };
   }
@@ -122,7 +145,10 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
   };
 
   onEditorChange = code => {
-    this.setState({ code }, () => this.props.onChange(this.state.code));
+    const { title, onChange, storyName, storage } = this.props;
+    this.setState({ code }, () => onChange(this.state.code));
+
+    storage && storage.setItem(`${storyName}-${title}`, code);
   };
 
   onToggleRtl = (isRtl: boolean) => this.setState({ isRtl });
@@ -189,7 +215,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
       hints,
     } = this.state;
 
-    const dirty = this.state.initialFormattedCode !== this.state.code;
+    const dirty = this.state.initialOriginalCode !== this.state.code;
 
     return (
       <div
