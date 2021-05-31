@@ -61,6 +61,7 @@ export type DropdownProps = Pick<PopoverProps, 'fixed' | 'flip' | 'moveBy'> & {
   /** Element to append the dropdown to */
   appendTo?: AppendTo;
   className?: string;
+  dropdownA11yFixes?: boolean;
 };
 
 export interface DropdownState {
@@ -71,10 +72,7 @@ export interface DropdownState {
 /**
  * Dropdown
  */
-export class DropdownComponent extends React.PureComponent<
-  DropdownProps,
-  DropdownState
-> {
+export class DropdownComponent extends React.PureComponent<DropdownProps, DropdownState> {
   static displayName = 'Dropdown';
   private dropdownContentRef: DropdownContent | null = null;
 
@@ -97,12 +95,7 @@ export class DropdownComponent extends React.PureComponent<
   }
 
   componentDidUpdate(prevProps: DropdownProps) {
-    if (
-      !DropdownComponent.areSelectedIdsEqual(
-        this.props.initialSelectedIds,
-        prevProps.initialSelectedIds,
-      )
-    ) {
+    if (!DropdownComponent.areSelectedIdsEqual(this.props.initialSelectedIds, prevProps.initialSelectedIds)) {
       this.initializeSelectedOptions();
     }
   }
@@ -123,14 +116,13 @@ export class DropdownComponent extends React.PureComponent<
   };
 
   initializeSelectedOptions() {
-    const { initialSelectedIds, options, onInitialSelectedOptionsSet } =
-      this.props;
+    const { initialSelectedIds, options, onInitialSelectedOptionsSet } = this.props;
 
     const selectedOptions = (initialSelectedIds || [])
-      .map((id) => options.find((option) => id === option.id))
-      .filter((option) => option && !option.isDisabled && option.isSelectable);
+      .map(id => options.find(option => id === option.id))
+      .filter(option => option && !option.isDisabled && option.isSelectable);
 
-    const selectedIds = selectedOptions.map((x) => x && x.id);
+    const selectedIds = selectedOptions.map(x => x && x.id);
     this.setState({
       selectedIds: selectedIds as (string | number)[],
     });
@@ -148,15 +140,8 @@ export class DropdownComponent extends React.PureComponent<
     }
   }
 
-  open(onOpen: () => void = () => null) {
-    if (this.state.isOpen) {
-      onOpen && onOpen();
-    } else {
-      this.setState({ isOpen: true }, () => {
-        this._onExpandedChange();
-        onOpen();
-      });
-    }
+  open() {
+    this.setState({ isOpen: true }, () => this._onExpandedChange());
   }
 
   onPopoverClick() {
@@ -174,9 +159,7 @@ export class DropdownComponent extends React.PureComponent<
   }
 
   getSelectedOption() {
-    return this.dropdownContentRef
-      ? this.dropdownContentRef.getSelectedOption()
-      : null;
+    return this.dropdownContentRef ? this.dropdownContentRef.getSelectedOption() : null;
   }
 
   onKeyboardSelect() {
@@ -185,28 +168,33 @@ export class DropdownComponent extends React.PureComponent<
   }
 
   isClosingKey(key) {
-    return key === 'Tab' || key === 'Enter' || key === 'Escape';
+    const { dropdownA11yFixes } = this.props;
+    return key === 'Tab' || key === 'Escape' || (!dropdownA11yFixes && key === 'Enter');
   }
 
   onKeyDown(evt: React.KeyboardEvent<HTMLElement>) {
     const eventKey = evt.key;
 
-    if (!this.state.isOpen && this.isClosingKey(eventKey)) {
-      return;
-    }
+    this.props.dropdownA11yFixes && evt.preventDefault();
 
-    this.open(() => {
-      this.dropdownContentRef &&
-        this.dropdownContentRef.onKeyDown(eventKey, evt);
+    if (this.state.isOpen) {
+      const handleSelect = () => {
+        this.onKeyboardSelect();
+        !this.props.multi && this.close();
+
+        if (this.getSelectedOption() !== null) {
+          evt.preventDefault();
+        }
+      };
 
       switch (eventKey) {
         case 'Enter': {
-          this.onKeyboardSelect();
-          const { multi } = this.props;
-          !multi && this.close();
-
-          if (this.getSelectedOption() !== null) {
-            evt.preventDefault();
+          handleSelect();
+          break;
+        }
+        case ' ': {
+          if (this.props.dropdownA11yFixes) {
+            handleSelect();
           }
           break;
         }
@@ -217,7 +205,20 @@ export class DropdownComponent extends React.PureComponent<
         }
         default:
       }
-    });
+    } else {
+      if (this.isClosingKey(eventKey)) {
+        return;
+      }
+      if (
+        this.props.dropdownA11yFixes &&
+        !(eventKey === 'Enter' || eventKey === ' ' || eventKey === 'ArrowDown' || eventKey === 'ArrowUp')
+      ) {
+        return;
+      }
+      this.open();
+    }
+
+    this.dropdownContentRef && this.dropdownContentRef.onKeyDown(eventKey, evt);
   }
 
   _onContentMouseDown(e) {
@@ -246,7 +247,7 @@ export class DropdownComponent extends React.PureComponent<
         // if option was clicked (could be null when Autocomplete receives a new string)
         if (selectedIds.includes(option.id)) {
           // if clicked a selected option, unselect it
-          newState.selectedIds = selectedIds.filter((x) => x !== option.id);
+          newState.selectedIds = selectedIds.filter(x => x !== option.id);
           callback = onDeselect;
         } else {
           // if clicked a new option, add it to selection
@@ -299,11 +300,8 @@ export class DropdownComponent extends React.PureComponent<
       className,
     } = this.props;
     const { isOpen, selectedIds } = this.state;
-    const hasContent = Boolean(
-      (options && options.length) || fixedHeader || fixedFooter,
-    );
-    const shown =
-      forceContentElementVisibility || (isOpen && !disabled && hasContent);
+    const hasContent = Boolean((options && options.length) || fixedHeader || fixedFooter);
+    const shown = forceContentElementVisibility || (isOpen && !disabled && hasContent);
 
     return (
       <Popover
@@ -313,18 +311,10 @@ export class DropdownComponent extends React.PureComponent<
         showArrow={showArrow}
         timeout={timeout}
         onClickOutside={this.handleClickOutside}
-        onClick={
-          !disabled && openTrigger === CLICK
-            ? () => this.onPopoverClick()
-            : undefined
-        }
-        onMouseEnter={
-          !disabled && openTrigger === HOVER ? () => this.open() : undefined
-        }
+        onClick={!disabled && openTrigger === CLICK ? () => this.onPopoverClick() : undefined}
+        onMouseEnter={!disabled && openTrigger === HOVER ? () => this.open() : undefined}
         onKeyDown={!disabled ? this.onKeyDown : undefined}
-        onMouseLeave={
-          !disabled && openTrigger === HOVER ? this.close : undefined
-        }
+        onMouseLeave={!disabled && openTrigger === HOVER ? this.close : undefined}
         style={inlineStyles}
         id={id}
         flip={flip}
@@ -341,9 +331,7 @@ export class DropdownComponent extends React.PureComponent<
           <DropdownContent
             className={classes.dropdownContent}
             data-hook="dropdown-content"
-            ref={(dropdownContent) =>
-              (this.dropdownContentRef = dropdownContent)
-            }
+            ref={dropdownContent => (this.dropdownContentRef = dropdownContent)}
             options={options}
             fixedFooter={fixedFooter}
             fixedHeader={fixedHeader}
