@@ -34,7 +34,7 @@ export interface Props {
   onChange?: Function;
   previewWarning?({ onConfirm: Function }): React.ReactNode | null;
   hints?: ComponentsHints;
-  isCodeLoaded?: boolean;
+  forceInitialCode?: boolean;
 }
 
 interface State {
@@ -64,7 +64,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
     autoRender: PropTypes.bool,
     darkBackground: PropTypes.bool,
     noBackground: PropTypes.bool,
-    isCodeLoaded: PropTypes.bool,
+    forceInitialCode: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -75,7 +75,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
     autoRender: true,
     darkBackground: false,
     noBackground: false,
-    isCodeLoaded: false,
+    forceInitialCode: false,
     onChange: () => {},
     scope: {},
   };
@@ -92,14 +92,16 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
       initiallyOpen,
       previewWarning,
       storage,
-      isCodeLoaded,
+      forceInitialCode,
     } = props;
 
     const codeFromStorage = storage && storage.getItem(`${storyName}-${title}`);
     const initialOriginalCode = formatCode(initialCode).trim();
 
     const formattedCode =
-      codeFromStorage && !isCodeLoaded ? codeFromStorage : initialOriginalCode;
+      codeFromStorage && !forceInitialCode
+        ? codeFromStorage
+        : initialOriginalCode;
     this.state = {
       initialOriginalCode,
       initialFormattedCode: formattedCode,

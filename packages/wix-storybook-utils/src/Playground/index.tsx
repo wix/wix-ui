@@ -106,7 +106,7 @@ const Playground: React.FunctionComponent<Props> = ({
         title="Playground-component"
         storyName="Playground"
         storage={window.localStorage}
-        isCodeLoaded={!!state.snippetId}
+        forceInitialCode={!!state.snippetId}
         {...rest}
       />
     ),
