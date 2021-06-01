@@ -225,9 +225,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       shown: props.shown || false,
     };
 
-    if (isTestEnv) {
-      testId = popoverTestUtils.generateId();
-    }
+    testId = popoverTestUtils.generateId();
 
     this.clickOutsideRef = React.createRef();
     this.popoverContentRef = React.createRef();
