@@ -9,6 +9,8 @@ import { tooltipPrivateDriverFactory } from './Tooltip.private.uni.driver';
 import { ButtonNext } from '../button-next';
 import { Tooltip } from './';
 import * as Tooltipas from '../tooltip-next';
+import * as eventually from 'wix-eventually';
+import { AppendTo } from '../popover';
 
 const { TooltipNext } = Tooltipas;
 
@@ -251,6 +253,71 @@ function runTests(render, tooltip) {
       await driver.mouseEnter();
       await driver.mouseLeave();
       expect(await driver.tooltipExists()).toBe(true);
+    });
+  });
+
+  describe('onClickOutside + disableClickOutsideWhenClosed', () => {
+    it('should be triggered when outside of the popover is called', async () => {
+      const onClickOutside = jest.fn();
+
+      const { driver } = render(
+        tooltip({
+          onClickOutside,
+          disableClickOutsideWhenClosed: true,
+          shown: true,
+        }),
+      );
+
+      await eventually(async () => {
+        await driver.isContentElementExists();
+      });
+
+      await driver.clickOutside();
+
+      expect(onClickOutside).toBeCalled();
+    });
+
+    it('should *not* be triggered when outside of the popover is called and the popover is *not* shown', async () => {
+      const onClickOutside = jest.fn();
+
+      const { driver } = render(
+        tooltip({
+          onClickOutside,
+          disableClickOutsideWhenClosed: true,
+          shown: false,
+        }),
+      );
+
+      await driver.clickOutside();
+      expect(onClickOutside).not.toBeCalled();
+    });
+
+    const appendToValues: AppendTo[] = [
+      'parent',
+      'window',
+      'viewport',
+      'scrollParent',
+    ];
+    appendToValues.map((value) => {
+      it(`should not be triggered when content is clicked and appended to ${value}`, async () => {
+        const onClickOutside = jest.fn();
+
+        const { driver } = render(
+          tooltip({
+            onClickOutside,
+            disableClickOutsideWhenClosed: true,
+            shown: true,
+            appendTo: value,
+          }),
+        );
+
+        await eventually(async () => {
+          await driver.isContentElementExists();
+        });
+
+        await driver.clickOnContent();
+        expect(onClickOutside).not.toBeCalled();
+      });
     });
   });
 }
