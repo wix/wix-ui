@@ -257,7 +257,7 @@ function runTests(render, tooltip) {
   });
 
   describe('onClickOutside + disableClickOutsideWhenClosed', () => {
-    it('should be triggered when outside of the popover is called', async () => {
+    it('should be triggered when outside of the Tooltip is called', async () => {
       const onClickOutside = jest.fn();
 
       const { driver } = render(
@@ -269,7 +269,7 @@ function runTests(render, tooltip) {
       );
 
       await eventually(async () => {
-        await driver.isContentElementExists();
+        await driver.tooltipExists();
       });
 
       await driver.clickOutside();
@@ -277,7 +277,7 @@ function runTests(render, tooltip) {
       expect(onClickOutside).toBeCalled();
     });
 
-    it('should *not* be triggered when outside of the popover is called and the popover is *not* shown', async () => {
+    it('should *not* be triggered when outside of the Tooltip is called and the Tooltip is *not* shown', async () => {
       const onClickOutside = jest.fn();
 
       const { driver } = render(
@@ -290,34 +290,6 @@ function runTests(render, tooltip) {
 
       await driver.clickOutside();
       expect(onClickOutside).not.toBeCalled();
-    });
-
-    const appendToValues: AppendTo[] = [
-      'parent',
-      'window',
-      'viewport',
-      'scrollParent',
-    ];
-    appendToValues.map((value) => {
-      it(`should not be triggered when content is clicked and appended to ${value}`, async () => {
-        const onClickOutside = jest.fn();
-
-        const { driver } = render(
-          tooltip({
-            onClickOutside,
-            disableClickOutsideWhenClosed: true,
-            shown: true,
-            appendTo: value,
-          }),
-        );
-
-        await eventually(async () => {
-          await driver.isContentElementExists();
-        });
-
-        await driver.clickOnContent();
-        expect(onClickOutside).not.toBeCalled();
-      });
     });
   });
 }
