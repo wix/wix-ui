@@ -114,6 +114,20 @@ const tpaIconsMetadata: Array<IconMetadata> = [
     sizes: {"16":"PlusXSmall", "32":"PlusLarge" },
   },
   {
+    title: "Favorite",
+    category: "Toggle",
+    description: "",
+    tags: [],
+    sizes: { "32":"FavoriteLarge" },
+  },
+  {
+    title: "FavoriteFill",
+    category: "Toggle",
+    description: "",
+    tags: [],
+    sizes: { "32":"FavoriteFillLarge" },
+  },
+  {
     title: "LikeHeart",
     category: "Toggle",
     description: "",
