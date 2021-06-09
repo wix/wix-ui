@@ -64,6 +64,11 @@ export interface TooltipProps {
    * the classname to be passed to the popover's content container
    */
   contentClassName?: string;
+  /**
+   * Breaking change:
+   * When true - onClickOutside will be called only when popover content is shown
+   */
+  disableClickOutsideWhenClosed?: boolean;
 }
 
 export interface TooltipState {
@@ -169,6 +174,7 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
       'aria-describedby': ariaDescribedBy,
       className,
       contentClassName,
+      disableClickOutsideWhenClosed,
     } = this.props;
 
     return (
@@ -195,6 +201,7 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
         minWidth={minWidth}
         maxWidth={maxWidth}
         contentClassName={contentClassName}
+        disableClickOutsideWhenClosed={disableClickOutsideWhenClosed}
         {...filterDataProps(this.props)}
       >
         <Popover.Element>{this._renderElement()}</Popover.Element>

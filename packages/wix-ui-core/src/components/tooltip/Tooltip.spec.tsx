@@ -9,6 +9,7 @@ import { tooltipPrivateDriverFactory } from './Tooltip.private.uni.driver';
 import { ButtonNext } from '../button-next';
 import { Tooltip } from './';
 import * as Tooltipas from '../tooltip-next';
+import * as eventually from 'wix-eventually';
 
 const { TooltipNext } = Tooltipas;
 
@@ -251,6 +252,43 @@ function runTests(render, tooltip) {
       await driver.mouseEnter();
       await driver.mouseLeave();
       expect(await driver.tooltipExists()).toBe(true);
+    });
+  });
+
+  describe('onClickOutside + disableClickOutsideWhenClosed', () => {
+    it('should be triggered when outside of the Tooltip is called', async () => {
+      const onClickOutside = jest.fn();
+
+      const { driver } = render(
+        tooltip({
+          onClickOutside,
+          disableClickOutsideWhenClosed: true,
+          shown: true,
+        }),
+      );
+
+      await eventually(async () => {
+        await driver.tooltipExists();
+      });
+
+      await driver.clickOutside();
+
+      expect(onClickOutside).toBeCalled();
+    });
+
+    it('should *not* be triggered when outside of the Tooltip is called and the Tooltip is *not* shown', async () => {
+      const onClickOutside = jest.fn();
+
+      const { driver } = render(
+        tooltip({
+          onClickOutside,
+          disableClickOutsideWhenClosed: true,
+          shown: false,
+        }),
+      );
+
+      await driver.clickOutside();
+      expect(onClickOutside).not.toBeCalled();
     });
   });
 }
