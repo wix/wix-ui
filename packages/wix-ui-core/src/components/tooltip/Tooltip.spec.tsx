@@ -10,7 +10,6 @@ import { ButtonNext } from '../button-next';
 import { Tooltip } from './';
 import * as Tooltipas from '../tooltip-next';
 import * as eventually from 'wix-eventually';
-import { AppendTo } from '../popover';
 
 const { TooltipNext } = Tooltipas;
 
