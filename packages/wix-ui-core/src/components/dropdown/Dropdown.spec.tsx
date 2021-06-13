@@ -31,6 +31,9 @@ describe('Dropdown', () => {
     </Dropdown>
   );
 
+  const getDropdownButton = () =>
+    document.querySelector('[data-hook="open-dropdown-button"]');
+
   it('should render default dropdown', () => {
     const driver = createDriver(createDropdown());
 
@@ -62,22 +65,45 @@ describe('Dropdown', () => {
       );
     });
 
+    it('should show content on `Enter`', () => {
+      const driver = createDriver(
+        createDropdown({ options, dropdownA11yFixes: true }),
+      );
+
+      expect(driver.dropdownContentDisplayed()).toBeFalsy();
+      Simulate.keyDown(getDropdownButton(), { key: 'Enter' });
+      expect(driver.dropdownContentDisplayed()).toBeTruthy();
+    });
+
+    it('should show and close dropdown with `Space` when dropdownA11yFixes is true', () => {
+      const driver = createDriver(
+        createDropdown({ options, dropdownA11yFixes: true }),
+      );
+
+      expect(driver.dropdownContentDisplayed()).toBeFalsy();
+      Simulate.keyDown(getDropdownButton(), { key: ' ' });
+      expect(driver.dropdownContentDisplayed()).toBeTruthy();
+
+      Simulate.keyDown(getDropdownButton(), { key: ' ' });
+      expect(driver.dropdownContentDisplayed()).toBeFalsy();
+    });
+
     it('should preventDefault on up/down arrows key press inside dropdown content in order to prevent outer scroll', () => {
       const driver = createDriver(createDropdown({ options }));
       const preventDefaultSpy = jest.fn();
       driver.click();
 
-      Simulate.keyDown(
-        document.querySelector('[data-hook="open-dropdown-button"]'),
-        { key: 'ArrowDown', preventDefault: preventDefaultSpy },
-      );
+      Simulate.keyDown(getDropdownButton(), {
+        key: 'ArrowDown',
+        preventDefault: preventDefaultSpy,
+      });
       expect(preventDefaultSpy).toHaveBeenCalled();
       preventDefaultSpy.mockClear();
 
-      Simulate.keyDown(
-        document.querySelector('[data-hook="open-dropdown-button"]'),
-        { key: 'ArrowUp', preventDefault: preventDefaultSpy },
-      );
+      Simulate.keyDown(getDropdownButton(), {
+        key: 'ArrowUp',
+        preventDefault: preventDefaultSpy,
+      });
       expect(preventDefaultSpy).toHaveBeenCalled();
       preventDefaultSpy.mockClear();
     });
@@ -103,6 +129,33 @@ describe('Dropdown', () => {
       driver.click();
       driver.optionAt(0).click();
       expect(onSelect).toHaveBeenCalledWith(options[0]);
+    });
+
+    it('should select option on `Space` in case that dropdownA11yFixes is true', async () => {
+      const onSelect = jest.fn();
+      const driver = createDriver(
+        createDropdown({ options, dropdownA11yFixes: true, onSelect }),
+      );
+
+      expect(driver.dropdownContentDisplayed()).toBeFalsy();
+      Simulate.keyDown(getDropdownButton(), {
+        key: ' ',
+      });
+
+      expect(driver.dropdownContentDisplayed()).toBeTruthy();
+
+      Simulate.keyDown(getDropdownButton(), {
+        key: 'ArrowDown',
+      });
+
+      Simulate.keyDown(getDropdownButton(), {
+        key: ' ',
+      });
+
+      expect(onSelect).toHaveBeenCalledWith({
+        ...options[0],
+        _DOMid: null,
+      });
     });
 
     it('should not be called when selecting disabled item', () => {
