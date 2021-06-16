@@ -60,6 +60,9 @@ const Background: React.FC<BackgroundProps> = ({ skin, children }) => (
   <div
     className={classnames(styles.background, {
       [styles.dark]: skin === 'dark',
+      [styles.light]: skin === 'light',
+      [styles.blue]: skin === 'blue',
+      [styles.yellow]: skin === 'yellow',
     })}
   >
     {children}

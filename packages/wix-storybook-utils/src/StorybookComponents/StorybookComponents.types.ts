@@ -16,5 +16,5 @@ export type StackProps = {
 };
 
 export type BackgroundProps = {
-  skin: 'dark';
+  skin: 'dark' | 'light' | 'blue' | 'yellow';
 };
