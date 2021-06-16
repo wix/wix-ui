@@ -7,12 +7,13 @@ import {
   title,
   divider,
   description,
-  importExample
+  importExample,
 } from '../../src/Sections';
-import { StorybookComponents } from '../../src/StorybookComponents'
+import { StorybookComponents } from '../../src/StorybookComponents';
 import Component from '../Component';
 
-const example = (config) => baseExample({ ...config, components: { StorybookComponents } });
+const example = (config) =>
+  baseExample({ ...config, components: { StorybookComponents } });
 
 export default {
   category: 'StorybookComponents',
@@ -27,11 +28,14 @@ export default {
         title: 'Description',
         sections: [
           description({
-            title: "Description",
-            text: 'This is a story about Design Systems dedicated componetns for stories.'
+            title: 'Description',
+            text:
+              'This is a story about Design Systems dedicated componetns for stories.',
           }),
 
-          importExample('import { StorybookComponents } from "wix-storybook-utils"'),
+          importExample(
+            'import { StorybookComponents } from "wix-storybook-utils"'
+          ),
 
           divider(),
 
@@ -42,12 +46,12 @@ export default {
             source: `<div style={{ display: 'flex', gap: '30px' }}>
             <StorybookComponents.Placeholder skin="light">White skin</StorybookComponents.Placeholder>
             <StorybookComponents.Placeholder>Dark skin</StorybookComponents.Placeholder>
-            </div>`
+            </div>`,
           }),
 
           example({
             title: 'Width & Height',
-            source: `<StorybookComponents.Placeholder width="100px" height="100px">Small Box</StorybookComponents.Placeholder>`
+            source: `<StorybookComponents.Placeholder width="100px" height="100px">Small Box</StorybookComponents.Placeholder>`,
           }),
 
           title('StorybookComponent.Stack'),
@@ -58,7 +62,7 @@ export default {
             <StorybookComponents.Stack gap="30px">
             <StorybookComponents.Placeholder width="100px">Block 1</StorybookComponents.Placeholder>
             <StorybookComponents.Placeholder width="100px">Block 2</StorybookComponents.Placeholder>
-            </StorybookComponents.Stack>`
+            </StorybookComponents.Stack>`,
           }),
 
           example({
@@ -68,7 +72,7 @@ export default {
                 <StorybookComponents.Placeholder width="100px">Block 1</StorybookComponents.Placeholder>
                 <StorybookComponents.Placeholder width="100px">Block 2</StorybookComponents.Placeholder>
               </StorybookComponents.Stack>
-            `
+            `,
           }),
 
           example({
@@ -78,7 +82,18 @@ export default {
                 <StorybookComponents.Placeholder width="100px">Block 1</StorybookComponents.Placeholder>
                 <StorybookComponents.Placeholder width="100px">Block 2</StorybookComponents.Placeholder>
               </StorybookComponents.Stack>
-          `
+          `,
+          }),
+
+          title('StorybookComponent.Background'),
+
+          example({
+            title: 'Dark background',
+            source: `
+              <StorybookComponents.Stack >
+                <StorybookComponents.Background skin="dark">Block 1</StorybookComponents.Background>
+              </StorybookComponents.Stack>
+          `,
           }),
         ],
       }),

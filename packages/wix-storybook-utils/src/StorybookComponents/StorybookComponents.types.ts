@@ -14,3 +14,7 @@ export type StackProps = {
   height: string | number;
   gap: string;
 };
+
+export type BackgroundProps = {
+  skin: 'dark';
+};

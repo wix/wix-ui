@@ -24,3 +24,11 @@
   justify-content: start;
   gap: 30px;
 }
+
+.background {
+  display: flex;
+}
+
+.background .dark {
+  background-color: $D10;
+}
