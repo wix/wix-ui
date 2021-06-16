@@ -88,39 +88,18 @@ export default {
           title('StorybookComponent.Background'),
 
           example({
-            title: 'Dark background',
+            title: 'Background skin',
             source: `
               <StorybookComponents.Stack >
                 <StorybookComponents.Background skin="dark">
                   Hardly visible text
                 </StorybookComponents.Background>
-              </StorybookComponents.Stack>
-          `,
-          }),
-          example({
-            title: 'Light background',
-            source: `
-              <StorybookComponents.Stack >
                 <StorybookComponents.Background skin="light">
                   Light text
                 </StorybookComponents.Background>
-              </StorybookComponents.Stack>
-          `,
-          }),
-          example({
-            title: 'Blue background',
-            source: `
-              <StorybookComponents.Stack >
                 <StorybookComponents.Background skin="blue">
                   Blue text
                 </StorybookComponents.Background>
-              </StorybookComponents.Stack>
-          `,
-          }),
-          example({
-            title: 'Yellow background',
-            source: `
-              <StorybookComponents.Stack >
                 <StorybookComponents.Background skin="yellow">
                   Yellow text
                 </StorybookComponents.Background>
