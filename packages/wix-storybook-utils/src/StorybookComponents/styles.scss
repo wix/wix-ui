@@ -8,12 +8,12 @@
   box-sizing: border-box;
 }
 
-.light {
+.placeholder.light {
   border: 1px dashed $D80;
   color: $D80;
 }
 
-.dark {
+.placeholder.dark {
   border: 1px dashed $D10;
   color: $D10;
 }
@@ -27,8 +27,9 @@
 
 .background {
   display: flex;
+  width: 100%;
 }
 
-.background .dark {
+.background.dark {
   background-color: $D10;
 }

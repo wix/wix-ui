@@ -91,7 +91,9 @@ export default {
             title: 'Dark background',
             source: `
               <StorybookComponents.Stack >
-                <StorybookComponents.Background skin="dark">Block 1</StorybookComponents.Background>
+                <StorybookComponents.Background skin="dark">
+                  Hardly visible text
+                </StorybookComponents.Background>
               </StorybookComponents.Stack>
           `,
           }),
