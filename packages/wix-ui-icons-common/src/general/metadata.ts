@@ -662,6 +662,13 @@ sizes: { "18": "GetStartedSmall", "24": "GetStarted" },
   tags: ["App", "Store"],
   sizes: { "18": "RelatedAppsSmall", "24": "RelatedApps" },
  },
+{ 
+  title: "Menu", 
+  category: "General",
+  description: "Button – opens or closes menu",
+  tags: ["Hamburger", "Burger"],
+  sizes: { "18": "MenuSmall", "24": "Menu" }, 
+},
   {
     title: "Visible",
     category: "Toggle",
