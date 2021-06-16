@@ -2225,6 +2225,13 @@ sizes: { "18": "ESignatureSmall", "24": "ESignature" },
     tags: ["arena", "hire", "profesional", "wix"],
     sizes: { "18": "WixMarketplaceSmall", "24": "WixMarketplace" },
   },
+  {
+    title: "WixSocialPosts",
+    category: "Wix Brands",
+    description:"Button - opens Wix Social Posts",
+    tags: ["Facebook", "Post", "Share"],
+    sizes: { "18": "WixSocialPostsSmall", "24": "WixSocialPosts" },
+  },
 	{
 	 title: "Editor X",
 	 category: "Wix Brands",
