@@ -7,11 +7,11 @@ const componentResolve = require('./component-resolve');
 
 const ensurePropsKey = object => ({ props: {}, ...object });
 
-const parseTypescript = path => ensurePropsKey(typescriptParser.parse(path)[0] || {
+const parseTypescript = path => ensurePropsKey(typescriptParser.parse(path, {
   propFilter: {
     skipPropsWithoutDoc: true,
   }
-}); // react-docgen-typescript returns array, so
+})[0] || {}); // react-docgen-typescript returns array, so
 
 const parseJavascript = (source = '', sourcePath = '') => {
   let parsed;
