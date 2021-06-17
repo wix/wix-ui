@@ -8,12 +8,12 @@
   box-sizing: border-box;
 }
 
-.light {
+.placeholder.light {
   border: 1px dashed $D80;
   color: $D80;
 }
 
-.dark {
+.placeholder.dark {
   border: 1px dashed $D10;
   color: $D10;
 }
@@ -23,4 +23,25 @@
   flex-direction: row;
   justify-content: start;
   gap: 30px;
+}
+
+.background {
+  display: flex;
+  width: 100%;
+}
+
+.background.dark {
+  background-color: $D10;
+}
+
+.background.light {
+  background-color: $D80;
+}
+
+.background.blue {
+  background-color: $B10;
+}
+
+.background.yellow {
+  background-color: $Y30;
 }

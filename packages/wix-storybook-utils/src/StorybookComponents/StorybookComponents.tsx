@@ -1,6 +1,10 @@
 import * as React from 'react';
 import classnames from 'classnames';
-import { PlaceholderProps, StackProps } from './StorybookComponents.types';
+import {
+  BackgroundProps,
+  PlaceholderProps,
+  StackProps,
+} from './StorybookComponents.types';
 import styles from './styles.scss';
 
 const Placeholder: React.FC<PlaceholderProps> = ({
@@ -52,4 +56,17 @@ const Stack: React.FC<StackProps> = ({
   </div>
 );
 
-export default { Placeholder, Stack };
+const Background: React.FC<BackgroundProps> = ({ skin, children }) => (
+  <div
+    className={classnames(styles.background, {
+      [styles.dark]: skin === 'dark',
+      [styles.light]: skin === 'light',
+      [styles.blue]: skin === 'blue',
+      [styles.yellow]: skin === 'yellow',
+    })}
+  >
+    {children}
+  </div>
+);
+
+export default { Placeholder, Stack, Background };
