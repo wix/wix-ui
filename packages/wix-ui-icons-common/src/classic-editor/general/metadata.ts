@@ -3193,6 +3193,15 @@ export const generalIconsMetadata: Array<IconMetadata> = [
     "sizes": {
       "24": "ZoomOutBold"
     }
+  },
+  {
+    "title": "PageBackground",
+    "category": "Composer",
+    "description": "",
+    "tags": [],
+    "sizes": {
+      "24": "PageBackground"
+    }
   }
 ]
 
