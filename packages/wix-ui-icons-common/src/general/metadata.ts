@@ -13,7 +13,7 @@ const generalIconsMetadata: Array<IconMetadata> = [
  {
     title: "MediaProofing",
     category: "Media",
-    description: "Button - Button - opens media list that was approved by users",
+    description: "Button - opens media list that was approved by users",
     tags: ["image", "approve"],
     sizes: { "18": "MediaProofingSmall", "24": "MediaProofing" },
   },
