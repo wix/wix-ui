@@ -10,6 +10,13 @@ const generalIconsMetadata: Array<IconMetadata> = [
     tags: ["expand", "enlarge", "increase", "view", "preview"],
     sizes: { "18": "MaximizeSmall", "24": "Maximize" },
   },
+ {
+    title: "MediaProofing",
+    category: "Media",
+    description: "Button - opens media list that was approved by users",
+    tags: ["image", "approve"],
+    sizes: { "18": "MediaProofingSmall", "24": "MediaProofing" },
+  },
   {
     title: "ChangeOrder",
     category: "Layout & Sorting",
