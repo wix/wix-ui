@@ -60,6 +60,7 @@ export const importExample = (
 ): ImportExampleSection =>
   base({
     type: SectionType.ImportExample,
+    title: 'Import',
     ...(typeof config === 'string' ? { source: config } : config),
   });
 
