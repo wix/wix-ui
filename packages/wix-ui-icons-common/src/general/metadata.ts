@@ -20,7 +20,7 @@ const generalIconsMetadata: Array<IconMetadata> = [
   {
     title: "ChangeOrder",
     category: "Layout & Sorting",
-    description: "Button - displays sorting options\n Button - enables changing the order of the items",
+    description: "Button - displays sorting options \n Button - enables changing the order of the items",
     tags: ["reorder", "prioritize", "list"],
     sizes: { "18": "ChangeOrderSmall", "24": "ChangeOrder" },
   },
