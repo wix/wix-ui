@@ -37,7 +37,7 @@ export const AnchoredTitle = ({ title, children }) => {
 
     const isChildren = React.Children.count(children) > 0;
 
-    const onAnchorClicked = event => isChildren? event.preventDefault() : onCopy(event);
+    const onAnchorClicked = event => isChildren? onCopy(event): event.preventDefault();
 
     return (
         <div

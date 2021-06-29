@@ -80,12 +80,12 @@ storiesOf('Components', module)
   ))
 
     .add('<AnchoredTitle/>', () => (
-        <div style={{ display: 'grid', gridAutoRows: 'auto', gap: '10px' }}>
+        <div style={{  marginLeft: '100px', marginTop: '50px'}}>
             <div>
                 <AnchoredTitle title="title to display" />
             </div>
             <div>
-                <AnchoredTitle title="title to display"><div>node</div></AnchoredTitle>
+              <AnchoredTitle title="title not to display"><div>node</div></AnchoredTitle>
             </div>
         </div>
     ));
