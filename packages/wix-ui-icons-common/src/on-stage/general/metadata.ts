@@ -392,14 +392,14 @@ const tpaIconsMetadata: Array<IconMetadata> = [
     category: "Toggle",
     description: "",
     tags: [],
-    sizes: { "24":"Favorite" },
+    sizes: { "24":"Favorite", "20":"FavoriteSmall" },
   },
   {
     title: "FavoriteFill",
     category: "Toggle",
     description: "",
     tags: [],
-    sizes: { "24":"FavoriteFill" },
+    sizes: { "24":"FavoriteFill", "20":"FavoriteFillSmall" },
   },
   {
     title: "LikeHeart",
