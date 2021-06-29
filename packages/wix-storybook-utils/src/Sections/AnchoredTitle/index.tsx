@@ -1,1 +1,0 @@
-export { AnchoredTitle } from '../../AnchoredTitle';
