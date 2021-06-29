@@ -13,7 +13,7 @@ const translations = {
     linkCopiedToClipboard: 'Copied',
 };
 
-export const AnchoredTitle = ({ title }) => {
+export const AnchoredTitle = ({ title, children }) => {
     const [copied, setCopied] = useState(false);
     const id = title.replace(/\s+/g, '_');
     const copyLinkRef = useRef(null);
@@ -35,6 +35,8 @@ export const AnchoredTitle = ({ title }) => {
         setCopied(false);
     };
 
+    const isChildren = React.Children.count(children) > 0;
+
     return (
         <div
             className={styles.titleContainer}
@@ -54,11 +56,14 @@ export const AnchoredTitle = ({ title }) => {
             >
                 <LinkSmall />
             </a>
-            <Markdown
-                key="title"
-                className={sectionWithSiblingsStyles.title}
-                source={title}
-            />
+            { isChildren ?
+                children :
+                <Markdown
+                    key="title"
+                    className={sectionWithSiblingsStyles.title}
+                    source={title}
+                />
+            }
             <ReactTooltip
                 id={id}
                 effect="solid"
