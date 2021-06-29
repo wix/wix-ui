@@ -37,10 +37,12 @@ export const AnchoredTitle = ({ title, children }) => {
 
     const isChildren = React.Children.count(children) > 0;
 
+    const onAnchorClicked = event => isChildren? event.preventDefault() : onCopy(event);
+
     return (
         <div
             className={styles.titleContainer}
-            onClick={onCopy}
+            onClick={!isChildren ? onCopy : null}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
         >
@@ -52,7 +54,7 @@ export const AnchoredTitle = ({ title, children }) => {
                 id={id}
                 href={`#${id}`}
                 target="_self"
-                onClick={event => event.preventDefault()}
+                onClick={onAnchorClicked}
             >
                 <LinkSmall />
             </a>
