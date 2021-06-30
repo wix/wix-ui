@@ -1111,7 +1111,7 @@ sizes: { "18": "GetStartedSmall", "24": "GetStarted" },
     title: "UserSearch",
     category: "Users",
     description:
-      "Static indicator - marks that background checke was conducted on user <br/> Button - search for user",
+      "Static indicator - marks that background checke was conducted on user. Button - search for user",
     tags: ["contact, candidate"],
     sizes: { "18": "UserSearchSmall", "24": "UserSearch" },
   },
