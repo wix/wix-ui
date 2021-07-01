@@ -1107,6 +1107,14 @@ sizes: { "18": "GetStartedSmall", "24": "GetStarted" },
     tags: ["permission"],
     sizes: { "18": "AdminAccessSmall", "24": "AdminAccess" },
   },
+	{
+    title: "UserSearch",
+    category: "Users",
+    description:
+      "Static indicator - marks that background checke was conducted on user. Button - search for user",
+    tags: ["contact, candidate"],
+    sizes: { "18": "UserSearchSmall", "24": "UserSearch" },
+  },
   {
     title: "DateAndTime",
     category: "Date & Time",
