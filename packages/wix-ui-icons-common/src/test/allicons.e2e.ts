@@ -3,6 +3,9 @@ import { getStoryUrl } from "wix-ui-test-utils/protractor";
 import { $, browser, ExpectedConditions } from "protractor";
 import { CLASSIC_EDITOR_CATEGORY, GENERAL_ICONS, SYSTEM_ICONS, WSR_CATEGORY, ON_STAGE_CATEGORY } from '../../stories/constants'
 
+const largePageConfig = { width: 1024, height: 8000, enableSnapshotAtEnd: false }
+const smallPageConfig = { width: 1024, height: 1000, enableSnapshotAtEnd: false }
+
 describe("All icons", () => {
   eyes.it(
     `check WSR icons - General Icons`,
@@ -12,8 +15,7 @@ describe("All icons", () => {
       await browser.wait(
         ExpectedConditions.presenceOf($(`[data-hook="icon-list"]`))
       );
-    },
-    { width: 1024, height: 7000 }
+    }, largePageConfig
   );
   eyes.it(
     `check WSR icons - System Icons`,
@@ -23,8 +25,7 @@ describe("All icons", () => {
       await browser.wait(
         ExpectedConditions.presenceOf($(`[data-hook="icon-list"]`))
       );
-    },
-    { width: 1024, height: 1000 }
+    }, smallPageConfig
   );
   eyes.it(
     `check Classic-Editor icons - General Icons`,
@@ -34,8 +35,7 @@ describe("All icons", () => {
       await browser.wait(
         ExpectedConditions.presenceOf($(`[data-hook="icon-list"]`))
       );
-    },
-    { width: 1024, height: 7000 }
+    },largePageConfig
   );
   eyes.it(
     `check Classic-Editor - System Icons`,
@@ -45,8 +45,7 @@ describe("All icons", () => {
       await browser.wait(
         ExpectedConditions.presenceOf($(`[data-hook="icon-list"]`))
       );
-    },
-    { width: 1024, height: 1000 }
+    }, smallPageConfig
   );
   eyes.it(
     `check On-Stage - General Icons`,
@@ -56,8 +55,7 @@ describe("All icons", () => {
       await browser.wait(
         ExpectedConditions.presenceOf($(`[data-hook="icon-list"]`))
       );
-    },
-    { width: 1024, height: 7000 }
+    }, largePageConfig
   );
   eyes.it(
     `check On-Stage - System Icons`,
@@ -67,7 +65,6 @@ describe("All icons", () => {
       await browser.wait(
         ExpectedConditions.presenceOf($(`[data-hook="icon-list"]`))
       );
-    },
-    { width: 1024, height: 1000 }
+    }, smallPageConfig
   );
 });
