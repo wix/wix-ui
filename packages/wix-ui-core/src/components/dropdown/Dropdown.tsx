@@ -174,8 +174,7 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
 
   onKeyDown(evt: React.KeyboardEvent<HTMLElement>) {
     const eventKey = evt.key;
-
-    this.props.dropdownA11yFixes && evt.preventDefault();
+    const { dropdownA11yFixes } = this.props;
 
     if (this.state.isOpen) {
       const handleSelect = () => {
@@ -193,7 +192,7 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
           break;
         }
         case ' ': {
-          if (this.props.dropdownA11yFixes) {
+          if (dropdownA11yFixes) {
             handleSelect();
           }
           break;
@@ -209,11 +208,12 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
       if (this.isClosingKey(eventKey)) {
         return;
       }
-      if (
-        this.props.dropdownA11yFixes &&
-        !(eventKey === 'Enter' || eventKey === ' ' || eventKey === 'ArrowDown' || eventKey === 'ArrowUp')
-      ) {
-        return;
+      if (dropdownA11yFixes) {
+        if (eventKey === 'Enter' || eventKey === ' ' || eventKey === 'ArrowDown' || eventKey === 'ArrowUp') {
+          evt.preventDefault();
+        } else {
+          return;
+        }
       }
       this.open();
     }
