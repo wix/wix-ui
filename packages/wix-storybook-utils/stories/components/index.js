@@ -5,6 +5,7 @@ import { storiesOf } from '@storybook/react';
 import Markdown from '../../src/Markdown';
 import InteractiveCodeExample from '../../src/InteractiveCodeExample';
 import CodeExample from '../../src/CodeExample';
+import { AnchoredTitle } from "../../src/AnchoredTitle";
 import Input from '../../src/ui/input';
 import SearchInput from '../../src/ui/search-input';
 import Button from '../../src/ui/button';
@@ -76,4 +77,15 @@ storiesOf('Components', module)
         <Button fullWidth>Full Width</Button>
       </div>
     </div>
-  ));
+  ))
+
+    .add('<AnchoredTitle/>', () => (
+        <div style={{  marginLeft: '100px', marginTop: '50px'}}>
+            <div>
+                <AnchoredTitle title="title to display" />
+            </div>
+            <div>
+              <AnchoredTitle title="title not to display"><div>node</div></AnchoredTitle>
+            </div>
+        </div>
+    ));

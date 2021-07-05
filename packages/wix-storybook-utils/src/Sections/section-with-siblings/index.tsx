@@ -8,7 +8,7 @@ import {
 import Markdown from '../../Markdown';
 
 import styles from './styles.scss';
-import { AnchoredTitle } from '../AnchoredTitle';
+import { AnchoredTitle } from '../../AnchoredTitle';
 
 export const SIBLINGS = ['pretitle', 'title', 'subtitle', 'description'];
 const SECTIONS_WITHOUT_SIBLINGS = [
