@@ -42,7 +42,7 @@ export const AnchoredTitle = ({ title, children }) => {
     return (
         <div
             className={styles.titleContainer}
-            onClick={!isChildren ? onCopy : null}
+            onClick={!isChildren && onCopy}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
         >
