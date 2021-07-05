@@ -98,7 +98,7 @@
     "safe-area-insets": "^1.4.1",
     "shallowequal": "1.1.0",
     "signature_pad": "^3.0.0-beta.3",
-    "tslib": "^2.3.0",
+    "tslib": "^1.9.3",
     "type-zoo": "3.1.1",
     "wix-eventually": "^2.2.0",
     "wix-ui-icons-common": "^2.0.0",
