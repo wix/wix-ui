@@ -102,7 +102,7 @@
     "type-zoo": "3.1.1",
     "wix-eventually": "^2.2.0",
     "wix-ui-icons-common": "^2.0.0",
-    "wix-ui-test-utils": "^1.0.151",
+    "wix-ui-test-utils": "^1.0.181",
     "yoshi-stylable-dependencies": "^4.49.0",
     "@stylable/dom-test-kit": "^3.4.1"
   },
