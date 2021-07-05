@@ -13,7 +13,7 @@ const translations = {
     linkCopiedToClipboard: 'Copied',
 };
 
-export const AnchoredTitle = ({ title, children }) => {
+export const AnchoredTitle = ({ title, children = null }) => {
     const [copied, setCopied] = useState(false);
     const id = title.replace(/\s+/g, '_');
     const copyLinkRef = useRef(null);
