@@ -242,7 +242,10 @@ describe('gatherAll', () => {
               description: '',
               type: {
                 name: 'enum',
-                value: [{ computed: false, value: '"red"' }, { computed: false, value: '"blue"' }],
+                value: [
+                  { computed: false, value: '"red"' },
+                  { computed: false, value: '"blue"' },
+                ],
               },
               required: false,
             },
@@ -289,5 +292,67 @@ describe('gatherAll', () => {
   describe('when called without path', () => {
     it('should reject promise with error', () =>
       expect(gatherAll()).rejects.toEqual('Error: gatherAll is missing required `path` argument'));
+  });
+
+  describe('when called with skipPropsWithoutDoc option', () => {
+    it('should skip undocumented props of typescript component', () => {
+      const fakeFs = cista({
+        'component.tsx': `
+        interface Props {
+          /** documented */
+          documented: any;
+          undocumented: any;
+        }
+        const component: React.FunctionComponent<Props> = () => <div/>;
+        export default component; 
+        `,
+      });
+
+      return expect(gatherAll(fakeFs.dir + '/component.tsx', { skipPropsWithoutDoc: true })).resolves.toEqual(
+        expect.objectContaining({
+          props: {
+            documented: expect.objectContaining({
+              name: 'documented',
+              description: 'documented',
+              required: true,
+              type: {
+                name: 'any',
+              },
+            }),
+          },
+          displayName: 'component',
+        })
+      );
+    });
+
+    it('should skip undocumented props of javascript component', () => {
+      const fakeFs = cista({
+        'component.jsx': `
+          import PropTypes from "prop-types";
+          const component = () => <div/>;
+          component.propTypes = {
+            /** documented */
+            documented: PropTypes.string,
+            undocumented: PropTypes.string
+          };
+          export default component;
+        `,
+      });
+
+      return expect(gatherAll(fakeFs.dir + '/component.jsx', { skipPropsWithoutDoc: true })).resolves.toEqual(
+        expect.objectContaining({
+          props: {
+            documented: expect.objectContaining({
+              description: 'documented',
+              required: false,
+              type: {
+                name: 'string',
+              },
+            }),
+          },
+          displayName: 'component',
+        })
+      );
+    });
   });
 });

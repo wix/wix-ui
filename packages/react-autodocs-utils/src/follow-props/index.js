@@ -7,16 +7,16 @@ const readFile = require('../read-file');
 const followExports = require('../follow-exports');
 const resolveNodeModules = require('../resolve-node-modules');
 
-const parseDocgen = (source, path) =>
+const parseDocgen = ({ source, path, options }) =>
   new Promise((resolve, reject) => {
-    const parsed = reactDocgenParse({ source, path });
+    const parsed = reactDocgenParse({ source, path, options });
 
     return parsed.composes
       ? reject(parsed) // we'll handle composed props in catch
       : resolve(parsed);
   });
 
-const mergeComponentProps = components =>
+const mergeComponentProps = (components) =>
   components.reduce(
     (acc, component) => ({
       ...component.props,
@@ -25,9 +25,9 @@ const mergeComponentProps = components =>
     {}
   );
 
-const followComposedProps = (parsed, currentPath) =>
+const followComposedProps = (parsed, currentPath, options) =>
   Promise.all(
-    parsed.composes.map(composedPath => {
+    parsed.composes.map((composedPath) => {
       const readablePathPromise = composedPath.startsWith('.')
         ? Promise.resolve(pathJoin(pathDirname(currentPath), composedPath))
         : resolveNodeModules(currentPath, composedPath.replace(/(dist\/|standalone\/)/g, ''));
@@ -36,27 +36,27 @@ const followComposedProps = (parsed, currentPath) =>
     })
   )
 
-    .then(composedSourcesAndPaths =>
+    .then((composedSourcesAndPaths) =>
       Promise.all(composedSourcesAndPaths.map(({ source, path }) => followExports(source, path)))
     )
 
-    .then(composedSourcesAndPaths =>
+    .then((composedSourcesAndPaths) =>
       Promise.all(
         composedSourcesAndPaths.map(({ source, path }) => ({
-          parsed: reactDocgenParse({ source, path }),
+          parsed: reactDocgenParse({ source, path, options }),
           path,
         }))
       )
     )
 
-    .then(parsedComponents => {
+    .then((parsedComponents) => {
       // here we receive list of object containing parsed component
       // props. some of them may contain composed props from other
       // components, in which case we followProps again recursively
 
       const withComposed = parsedComponents
         .filter(({ parsed }) => parsed.composes)
-        .map(({ parsed, path }) => followComposedProps(parsed, path));
+        .map(({ parsed, path }) => followComposedProps(parsed, path, options));
 
       const withoutComposed = parsedComponents
         .filter(({ parsed }) => !parsed.composes)
@@ -69,7 +69,7 @@ const followComposedProps = (parsed, currentPath) =>
 
     .then(mergeComponentProps)
 
-    .then(composedProps => {
+    .then((composedProps) => {
       const allProps = {
         ...parsed,
         props: { ...parsed.props, ...composedProps },
@@ -81,11 +81,11 @@ const followComposedProps = (parsed, currentPath) =>
       return otherProps;
     });
 
-const followProps = ({ source, path }) =>
-  parseDocgen(source, path)
+const followProps = ({ source, path, options = {} }) =>
+  parseDocgen({ source, path, options })
     // if resolved, no need to follow props, no need for .then
     // if rejected, need to follow props
-    .catch(parsed => followComposedProps(parsed, path))
-    .catch(e => console.log(`ERROR: Unable to handle composed props for Component at ${path}`, e));
+    .catch((parsed) => followComposedProps(parsed, path, options))
+    .catch((e) => console.log(`ERROR: Unable to handle composed props for Component at ${path}`, e));
 
 module.exports = followProps;
