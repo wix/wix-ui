@@ -30,7 +30,7 @@
   "bugs": {
     "url": "https://github.com/wix/react-autodocs-utils/issues"
   },
-  "author": "Arijus Šukys <argshook@gmail.com> (http://arijus.net)",
+  "author": "Arijus Šukys <arijuss@wix.com>",
   "license": "MIT",
   "devDependencies": {
     "@types/react": "^16.3.11",
