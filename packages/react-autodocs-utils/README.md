@@ -2,21 +2,40 @@
 
 [![Build Status](https://travis-ci.org/wix/react-autodocs-utils.svg?branch=master)](https://travis-ci.org/wix/react-autodocs-utils)
 
-A collection of React component parsers for automating documentation.
+Tool to get React component metadata: PropTypes, descriptions, prop comments and alike.
+
+Some of the features:
+* supports javascript and typescript components,
+* tries its best to extract data from composed components
+* goes into `node_modules` and tries to parse components from there
+* looks for `readme.md` files
+* looks for `component.driver.js` files and parses them (useful to automate component testkit documentation)
 
 ## Install
 
 `npm i react-autodocs-utils --save-dev`
 
-## Use
+## Usage
+
+### As node module
 
 ```js
-const reactAutodocsUtils = require('react-autodocs-utils');
+const gatherAll = require('react-autodocs-utils/src/gather-all');
 const path = './path/to/react-component.js';
-const componentMetadata = reactAutodocsUtils(path);
+
+gatherAll(path).then(metadata => {
+  // `metadata` is an object with component metadata, detailed below in this README
+});
 ```
 
-`componentMetadata` is an object with metadata of component.
+### As CLI
+
+```sh
+$ node_modules/react-autodocs-utils/index.js path/to/react-components.js
+```
+
+component metadata is printed in stdout
+
 
 ## Example
 
@@ -40,7 +59,7 @@ export class Component extends React.PureComponent {
 }
 ```
 
-`reactAutodocsUtils('./component.js')` Will return a JSON:
+`await gatherAll('./component.js')` will return the following JSON:
 
 
 ```js
@@ -110,6 +129,17 @@ It is used heavily in
 [wix-storybook-utils](https://github.com/wix/wix-ui/tree/master/packages/wix-storybook-utils).
 Live example available at
 [wix-style-react](https://wix.github.io/wix-style-react/?selectedKind=3.%20Inputs&selectedStory=3.6%20DatePicker&full=0&addons=0&stories=1&panelRight=0) storybook.
+
+## API
+
+### `gatherAll(path, options)`
+
+```js
+const gatherAll = require('react-autodocs-utils/src/gather-all')
+```
+* `path` - string, path to a React component file which should be parsed
+* `options` - object supporting the following setting flags to adjust the parser:
+  * `skipPropsWithoutDoc` - boolean. Skips component props that have no JSDOC comment
 
 ## Contribute
 
