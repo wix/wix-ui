@@ -72,7 +72,10 @@ export interface DropdownState {
 /**
  * Dropdown
  */
-export class DropdownComponent extends React.PureComponent<DropdownProps, DropdownState> {
+export class DropdownComponent extends React.PureComponent<
+  DropdownProps,
+  DropdownState
+> {
   static displayName = 'Dropdown';
   private dropdownContentRef: DropdownContent | null = null;
 
@@ -95,7 +98,12 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
   }
 
   componentDidUpdate(prevProps: DropdownProps) {
-    if (!DropdownComponent.areSelectedIdsEqual(this.props.initialSelectedIds, prevProps.initialSelectedIds)) {
+    if (
+      !DropdownComponent.areSelectedIdsEqual(
+        this.props.initialSelectedIds,
+        prevProps.initialSelectedIds,
+      )
+    ) {
       this.initializeSelectedOptions();
     }
   }
@@ -116,13 +124,14 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
   };
 
   initializeSelectedOptions() {
-    const { initialSelectedIds, options, onInitialSelectedOptionsSet } = this.props;
+    const { initialSelectedIds, options, onInitialSelectedOptionsSet } =
+      this.props;
 
     const selectedOptions = (initialSelectedIds || [])
-      .map(id => options.find(option => id === option.id))
-      .filter(option => option && !option.isDisabled && option.isSelectable);
+      .map((id) => options.find((option) => id === option.id))
+      .filter((option) => option && !option.isDisabled && option.isSelectable);
 
-    const selectedIds = selectedOptions.map(x => x && x.id);
+    const selectedIds = selectedOptions.map((x) => x && x.id);
     this.setState({
       selectedIds: selectedIds as (string | number)[],
     });
@@ -144,7 +153,9 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
     this.setState({ isOpen: true }, () => this._onExpandedChange());
   }
 
-  onPopoverClick() {
+  onPopoverClick(e) {
+    const { dropdownA11yFixes } = this.props;
+
     if (this.state.isOpen) {
       this.close();
     } else {
@@ -159,17 +170,28 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
   }
 
   getSelectedOption() {
-    return this.dropdownContentRef ? this.dropdownContentRef.getSelectedOption() : null;
+    return this.dropdownContentRef
+      ? this.dropdownContentRef.getSelectedOption()
+      : null;
   }
 
   onKeyboardSelect() {
+    const { dropdownA11yFixes } = this.props;
     const selectedOption = this.getSelectedOption();
-    this.onOptionClick(selectedOption);
+
+    if (!dropdownA11yFixes || selectedOption) {
+      this.onOptionClick(selectedOption);
+    }
   }
 
   isClosingKey(key) {
     const { dropdownA11yFixes } = this.props;
-    return key === 'Tab' || key === 'Escape' || (!dropdownA11yFixes && key === 'Enter');
+    return (
+      key === 'Tab' ||
+      key === 'Escape' ||
+      (dropdownA11yFixes && key === ' ') ||
+      (!dropdownA11yFixes && key === 'Enter')
+    );
   }
 
   onKeyDown(evt: React.KeyboardEvent<HTMLElement>) {
@@ -189,11 +211,13 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
       switch (eventKey) {
         case 'Enter': {
           handleSelect();
+          evt.preventDefault();
           break;
         }
         case ' ': {
           if (dropdownA11yFixes) {
             handleSelect();
+            evt.preventDefault();
           }
           break;
         }
@@ -209,7 +233,12 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
         return;
       }
       if (dropdownA11yFixes) {
-        if (eventKey === 'Enter' || eventKey === ' ' || eventKey === 'ArrowDown' || eventKey === 'ArrowUp') {
+        if (
+          eventKey === 'Enter' ||
+          eventKey === ' ' ||
+          eventKey === 'ArrowDown' ||
+          eventKey === 'ArrowUp'
+        ) {
           evt.preventDefault();
         } else {
           return;
@@ -247,7 +276,7 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
         // if option was clicked (could be null when Autocomplete receives a new string)
         if (selectedIds.includes(option.id)) {
           // if clicked a selected option, unselect it
-          newState.selectedIds = selectedIds.filter(x => x !== option.id);
+          newState.selectedIds = selectedIds.filter((x) => x !== option.id);
           callback = onDeselect;
         } else {
           // if clicked a new option, add it to selection
@@ -300,8 +329,11 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
       className,
     } = this.props;
     const { isOpen, selectedIds } = this.state;
-    const hasContent = Boolean((options && options.length) || fixedHeader || fixedFooter);
-    const shown = forceContentElementVisibility || (isOpen && !disabled && hasContent);
+    const hasContent = Boolean(
+      (options && options.length) || fixedHeader || fixedFooter,
+    );
+    const shown =
+      forceContentElementVisibility || (isOpen && !disabled && hasContent);
 
     return (
       <Popover
@@ -311,10 +343,18 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
         showArrow={showArrow}
         timeout={timeout}
         onClickOutside={this.handleClickOutside}
-        onClick={!disabled && openTrigger === CLICK ? () => this.onPopoverClick() : undefined}
-        onMouseEnter={!disabled && openTrigger === HOVER ? () => this.open() : undefined}
+        onClick={
+          !disabled && openTrigger === CLICK
+            ? (e) => this.onPopoverClick(e)
+            : undefined
+        }
+        onMouseEnter={
+          !disabled && openTrigger === HOVER ? () => this.open() : undefined
+        }
         onKeyDown={!disabled ? this.onKeyDown : undefined}
-        onMouseLeave={!disabled && openTrigger === HOVER ? this.close : undefined}
+        onMouseLeave={
+          !disabled && openTrigger === HOVER ? this.close : undefined
+        }
         style={inlineStyles}
         id={id}
         flip={flip}
@@ -331,7 +371,9 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
           <DropdownContent
             className={classes.dropdownContent}
             data-hook="dropdown-content"
-            ref={dropdownContent => (this.dropdownContentRef = dropdownContent)}
+            ref={(dropdownContent) =>
+              (this.dropdownContentRef = dropdownContent)
+            }
             options={options}
             fixedFooter={fixedFooter}
             fixedHeader={fixedHeader}
