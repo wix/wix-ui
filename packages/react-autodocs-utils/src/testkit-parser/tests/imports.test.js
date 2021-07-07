@@ -1,7 +1,6 @@
 const getExport = require('../get-export');
 
-jest.mock('fs');
-const fs = require('fs');
+const cista = require('cista');
 
 describe('import parsing', () => {
   const testCases = [
@@ -149,20 +148,16 @@ describe('import parsing', () => {
     {
       spec: 'export { x as y } from node_modules/z',
       code: `
-        export { internalDriver as driverFactory } from 'library/dist/driver.js';
+        export { internalDriver as driverFactory } from 'library/driver.js';
       `,
       files: {
-        node_modules: {
-          library: {
-            'driver.js': `
+        'node_modules/library/driver.js': `
             export const internalDriver = () => ({
               driver: {
                 method: arg => {}
               }
             });
             `,
-          },
-        },
       },
     },
     {
@@ -170,31 +165,25 @@ describe('import parsing', () => {
       code: `
         export {
           buttonNextDriverFactory as textButtonDriverFactory,
-        } from 'libraryA/dist/driver';
+        } from 'libraryA/driver';
       `,
       files: {
-        node_modules: {
-          libraryA: {
-            'driver.ts': `
-              import { baseUniDriverFactory } from 'libraryB/driver';
+        'node_modules/libraryA/driver.ts': `
+          import { baseUniDriverFactory } from "libraryB/driver";
 
-              export const buttonNextDriverFactory = (base: any): any => {
-                return {
-                  driver: {...baseUniDriverFactory(base)}
-                };
-              };
-            `,
-          },
-          libraryB: {
-            'driver.js': `
-              export const baseUniDriverFactory = (base: any): any => {
-                return {
-                  method: (arg) => {}
-                };
-              };
-            `,
-          },
-        },
+          export const buttonNextDriverFactory = (base: any): any => {
+            return {
+              driver: {...baseUniDriverFactory(base)}
+            };
+          };
+        `,
+        'node_modules/libraryB/driver.ts': `
+          export const baseUniDriverFactory = (base: any): any => {
+            return {
+              method: (arg) => {}
+            };
+          };
+        `,
       },
     },
     {
@@ -206,7 +195,7 @@ describe('import parsing', () => {
         node_modules: {
           library: {
             'driver.ts': `
-              export { buttonNextDriverFactory } from './dist/src/driverFactory';
+              export { buttonNextDriverFactory } from "./dist/src/driverFactory";
             `,
             src: {
               'driverFactory.ts': `export const buttonNextDriverFactory = (base: any): any => ({
@@ -225,20 +214,12 @@ describe('import parsing', () => {
         export { buttonNextDriverFactory } from 'library/dist/driver';
       `,
       files: {
-        node_modules: {
-          library: {
-            'driver.ts': `
-              module.exports = require('./dist/src/driverFactory');
-            `,
-            src: {
-              'driverFactory.ts': `export const buttonNextDriverFactory = (base: any): any => ({
+        'node_modules/library/driver.ts': `module.exports = require("./dist/src/driverFactory");`,
+        'node_modules/library/src/driverFactory.ts': `export const buttonNextDriverFactory = (base: any): any => ({
                 driver: {
                   method: (arg) => {}
                 }
               });`,
-            },
-          },
-        },
       },
     },
     {
@@ -267,21 +248,19 @@ describe('import parsing', () => {
         });
       `,
       files: {
-        folder: {
-          'internal.js': `
-            import anotherDriverFactory from './another-internal.js';
+        'folder/internal.js': `
+            import anotherDriverFactory from "./another-internal.js";
             export default () => ({
               ...anotherDriverFactory()
             });
           `,
-          'another-internal.js': `
+        'folder/another-internal.js': `
             export default () => ({
               driver: {
                 method: (arg) => {}
               }
             });
           `,
-        },
       },
     },
     {
@@ -296,20 +275,18 @@ describe('import parsing', () => {
         });
       `,
       files: {
-        folder: {
-          'internal.js': `
-            import anotherDriverFactory from './another-internal.js';
+        'folder/internal.js': `
+            import anotherDriverFactory from "./another-internal.js";
             const anotherDriver = anotherDriverFactory();
             export default () => ({
               ...anotherDriver
             });
           `,
-          'another-internal.js': `
+        'folder/another-internal.js': `
             export default () => ({
               method: (arg) => {}
             });
           `,
-        },
       },
     },
     {
@@ -324,13 +301,12 @@ describe('import parsing', () => {
         };
       `,
       files: {
-        folder: {
-          'internal.js': `
+        'folder/internal.js': `
             export {
               default,
-            } from './another-internal';
+            } from "./another-internal";
           `,
-          'another-internal.js': `
+        'folder/another-internal.js': `
             const driverFactory = () => {
               const driver = {
                 method: arg => {}
@@ -339,7 +315,6 @@ describe('import parsing', () => {
             };
             export default driverFactory;
           `,
-        },
       },
     },
   ];
@@ -354,8 +329,8 @@ describe('import parsing', () => {
 
   testCases.forEach(({ spec, code, files }) => {
     it(`should parse ${spec}`, async () => {
-      fs.__setFS(files);
-      const result = await getExport(code);
+      const fakeFs = cista(files);
+      const result = await getExport(code, undefined, fakeFs.dir + '/file.js');
       expect(result).toEqual(expected);
     });
   });
