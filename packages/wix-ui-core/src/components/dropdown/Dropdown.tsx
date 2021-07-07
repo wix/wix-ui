@@ -211,7 +211,11 @@ export class DropdownComponent extends React.PureComponent<
       switch (eventKey) {
         case 'Enter': {
           handleSelect();
-          evt.preventDefault();
+
+          if (dropdownA11yFixes) {
+            evt.preventDefault();
+          }
+
           break;
         }
         case ' ': {
