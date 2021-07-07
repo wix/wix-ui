@@ -154,8 +154,6 @@ export class DropdownComponent extends React.PureComponent<
   }
 
   onPopoverClick(e) {
-    const { dropdownA11yFixes } = this.props;
-
     if (this.state.isOpen) {
       this.close();
     } else {
