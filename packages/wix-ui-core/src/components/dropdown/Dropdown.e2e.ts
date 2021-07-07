@@ -6,9 +6,9 @@ import {
 import { dropdownTestkitFactory } from '../../testkit/protractor';
 import { Category } from '../../../stories/utils';
 
-describe('Input', () => {
+describe('Dropdown', () => {
     const storyUrl = createStoryUrl({
-        kind: Category.COMPONENTS,
+        kind: 'Base Components',
         story: 'Dropdown',
     });
 
@@ -16,15 +16,18 @@ describe('Input', () => {
         browser.get(storyUrl);
     });
 
-    [Key.SPACE, Key.ENTER].forEach((key) => {
-        it(`should open and close with ${key} key`, async () => {
+    [
+        { key: Key.SPACE, name: 'space' },
+        { key: Key.ENTER, name: 'enter' },
+    ].forEach(({ key, name }) => {
+        it(`should open and close with ${name} key`, async () => {
             const dataHook = 'storybook-dropdown';
             const driver = dropdownTestkitFactory({ dataHook });
             await waitForVisibilityOf(driver.element(), 'Cannot find Dropdown');
 
             expect(driver.isContentElementExists()).toBeFalsy();
 
-            const triggerElement = element(by.css('[data-hook="popover-element"]'));
+            const triggerElement = element(by.tagName('button'));
 
             await triggerElement.sendKeys(key);
 
