@@ -9,7 +9,10 @@ describe('get object methods', () => {
         methodA: () => {},
         methodB: () => {}
       })`,
-      expected: [{ name: 'methodA', type: 'function', args: [] }, { name: 'methodB', type: 'function', args: [] }],
+      expected: [
+        { name: 'methodA', type: 'function', args: [] },
+        { name: 'methodB', type: 'function', args: [] },
+      ],
     },
     {
       spec: 'one arg',
@@ -106,7 +109,10 @@ describe('get object methods', () => {
         notMethod: true,
         number: 1
       })`,
-      expected: [{ name: 'notMethod', type: 'value' }, { name: 'number', type: 'value' }],
+      expected: [
+        { name: 'notMethod', type: 'value' },
+        { name: 'number', type: 'value' },
+      ],
     },
     {
       spec: 'constructor arg as key',
@@ -249,7 +255,7 @@ describe('get object methods', () => {
         
         export default driverFactory;
       `,
-      expected: [{ name: 'method', type: 'function', args: [] }, { name: 'driver', type: 'error' }],
+      expected: [{ name: 'method', type: 'function', args: [] }],
     },
     {
       spec: 'object spread on member expression',
