@@ -176,12 +176,8 @@ export class DropdownComponent extends React.PureComponent<
   }
 
   onKeyboardSelect() {
-    const { dropdownA11yFixes } = this.props;
     const selectedOption = this.getSelectedOption();
-
-    if (!dropdownA11yFixes || selectedOption) {
-      this.onOptionClick(selectedOption);
-    }
+    this.onOptionClick(selectedOption);
   }
 
   isClosingKey(key) {
@@ -189,7 +185,6 @@ export class DropdownComponent extends React.PureComponent<
     return (
       key === 'Tab' ||
       key === 'Escape' ||
-      (dropdownA11yFixes && key === ' ') ||
       (!dropdownA11yFixes && key === 'Enter')
     );
   }
@@ -211,11 +206,9 @@ export class DropdownComponent extends React.PureComponent<
       switch (eventKey) {
         case 'Enter': {
           handleSelect();
-
           if (dropdownA11yFixes) {
             evt.preventDefault();
           }
-
           break;
         }
         case ' ': {
