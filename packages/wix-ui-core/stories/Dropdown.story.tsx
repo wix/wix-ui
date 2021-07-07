@@ -18,6 +18,7 @@ export default {
     fixedFooter: 'Fixed Footer',
     fixedHeader: 'Fixed Header',
     children: <button>Choose</button>,
+    dropdownA11yFixes: true,
   },
 
   exampleProps: {

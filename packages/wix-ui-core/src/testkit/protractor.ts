@@ -243,3 +243,12 @@ export const horizontalMenuTestkitFactory = protractorUniTestkitFactoryCreator(
   horizontalMenuUniDriverFactory,
 );
 export { HorizontalMenuDriver };
+
+import {
+  dropdownDriverFactory,
+  DropdownDriver,
+} from '../components/dropdown/Dropdown.protractor.driver';
+export const dropdownTestkitFactory = protractorTestkitFactoryCreator(
+  dropdownDriverFactory,
+);
+export { DropdownDriver };
