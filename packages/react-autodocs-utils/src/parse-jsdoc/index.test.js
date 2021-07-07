@@ -3,14 +3,6 @@
 const parseJSDoc = require('.');
 
 describe('parseJSDoc', () => {
-  it('should be defined', () => {
-    expect(typeof parseJSDoc).toEqual('function');
-  });
-
-  it('should return promise', () => {
-    expect(parseJSDoc() instanceof Promise).toEqual(true);
-  });
-
   describe('given object of props', () => {
     it('should resolve with same shape of input object', () => {
       const props = {
