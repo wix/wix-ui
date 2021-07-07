@@ -355,4 +355,40 @@ describe('gatherAll', () => {
       );
     });
   });
+
+  describe('testkitParser', () => {
+    it('should resolve testkits in nested folders', () => {
+      const fakeFs = cista({
+        'component-folder/index.js': componentSourceMock,
+        'component-folder/test/component.uni.driver.js': `export default () => ({
+              /** documented */
+              exists: () => true,
+
+              /** @deprecated do not use this */
+              bad: () => false
+            })
+          `,
+      });
+
+      return expect(gatherAll(fakeFs.dir + '/component-folder')).resolves.toEqual(
+        expect.objectContaining({
+          ...metadataMock,
+          displayName: 'component',
+          drivers: [
+            expect.objectContaining({
+              descriptor: [
+                expect.objectContaining({ name: 'exists', description: 'documented' }),
+                expect.objectContaining({
+                  name: 'bad',
+                  description: '',
+                  isDeprecated: true,
+                  tags: [{ description: 'do not use this', title: 'deprecated' }],
+                }),
+              ],
+            }),
+          ],
+        })
+      );
+    });
+  });
 });
