@@ -214,7 +214,7 @@ describe('Dropdown', () => {
           options,
           onDeselect,
           multi: true,
-        }),
+        })
       );
 
       driver.click();
@@ -231,7 +231,7 @@ describe('Dropdown', () => {
         createDropdown({
           options,
           onOptionHover,
-        }),
+        })
       );
 
       driver.click();
@@ -256,7 +256,7 @@ describe('Dropdown', () => {
           options,
           onOptionHover,
           contentId: 'd401eea8',
-        }),
+        })
       );
 
       driver.click();
@@ -287,7 +287,7 @@ describe('Dropdown', () => {
         createDropdown({
           options,
           onOptionHover,
-        }),
+        })
       );
 
       driver.click();
@@ -308,7 +308,7 @@ describe('Dropdown', () => {
           options,
           initialSelectedIds: [0, 1],
           forceContentElementVisibility: true,
-        }),
+        })
       );
       expect(driver.optionAt(0).isSelected()).toBeTruthy();
       expect(driver.optionAt(1).isSelected()).toBeTruthy();
@@ -323,7 +323,7 @@ describe('Dropdown', () => {
           options,
           multi: true,
           forceContentElementVisibility: true,
-        }),
+        })
       );
       driver.optionAt(0).click();
       driver.optionAt(1).click();
@@ -339,7 +339,7 @@ describe('Dropdown', () => {
           multi: false,
           initialSelectedIds: [0],
           forceContentElementVisibility: true,
-        }),
+        })
       );
       driver.optionAt(1).click();
       expect(driver.optionAt(1).isSelected()).toBeTruthy();
@@ -387,7 +387,7 @@ describe('Dropdown', () => {
           options={[]}
         >
           <span>Dropdown</span>
-        </Dropdown>,
+        </Dropdown>
       );
 
       const driver = dropdownDriverFactory({
@@ -416,7 +416,7 @@ describe('Dropdown', () => {
           options={options}
         >
           <span>Dropdown</span>
-        </Dropdown>,
+        </Dropdown>
       );
 
       const driver = dropdownDriverFactory({
@@ -491,9 +491,7 @@ describe('Dropdown', () => {
     });
 
     it('should show content on `Enter`', () => {
-      const driver = createDriver(
-        createDropdown({ options, dropdownA11yFixes: true }),
-      );
+      const driver = createDriver(createDropdown({ options, dropdownA11yFixes: true }));
 
       expect(driver.dropdownContentDisplayed()).toBeFalsy();
       Simulate.keyDown(getDropdownButton(), { key: 'Enter' });
@@ -501,9 +499,7 @@ describe('Dropdown', () => {
     });
 
     it('should show and close dropdown with `Space` when dropdownA11yFixes is true', () => {
-      const driver = createDriver(
-        createDropdown({ options, dropdownA11yFixes: true }),
-      );
+      const driver = createDriver(createDropdown({ options, dropdownA11yFixes: true }));
 
       expect(driver.dropdownContentDisplayed()).toBeFalsy();
       Simulate.keyDown(getDropdownButton(), { key: ' ' });
@@ -515,9 +511,7 @@ describe('Dropdown', () => {
 
     it('should select option on `Space` in case that dropdownA11yFixes is true', async () => {
       const onSelect = jest.fn();
-      const driver = createDriver(
-        createDropdown({ options, dropdownA11yFixes: true, onSelect }),
-      );
+      const driver = createDriver(createDropdown({ options, dropdownA11yFixes: true, onSelect }));
 
       expect(driver.dropdownContentDisplayed()).toBeFalsy();
       Simulate.keyDown(getDropdownButton(), {
