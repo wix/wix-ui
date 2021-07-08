@@ -1,6 +1,6 @@
 {
   "name": "react-autodocs-utils",
-  "version": "3.7.0",
+  "version": "3.7.1",
   "description": "Set of utilities for extracting meta information about react components mostly to generate automated documentation",
   "main": "index.js",
   "private": false,

@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * **Fixed** for any bug fixes.
 * **Security** in case of vulnerabilities.
 
+## [3.7.1] - 2021-07-08
+### Fixed
+- `testkit-parser` - prevent another testkit parser error from throwing [#2147](https://github.com/wix/wix-ui/pull/2147)
+
 ## [3.7.0] - 2021-07-08
 ### Added
 - `gatherAll` now supports options object: `gatherAll(path, { skipPropsWithoutDoc: true })` [#2142](https://github.com/wix/wix-ui/pull/2142)
