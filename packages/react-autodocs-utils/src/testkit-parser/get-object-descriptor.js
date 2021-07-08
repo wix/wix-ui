@@ -57,8 +57,13 @@ const getObjectProperties = async ({ node, ast, cwd }) => {
 const getMemberProperty = async ({ node, ast, cwd }) => {
   const object = await reduceToObject({ node: node.object, ast, cwd });
   const properties = await getObjectProperties({ node: object, ast, cwd });
-  const property = properties.find(property => property.key.name === node.property.name);
-  return property.value;
+  const property = properties.find((property) => property.key.name === node.property.name);
+  return (
+    (property && property.value) || {
+      type: 'NumericLiteral',
+      value: -1,
+    }
+  );
 };
 
 const createDescriptor = async ({ node, ast, cwd }) => {
