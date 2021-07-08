@@ -38,9 +38,8 @@ const gatherAll = (path, options = defaultOptions) =>
       );
     })
 
-    .then((metadata) => Promise.all([metadata, readFolder(path)]))
-
-    .then(async ([metadata, files]) => {
+    .then(async (metadata) => {
+      const files = await readFolder(path, { recursive: true });
       const readMarkdown = (markdownPath) =>
         containsFile(files)(markdownPath)
           .then((file) => readFile(pathJoin(dirname(path), file)))

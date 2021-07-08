@@ -1,6 +1,7 @@
 /* global describe it expect jest */
 
 const cista = require('cista');
+const path = require('path');
 
 const readFolder = require('./');
 
@@ -35,5 +36,29 @@ describe('readFolder', () => {
 
   describe('given non existing path', () => {
     it('should reject promise', () => expect(readFolder('you-dont-exist')).rejects.toBeDefined());
+  });
+
+  describe('given `recursive: true` setting', () => {
+    it('should return list of files including nested files', () => {
+      const fakeFs = cista({
+        'file.extension': '',
+        'file.js': '',
+        'folder/file': '',
+        'folder/deeper/file': '',
+        'folder/deeper/deeper/file': '',
+        'sibling/file': '',
+      });
+
+      const expectedFiles = [
+        'file.extension',
+        'file.js',
+        'folder/deeper/deeper/file',
+        'folder/deeper/file',
+        'folder/file',
+        'sibling/file',
+      ];
+
+      return expect(readFolder(fakeFs.dir, { recursive: true })).resolves.toEqual(expectedFiles);
+    });
   });
 });

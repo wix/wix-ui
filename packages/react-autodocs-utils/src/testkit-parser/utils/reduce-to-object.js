@@ -16,7 +16,7 @@ const reduceToObject = async ({ ast, node, cwd }) => {
   }
   const visitor = visitors[node.type];
   if (!visitor) {
-    throw Error(`reduceToObject: not implemented for ${node.type}`);
+    return { properties: [] };
   }
 
   return await reduceToObject({

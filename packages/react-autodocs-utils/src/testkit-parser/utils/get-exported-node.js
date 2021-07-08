@@ -4,9 +4,15 @@ const followImport = require('./follow-import');
 
 const DEFAULT_EXPORT = 'default';
 
-const byName = name => ({ node }) => node.name === name;
+const byName =
+  (name) =>
+  ({ node }) =>
+    node.name === name;
 
-const byPattern = regex => ({ node }) => regex.test(node.name);
+const byPattern =
+  (regex) =>
+  ({ node }) =>
+    regex.test(node.name);
 
 const findNamedExportDeclaration = (nodes, predicate) => {
   const exportedNode = nodes.find(predicate);
@@ -15,12 +21,12 @@ const findNamedExportDeclaration = (nodes, predicate) => {
   }
 };
 
-const getFirstExportIfOnlyOneExists = nodes => nodes.length === 1 && nodes[0];
+const getFirstExportIfOnlyOneExists = (nodes) => nodes.length === 1 && nodes[0];
 
-const isCommonJsExport = node =>
+const isCommonJsExport = (node) =>
   node.type === 'MemberExpression' && node.object.name === 'module' && node.property.name === 'exports';
 
-const isCommonJsImport = node => node.type === 'CallExpression' && node.callee.name === 'require';
+const isCommonJsImport = (node) => node.type === 'CallExpression' && node.callee.name === 'require';
 
 module.exports = async ({ ast, exportName = DEFAULT_EXPORT, cwd }) => {
   let exportedNode;
