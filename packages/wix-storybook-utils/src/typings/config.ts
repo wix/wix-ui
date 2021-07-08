@@ -1,5 +1,6 @@
 export interface Config {
   importFormat?: string;
+  importTestkitPath?: string;
   moduleName?: string;
   repoBaseURL?: string;
   issueURL?: string;
