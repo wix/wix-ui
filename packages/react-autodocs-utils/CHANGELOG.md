@@ -12,6 +12,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * **Fixed** for any bug fixes.
 * **Security** in case of vulnerabilities.
 
+## [3.7.0] - 2021-07-08
+### Added
+- `gatherAll` now supports options object: `gatherAll(path, { skipPropsWithoutDoc: true })` [#2142](https://github.com/wix/wix-ui/pull/2142)
+
+### Fixed
+- `testkit-parser` - parse testkits in nested folders [#2143](https://github.com/wix/wix-ui/pull/2143)
+- `testkit-parser` - do not throw when unable to parse some part of a testkit [#2143](https://github.com/wix/wix-ui/pull/2143)
+
 ## [3.6.3] - 2021-02-23
 ### Fixed
 - pin `@babel/core` & `@babel/parser` versions to fix parser failure for class components with static properties
