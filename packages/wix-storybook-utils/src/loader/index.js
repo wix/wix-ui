@@ -4,8 +4,7 @@ const path = require('path');
 const pathFinder = require('react-autodocs-utils/src/path-finder');
 const gatherAll = require('react-autodocs-utils/src/gather-all');
 const metadataMerger = require('react-autodocs-utils/src/metadata-merger');
-const prepareStory = require('./prepareStory/prepareStory')
-
+const prepareStory = require('./prepareStory/prepareStory');
 
 const applyPlugins = ({ plugins = [], source, basePath }) => (metadata = {}) =>
   plugins.reduce((promise, pluginPath) => {
@@ -46,14 +45,17 @@ const applyPlugins = ({ plugins = [], source, basePath }) => (metadata = {}) =>
 
 module.exports = function(source) {
   const callback = this.async();
- 
-  const { storyConfig, plugins, } = loaderUtils.getOptions(this);
+
+  const { storyConfig, plugins } = loaderUtils.getOptions(this);
   // 1. find component path
   pathFinder(source)
     .then(componentPath => {
       // 2. get component metadata
       const metadata = componentPath
-        ? gatherAll(path.join(this.context, componentPath))
+        ? gatherAll(
+            path.join(this.context, componentPath),
+            storyConfig.parserOptions,
+          )
         : Promise.resolve({});
 
       return metadata
