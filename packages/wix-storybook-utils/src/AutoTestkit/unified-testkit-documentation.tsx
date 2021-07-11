@@ -5,10 +5,12 @@ import { makeImportCode } from './make-import-code';
 import { Metadata } from '../typings/metadata';
 import { FieldsDocumentation } from './fields-documentation';
 import { Descriptor } from './typings';
+import { StoryConfig } from '../typings/story-config';
 
 interface Props {
   dataHook?: string;
   metadata: Metadata;
+  storyConfig: StoryConfig;
 }
 
 const extractNested = (descriptors: Descriptor[]) =>
@@ -25,6 +27,7 @@ const extractNested = (descriptors: Descriptor[]) =>
 export const UnifiedTestkitDocumentation: React.FunctionComponent<Props> = ({
   dataHook,
   metadata,
+  storyConfig,
 }) => {
   const driver = metadata.drivers.filter(d =>
     d.file.endsWith('.uni.driver.js'),
@@ -48,9 +51,9 @@ export const UnifiedTestkitDocumentation: React.FunctionComponent<Props> = ({
       <Code dataHook="auto-testkit-driver-import-code">
         {makeImportCode({
           testkit: {
-            template: `import { <%= component.displayName %>Testkit } from 'wix-style-react/dist/testkit';
-import { <%= component.displayName %>Testkit } from 'wix-style-react/dist/testkit/enzyme';
-import { <%= component.displayName %>Testkit } from 'wix-style-react/dist/testkit/puppeteer';`,
+            template: `import { <%= component.displayName %>Testkit } from '${storyConfig.config.importTestkitPath}/testkit';
+import { <%= component.displayName %>Testkit } from '${storyConfig.config.importTestkitPath}/testkit/enzyme';
+import { <%= component.displayName %>Testkit } from '${storyConfig.config.importTestkitPath}/testkit/puppeteer';`,
           },
           metadata,
         })}

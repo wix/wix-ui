@@ -54,11 +54,12 @@ const createDriverDocumentation = (metadata, storyConfig) => {
     });
 };
 
-const createUnifiedTestkitDocumentation = metadata => {
+const createUnifiedTestkitDocumentation = (metadata, storyConfig) => {
   return (
     <UnifiedTestkitDocumentation
       dataHook="auto-unified-testkit"
       metadata={metadata}
+      storyConfig={storyConfig}
     />
   );
 };
@@ -78,7 +79,7 @@ export const AutoTestkit = ({ metadata, storyConfig }: Props) => (
     )}
 
     {get(storyConfig, 'config.unifiedTestkit')
-      ? createUnifiedTestkitDocumentation(metadata)
+      ? createUnifiedTestkitDocumentation(metadata, storyConfig)
       : createDriverDocumentation(metadata, storyConfig)}
   </div>
 );
