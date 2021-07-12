@@ -60,6 +60,12 @@ const returnsDocumentation = ({ title, type, description }, index) => {
             if (element.value) {
               return `'${element.value}'`;
             }
+            if (element.type === 'NullLiteral') {
+              return 'null';
+            }
+            if (element.type === 'UndefinedLiteral') {
+              return 'undefined';
+            }
             return element.name;
           })
           .join(' | ');
