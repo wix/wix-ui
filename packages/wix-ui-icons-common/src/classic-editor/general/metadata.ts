@@ -3202,7 +3202,16 @@ export const generalIconsMetadata: Array<IconMetadata> = [
     "sizes": {
       "24": "PageBackground"
     }
-  }
+  },
+  {
+    "title": "QuickFormat",
+    "category": "Actions",
+    "description": "",
+    "tags": [],
+    "sizes": {
+      "24": "QuickFormat"
+    }
+  },
 ]
 
 export default generalIconsMetadata;
