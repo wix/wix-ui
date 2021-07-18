@@ -24,6 +24,33 @@ const extractNested = (descriptors: Descriptor[]) =>
     { flat: [], nested: [] },
   );
 
+const makeUnifiedTestkitImportCode = ({ metadata, storyConfig }: Props) => {
+  let template;
+
+  if (storyConfig.config.testkits) {
+    template = ['vanilla', 'enzyme', 'puppeteer']
+      .filter((type) => storyConfig.config.testkits[type]?.template)
+      .map((type) => {
+        const {
+          config: { testkits },
+        } = storyConfig;
+        return testkits[type]?.template;
+      })
+      .join('\n')
+  } else {
+    template = `import { <%= component.displayName %>Testkit } from '${storyConfig.config.importTestkitPath}/testkit';
+import { <%= component.displayName %>Testkit } from '${storyConfig.config.importTestkitPath}/testkit/enzyme';
+import { <%= component.displayName %>Testkit } from '${storyConfig.config.importTestkitPath}/testkit/puppeteer';`;
+  }
+
+  return makeImportCode({
+    testkit: {
+      template,
+    },
+    metadata,
+  });
+};
+
 export const UnifiedTestkitDocumentation: React.FunctionComponent<Props> = ({
   dataHook,
   metadata,
@@ -49,20 +76,7 @@ export const UnifiedTestkitDocumentation: React.FunctionComponent<Props> = ({
       <h2 data-hook="auto-testkit-driver-name">Import</h2>
 
       <Code dataHook="auto-testkit-driver-import-code">
-        {makeImportCode({
-          testkit: {
-            template: ['vanilla', 'enzyme', 'puppeteer']
-              .filter((type) => storyConfig.config.testkits[type]?.template)
-              .map((type) => {
-                const {
-                  config: { testkits },
-                } = storyConfig;
-                return testkits[type]?.template;
-              })
-              .join('\n'),
-          },
-          metadata,
-        })}
+        {makeUnifiedTestkitImportCode({ storyConfig, metadata })}
       </Code>
 
       <h2 data-hook="auto-testkit-descriptor-title">API</h2>
