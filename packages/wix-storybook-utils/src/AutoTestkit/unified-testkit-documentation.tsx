@@ -36,7 +36,7 @@ const makeUnifiedTestkitImportCode = ({ metadata, storyConfig }: Props) => {
         } = storyConfig;
         return testkits[type]?.template;
       })
-      .join('\n')
+      .join('\n');
   } else {
     template = `import { <%= component.displayName %>Testkit } from '${storyConfig.config.importTestkitPath}/testkit';
 import { <%= component.displayName %>Testkit } from '${storyConfig.config.importTestkitPath}/testkit/enzyme';
