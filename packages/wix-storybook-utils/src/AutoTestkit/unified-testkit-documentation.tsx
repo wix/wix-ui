@@ -30,11 +30,9 @@ const makeUnifiedTestkitImportCode = ({ metadata, storyConfig }: Props) => {
 
   if (storyConfig.config.testkits) {
     template = ['vanilla', 'enzyme', 'puppeteer']
-      .map((type) => storyConfig.config.testkits?.[type])
-      .filter(
-        (testkit): testkit is Testkit => !!testkit?.template,
-      )
-      .map((testkit) => testkit.template)
+      .map(type => storyConfig.config.testkits?.[type])
+      .filter((testkit): testkit is Testkit => !!testkit?.template)
+      .map(testkit => testkit.template)
       .join('\n');
   } else {
     template = `import { <%= component.displayName %>Testkit } from '${storyConfig.config.importTestkitPath}/testkit';
@@ -55,8 +53,8 @@ export const UnifiedTestkitDocumentation: React.FunctionComponent<Props> = ({
   metadata,
   storyConfig,
 }) => {
-  const driver = metadata.drivers.filter((d) =>
-    d.file.endsWith('.uni.driver.js'),
+  const driver = metadata.drivers.filter(d =>
+    d.file.endsWith('.uni.driver.js')
   );
 
   let error;
