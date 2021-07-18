@@ -29,7 +29,7 @@ export const UnifiedTestkitDocumentation: React.FunctionComponent<Props> = ({
   metadata,
   storyConfig,
 }) => {
-  const driver = metadata.drivers.filter(d =>
+  const driver = metadata.drivers.filter((d) =>
     d.file.endsWith('.uni.driver.js'),
   );
 
@@ -51,9 +51,15 @@ export const UnifiedTestkitDocumentation: React.FunctionComponent<Props> = ({
       <Code dataHook="auto-testkit-driver-import-code">
         {makeImportCode({
           testkit: {
-            template: `import { <%= component.displayName %>Testkit } from '${storyConfig.config.importTestkitPath}/testkit';
-import { <%= component.displayName %>Testkit } from '${storyConfig.config.importTestkitPath}/testkit/enzyme';
-import { <%= component.displayName %>Testkit } from '${storyConfig.config.importTestkitPath}/testkit/puppeteer';`,
+            template: ['vanilla', 'enzyme', 'puppeteer']
+              .filter((type) => storyConfig.config.testkits[type]?.template)
+              .map((type) => {
+                const {
+                  config: { testkits },
+                } = storyConfig;
+                return testkits[type]?.template;
+              })
+              .join('\n'),
           },
           metadata,
         })}
