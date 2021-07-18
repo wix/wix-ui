@@ -6,6 +6,7 @@ import { Metadata } from '../typings/metadata';
 import { FieldsDocumentation } from './fields-documentation';
 import { Descriptor } from './typings';
 import { StoryConfig } from '../typings/story-config';
+import { Testkit } from '../typings/config';
 
 interface Props {
   dataHook?: string;
@@ -29,13 +30,11 @@ const makeUnifiedTestkitImportCode = ({ metadata, storyConfig }: Props) => {
 
   if (storyConfig.config.testkits) {
     template = ['vanilla', 'enzyme', 'puppeteer']
-      .filter((type) => storyConfig.config.testkits[type]?.template)
-      .map((type) => {
-        const {
-          config: { testkits },
-        } = storyConfig;
-        return testkits[type]?.template;
-      })
+      .map((type) => storyConfig.config.testkits?.[type])
+      .filter(
+        (testkitConfig): testkitConfig is Testkit => !!testkitConfig.template,
+      )
+      .map((testkitConfig) => testkitConfig.template)
       .join('\n');
   } else {
     template = `import { <%= component.displayName %>Testkit } from '${storyConfig.config.importTestkitPath}/testkit';
