@@ -30,7 +30,7 @@ export const UnifiedTestkitDocumentation: React.FunctionComponent<Props> = ({
   storyConfig,
 }) => {
   const driver = metadata.drivers.filter(d =>
-    d.file.endsWith('.uni.driver.js'),
+    /\.uni\.driver\.(js|tsx?)$/.test(d.file),
   );
 
   let error;
