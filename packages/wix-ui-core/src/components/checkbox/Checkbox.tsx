@@ -26,6 +26,8 @@ export interface CheckboxProps extends React.InputHTMLAttributes<HTMLElement> {
   error?: boolean;
   /** Whether the checkbox is indeterminate */
   indeterminate?: boolean;
+  'aria-invalid'?: React.AriaAttributes['aria-invalid'];
+  'aria-describedby'?: React.AriaAttributes['aria-describedby'];
 }
 
 export interface CheckboxState {
@@ -101,6 +103,8 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
           name={this.props.name}
           aria-controls={this.props['aria-controls']}
           aria-label={this.props['aria-label']}
+          aria-invalid={this.props['aria-invalid']}
+          aria-describedby={this.props['aria-describedby']}
         />
 
         <span className={classes.box}>
