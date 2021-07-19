@@ -6,6 +6,7 @@ import { Metadata } from '../typings/metadata';
 import { FieldsDocumentation } from './fields-documentation';
 import { Descriptor } from './typings';
 import { StoryConfig } from '../typings/story-config';
+import { Testkit } from '../typings/config';
 
 interface Props {
   dataHook?: string;
@@ -23,6 +24,29 @@ const extractNested = (descriptors: Descriptor[]) =>
     },
     { flat: [], nested: [] },
   );
+
+const makeUnifiedTestkitImportCode = ({ metadata, storyConfig }: Props) => {
+  let template;
+
+  if (storyConfig.config.testkits) {
+    template = ['vanilla', 'enzyme', 'puppeteer']
+      .map(type => storyConfig.config.testkits?.[type])
+      .filter((testkit): testkit is Testkit => !!testkit?.template)
+      .map(testkit => testkit.template)
+      .join('\n');
+  } else {
+    template = `import { <%= component.displayName %>Testkit } from '${storyConfig.config.importTestkitPath}/testkit';
+import { <%= component.displayName %>Testkit } from '${storyConfig.config.importTestkitPath}/testkit/enzyme';
+import { <%= component.displayName %>Testkit } from '${storyConfig.config.importTestkitPath}/testkit/puppeteer';`;
+  }
+
+  return makeImportCode({
+    testkit: {
+      template,
+    },
+    metadata,
+  });
+};
 
 export const UnifiedTestkitDocumentation: React.FunctionComponent<Props> = ({
   dataHook,
@@ -49,14 +73,7 @@ export const UnifiedTestkitDocumentation: React.FunctionComponent<Props> = ({
       <h2 data-hook="auto-testkit-driver-name">Import</h2>
 
       <Code dataHook="auto-testkit-driver-import-code">
-        {makeImportCode({
-          testkit: {
-            template: `import { <%= component.displayName %>Testkit } from '${storyConfig.config.importTestkitPath}/testkit';
-import { <%= component.displayName %>Testkit } from '${storyConfig.config.importTestkitPath}/testkit/enzyme';
-import { <%= component.displayName %>Testkit } from '${storyConfig.config.importTestkitPath}/testkit/puppeteer';`,
-          },
-          metadata,
-        })}
+        {makeUnifiedTestkitImportCode({ storyConfig, metadata })}
       </Code>
 
       <h2 data-hook="auto-testkit-descriptor-title">API</h2>
