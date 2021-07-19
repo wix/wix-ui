@@ -102,6 +102,18 @@ describe('Checkbox', () => {
 
       expect(checkbox.input().getAttribute('aria-controls')).toBe('123,345');
     });
+
+    it('passes "aria-invalid" value to the input', () => {
+      const checkbox = createDriver(<Checkbox aria-invalid={'true'} />);
+
+      expect(checkbox.input().getAttribute('aria-invalid')).toBe('true');
+    });
+
+    it('passes "aria-describedby" value to the input', () => {
+      const checkbox = createDriver(<Checkbox aria-describedby={'described-by'} />);
+
+      expect(checkbox.input().getAttribute('aria-describedby')).toBe('described-by');
+    });
   });
 
   describe('Form element', () => {
