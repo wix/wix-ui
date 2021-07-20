@@ -18,6 +18,7 @@ export interface InputProps
   prefix?: React.ReactNode;
   suffix?: React.ReactNode;
   value?: string;
+  inputRef?: React.MutableRefObject<HTMLInputElement>;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
@@ -51,6 +52,15 @@ export class Input extends React.Component<InputProps, InputState> {
 
   private input: HTMLInputElement;
 
+  _extractRef = (ref) => {
+    const { inputRef } = this.props;
+
+    this.input = ref;
+    if (inputRef) {
+      inputRef.current = ref;
+    }
+  };
+
   render() {
     const { focus } = this.state;
     const {
@@ -69,6 +79,7 @@ export class Input extends React.Component<InputProps, InputState> {
       suffix: suffixProp,
       inputClassName,
       className,
+      inputRef,
       ...allOtherProps
     } = this.props;
 
@@ -86,7 +97,7 @@ export class Input extends React.Component<InputProps, InputState> {
         <input
           id={id}
           {...allOtherProps}
-          ref={(input) => (this.input = input)}
+          ref={this._extractRef}
           className={classnames(classes.nativeInput, inputClassName)}
           onBlur={this.handleBlur}
           onFocus={this.handleFocus}
