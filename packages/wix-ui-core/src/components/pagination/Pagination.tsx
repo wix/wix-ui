@@ -165,7 +165,7 @@ export class Pagination extends React.Component<
     event: React.KeyboardEvent<HTMLInputElement>,
   ): void => {
     // Enter
-    if (event.keyCode === 13) {
+    if (event.key === 'Enter') {
       const page = Number(this.state.pageInputValue);
       if (page !== this.props.currentPage) {
         if (1 <= page && page <= this.props.totalPages) {
@@ -198,7 +198,7 @@ export class Pagination extends React.Component<
     page: number,
   ): void => {
     // Enter or Space
-    if (event.keyCode === 13 || event.keyCode === 32) {
+    if (event.key === 'Enter' || event.key === 'Space') {
       this.props.onChange({ event, page });
     }
   };
