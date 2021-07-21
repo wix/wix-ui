@@ -80,6 +80,15 @@ describe('Input', () => {
     expect(input.suffix.textContent).toBe('SUFFIX');
   });
 
+  it('should pass ref attribute to native input', async () => {
+    const expectedType = 'password';
+    const ref = React.createRef<HTMLInputElement>();
+
+    await render(<Input inputRef={ref} type={expectedType} />);
+
+    expect(ref.current.type).toEqual(expectedType);
+  });
+
   describe('Imperative API', () => {
     it('should support focus() and blur() methods', async () => {
       const { input, instance } = await render(<Input />);
