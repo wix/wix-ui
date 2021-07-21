@@ -280,6 +280,7 @@ export class PopoverNext extends React.Component<
 
     if (this.appendToNode) {
       this.portalNode = document.createElement('div');
+      this.portalNode.addEventListener('click', e => e.stopPropagation());
       this.portalNode.setAttribute('data-hook', 'popover-portal');
       this.portalNode.setAttribute('data-loaded', 'false');
       /**

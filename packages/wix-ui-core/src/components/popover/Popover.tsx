@@ -482,6 +482,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     this.appendToNode = getAppendToElement(appendTo, this.targetRef);
     if (this.appendToNode) {
       this.portalNode = document.createElement('div');
+      this.portalNode.addEventListener('click', e => e.stopPropagation());
       this.portalNode.setAttribute('data-hook', 'popover-portal');
       /**
        * reset overlay wrapping layer
