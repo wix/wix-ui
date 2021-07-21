@@ -225,7 +225,10 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       shown: props.shown || false,
     };
 
-    if (isTestEnv) {
+    if (
+      process.env.NODE_ENV === 'test' ||
+      process.env.NODE_ENV === 'development'
+    ) {
       testId = popoverTestUtils.generateId();
     }
 
